@@ -5,6 +5,47 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    {
+      resolve: `gatsby-firesource`,
+      options: {
+        credential: require("./firebase.json"),
+        types: [
+          {
+            type: "Client",
+            collection: "clientsFeatured",
+            map: doc => ({
+              name: doc.name,
+              goal: doc.goal,
+              raised: doc.raised,
+              donors: doc.donors,
+            }),
+          },
+          {
+            type: "User",
+            collection: "users",
+            map: doc => ({
+              firstName: doc.firstName,
+            }),
+          },
+          {
+            type: "Post",
+            collection: "clients",
+            map: doc => ({
+              firstName: doc.firstName,
+              lastName: doc.lastName,
+              goal: doc.goal,
+              raised: doc.raised,
+              questions: doc.questions,
+              answers: doc.answers,
+              situation: doc.situation,
+              familySize: doc.familySize,
+              status: doc.status,
+              donors: doc.donors,
+            }),
+          },
+        ],
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
