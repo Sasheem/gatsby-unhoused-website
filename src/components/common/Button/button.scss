@@ -1,0 +1,33 @@
+@import '../../../styles/global.scss';
+
+.button {
+    display: inline-block;
+	background-color: $main-accent-color;
+	border-radius: 2px;
+    padding: 0.5em 2em;
+    border: none;
+    // justify-self: center;
+}
+.button-donate {
+    display: flex;
+    justify-content: center;
+    border-radius: 2px;
+    border: none;
+    background-color: $link-hover-color;
+    width: 100%;
+    padding: 0.5em 0;
+    
+    a {
+        font-size: 1.1em;
+    }
+}
+.button-donate:hover {
+    cursor: pointer;
+}
+.button:hover {
+    cursor: pointer;
+}
+.button a, .button-donate a {
+    color: $color-light;
+    text-decoration: none;
+}
