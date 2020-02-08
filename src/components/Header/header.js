@@ -31,18 +31,18 @@ const Header = ({ siteTitle }) => (
         <div className="navbar-items">
           <ul>
             <li>
-              <Link to="/about">
-                <a>About</a>
+              <Link className="navbar-link" to="/about">
+                About
               </Link>
             </li>
             <li>
-              <Link to="/crowdfund">
-                <a>Crowdfunding</a>
+              <Link className="navbar-link" to="/crowdfund">
+                Crowdfunding
               </Link>
             </li>
             <li>
-              <Link to="/stories">
-                <a>Stories</a>
+              <Link className="navbar-link" to="/stories">
+                Stories
               </Link>
             </li>
           </ul>

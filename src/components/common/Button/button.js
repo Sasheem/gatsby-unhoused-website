@@ -5,8 +5,8 @@ import './button.scss';
 
 const Button = ({ label, destination }) => (
   <div className="button">
-    <Link to={`/${destination}`}>
-      <a>{label}</a>
+    <Link className="button-link" to={`/${destination}`}>
+      {label}
     </Link>
   </div>
 );
