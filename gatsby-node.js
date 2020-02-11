@@ -21,6 +21,14 @@ exports.createPages = async ({ graphql, actions }) => {
       allPost {
         edges {
           node {
+            firstName
+            answers
+            goal
+            lastName
+            questions
+            raised
+            situation
+            status
             slug
           }
         }

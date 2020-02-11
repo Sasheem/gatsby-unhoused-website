@@ -24,13 +24,13 @@ export const query = graphql`
     allPost {
       edges {
         node {
-          situation
-          goal
           firstName
+          answers
+          goal
+          lastName
           questions
           raised
-          familySize
-          answers
+          situation
           status
           slug
         }

@@ -1,6 +1,7 @@
 import React from 'react';
 
-const StoryTemplate = () => {
+const StoryTemplate = props => {
+  console.dir(props);
   return (
     <div>
       <h2>Client Story</h2>
