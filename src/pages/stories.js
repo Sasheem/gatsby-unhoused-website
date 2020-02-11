@@ -12,7 +12,7 @@ const StoriesPage = props => {
     <Layout>
       <SEO title="Stories" />
       <div className="blog-container">
-        <h1>Welcome to our success stories page</h1>
+        <h1>Unhoused Humanity Success Stories</h1>
         <BlogGrid clients={props.data.allPost.edges} />
       </div>
     </Layout>

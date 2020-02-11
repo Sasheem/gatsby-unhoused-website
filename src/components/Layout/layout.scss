@@ -1,12 +1,13 @@
 .layout-container {
     width: 100%;
     height: 100%;
-    background-color: red;
+    // background-color: red;
 }
 .layout-subcontainer {
     width: 100%;
 	height: 100%;
 	display: grid;
 	grid-gap: 8em;
-	justify-items: center;
+    justify-items: center;
+    padding-top: 10em;
 }
