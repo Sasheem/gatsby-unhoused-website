@@ -1,0 +1,47 @@
+// blog card styling begins
+.card-container {
+    display: flex;
+	flex-direction: column;
+	max-width: 80vw;
+}
+.card-header {
+	border-radius: calc(0.25rem - 1px);
+	height: 15em;
+	background-color: pink;
+}
+.card-body {
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 0.5em;
+
+	h4,
+	p {
+		margin: 0.5em 0;
+	}
+}
+.card-footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	width: 100%;
+}
+.footer-left {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	flex: 2;
+
+	p {
+		// margin-right: 0.25em;
+		margin: 0;
+	}
+}
+.footer-right {
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+	justify-content: flex-end;
+}
+// blog card styling ends

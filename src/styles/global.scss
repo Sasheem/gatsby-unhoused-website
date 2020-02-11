@@ -1,0 +1,35 @@
+$main-accent-color: #299ecc;
+$secondary-accent-color: #4f6edc;
+$link-hover-color: #4fdcbe;
+$sub-color:#a3a3a3;
+$main-color: black;
+$color-light: white;
+$color-background: rgb(255, 255, 255);
+
+html {
+    background-color: $color-background;
+    margin: 0;
+    padding: 0;
+}
+h1, h2, h3, h4, p {
+    margin: 0;
+    text-align: center;
+    width: 100%;
+}
+ul {
+    list-style-type: none;
+}
+a {
+    text-shadow: none;
+    text-decoration: none;
+    background-image: none;
+}
+.blog-container {
+    width: 100%;
+    height: 100%;
+    // background-color: yellow;
+    max-width: 1140px;
+    margin-top: 10em;
+    display: flex;
+    flex-direction: column;
+}

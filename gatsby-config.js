@@ -1,18 +1,19 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Unhoused Humanity Website`,
+    description: `Join our movement to end homelessness in Tallahassee. Learn about homelessness and read some of our client success stories. Donate to our cause to help combat homelessness in Tallahassee, Florida.`,
+    author: `@sasheemdev`,
   },
   plugins: [
+    `gatsby-plugin-sass`,
     {
       resolve: `gatsby-firesource`,
       options: {
-        credential: require("./firebase.json"),
+        credential: require('./firebase.json'),
         types: [
           {
-            type: "Client",
-            collection: "clientsFeatured",
+            type: 'Client',
+            collection: 'clientsFeatured',
             map: doc => ({
               name: doc.name,
               goal: doc.goal,
@@ -21,15 +22,15 @@ module.exports = {
             }),
           },
           {
-            type: "User",
-            collection: "users",
+            type: 'User',
+            collection: 'users',
             map: doc => ({
               firstName: doc.firstName,
             }),
           },
           {
-            type: "Post",
-            collection: "clients",
+            type: 'Post',
+            collection: 'clients',
             map: doc => ({
               firstName: doc.firstName,
               lastName: doc.lastName,
@@ -41,6 +42,9 @@ module.exports = {
               familySize: doc.familySize,
               status: doc.status,
               donors: doc.donors,
+              dateHoused: doc.dateHoused,
+              dateFundingBegan: doc.dateFundingBegan,
+              slug: doc.slug,
             }),
           },
         ],
@@ -65,11 +69,11 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/house-icon-dark.png`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
-}
+};
