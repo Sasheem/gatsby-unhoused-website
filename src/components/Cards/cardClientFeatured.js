@@ -5,9 +5,11 @@ import ProgressBar from '../ProgressBar/progressBar';
 
 import './cards.scss';
 
-const CardClientFeatured = ({ name, situation, raised, goal }) => (
+const CardClientFeatured = ({ name, situation, raised, goal, imageUrl }) => (
   <div className="card-featured-container">
-    <div className="featured-image-container"></div>
+    <div className="card-header">
+      <img src={imageUrl} alt={`${name} card`} className="card-image" />
+    </div>
     <div className="featured-info-container">
       <div className="featured-flex" />
       <div className="featured-content">

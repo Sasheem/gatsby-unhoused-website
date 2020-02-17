@@ -30,6 +30,10 @@ exports.createPages = async ({ graphql, actions }) => {
             situation
             status
             slug
+            imageUrl
+            familySize
+            dateFundingBegan
+            dateHoused
           }
         }
       }

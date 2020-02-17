@@ -45,6 +45,7 @@ module.exports = {
               dateHoused: doc.dateHoused,
               dateFundingBegan: doc.dateFundingBegan,
               slug: doc.slug,
+              imageUrl: doc.imageUrl,
             }),
           },
         ],
@@ -70,6 +71,13 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/house-icon-dark.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'Post',
+        imagePath: 'imageUrl',
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

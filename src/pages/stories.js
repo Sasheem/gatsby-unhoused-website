@@ -1,4 +1,6 @@
 import React from 'react';
+import { graphql } from 'gatsby';
+
 import Layout from '../components/Layout/layout';
 import SEO from '../components/seo';
 
@@ -33,6 +35,8 @@ export const query = graphql`
           situation
           status
           slug
+          imageUrl
+          dateHoused
         }
       }
     }

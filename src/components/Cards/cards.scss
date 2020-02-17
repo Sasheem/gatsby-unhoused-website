@@ -6,7 +6,7 @@
 }
 .card-header {
 	border-radius: calc(0.25rem - 1px);
-	height: 15em;
+	// max-height: 15em;
 	background-color: pink;
 }
 .card-body {
@@ -20,6 +20,12 @@
 	p {
 		margin: 0.5em 0;
 	}
+}
+.card-image {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: inherit;
 }
 .card-footer {
 	display: flex;

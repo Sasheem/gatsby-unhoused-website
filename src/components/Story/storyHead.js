@@ -5,15 +5,25 @@ import ProgressBar from '../ProgressBar/progressBar';
 
 import './story.scss';
 
-const StoryHead = ({ firstName, raised, goal, status, familySize }) => (
-  <section className="story-head">
+const StoryHead = ({
+  firstName,
+  raised,
+  goal,
+  status,
+  familySize,
+  imageUrl,
+  dateFundingBegan,
+  dateHoused,
+}) => (
+  <div className="story-head">
     <h1>Meet {firstName}</h1>
     <div className="story-head-content">
       <div className="head-image-container">
-        {/* <img
+        <img
           className="story-head-image"
-          src={`/images/clients/${image}.jpg`}
-        /> */}
+          src={imageUrl}
+          alt={`${firstName} profile`}
+        />
       </div>
       <div className="head-spacer" />
       <div className="head-info">
@@ -34,7 +44,8 @@ const StoryHead = ({ firstName, raised, goal, status, familySize }) => (
             <p>{familySize}</p>
           </div>
           <div className="info-metric">
-            <p>Funding Began</p>
+            <p>{status === 'Housed' ? 'Date Housed' : 'Funding Began'}</p>
+            <p>{status === 'Housed' ? dateHoused : dateFundingBegan}</p>
             {/* <PostDate date={date} /> */}
           </div>
         </div>
@@ -49,7 +60,7 @@ const StoryHead = ({ firstName, raised, goal, status, familySize }) => (
         ) : null}
       </div>
     </div>
-  </section>
+  </div>
 );
 
 export default StoryHead;

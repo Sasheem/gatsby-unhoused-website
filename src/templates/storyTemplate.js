@@ -11,7 +11,6 @@ const StoryTemplate = props => {
   console.dir(props);
   const {
     firstName,
-    slug,
     goal,
     raised,
     situation,
@@ -19,6 +18,9 @@ const StoryTemplate = props => {
     familySize,
     questions,
     answers,
+    imageUrl,
+    dateHoused,
+    dateFundingBegan,
   } = props.pageContext;
 
   return (
@@ -31,6 +33,9 @@ const StoryTemplate = props => {
           raised={raised}
           status={status}
           familySize={familySize}
+          imageUrl={imageUrl}
+          dateHoused={dateHoused}
+          dateFundingBegan={dateFundingBegan}
         />
         <StoryBody
           situation={situation}

@@ -5,7 +5,7 @@ import './story.scss';
 // map over questions array, render situation
 // and each question/answer pair
 const StoryBody = ({ situation, questions, answers }) => (
-  <div className="interview-container">
+  <section className="interview-container">
     <div className="interview-content">
       <h2>Situation</h2>
       <p>{situation}</p>
@@ -18,7 +18,7 @@ const StoryBody = ({ situation, questions, answers }) => (
         </div>
       );
     })}
-  </div>
+  </section>
 );
 
 export default StoryBody;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { graphql } from 'gatsby';
 
 import CardStory from '../Cards/cardStory';
 
@@ -21,6 +20,8 @@ const BlogGrid = props => {
           description={`${client.node.situation.slice(0, 90)}...`}
           time="9 min"
           slug={client.node.slug}
+          imageUrl={client.node.imageUrl}
+          date={client.node.dateHoused}
         />
       ))}
     </section>
