@@ -16,12 +16,12 @@ const BlogGrid = props => {
               ? client.node.dateHoused
               : client.node.dateFundingBegan
           }
-          title={`Meet ${client.node.firstName}`}
+          firstName={client.node.firstName}
+          lastName={client.node.lastName}
           description={`${client.node.situation.slice(0, 90)}...`}
           time="9 min"
           slug={client.node.slug}
           imageUrl={client.node.imageUrl}
-          date={client.node.dateHoused}
         />
       ))}
     </section>

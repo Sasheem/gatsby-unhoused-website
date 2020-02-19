@@ -18,22 +18,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
   return await graphql(`
     {
-      allPost {
+      allClient {
         edges {
           node {
-            firstName
-            answers
-            goal
-            lastName
-            questions
-            raised
-            situation
-            status
-            slug
-            imageUrl
-            familySize
-            dateFundingBegan
-            dateHoused
+            id
           }
         }
       }
@@ -43,11 +31,11 @@ exports.createPages = async ({ graphql, actions }) => {
       throw result.errors;
     }
 
-    result.data.allPost.edges.forEach(client => {
+    result.data.allClient.edges.forEach(client => {
       createPage({
-        path: `/story/${client.node.slug}`,
+        path: `/story/${client.node.id}`,
         component: storyTemplate,
-        context: client.node,
+        context: { clientId: client.node.id },
       });
     });
   });

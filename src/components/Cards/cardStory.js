@@ -6,22 +6,26 @@ import BlogDate from '../Blog/blogDate';
 import './cards.scss';
 
 const CardStory = ({
-  title,
+  firstName,
+  lastName,
   description,
   date,
   status,
   time,
-  slug,
   imageUrl,
 }) => {
   return (
-    <Link to={`/story/${slug}`}>
+    <Link to={`/story/${firstName}-${lastName}`}>
       <div className="card-container">
         <div className="card-header">
-          <img src={imageUrl} className="card-image" alt={`${title} profile`} />
+          <img
+            src={imageUrl}
+            className="card-image"
+            alt={`${firstName} profile`}
+          />
         </div>
         <div className="card-body">
-          <h4>{title}</h4>
+          <h4>Meet {firstName}</h4>
           <p>{description}</p>
         </div>
         <div className="card-footer">

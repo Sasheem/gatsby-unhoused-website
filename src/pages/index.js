@@ -10,7 +10,7 @@ import CardClientFeatured from '../components/Cards/cardClientFeatured';
 import '../styles/global.scss';
 
 const IndexPage = props => {
-  console.dir(props.data.allPost);
+  console.dir(props.data.allClient.edges);
   return (
     <Layout>
       <SEO title="Home" />
@@ -29,18 +29,27 @@ const IndexPage = props => {
       <div className="clients-featured-container">
         <h2>Featured Clients</h2>
         <div className="clients-featured-content">
-          {props.data.allPost.edges.map(client =>
-            client.node.status === 'Unhoused' ? (
-              <CardClientFeatured
-                key={client.node.id}
-                name={client.node.firstName}
-                situation={`${client.node.situation.slice(0, 90)}...`}
-                raised={client.node.raised}
-                goal={client.node.goal}
-                imageUrl={client.node.imageUrl}
-              />
-            ) : null
-          )}
+          {props.data.allClient.edges.map(client => (
+            <CardClientFeatured
+              key={client.node.id}
+              firstName={client.node.firstName}
+              lastName={client.node.lastName}
+              situation={`${client.node.situation.slice(0, 90)}...`}
+              raised={client.node.raised}
+              goal={client.node.goal}
+              imageUrl={client.node.localImage.childImageSharp.fixed}
+            />
+            // client.node.status === 'Unhoused' ? (
+            //   <CardClientFeatured
+            //     key={client.node.id}
+            //     name={client.node.firstName}
+            //     situation={`${client.node.situation.slice(0, 90)}...`}
+            //     raised={client.node.raised}
+            //     goal={client.node.goal}
+            //     imageUrl={client.node.localImage.publicURL}
+            //   />
+            // ) : null
+          ))}
         </div>
       </div>
     </Layout>
@@ -49,17 +58,29 @@ const IndexPage = props => {
 
 export const query = graphql`
   {
-    allPost {
+    allClient {
       edges {
         node {
+          id
           firstName
+          lastName
           raised
           goal
           situation
+          familySize
           status
-          slug
           imageUrl
+          localImage {
+            childImageSharp {
+              fixed(width: 331) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
           dateHoused
+          dateFundingBegan
+          questions
+          answers
         }
       }
     }

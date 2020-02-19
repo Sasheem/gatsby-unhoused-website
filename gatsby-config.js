@@ -15,10 +15,18 @@ module.exports = {
             type: 'Client',
             collection: 'clientsFeatured',
             map: doc => ({
-              name: doc.name,
+              firstName: doc.firstName,
+              lastName: doc.lastName,
+              situation: doc.situation,
+              dateFundingBegan: doc.dateFundingBegan,
+              dateHoused: doc.dateHoused,
+              familySize: doc.familySize,
+              questions: doc.questions,
+              answers: doc.answers,
+              imageUrl: doc.imageUrl,
+              status: doc.status,
               goal: doc.goal,
               raised: doc.raised,
-              donors: doc.donors,
             }),
           },
           {
@@ -76,7 +84,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-remote-images`,
       options: {
-        nodeType: 'Post',
+        nodeType: 'Client',
         imagePath: 'imageUrl',
       },
     },

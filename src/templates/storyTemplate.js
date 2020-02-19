@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql } from 'gatsby';
 import Layout from '../components/Layout/layout';
 import SEO from '../components/seo';
 
@@ -8,7 +9,7 @@ import StoryBody from '../components/Story/storyBody';
 import './templates.scss';
 
 const StoryTemplate = props => {
-  console.dir(props);
+  console.dir(props.data);
   const {
     firstName,
     goal,
@@ -19,9 +20,10 @@ const StoryTemplate = props => {
     questions,
     answers,
     imageUrl,
+    localImage,
     dateHoused,
     dateFundingBegan,
-  } = props.pageContext;
+  } = props.data.client;
 
   return (
     <Layout>
@@ -33,7 +35,7 @@ const StoryTemplate = props => {
           raised={raised}
           status={status}
           familySize={familySize}
-          imageUrl={imageUrl}
+          imageUrl={localImage.childImageSharp.fixed}
           dateHoused={dateHoused}
           dateFundingBegan={dateFundingBegan}
         />
@@ -46,5 +48,33 @@ const StoryTemplate = props => {
     </Layout>
   );
 };
+
+// graphql has access to pageContext set up in gatsby-node.js
+// remember this query will inject data into props under 'data'
+export const query = graphql`
+  query ClientQuery($clientId: String!) {
+    client(id: { eq: $clientId }) {
+      firstName
+      lastName
+      raised
+      goal
+      status
+      familySize
+      dateFundingBegan
+      dateHoused
+      situation
+      questions
+      answers
+      imageUrl
+      localImage {
+        childImageSharp {
+          fixed(width: 331) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default StoryTemplate;

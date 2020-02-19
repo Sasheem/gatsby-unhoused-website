@@ -1,4 +1,5 @@
 import React from 'react';
+import Img from 'gatsby-image';
 
 import ButtonDonate from '../common/Button/buttonDonate';
 import ProgressBar from '../ProgressBar/progressBar';
@@ -19,11 +20,7 @@ const StoryHead = ({
     <h1>Meet {firstName}</h1>
     <div className="story-head-content">
       <div className="head-image-container">
-        <img
-          className="story-head-image"
-          src={imageUrl}
-          alt={`${firstName} profile`}
-        />
+        <Img fixed={imageUrl} className="story-head-image" />
       </div>
       <div className="head-spacer" />
       <div className="head-info">
