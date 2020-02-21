@@ -4,7 +4,7 @@ import '../../styles/global.scss';
 
 export const Input = styled.input`
   display: block;
-  width: 95%;
+  width: 100%;
   padding: 0.2em;
   margin-bottom: 1em;
   border-radius: 4px;

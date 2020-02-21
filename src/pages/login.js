@@ -2,9 +2,7 @@ import React, { useState, useContext } from 'react';
 import { FirebaseContext } from '../components/Firebase';
 
 import SEO from '../components/seo';
-import { Form } from '../components/common/form';
-import { Input } from '../components/common/input';
-import { Button } from '../components/common/button';
+import { Form, Input, Button } from '../components/common';
 
 const LoginPage = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
@@ -29,14 +27,14 @@ const LoginPage = () => {
       <Form onSubmit={handleSubmit}>
         <Input
           name="email"
-          placeholder="email"
+          placeholder="Email"
           type="email"
           onChange={handleInputChange}
           value={formValues.email}
         />
         <Input
           name="password"
-          placeholder="password"
+          placeholder="Password"
           type="password"
           onChange={handleInputChange}
           value={formValues.password}

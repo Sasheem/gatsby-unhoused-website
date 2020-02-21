@@ -10,7 +10,7 @@ export const Button = styled.button`
   cursor: pointer;
 
   /* Add this css if block prop exists */
-  ${props => (props.block ? 'display: block; width: 100%;' : '')}
+  ${props => (props.block ? 'display: block; width: 102%;' : '')}
 
   &:hover {
     background: #4db3db;

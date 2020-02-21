@@ -30,7 +30,7 @@ const Layout = ({ children }) => {
     <FirebaseContext.Provider value={{ user, firebase, loading }}>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div className="layout-container">
-        <main className="layout-subcontainer">{children}</main>
+        <main>{children}</main>
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}

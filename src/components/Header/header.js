@@ -78,6 +78,10 @@ const Header = ({ siteTitle }) => {
                   <Link to="/login" className="navbar-link">
                     Log In
                   </Link>
+                  <span className="header-divider" />
+                  <Link to="/register" className="navbar-link">
+                    Register
+                  </Link>
                 </li>
               )}
             </ul>
