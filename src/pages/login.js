@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'gatsby';
 import { FirebaseContext } from '../components/Firebase';
 
-import Layout from '../components/Layout/layout';
 import SEO from '../components/seo';
+import { Form } from '../components/common/form';
+import { Input } from '../components/common/input';
+import { Button } from '../components/common/button';
 
 const LoginPage = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
@@ -25,23 +26,25 @@ const LoginPage = () => {
   return (
     <section>
       <SEO title="Login page" />
-      <form onSubmit={handleSubmit}>
-        <input
+      <Form onSubmit={handleSubmit}>
+        <Input
           name="email"
           placeholder="email"
           type="email"
           onChange={handleInputChange}
           value={formValues.email}
         />
-        <input
+        <Input
           name="password"
           placeholder="password"
           type="password"
           onChange={handleInputChange}
           value={formValues.password}
         />
-        <button type="submit">Login</button>
-      </form>
+        <Button type="submit" block>
+          Login
+        </Button>
+      </Form>
     </section>
   );
 };
