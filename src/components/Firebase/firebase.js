@@ -17,6 +17,15 @@ class Firebase {
     }
   }
 
+  // appending get() at the end, ensures this is called once and not subscribing to
+  // any changes in the database
+  async getUserProfile({ userId }) {
+    return this.db
+      .collection('publicProfiles')
+      .where('userId', '==', userId)
+      .get();
+  }
+
   async register({ email, password }) {
     return this.auth.createUserWithEmailAndPassword(email, password);
   }

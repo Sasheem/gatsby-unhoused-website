@@ -18,8 +18,6 @@ const Header = ({ siteTitle }) => {
   function handleLogoutClick() {
     firebase.logout().then(() => navigate('/login'));
   }
-
-  console.dir(firebase);
   console.dir(user);
   return (
     <header className="header">
@@ -62,7 +60,7 @@ const Header = ({ siteTitle }) => {
               {!!user && !!user.email && (
                 <li>
                   <Link className="navbar-link" to="/">
-                    Hello, {user.email}
+                    Hello, {user.username || user.email}
                   </Link>
                 </li>
               )}
