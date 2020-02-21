@@ -11,13 +11,13 @@ import BlogGrid from '../components/Blog/blogGrid';
 const StoriesPage = props => {
   console.dir(props);
   return (
-    <Layout>
+    <section>
       <SEO title="Stories" />
       <div className="blog-container">
         <h1>Unhoused Humanity Success Stories</h1>
         <BlogGrid clients={props.data.allPost.edges} />
       </div>
-    </Layout>
+    </section>
   );
 };
 

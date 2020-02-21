@@ -4,4 +4,16 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-// You can delete this file if you're not using it
+// Backend
+const React = require('react');
+const Layout = require('./src/components/Layout/layout').default;
+
+/**
+ * @param {*element} - represents the children
+ * @param {*props}
+ * * wrapPageElement hook is specific to gatsby
+ */
+
+exports.wrapPageElement = ({ element, props }) => {
+  return <Layout {...props}>{element}</Layout>;
+};

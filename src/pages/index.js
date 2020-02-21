@@ -12,7 +12,7 @@ import '../styles/global.scss';
 const IndexPage = props => {
   console.dir(props.data.allClient.edges);
   return (
-    <Layout>
+    <section>
       <SEO title="Home" />
       <Hero
         title="IT STARTS WITH YOU"
@@ -52,7 +52,7 @@ const IndexPage = props => {
           ))}
         </div>
       </div>
-    </Layout>
+    </section>
   );
 };
 

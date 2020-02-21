@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'gatsby';
-import { useAuth } from '../components/Firebase';
+import { FirebaseContext } from '../components/Firebase';
 
 import Layout from '../components/Layout/layout';
 import SEO from '../components/seo';
 
 const LoginPage = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
-  const { firebase } = useAuth();
+  const { firebase } = useContext(FirebaseContext);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -23,7 +23,7 @@ const LoginPage = () => {
   }
 
   return (
-    <Layout>
+    <section>
       <SEO title="Login page" />
       <form onSubmit={handleSubmit}>
         <input
@@ -42,7 +42,7 @@ const LoginPage = () => {
         />
         <button type="submit">Login</button>
       </form>
-    </Layout>
+    </section>
   );
 };
 
