@@ -1,15 +1,65 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+import { Input } from './input';
+import { Button } from './button';
+
+const CommentSection = styled.section`
+  max-width: 85%;
+  width: 100%;
+  margin: 1em auto 5em auto;
+  > h2 {
+    text-align: left;
+  }
+`;
+const CommentForm = styled.form`
+  display: flex;
+  margin-top: 1.5em;
+
+  ${Input} {
+    margin-right: 0.5em;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  ${Button} {
+    margin: auto 0;
+  }
+`;
+const CommentListItem = styled.div`
+  > strong {
+    font-size: 80%;
+    color: #666;
+  }
+
+  border-bottom: 1px solid #ddd;
+  padding: 4px 0;
+`;
 
 // adding empty array as second arg means useEffect will only
 // run when the component is mounted and won't run when the
 // component is updated
 export const StoryComments = ({ firebase, storyId }) => {
+  const [comments, setComments] = useState([]);
   console.log(`storyId: ${storyId}`);
+
   useEffect(() => {
     const unsubscribe = firebase.subscribeToStoryComments({
       storyId,
       onSnapshot: snapshot => {
         console.dir(snapshot);
+        const snapshotComments = [];
+
+        // forEach provided from firebase, not javascript forEach
+        // it behaves the same though
+        // data() returns the data for a snapshot
+        snapshot.forEach(doc => {
+          snapshotComments.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+
+        setComments(snapshotComments);
       },
     });
 
@@ -21,5 +71,20 @@ export const StoryComments = ({ firebase, storyId }) => {
       }
     };
   }, []);
-  return <div>test</div>;
+
+  return (
+    <CommentSection>
+      <h2>Leave a comment</h2>
+      <CommentForm>
+        <Input />
+        <Button>Post comment</Button>
+      </CommentForm>
+      {comments.map(comment => (
+        <CommentListItem key={comment.id}>
+          <strong>{comment.username}</strong>
+          <div>{comment.text}</div>
+        </CommentListItem>
+      ))}
+    </CommentSection>
+  );
 };

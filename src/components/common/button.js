@@ -9,6 +9,9 @@ export const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
 
+  /* forces text not to wrap */
+  white-space: nowrap;
+
   /* Add this css if block prop exists */
   ${props => (props.block ? 'display: block; width: 102%;' : '')}
 
