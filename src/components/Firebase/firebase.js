@@ -17,6 +17,17 @@ class Firebase {
     }
   }
 
+  // dynamically query for comments
+  // second argument is a callback function, using same naming
+  // convention as firebase
+  subscribeToStoryComments({ storyId, onSnapshot }) {
+    const storyRef = this.db.collection('clientsFeatured').doc(storyId);
+    return this.db
+      .collection('comments')
+      .where('client', '==', storyRef)
+      .onSnapshot(onSnapshot);
+  }
+
   // appending get() at the end, ensures this is called once and not subscribing to
   // any changes in the database
   async getUserProfile({ userId }) {

@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { graphql } from 'gatsby';
-import Layout from '../components/Layout/layout';
-import SEO from '../components/seo';
 
+import { FirebaseContext } from '../components/Firebase';
+import SEO from '../components/seo';
 import StoryHead from '../components/Story/storyHead';
 import StoryBody from '../components/Story/storyBody';
+import { StoryComments } from '../components/common';
 
+import '../styles/global.scss';
 import './templates.scss';
 
 const StoryTemplate = props => {
   console.dir(props.data);
   const {
+    id,
     firstName,
     goal,
     raised,
@@ -24,9 +27,10 @@ const StoryTemplate = props => {
     dateHoused,
     dateFundingBegan,
   } = props.data.client;
+  const { firebase } = useContext(FirebaseContext);
 
   return (
-    <Layout>
+    <section className="page-container">
       <SEO title={`${firstName}'s Story`} />
       <div className="story-template">
         <StoryHead
@@ -44,8 +48,9 @@ const StoryTemplate = props => {
           questions={questions}
           answers={answers}
         />
+        {!!firebase && <StoryComments firebase={firebase} storyId={id} />}
       </div>
-    </Layout>
+    </section>
   );
 };
 
