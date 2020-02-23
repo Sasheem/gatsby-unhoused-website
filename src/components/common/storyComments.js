@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 import { Input } from './input';
 import { Button } from './button';
@@ -33,6 +34,7 @@ const CommentListItem = styled.div`
 
   border-bottom: 1px solid #ddd;
   padding: 4px 0;
+  margin-top: 0.5em;
 `;
 
 // adding empty array as second arg means useEffect will only
@@ -98,7 +100,10 @@ export const StoryComments = ({ firebase, storyId }) => {
       </CommentForm>
       {comments.map(comment => (
         <CommentListItem key={comment.id}>
-          <strong>{comment.username}</strong>
+          <strong>
+            {comment.username} -{' '}
+            {moment(comment.dateCreated.toDate()).format('hh:mm Do MMM YYYY')}
+          </strong>
           <div>{comment.text}</div>
         </CommentListItem>
       ))}

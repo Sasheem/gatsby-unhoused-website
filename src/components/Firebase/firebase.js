@@ -36,6 +36,7 @@ class Firebase {
     return this.db
       .collection('comments')
       .where('client', '==', storyRef)
+      .orderBy('dateCreated', 'desc')
       .onSnapshot(onSnapshot);
   }
 
