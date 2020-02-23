@@ -17,6 +17,17 @@ class Firebase {
     }
   }
 
+  // post comment with cloud functions
+  async postComment({ text, clientId }) {
+    // create reference to function we want to use
+    const postCommentCallable = this.functions.httpsCallable('postComment');
+
+    return postCommentCallable({
+      text,
+      clientId,
+    });
+  }
+
   // dynamically query for comments
   // second argument is a callback function, using same naming
   // convention as firebase

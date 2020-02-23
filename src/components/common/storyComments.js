@@ -40,6 +40,7 @@ const CommentListItem = styled.div`
 // component is updated
 export const StoryComments = ({ firebase, storyId }) => {
   const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState('');
   console.log(`storyId: ${storyId}`);
 
   useEffect(() => {
@@ -72,12 +73,28 @@ export const StoryComments = ({ firebase, storyId }) => {
     };
   }, []);
 
+  // form handler function
+  function handlePostCommentSubmit(event) {
+    event.preventDefault();
+    console.log(`commentText: ${commentText}`);
+    firebase.postComment({
+      text: commentText,
+      clientId: storyId,
+    });
+  }
+
+  // input change handler
+  function handleInputChange(event) {
+    event.persist();
+    setCommentText(event.target.value);
+  }
+
   return (
     <CommentSection>
       <h2>Leave a comment</h2>
-      <CommentForm>
-        <Input />
-        <Button>Post comment</Button>
+      <CommentForm onSubmit={handlePostCommentSubmit}>
+        <Input value={commentText} onChange={handleInputChange} />
+        <Button type="submit">Post comment</Button>
       </CommentForm>
       {comments.map(comment => (
         <CommentListItem key={comment.id}>
