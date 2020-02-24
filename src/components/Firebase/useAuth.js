@@ -22,15 +22,19 @@ function useAuth() {
 
       unsubscribe = firebaseInstance.auth.onAuthStateChanged(userResult => {
         if (userResult) {
-          firebaseInstance
-            .getUserProfile({ userId: userResult.uid })
-            .then(result => {
-              console.dir(result);
-              setUser({
-                ...userResult,
-                username: result.empty ? null : result.docs[0].id,
-              });
-            });
+          publicProfileUnsubscribe = firebaseInstance.getUserProfile({
+            userId: userResult.uid,
+            onSnapshot: result => {
+              // only set user if result isn't empty
+              if (!result.empty) {
+                setUser({
+                  ...userResult,
+                  username: result.empty ? null : result.docs[0].id,
+                  // imageUrl: result.empty ? null : result.docs[0].imageUrl,
+                });
+              }
+            },
+          });
 
           // get user custom claims
           /*setLoading(true);

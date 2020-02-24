@@ -42,25 +42,25 @@ class Firebase {
 
   // appending get() at the end, ensures this is called once and not subscribing to
   // any changes in the database
-  async getUserProfile({ userId }) {
+  getUserProfile({ userId, onSnapshot }) {
     return this.db
       .collection('publicProfiles')
       .where('userId', '==', userId)
-      .get();
+      .limit(1)
+      .onSnapshot(onSnapshot);
   }
 
   // creates a new user doc with id set to username
+  // creates public profile using cloud functions in backend
   async register({ username, email, password }) {
-    const newUser = await this.auth.createUserWithEmailAndPassword(
-      email,
-      password
+    await this.auth.createUserWithEmailAndPassword(email, password);
+    const createProfileCallable = this.functions.httpsCallable(
+      'createPublicProfile'
     );
-    return this.db
-      .collection('publicProfiles')
-      .doc(username)
-      .set({
-        userId: newUser.user.uid,
-      });
+
+    return createProfileCallable({
+      username,
+    });
   }
 
   async login({ email, password }) {
