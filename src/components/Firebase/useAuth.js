@@ -27,11 +27,19 @@ function useAuth() {
             onSnapshot: result => {
               // only set user if result isn't empty
               if (!result.empty) {
-                setUser({
-                  ...userResult,
-                  username: result.empty ? null : result.docs[0].id,
-                  // imageUrl: result.empty ? null : result.docs[0].imageUrl,
-                });
+                // query to see if user has admin role
+                firebaseInstance.auth.currentUser
+                  .getIdTokenResult(true)
+                  .then(token => {
+                    console.log(`token: ${console.dir(token)}`);
+
+                    setUser({
+                      ...userResult,
+                      isAdmin: token.claims.admin,
+                      username: result.empty ? null : result.docs[0].id,
+                      // imageUrl: result.empty ? null : result.docs[0].imageUrl,
+                    });
+                  });
               }
             },
           });
