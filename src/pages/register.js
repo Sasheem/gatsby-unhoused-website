@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { navigate } from 'gatsby';
 
 import { Form, Input, Button, ErrorMessage } from '../components/common';
 import { FirebaseContext } from '../components/Firebase';
@@ -23,14 +24,13 @@ const Register = () => {
           email: formValues.email,
           password: formValues.password,
         })
+        .then(() => navigate('/dashboard'))
         .catch(error => {
           setErrorMessage(error.message);
         });
     } else {
       setErrorMessage('Password and Confirm Password fields must match.');
     }
-
-    console.dir(formValues);
   }
 
   function handleInputChange(event) {

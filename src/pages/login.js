@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { FirebaseContext } from '../components/Firebase';
+import { navigate } from 'gatsby';
 
+import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import { Form, Input, Button, ErrorMessage } from '../components/common';
 
@@ -13,6 +14,7 @@ const LoginPage = () => {
     event.preventDefault();
     firebase
       .login({ email: formValues.email, password: formValues.password })
+      .then(() => navigate('/dashboard'))
       .catch(error => {
         setErrorMessage(error.message);
       });
