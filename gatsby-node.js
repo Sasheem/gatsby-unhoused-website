@@ -12,6 +12,16 @@ const path = require('path');
 //   console.log(`node: ${node.internal.type}`);
 // };
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  const typeDefs = `
+    type ClientJson implements Node {
+      id: String!
+    }
+  `;
+  createTypes(typeDefs);
+};
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const storyTemplate = path.resolve('src/templates/storyTemplate.js');
