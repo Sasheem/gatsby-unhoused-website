@@ -17,6 +17,28 @@ class Firebase {
     }
   }
 
+  // create donation with cloud functions
+  async createDonation({
+    firstName,
+    lastName,
+    email,
+    clientId,
+    donation,
+    message,
+  }) {
+    const createDonationCallable = this.functions.httpsCallable(
+      'createDonation'
+    );
+    return createDonationCallable({
+      firstName,
+      lastName,
+      email,
+      clientId,
+      donation,
+      message,
+    });
+  }
+
   // get all clients with cloud functions
   async getClients() {
     // we aren't making an https backend request for clients because
@@ -25,13 +47,14 @@ class Firebase {
   }
 
   // add a client with cloud functions
-  async createClient({ firstName, lastName, situation }) {
+  async createClient({ firstName, lastName, situation, clientImage }) {
     const createClientCallable = this.functions.httpsCallable('createClient');
     console.log(`client name: ${firstName}`);
     return createClientCallable({
       firstName,
       lastName,
       situation,
+      clientImage,
     });
   }
 
