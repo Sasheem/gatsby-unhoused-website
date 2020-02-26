@@ -38,7 +38,7 @@ a {
 // blog styling ends
 
 // home page styling begins
-.index-container {
+.page-body {
     display: grid;
 	grid-gap: 8em;
     justify-items: center;
@@ -79,3 +79,19 @@ a {
 	}
 }
 // home page styling ends
+
+// add client, add donor page styling begins
+.success-message, .error-message {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 500;
+    width: 100%;
+    margin-top: 0.5em;
+}
+.error-message {
+    color: red;
+}
+.form-field {
+    margin-bottom: 2em;
+}
+// add client, add donor page styling ends

@@ -30,7 +30,7 @@ const StoryTemplate = props => {
   const { firebase } = useContext(FirebaseContext);
 
   return (
-    <section className="page-container">
+    <section className="page-body">
       <SEO title={`${firstName}'s Story`} />
       <div className="story-template">
         <StoryHead
