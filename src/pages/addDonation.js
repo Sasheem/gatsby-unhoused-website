@@ -1,21 +1,33 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { FirebaseContext } from '../components/Firebase';
 import { Form, Input, Button } from '../components/common';
 
 import '../styles/global.scss';
 
+/**
+ * todo fix error
+ * ! Unhandled error RangeError: Maximum call stack size exceeded
+ */
 const AddDonation = () => {
   const { firebase } = useContext(FirebaseContext);
   const [clients, setClients] = useState([]);
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
-    email: '',
+    // email: '',
     donation: '',
     message: '',
     clientId: '',
   });
-  const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [success, setSuccessDonation] = useState(false);
+  let isMounted = true;
+
+  useEffect(() => {
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // applying this form of useEffect ensures
   // it only runs once when the component mounts
@@ -24,19 +36,21 @@ const AddDonation = () => {
     // query all available clients
     if (firebase) {
       firebase.getClients().then(snapshot => {
-        const availableClients = [];
-        snapshot.forEach(doc => {
-          availableClients.push({
-            id: doc.id,
-            ...doc.data(),
+        if (isMounted) {
+          const availableClients = [];
+          snapshot.forEach(doc => {
+            availableClients.push({
+              id: doc.id,
+              ...doc.data(),
+            });
           });
-        });
-        // set select value to be the first client
-        setFormValues(currentValues => ({
-          ...currentValues,
-          clientId: availableClients[0].id,
-        }));
-        setClients(availableClients);
+          // set select value to be the first client
+          setFormValues(currentValues => ({
+            ...currentValues,
+            clientId: availableClients[0].id,
+          }));
+          setClients(availableClients);
+        }
       });
     }
     // useEffect will rerun when 'firebase' changes
@@ -49,7 +63,7 @@ const AddDonation = () => {
     const {
       firstName,
       lastName,
-      email,
+      // email,
       clientId,
       donation,
       message,
@@ -57,30 +71,35 @@ const AddDonation = () => {
 
     // make firebase cloud function call
     firebase
-      .createDonation({
+      .createDonationRecord({
         firstName,
         lastName,
-        email,
+        // email,
         clientId,
         donation,
         message,
       })
       .then(() => {
-        setFormValues({
-          firstName: '',
-          lastName: '',
-          email: '',
-          donation: '',
-          message: '',
-          clientId: '',
-        });
-        setSuccess(true);
+        if (isMounted) {
+          setFormValues({
+            firstName: '',
+            lastName: '',
+            // email: '',
+            donation: '',
+            message: '',
+            clientId: '',
+          });
+          setSuccessDonation(true);
+        }
+      })
+      .catch(error => {
+        setErrorMessage(error.message);
       });
   }
 
   function handleInputChange(event) {
     event.persist();
-    setSuccess(false);
+    setSuccessDonation(false);
     setFormValues(currentValues => ({
       ...currentValues,
       [event.target.name]: event.target.value,
@@ -109,7 +128,7 @@ const AddDonation = () => {
           placeholder="Donor last name"
         />
       </div>
-      <div className="form-field">
+      {/* <div className="form-field">
         <label for="email">Email address</label>
         <Input
           type="email"
@@ -118,7 +137,7 @@ const AddDonation = () => {
           name="email"
           placeholder="Donor email"
         />
-      </div>
+      </div> */}
       <div className="form-field">
         <label for="clientId">Clients</label>
         <select
@@ -158,6 +177,9 @@ const AddDonation = () => {
       </Button>
       {!!success && (
         <div className="success-message">Donation successfully added!</div>
+      )}
+      {!!errorMessage && (
+        <div className="error-message">ERROR: {errorMessage}</div>
       )}
     </Form>
   );

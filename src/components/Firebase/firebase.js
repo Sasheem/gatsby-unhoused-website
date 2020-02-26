@@ -18,21 +18,21 @@ class Firebase {
   }
 
   // create donation with cloud functions
-  async createDonation({
+  async createDonationRecord({
     firstName,
     lastName,
-    email,
+    // email,
     clientId,
     donation,
     message,
   }) {
-    const createDonationCallable = this.functions.httpsCallable(
-      'createDonation'
+    const createDonationRecordCallable = this.functions.httpsCallable(
+      'createDonationRecord'
     );
-    return createDonationCallable({
+    return createDonationRecordCallable({
       firstName,
       lastName,
-      email,
+      // email,
       clientId,
       donation,
       message,
