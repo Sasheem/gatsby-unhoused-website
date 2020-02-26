@@ -4,7 +4,10 @@ import { FirebaseContext } from '../components/Firebase';
 
 import '../styles/global.scss';
 
-const fileReader = new FileReader();
+let fileReader;
+if (typeof window !== 'undefined') {
+  fileReader = new FileReader();
+}
 
 const AddClient = () => {
   const { firebase } = useContext(FirebaseContext);
