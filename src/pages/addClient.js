@@ -22,7 +22,15 @@ const AddClient = () => {
     dateHoused: new Date(),
   });
   const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [clientImage, setClientImage] = useState('');
+  let isMounted = true;
+
+  useEffect(() => {
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // add event listener to file reader only once
   // when component mounts
@@ -52,8 +60,13 @@ const AddClient = () => {
         clientImage,
       })
       .then(() => {
-        setFormValues({ firstName: '', lastName: '', situation: '' });
-        setSuccess(true);
+        if (isMounted) {
+          setFormValues({ firstName: '', lastName: '', situation: '' });
+          setSuccess(true);
+        }
+      })
+      .catch(error => {
+        setErrorMessage(error.message);
       });
   }
   function handleInputChange(event) {
@@ -140,6 +153,9 @@ const AddClient = () => {
       </Button>
       {!!success && (
         <div className="success-message">Client successfully created</div>
+      )}
+      {!!errorMessage && (
+        <div className="error-message">ERROR: {errorMessage}</div>
       )}
     </Form>
   );

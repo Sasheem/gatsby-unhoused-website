@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { navigate } from 'gatsby';
 
 import { Form, Input, Button, ErrorMessage } from '../components/common';
@@ -13,6 +13,13 @@ const Register = () => {
     username: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
+  let isMounted = true;
+
+  useEffect(() => {
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -26,7 +33,9 @@ const Register = () => {
         })
         .then(() => navigate('/dashboard'))
         .catch(error => {
-          setErrorMessage(error.message);
+          if (isMounted) {
+            setErrorMessage(error.message);
+          }
         });
     } else {
       setErrorMessage('Password and Confirm Password fields must match.');
