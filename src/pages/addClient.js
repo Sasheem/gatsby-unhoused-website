@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Input, Button } from '../components/common';
+import { FirebaseContext } from '../components/Firebase';
+
+import '../styles/global.scss';
 
 const AddClient = () => {
+  const { firebase } = useContext(FirebaseContext);
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
@@ -16,13 +20,34 @@ const AddClient = () => {
     dateHoused: new Date(),
     imageUrl: '',
   });
+  const [success, setSuccess] = useState(false);
 
   function handleSubmit(event) {
+    const {
+      firstName,
+      lastName,
+      situation,
+      goal,
+      raised,
+      familySize,
+    } = formValues;
     event.preventDefault();
     // call a firebase function
+    console.dir(formValues);
+    firebase
+      .createClient({
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        situation: situation.trim(),
+      })
+      .then(() => {
+        setFormValues({ firstName: '', lastName: '', situation: '' });
+        setSuccess(true);
+      });
   }
   function handleInputChange(event) {
     event.persist();
+    setSuccess(false);
     setFormValues(currentValues => ({
       ...currentValues,
       [event.target.name]: event.target.value,
@@ -30,7 +55,7 @@ const AddClient = () => {
   }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <label for="firstName">First Name</label>
       <Input
         onChange={handleInputChange}
@@ -77,6 +102,9 @@ const AddClient = () => {
       <Button type="submit" block>
         Add Client
       </Button>
+      {!!success && (
+        <div className="success-message">Client successfully created</div>
+      )}
     </Form>
   );
 };

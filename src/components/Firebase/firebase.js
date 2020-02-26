@@ -17,6 +17,17 @@ class Firebase {
     }
   }
 
+  // add a client with cloud functions
+  async createClient({ firstName, lastName, situation }) {
+    const createClientCallable = this.functions.httpsCallable('createClient');
+    console.log(`client name: ${firstName}`);
+    return createClientCallable({
+      firstName,
+      lastName,
+      situation,
+    });
+  }
+
   // post comment with cloud functions
   async postComment({ text, clientId }) {
     // create reference to function we want to use
