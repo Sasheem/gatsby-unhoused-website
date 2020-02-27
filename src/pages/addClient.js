@@ -21,8 +21,8 @@ const AddClient = () => {
     answers: [],
     situation: '',
     status: 'Unhoused',
-    dateFundingBegan: new Date(),
-    dateHoused: new Date(),
+    dateFundingBegan: '',
+    dateHoused: '',
   });
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
