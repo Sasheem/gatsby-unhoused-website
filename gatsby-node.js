@@ -16,10 +16,6 @@ exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
   const typeDefs = `
     type ClientJson implements Node {
-      id: ID!
-      parent: Node
-      children: [Node!]!
-      internal: Internal!
       firstName: String
       lastName: String
       situation: String
