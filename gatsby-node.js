@@ -16,7 +16,23 @@ exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
   const typeDefs = `
     type ClientJson implements Node {
-      id: String!
+      id: ID!
+      parent: Node
+      children: [Node!]!
+      internal: Internal!
+      firstName: String
+      lastName: String
+      situation: String
+      dateFundingBegan: String
+      dateHoused: String
+      familySize: Int
+      questions: [String]
+      answers: [String]
+      imageUrl: String
+      status: String
+      goal: Int
+      raised: Int
+      localImage: File
     }
   `;
   createTypes(typeDefs);
