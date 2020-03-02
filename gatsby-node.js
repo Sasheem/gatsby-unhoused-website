@@ -35,7 +35,8 @@ exports.createSchemaCustomization = ({ actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const storyTemplate = path.resolve('src/templates/storyTemplate.js');
+  // const storyTemplate = path.resolve('src/templates/storyTemplate.js');
+  const storyTemplate = path.resolve('./src/templates/storyTemplate.js');
 
   return await graphql(`
     {
