@@ -6,12 +6,18 @@
  */
 
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { FirebaseContext, useAuth } from '../Firebase';
 
 import Header from '../Header/header';
-import './layout.scss';
+
+const LayoutContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  padding-top: 10em;
+`;
 
 const Layout = ({ children }) => {
   const { user, firebase, loading } = useAuth();
@@ -29,14 +35,14 @@ const Layout = ({ children }) => {
   return (
     <FirebaseContext.Provider value={{ user, firebase, loading }}>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div className="layout-container">
+      <LayoutContainer>
         <main>{children}</main>
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
-      </div>
+      </LayoutContainer>
     </FirebaseContext.Provider>
   );
 };

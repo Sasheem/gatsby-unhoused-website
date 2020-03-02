@@ -5,8 +5,8 @@
  */
 
 // Backend
-const React = require('react');
-const Layout = require('./src/components/Layout/layout').default;
+import React from 'react';
+import Layout from './src/components/Layout';
 
 /**
  * @param {*element} - represents the children
@@ -17,6 +17,6 @@ const Layout = require('./src/components/Layout/layout').default;
  * * in browser with the server
  */
 
-exports.wrapPageElement = ({ element, props }) => {
+export function wrapPageElement({ element, props }) {
   return <Layout {...props}>{element}</Layout>;
-};
+}
