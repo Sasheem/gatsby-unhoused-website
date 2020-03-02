@@ -1,8 +1,6 @@
 import React from 'react';
-import { Link, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 
-import Layout from '../components/Layout/layout';
-import Image from '../components/image';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
