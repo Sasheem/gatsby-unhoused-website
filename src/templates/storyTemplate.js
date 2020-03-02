@@ -11,6 +11,7 @@ import '../styles/global.scss';
 import './templates.scss';
 
 const StoryTemplate = props => {
+  const { firebase } = useContext(FirebaseContext);
   console.dir(props.data);
   const {
     id,
@@ -27,7 +28,6 @@ const StoryTemplate = props => {
     dateHoused,
     dateFundingBegan,
   } = props.data.client;
-  const { firebase } = useContext(FirebaseContext);
 
   return (
     <section className="page-body">
