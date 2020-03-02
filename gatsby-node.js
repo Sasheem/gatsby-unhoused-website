@@ -15,20 +15,19 @@ const path = require('path');
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
   const typeDefs = `
-    type ClientJson implements Node {
-      firstName: String
-      lastName: String
+    type Client implements Node {
+      firstName: String!
+      lastName: String!
       situation: String
-      dateFundingBegan: String
+      dateFundingBegan: String!
       dateHoused: String
-      familySize: Int
-      questions: [String]
-      answers: [String]
-      imageUrl: String
-      status: String
-      goal: Int
-      raised: Int
-      localImage: File
+      familySize: Int!
+      questions: [String!]!
+      answers: [String!]!
+      imageUrl: String!
+      status: String!
+      goal: Int!
+      raised: Int!
     }
   `;
   createTypes(typeDefs);
