@@ -5,7 +5,7 @@ import { Form, Input, Button, ErrorMessage } from '../components/common';
 import { FirebaseContext } from '../components/Firebase';
 
 const Register = () => {
-  const { firebase } = useContext(FirebaseContext);
+  const { firebase = null } = useContext(FirebaseContext) || {};
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',

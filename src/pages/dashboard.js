@@ -7,7 +7,7 @@ import { FirebaseContext } from '../components/Firebase';
 import '../styles/global.scss';
 
 const Dashboard = ({ location }) => {
-  const { firebase, user } = useContext(FirebaseContext);
+  const { firebase = null, user } = useContext(FirebaseContext) || {};
   console.dir(user);
 
   return (

@@ -3,7 +3,6 @@ import { Link, navigate } from 'gatsby';
 import PropTypes from 'prop-types';
 import { FirebaseContext } from '../Firebase';
 
-import Image from '../image';
 import Button from '../common/Button/button';
 
 import './header.scss';
@@ -13,7 +12,7 @@ import './header.scss';
  */
 
 const Header = ({ siteTitle }) => {
-  const { firebase, user } = useContext(FirebaseContext);
+  const { firebase = null, user } = useContext(FirebaseContext) || {};
 
   function handleLogoutClick() {
     firebase.logout().then(() => navigate('/login'));
