@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { graphql } from 'gatsby';
 
 import { FirebaseContext } from '../components/Firebase';
@@ -12,6 +12,8 @@ import './templates.scss';
 
 const StoryTemplate = props => {
   const { firebase } = useContext(FirebaseContext);
+  console.log(`firebase storyTemplate:`);
+  console.dir(firebase);
   console.dir(props.data);
   const {
     id,
@@ -48,7 +50,7 @@ const StoryTemplate = props => {
           questions={questions}
           answers={answers}
         />
-        {!!firebase && <StoryComments firebase={firebase} storyId={id} />}
+        {firebase && <StoryComments firebase={firebase} storyId={id} />}
       </div>
     </section>
   );
