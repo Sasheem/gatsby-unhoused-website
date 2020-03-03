@@ -7,7 +7,7 @@ import { Form, Input, Button, ErrorMessage } from '../components/common';
 
 const LoginPage = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
-  const { firebase } = useContext(FirebaseContext);
+  const { firebase = null } = useContext(FirebaseContext) || {};
   const [errorMessage, setErrorMessage] = useState('');
   let isMounted = true;
 

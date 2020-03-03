@@ -9,7 +9,7 @@ import '../styles/global.scss';
  * ! Unhandled error RangeError: Maximum call stack size exceeded
  */
 const AddDonation = () => {
-  const { firebase } = useContext(FirebaseContext);
+  const { firebase = null } = useContext(FirebaseContext) || {};
   const [clients, setClients] = useState([]);
   const [formValues, setFormValues] = useState({
     firstName: '',

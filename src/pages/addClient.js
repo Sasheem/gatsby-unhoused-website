@@ -10,7 +10,7 @@ if (typeof window !== 'undefined') {
 }
 
 const AddClient = () => {
-  const { firebase } = useContext(FirebaseContext);
+  const { firebase = null } = useContext(FirebaseContext) || {};
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
