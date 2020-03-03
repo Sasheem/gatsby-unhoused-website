@@ -16,7 +16,7 @@ import Header from '../Header/header';
 const LayoutContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding-top: 10em;
+  padding-top: 7em;
 `;
 
 const Layout = ({ children }) => {

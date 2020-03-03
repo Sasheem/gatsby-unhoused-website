@@ -35,6 +35,7 @@
 .navbar-actions {
 	display: flex;
 	justify-content: flex-end;
+	margin-left: 1.5em;
 }
 .navbar-actions div {
 	margin-left: 1em;
@@ -58,7 +59,7 @@
 	margin: 0;
 	padding: 0;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 .navbar-items li {
     // padding: 0 0.5rem;
