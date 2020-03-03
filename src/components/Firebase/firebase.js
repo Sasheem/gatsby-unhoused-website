@@ -46,6 +46,13 @@ class Firebase {
     return this.db.collection('clients').get();
   }
 
+  // get all clients from 'clientsFeatured' collection
+  // will remove later b/c I want to filter my 'clients' collection
+  // for the Unhoused status in the front end.
+  async getFeaturedClients() {
+    return this.db.collection('clientsFeatured').get();
+  }
+
   // add a client with cloud functions
   async createClient({ firstName, lastName, situation, clientImage }) {
     const createClientCallable = this.functions.httpsCallable('createClient');

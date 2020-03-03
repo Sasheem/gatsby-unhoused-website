@@ -19,8 +19,12 @@ const CardClientFeatured = ({
     <Link to={`/story/${firstName}-${lastName}`}>
       <div className="card-featured-container">
         <div className="card-header">
-          <Img fixed={imageUrl} className="card-image" />
-          {/* <img src={imageUrl} alt={`${name} card`} className="card-image" /> */}
+          {/* <Img fixed={imageUrl} className="card-image" /> */}
+          <img
+            src={imageUrl}
+            alt={`${firstName}'s card`}
+            className="card-image"
+          />
         </div>
         <div className="featured-info-container">
           <div className="featured-flex" />

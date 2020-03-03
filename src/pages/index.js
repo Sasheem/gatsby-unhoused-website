@@ -1,22 +1,57 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { graphql } from 'gatsby';
 
+import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
+import { HeroBackground } from '../components/Home/heroBackground';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
 
 import '../styles/global.scss';
 
 const IndexPage = props => {
+  const { firebase = null } = useContext(FirebaseContext) || {};
+  const [clients, setClients] = useState([]);
+  let isMounted = true;
+  console.log('graphql query to props:');
   console.dir(props.data.allClient.edges);
+
+  useEffect(() => {
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // fetch clients to be featured
+  useEffect(() => {
+    if (firebase) {
+      firebase.getFeaturedClients().then(snapshot => {
+        if (isMounted) {
+          const featuredClients = [];
+          snapshot.forEach(doc => {
+            featuredClients.push({
+              id: doc.id,
+              ...doc.data(),
+            });
+          });
+          setClients(featuredClients);
+        }
+      });
+    }
+  }, [firebase]);
+
+  console.log('clients from FirebaseContext now set to state using hooks');
+  console.dir(clients);
+
   return (
-    <section className="page-body">
+    <div className="page-body">
       <SEO title="Home" />
       <Hero
         title="IT STARTS WITH YOU"
         subtitle="Join the fight against homelessness today"
         label="Meet client"
       />
+      <HeroBackground />
       <div className="mission-container">
         <h2>Our Mission</h2>
         <p>
@@ -27,7 +62,19 @@ const IndexPage = props => {
       <div className="clients-featured-container">
         <h2>Featured Clients</h2>
         <div className="clients-featured-content">
-          {props.data.allClient.edges.map(client => (
+          {!!clients &&
+            clients.map(client => (
+              <CardClientFeatured
+                key={client.id}
+                firstName={client.firstName}
+                lastName={client.lastName}
+                situation={`${client.situation.slice(0, 90)}...`}
+                raised={client.raised}
+                goal={client.goal}
+                imageUrl={client.imageUrl}
+              />
+            ))}
+          {/* {props.data.allClient.edges.map(client => (
             <CardClientFeatured
               key={client.node.id}
               firstName={client.node.firstName}
@@ -37,20 +84,20 @@ const IndexPage = props => {
               goal={client.node.goal}
               imageUrl={client.node.localImage.childImageSharp.fixed}
             />
-            // client.node.status === 'Unhoused' ? (
-            //   <CardClientFeatured
-            //     key={client.node.id}
-            //     name={client.node.firstName}
-            //     situation={`${client.node.situation.slice(0, 90)}...`}
-            //     raised={client.node.raised}
-            //     goal={client.node.goal}
-            //     imageUrl={client.node.localImage.publicURL}
-            //   />
-            // ) : null
-          ))}
+            client.node.status === 'Unhoused' ? (
+              <CardClientFeatured
+                key={client.node.id}
+                name={client.node.firstName}
+                situation={`${client.node.situation.slice(0, 90)}...`}
+                raised={client.node.raised}
+                goal={client.node.goal}
+                imageUrl={client.node.localImage.publicURL}
+              />
+            ) : null
+          ))} */}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
