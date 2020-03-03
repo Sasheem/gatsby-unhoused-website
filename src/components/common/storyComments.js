@@ -46,9 +46,6 @@ export const StoryComments = ({ firebase, storyId }) => {
   console.log(`storyId: ${storyId}`);
 
   useEffect(() => {
-    if (!firebase || !storyId) {
-      return;
-    }
     const unsubscribe = firebase.subscribeToStoryComments({
       storyId,
       onSnapshot: snapshot => {
@@ -76,7 +73,7 @@ export const StoryComments = ({ firebase, storyId }) => {
         unsubscribe();
       }
     };
-  }, [firebase]);
+  }, []);
 
   // form handler function
   function handlePostCommentSubmit(event) {

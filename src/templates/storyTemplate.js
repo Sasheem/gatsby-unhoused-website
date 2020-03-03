@@ -11,7 +11,7 @@ import '../styles/global.scss';
 import './templates.scss';
 
 const StoryTemplate = props => {
-  const { firebase } = useContext(FirebaseContext);
+  const { firebase = null } = useContext(FirebaseContext) || {};
   console.log(`firebase storyTemplate:`);
   console.dir(firebase);
   console.dir(props.data);
