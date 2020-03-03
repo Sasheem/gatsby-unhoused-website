@@ -10,13 +10,11 @@
     // justify-self: center;
 }
 .button-donate {
-    display: flex;
-    justify-content: center;
+    display: inline-block;
+    background-color: $link-hover-color;
     border-radius: 2px;
     border: none;
-    background-color: $link-hover-color;
-    width: 100%;
-    padding: 0.5em 0;
+    padding: 0.5em 2em;
     
     a {
         font-size: 1.1em;

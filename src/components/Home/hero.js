@@ -73,7 +73,7 @@ const Hero = ({ title, subtitle, label }) => (
           Tag="div"
           fluid={bannerData}
           style={{
-            height: `87vh`,
+            height: `88vh`,
             width: `100vw`,
             backgroundColor: `transparent`,
             backgroundSize: `cover`,

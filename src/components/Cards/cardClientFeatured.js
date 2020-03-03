@@ -29,16 +29,18 @@ const CardClientFeatured = ({
         <div className="featured-info-container">
           <div className="featured-flex" />
           <div className="featured-content">
-            <h4>Meet {firstName}</h4>
-            <p>{situation}</p>
+            <div className="featured-bio">
+              <h4>Meet {firstName}</h4>
+              <p>{situation}</p>
+            </div>
             <div className="featured-progress">
               <ProgressBar percentage={(raised / goal) * 100} />
             </div>
             <div className="featured-status">
-              <span>
-                <p>${raised}</p>
-                <p>raised of ${goal}</p>
-              </span>
+              <div className="status">
+                <p className="raised">${raised}</p>
+                <p className="goal">raised of ${goal}</p>
+              </div>
               <ButtonDonate label="Donate" destination="/" />
             </div>
           </div>
