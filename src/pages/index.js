@@ -4,7 +4,6 @@ import { graphql } from 'gatsby';
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
-import { HeroBackground } from '../components/Home/heroBackground';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
 
 import '../styles/global.scss';
@@ -51,7 +50,6 @@ const IndexPage = props => {
         subtitle="Join the fight against homelessness today"
         label="Meet client"
       />
-      <HeroBackground />
       <div className="mission-container">
         <h2>Our Mission</h2>
         <p>
