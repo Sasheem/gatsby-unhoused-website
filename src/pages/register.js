@@ -1,7 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { navigate } from 'gatsby';
 
-import { Form, Input, Button, ErrorMessage } from '../components/common';
+import SEO from '../components/seo';
+import {
+  Form,
+  Input,
+  Button,
+  ErrorMessage,
+  AuthSection,
+} from '../components/common';
 import { FirebaseContext } from '../components/Firebase';
 
 const Register = () => {
@@ -51,46 +58,50 @@ const Register = () => {
     }));
   }
   return (
-    <Form onSubmit={handleSubmit}>
-      <Input
-        name="username"
-        placeholder="Username"
-        type="text"
-        onChange={handleInputChange}
-        value={formValues.username}
-        required
-      />
-      <Input
-        name="email"
-        placeholder="Email"
-        type="email"
-        onChange={handleInputChange}
-        value={formValues.email}
-        required
-      />
-      <Input
-        name="password"
-        placeholder="Password"
-        type="password"
-        onChange={handleInputChange}
-        value={formValues.password}
-        required
-        minLength={6}
-      />
-      <Input
-        name="confirmPassword"
-        placeholder="Confirm Password"
-        type="password"
-        onChange={handleInputChange}
-        value={formValues.confirmPassword}
-        required
-        minLength={6}
-      />
-      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-      <Button type="submit" block>
-        Register
-      </Button>
-    </Form>
+    <AuthSection>
+      <SEO title="Register page" />
+      <h2>Register with Unhoused Humanity</h2>
+      <Form onSubmit={handleSubmit}>
+        <Input
+          name="username"
+          placeholder="Username"
+          type="text"
+          onChange={handleInputChange}
+          value={formValues.username}
+          required
+        />
+        <Input
+          name="email"
+          placeholder="Email"
+          type="email"
+          onChange={handleInputChange}
+          value={formValues.email}
+          required
+        />
+        <Input
+          name="password"
+          placeholder="Password"
+          type="password"
+          onChange={handleInputChange}
+          value={formValues.password}
+          required
+          minLength={6}
+        />
+        <Input
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          type="password"
+          onChange={handleInputChange}
+          value={formValues.confirmPassword}
+          required
+          minLength={6}
+        />
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        <Button type="submit" block>
+          Register
+        </Button>
+      </Form>
+    </AuthSection>
   );
 };
 
