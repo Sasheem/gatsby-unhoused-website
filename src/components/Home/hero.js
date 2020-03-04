@@ -7,18 +7,6 @@ import Button from '../common/Button/button';
 import CardMetric from '../Cards/cardMetric';
 
 // styled components
-const HeroDiv = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  background: url('../../images/background.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-`;
 const Fill = styled.div`
   flex: 1.5;
 `;
@@ -73,7 +61,7 @@ const Hero = ({ title, subtitle, label }) => (
           Tag="div"
           fluid={bannerData}
           style={{
-            height: `90vh`,
+            height: `88vh`,
             width: `100vw`,
             backgroundColor: `transparent`,
             backgroundSize: `cover`,
