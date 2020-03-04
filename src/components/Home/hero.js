@@ -20,7 +20,7 @@ const HeroDiv = styled.div`
   background-size: cover;
 `;
 const Fill = styled.div`
-  flex: 0.5;
+  flex: 1.5;
 `;
 const Content = styled.div`
   flex: 2;
