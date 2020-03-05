@@ -35,12 +35,12 @@ const FormDiv = styled(TitleDiv)`
   align-items: center;
   p {
     text-align: center;
+    margin-bottom: 3em;
   }
 
   @media only screen and (min-width: 600px) {
     p {
       text-align: left;
-      margin-bottom: 2em;
     }
     align-items: flex-start;
   }
