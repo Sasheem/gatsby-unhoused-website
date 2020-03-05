@@ -7,7 +7,7 @@ import '../../styles/global.scss';
 
 const ProcessSection = styled.section`
   width: 100%;
-  height: 220vh;
+  padding: 2em 0;
   display: flex;
   flex-direction: column;
 `;

@@ -5,6 +5,7 @@ import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
 import Process from '../components/Home/process';
+import Newsletter from '../components/Home/newsletter';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
 
 import '../styles/global.scss';
@@ -97,6 +98,7 @@ const IndexPage = props => {
         </div>
       </div>
       <Process />
+      <Newsletter />
     </div>
   );
 };
