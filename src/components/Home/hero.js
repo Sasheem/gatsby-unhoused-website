@@ -27,7 +27,7 @@ const Content = styled.div`
 `;
 
 const Metrics = styled.div`
-  flex: 0.5;
+  flex: 0.7;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -61,7 +61,7 @@ const Hero = ({ title, subtitle, label }) => (
           Tag="div"
           fluid={bannerData}
           style={{
-            height: `86vh`,
+            height: `85vh`,
             width: `100vw`,
             backgroundColor: `transparent`,
             backgroundSize: `cover`,

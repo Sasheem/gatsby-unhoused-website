@@ -10,7 +10,6 @@ const NewsletterDiv = styled.div`
   grid-gap: 3em;
   background-color: black;
   padding: 5em 0;
-  margin: 5em 0;
   h2,
   p {
     color: white;
