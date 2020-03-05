@@ -12,6 +12,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { FirebaseContext, useAuth } from '../Firebase';
 
 import Header from '../Header/header';
+import Footer from '../Footer/footer';
 
 const LayoutContainer = styled.div`
   width: 100%;
@@ -36,11 +37,7 @@ const Layout = ({ children }) => {
       <Header siteTitle={data.site.siteMetadata.title} />
       <LayoutContainer>
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
+        <Footer />
       </LayoutContainer>
     </FirebaseContext.Provider>
   );

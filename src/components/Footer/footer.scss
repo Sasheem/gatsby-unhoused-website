@@ -1,0 +1,115 @@
+@import '../../styles/global.scss';
+
+.footer {
+    display: grid;
+    background-color: $main-color;
+    width: 100%;
+    margin-top: 15em;
+    
+}
+.elements-container {
+    display: grid;
+    grid-gap: 5em;
+    max-width: 1120px;
+    margin: 5em auto;
+    width: 80vw;
+
+    h3, p {
+        text-align: left;
+        color: $color-light;
+    }
+
+    @media only screen and (min-width: 800px) {
+        grid-template-columns: 1fr 1.5fr;
+        grid-gap: 10em;
+        width: 100%;
+    }
+}
+.footer-left-element {
+    display: grid;
+    grid-gap: 3em;
+}
+.footer-right-element {
+    display: grid;
+    grid-gap: 1em;
+    
+    @media only screen and (min-width: 800px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+.footer-navbar-items {
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        margin: 2em 0 0 0;
+    }
+    a {
+        color: $color-light;
+        text-decoration: none;
+    }
+    a:hover, a:active {
+        color: $main-accent-color;
+    }
+}
+.footer-element {
+    img {
+        width: 13em;
+    }
+}
+.sub-footer {
+    display: flex;
+    justify-content: center;
+    color: $color-light;
+    margin-bottom: 2em;
+
+    a {
+        color: $color-light;
+        text-decoration: none;
+        font-weight: 600;
+    }
+}
+
+// newsletter styling
+.newsletter-form {
+    display: flex;
+    flex-direction: row;
+    max-width: 25em;
+}
+.newsletter-input {
+    flex: 2;
+    padding: 0.5em;
+    border: solid 1px #e1e5e9;
+    border-radius: 3px;
+    font-size: 1em;
+
+    &:focus {
+        outline: none !important;
+        border: 1px solid #299ecc;
+        box-shadow: 0 0 10px #719ece;
+    }
+}
+.newsletter-submit {
+    flex: 0.5;
+    margin-left: 1em;
+    
+	input[type='submit'] {
+		font-size: 1em;
+        color: white;
+        display: inline-block;
+        background-color: #299ecc;
+        border: none;
+        border-radius: 3px;
+        padding: 0.5em 1em;
+        justify-self: center;
+        height: 100%;
+        width: 100%;
+	}
+}
+.newsletter-text {
+    h3, p {
+        margin-bottom: 0.5em;
+    }
+}
