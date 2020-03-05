@@ -1,3 +1,5 @@
+@import '../../styles/global.scss';
+
 // blog card styling begins
 .card-container {
     display: flex;
@@ -6,8 +8,6 @@
 }
 .card-header {
 	border-radius: calc(0.25rem - 1px);
-	// max-height: 15em;
-	background-color: pink;
 }
 .card-body {
     display: flex;
@@ -133,3 +133,45 @@
     font-weight: 200;
 }
 // card client featured ends
+
+// card call to action begins
+.card-call-to-action {
+	display: flex;
+	flex-direction: column;
+	min-width: 20em;
+	max-width: 80vw;
+	word-wrap: break-word;
+	background-clip: border-box;
+
+	@media only screen and (min-width: 800px) {
+		margin-top: 1.5em;
+	}
+}
+.card-call-to-action-content-container {
+    display: flex;
+    flex-direction: row;
+}
+.card-spacer {
+    flex: 0.1;
+}
+.card-call-to-action-content {
+	display: grid;
+    grid-gap: 0.2em;
+    flex: 3;
+    padding-top: 1em;
+
+    h4, p {
+		margin: 0.5em 0;
+		text-align: left;
+    }
+
+}
+.card-call-to-action-link {
+	color: main-accent-color;
+        text-decoration: none;
+}
+.card-call-to-action-link:hover {
+	cursor: pointer;
+}
+
+// card call to action ends

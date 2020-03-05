@@ -6,6 +6,7 @@ import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
 import Process from '../components/Home/process';
 import Newsletter from '../components/Home/newsletter';
+import CallToActions from '../components/Home/callToActions';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
 
 import '../styles/global.scss';
@@ -99,6 +100,7 @@ const IndexPage = props => {
       </div>
       <Process />
       <Newsletter />
+      <CallToActions />
     </div>
   );
 };
