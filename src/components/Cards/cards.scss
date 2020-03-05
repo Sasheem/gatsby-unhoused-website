@@ -63,7 +63,7 @@
     h2, p {
         margin: 0;
         text-align: center;
-        color: white;
+        color: $color-light;
     }
     h2 {
         font-weight: 500;
@@ -91,7 +91,6 @@
 }
 .featured-image-container {
 	border-radius: calc(0.25rem - 1px);
-	background-color: pink;
 	height: 15em;
 }
 .featured-info-container {
@@ -125,7 +124,7 @@
 	}
 }
 .raised {
-    color: #299ecc;
+    color: $main-accent-color;
 	font-weight: 400;
 }
 .goal {

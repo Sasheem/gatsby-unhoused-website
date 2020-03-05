@@ -1,12 +1,14 @@
+@import '../../styles/global.scss';
+
 .progress-bar {
     position: relative;
     height: 8px;
     width: 100%;
     border-radius: 50px;
-    background-color: #E8E8E8;
+    background-color: $main-sub-color;
 }
 .filler {
-    background: #299ecc;
+    background: $main-accent-color;
     height: 100%;
     border-radius: inherit;
     transition: width .2s ease-in

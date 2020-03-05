@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import { FirebaseContext } from '../Firebase';
 
 import Button from '../common/Button/button';
+import Logo from './logo';
 
 import './header.scss';
 
-/**
- * todo - link user email <li> to /dashboard
- */
-
-const Header = ({ siteTitle }) => {
+const Header = () => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
 
   function handleLogoutClick() {
@@ -20,17 +17,8 @@ const Header = ({ siteTitle }) => {
   return (
     <header className="header">
       <nav className="navbar">
-        <div className="navbar-logo">
-          <Link to="/">
-            <h1 className="logo">Unhoused Humanity</h1>
-            {/* <Image /> */}
-            {/* <img
-            className="logo"
-            src="/images/logo-dark-alegreya-sans-sc.png"
-            alt="unhoused humanity logo"
-          /> */}
-          </Link>
-        </div>
+        <div className="spacer-sm" />
+        <Logo />
         <div className="spacer" />
         <div className="navbar-content">
           <div className="navbar-actions">
@@ -104,7 +92,7 @@ const Header = ({ siteTitle }) => {
             </div>
           )}
         </div>
-        <div className="spacer-md" />
+        <div className="spacer-sm" />
       </nav>
     </header>
   );
