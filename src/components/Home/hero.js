@@ -14,6 +14,7 @@ const Content = styled.div`
   flex: 2;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   h1,
   p {
