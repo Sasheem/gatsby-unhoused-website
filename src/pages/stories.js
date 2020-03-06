@@ -1,5 +1,5 @@
-import React from 'react';
-import { graphql } from 'gatsby';
+import React, { useState, useEffect, useContext } from 'react';
+import { FirebaseContext } from '../components/Firebase';
 
 import SEO from '../components/seo';
 
@@ -7,39 +7,59 @@ import '../styles/global.scss';
 
 import BlogGrid from '../components/Blog/blogGrid';
 
-const StoriesPage = props => {
-  console.dir(props);
+const StoriesPage = () => {
+  const { firebase = null } = useContext(FirebaseContext) || {};
+  const [clients, setClients] = useState([]);
+  let isMounted = true;
+
+  useEffect(() => {
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // applying this form of useEffect ensures
+  // it only runs once when the component mounts
+  // useEffect(() => {}, []);
+  useEffect(() => {
+    // query all available clients if firebase exists
+    if (firebase) {
+      firebase.getClients().then(snapshot => {
+        // check if component is mounted
+        if (isMounted) {
+          const availableClients = [];
+          snapshot.forEach(doc => {
+            availableClients.push({
+              id: doc.id,
+              ...doc.data(),
+            });
+          });
+
+          // save clients to state
+          setClients(availableClients);
+        }
+      });
+    }
+  }, [firebase]);
+
   return (
-    <section>
+    <div>
       <SEO title="Stories" />
       <div className="blog-container">
-        <h1>Unhoused Humanity Success Stories</h1>
-        <BlogGrid clients={props.data.allPost.edges} />
+        <h1>Blog: Success Stories</h1>
+        <p>
+          Read the stories of all the families and individuals Unhoused Humanity
+          has impacted.
+        </p>
+        <div className="form-container">
+          <div />
+          {/* <BlogGrid clients={props.data.allPost.edges} /> */}
+          <BlogGrid clients={clients} />
+          <div />
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
-
-export const query = graphql`
-  {
-    allPost {
-      edges {
-        node {
-          firstName
-          answers
-          goal
-          lastName
-          questions
-          raised
-          situation
-          status
-          slug
-          imageUrl
-          dateHoused
-        }
-      }
-    }
-  }
-`;
 
 export default StoriesPage;

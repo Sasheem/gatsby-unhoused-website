@@ -9,19 +9,19 @@ const BlogGrid = props => {
     <section className="blog-grid">
       {props.clients.map(client => (
         <CardStory
-          key={client.node.id}
-          status={client.node.status}
+          key={client.id}
+          status={client.status}
           date={
-            client.node.status === 'Unhoused'
-              ? client.node.dateHoused
-              : client.node.dateFundingBegan
+            client.status === 'Unhoused'
+              ? client.dateHoused
+              : client.dateFundingBegan
           }
-          firstName={client.node.firstName}
-          lastName={client.node.lastName}
-          description={`${client.node.situation.slice(0, 90)}...`}
+          firstName={client.firstName}
+          lastName={client.lastName}
+          description={`${client.situation.slice(0, 90)}...`}
           time="9 min"
-          slug={client.node.slug}
-          imageUrl={client.node.imageUrl}
+          slug={client.slug}
+          imageUrl={client.imageUrl}
         />
       ))}
     </section>
