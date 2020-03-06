@@ -22,9 +22,11 @@
 }
 .button-donate:hover {
     cursor: pointer;
+    background-color: $analogous-color-two-mono;
 }
 .button:hover {
     cursor: pointer;
+    background-color: $mono-accent-color;
 }
 .button-link {
     color: $color-light;

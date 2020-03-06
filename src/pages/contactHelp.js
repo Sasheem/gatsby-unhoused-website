@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'gatsby';
 
 import SEO from '../components/seo';
-import {
-  Form,
-  Input,
-  Button,
-  ErrorMessage,
-  FormSection,
-} from '../components/common';
+import { Button, ErrorMessage, FormSection } from '../components/common';
+
+import '../styles/global.scss';
+
+/**
+ * todo Backend: send form data  to youhumanity@gmail.com
+ * todo Frontend: form validation
+ */
 
 const ContactHelp = () => {
   const [formValues, setFormValues] = useState({
@@ -17,7 +19,10 @@ const ContactHelp = () => {
     message: '',
     phone: '',
     familySize: 1,
-    discoverMethod: '',
+    discoveryMethod: '',
+    clientPhone: '',
+    clientFirstName: '',
+    clientLastName: '',
   });
   const [userIsClient, setUserIsClient] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -40,8 +45,8 @@ const ContactHelp = () => {
 
   return (
     <FormSection>
+      <SEO title="Unhoused Humanity contact for help form" />
       <div className="form-layout">
-        <SEO title="Unhoused Humanity contact for help form" />
         <div className="form-header">
           <h1>Request our help</h1>
           <p>
@@ -51,25 +56,25 @@ const ContactHelp = () => {
         </div>
         <div className="form-container">
           <div />
-          <Form onSubmit={handleSubmit} className="form-component">
+          <form onSubmit={handleSubmit} className="form-component">
             <h3>Your Info</h3>
             <div className="two-input-row">
               <div className="form-input-row">
                 <label for="firstName">First Name</label>
-                <Input type="text" name="firstName" id="firstName" />
+                <input type="text" name="firstName" id="firstName" />
               </div>
               <div className="form-input-row">
                 <label for="lastName">Last Name</label>
-                <Input type="text" name="lastName" id="lastName" />
+                <input type="text" name="lastName" id="lastName" />
               </div>
             </div>
             <div className="form-input-row">
               <label for="email">Email</label>
-              <Input type="email" name="email" id="email" />
+              <input type="email" name="email" id="email" />
             </div>
             <div className="form-input-row">
               <label for="phone">Phone Number</label>
-              <Input type="tel" name="phone" id="phone" />
+              <input type="tel" name="phone" id="phone" />
             </div>
             <div className="form-input-row">
               <label for="message">Describe the situation</label>
@@ -78,7 +83,7 @@ const ContactHelp = () => {
             <div className="two-input-row">
               <div class="form-input-row">
                 <label for="familySize">Family Size</label>
-                <Input
+                <input
                   type="number"
                   name="familySize"
                   id="familySize"
@@ -90,7 +95,7 @@ const ContactHelp = () => {
                   I am filling this form out for someone else
                 </label>
                 <label class="switch-help">
-                  <Input
+                  <input
                     type="checkbox"
                     name="switch-help"
                     id="switch-help"
@@ -101,25 +106,76 @@ const ContactHelp = () => {
                 </label>
               </div>
             </div>
-            {/* {userIsClient ? <ClientForm /> : null} */}
+            {userIsClient ? (
+              <div className="form-client-container">
+                <h4>Client Info</h4>
+                <div className="two-input-row">
+                  <div className="form-input-row">
+                    <label for="clientFirstName">First Name</label>
+                    <input
+                      type="text"
+                      name="clientFirstName"
+                      value={formValues.clientFirstName}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-input-row">
+                    <label for="clientLastName">Last Name</label>
+                    <input
+                      type="text"
+                      name="clientLastName"
+                      value={formValues.clientLastName}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+                <div className="form-input-row">
+                  <label for="clientEmail">Email</label>
+                  <input
+                    type="email"
+                    name="clientEmail"
+                    value={formValues.clientEmail}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-input-row">
+                  <label for="clientPhone">Phone Number</label>
+                  <input
+                    type="tel"
+                    name="clientPhone"
+                    value={formValues.clientPhone}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+            ) : null}
             <div className="form-input-row">
-              <label for="discovery-method-help">
+              <label for="discoveryMethod">
                 How did you hear about Unhoused Humanity?
               </label>
-              <Input
+              <input
                 type="text"
-                name="discovery-method-help"
-                id="discovery-method-help"
+                name="discoveryMethod"
+                value={formValues.discoveryMethod}
+                onChange={handleInputChange}
               />
             </div>
             <div className="form-submit-row">
               <div />
-              <Button type="submit" block>
+              <Button type="submit" block submit>
                 Send
               </Button>
               <div />
             </div>
-          </Form>
+            <div className="form-description-row">
+              <p>
+                Are you a case worker?{' '}
+                <Link to="/">
+                  <span className="form-description-link">Contact Us</span>
+                </Link>
+              </p>
+            </div>
+          </form>
           <div />
         </div>
       </div>

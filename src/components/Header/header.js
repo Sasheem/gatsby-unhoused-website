@@ -22,8 +22,8 @@ const Header = () => {
         <div className="spacer" />
         <div className="navbar-content">
           <div className="navbar-actions">
-            <Button label="Donate" destination="/" />
-            <Button label="Volunteer" destination="/" />
+            <Button label="Donate" destination="/contactDonate" />
+            <Button label="Volunteer" destination="/contactVolunteer" />
             <Button label="Contact" destination="/contactHelp" />
           </div>
           <div className="navbar-items">
