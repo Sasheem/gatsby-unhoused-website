@@ -7,7 +7,7 @@ import {
   Input,
   Button,
   ErrorMessage,
-  AuthSection,
+  FormSection,
 } from '../components/common';
 import { FirebaseContext } from '../components/Firebase';
 
@@ -58,7 +58,7 @@ const Register = () => {
     }));
   }
   return (
-    <AuthSection>
+    <FormSection>
       <SEO title="Register page" />
       <h2>Register with Unhoused Humanity</h2>
       <Form onSubmit={handleSubmit}>
@@ -101,7 +101,7 @@ const Register = () => {
           Register
         </Button>
       </Form>
-    </AuthSection>
+    </FormSection>
   );
 };
 

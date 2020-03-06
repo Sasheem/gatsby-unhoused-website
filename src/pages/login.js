@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { navigate } from 'gatsby';
-import styled from 'styled-components';
 
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
@@ -9,7 +8,7 @@ import {
   Input,
   Button,
   ErrorMessage,
-  AuthSection,
+  FormSection,
 } from '../components/common';
 
 const LoginPage = () => {
@@ -46,7 +45,7 @@ const LoginPage = () => {
   }
 
   return (
-    <AuthSection>
+    <FormSection>
       <SEO title="Login page" />
       <h2>Login to Unhoused Dashboard</h2>
       <Form onSubmit={handleSubmit}>
@@ -72,7 +71,7 @@ const LoginPage = () => {
           Login
         </Button>
       </Form>
-    </AuthSection>
+    </FormSection>
   );
 };
 

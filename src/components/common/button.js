@@ -4,8 +4,8 @@ import '../../styles/global.scss';
 
 export const Button = styled.button`
   padding: 0.8em 1.6em;
-  background: $main-accent-color;
-  color: $color-light;
+  background: #299ecc;
+  color: white;
   border-radius: 4px;
   cursor: pointer;
 
@@ -16,6 +16,6 @@ export const Button = styled.button`
   ${props => (props.block ? 'display: block; width: 102%;' : '')}
 
   &:hover {
-    background: $mono-accent-color;
+    background: #4db3db;
   }
 `;

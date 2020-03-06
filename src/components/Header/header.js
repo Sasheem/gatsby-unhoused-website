@@ -24,7 +24,7 @@ const Header = () => {
           <div className="navbar-actions">
             <Button label="Donate" destination="/" />
             <Button label="Volunteer" destination="/" />
-            <Button label="Contact" destination="/" />
+            <Button label="Contact" destination="/contactHelp" />
           </div>
           <div className="navbar-items">
             <ul>
