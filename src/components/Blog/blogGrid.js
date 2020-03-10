@@ -6,7 +6,7 @@ import './blog.scss';
 
 const BlogGrid = props => {
   return (
-    <section className="blog-grid">
+    <div className="blog-grid">
       {props.clients.map(client => (
         <CardStory
           key={client.id}
@@ -20,11 +20,12 @@ const BlogGrid = props => {
           lastName={client.lastName}
           description={`${client.situation.slice(0, 90)}...`}
           time="9 min"
+          raised={client.raised}
           slug={client.slug}
           imageUrl={client.imageUrl}
         />
       ))}
-    </section>
+    </div>
   );
 };
 

@@ -1,57 +1,5 @@
 @import '../../styles/global.scss';
 
-// blog card styling begins
-.card-container {
-    display: flex;
-	flex-direction: column;
-	max-width: 80vw;
-}
-.card-header {
-	border-radius: calc(0.25rem - 1px);
-}
-.card-body {
-    display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-	padding: 0.5em;
-
-	h4,
-	p {
-		margin: 0.5em 0;
-	}
-}
-.card-image {
-	display: block;
-	width: 100%;
-	height: auto;
-	border-radius: inherit;
-}
-.card-footer {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	width: 100%;
-}
-.footer-left {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
-	flex: 2;
-
-	p {
-		// margin-right: 0.25em;
-		margin: 0;
-	}
-}
-.footer-right {
-	display: flex;
-	flex-direction: row;
-	flex: 1;
-	justify-content: flex-end;
-}
-// blog card styling ends
-
 // card metric home page begins
 .card-metric-content {
     width: 10em;
@@ -88,6 +36,10 @@
 	/* border: 1px solid rgba(0, 0, 0, 0.125); */
 	background-clip: border-box;
 	/* border-radius: 0.25rem; */
+
+	h3, h4, h5, h6, p {
+		text-align: left;
+	}
 }
 .featured-image-container {
 	border-radius: calc(0.25rem - 1px);
@@ -113,23 +65,28 @@
 	display: flex;
 	align-items: flex-end;
 	justify-content: space-between;
+
 }
 .status, .featured-bio {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	h4, p {
-		text-align: left;
-		margin-bottom: 0.2em;
+	h3 {
+		margin-top: 0.25em;
+		margin-bottom: 0.5em;
+	}
+	h4 {
+		margin-top: 0.5em;
 	}
 }
+
 .raised {
     color: $main-accent-color;
 	font-weight: 400;
 }
 .goal {
-    color: #656969;
-    font-weight: 200;
+    color: $sub-color;
+    font-weight: 400;
 }
 // card client featured ends
 
@@ -174,3 +131,49 @@
 }
 
 // card call to action ends
+
+// blog card styling begins
+.card-container {
+    display: flex;
+	flex-direction: column;
+	max-width: 80vw;
+}
+.card-header {
+	border-radius: calc(0.25rem - 1px);
+}
+.card-image {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: inherit;
+}
+.card-footer {
+	margin-top: 1em;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	// alter margins for 
+}
+.footer-left {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	flex: 1;
+
+	p {
+		margin-top: 0.1em;
+	}
+}
+.footer-right {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	align-items: flex-end;
+
+	// force text to right
+	h5, p {
+		text-align: right;
+	}
+}
+// blog card styling ends

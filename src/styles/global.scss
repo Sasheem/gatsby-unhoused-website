@@ -19,7 +19,7 @@ html, body {
     margin: 0;
     padding: 0;
 }
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, h6, p {
     margin: 0;
     text-align: center;
     width: 100%;
@@ -58,11 +58,10 @@ a {
     display: flex;
     flex-direction: column;
     padding-top: 11em;
-    p {
-        margin: 1em 0 5em 0;
-        text-align: center;
-    }
-    
+}
+.blog-subtext {
+    margin-top: 1em;
+    text-align: center;
 }
 // blog styling ends
 
@@ -147,9 +146,10 @@ a {
     }
 }
 .form-container {
+    margin-top: 5em;
     width: 100%;
     display: grid;
-    grid-template-columns: .5fr 2fr .5fr;
+    grid-template-columns: .25fr 2fr .25fr;
 }
 .form-component {
     display: grid;

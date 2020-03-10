@@ -30,8 +30,9 @@ const CardClientFeatured = ({
           <div className="featured-flex" />
           <div className="featured-content">
             <div className="featured-bio">
-              <h4>Meet {firstName}</h4>
-              <p>{situation}</p>
+              <h3>Meet {firstName}</h3>
+              <h4>Situation</h4>
+              <p className="situation">{situation}</p>
             </div>
             <div className="featured-progress">
               <ProgressBar percentage={(raised / goal) * 100} />

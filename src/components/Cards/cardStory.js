@@ -13,10 +13,11 @@ const CardStory = ({
   status,
   time,
   imageUrl,
+  raised,
 }) => {
   return (
     <Link to={`/story/${firstName}-${lastName}`}>
-      <div className="card-container">
+      <div className="card-featured-container">
         <div className="card-header">
           <img
             src={imageUrl}
@@ -24,25 +25,26 @@ const CardStory = ({
             alt={`${firstName} profile`}
           />
         </div>
-        <div className="card-body">
-          <h4>Meet {firstName}</h4>
-          <p>{description}</p>
-        </div>
-        <div className="card-footer">
-          <p>{date}</p>
-          <p>|</p>
-          <p>{status}</p>
-          <p>|</p>
-          <p>{time}</p>
-          {/* <div className="footer-left ">
-            <BlogDate date={date} />
-            <p>02-10-20</p>
-            <p>|</p>
-            <p>{status}</p>
+        <div className="featured-info-container">
+          <div className="featured-flex" />
+          <div className="featured-content">
+            <div className="featured-bio">
+              <h3>Meet {firstName}</h3>
+              <h4>Situation</h4>
+              <p className="situation">{description}</p>
+            </div>
+            <div className="card-footer">
+              <div className="footer-left">
+                <h5>{status === 'Housed' ? 'Fully Funded' : 'Raised'}</h5>
+                <p className="raised">${raised}</p>
+              </div>
+              <div className="footer-right">
+                <h5>{status}</h5>
+                <p className="goal">{date}</p>
+              </div>
+            </div>
           </div>
-          <div className="footer-right">
-            <p>{time}</p>
-          </div> */}
+          <div className="featured-flex" />
         </div>
       </div>
     </Link>
