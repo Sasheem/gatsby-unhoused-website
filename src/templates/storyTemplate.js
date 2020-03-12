@@ -32,7 +32,7 @@ const StoryTemplate = props => {
   } = props.data.client;
 
   return (
-    <section className="page-body">
+    <div className="page-body">
       <SEO title={`${firstName}'s Story`} />
       <div className="story-template">
         <StoryHead
@@ -52,7 +52,7 @@ const StoryTemplate = props => {
         />
         {firebase && <StoryComments firebase={firebase} storyId={id} />}
       </div>
-    </section>
+    </div>
   );
 };
 

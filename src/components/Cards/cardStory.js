@@ -30,16 +30,16 @@ const CardStory = ({
           <div className="featured-content">
             <div className="featured-bio">
               <h3>Meet {firstName}</h3>
-              <h4>Situation</h4>
+              {/* <h4>Situation</h4> */}
               <p className="situation">{description}</p>
             </div>
             <div className="card-footer">
               <div className="footer-left">
-                <h5>{status === 'Housed' ? 'Fully Funded' : 'Raised'}</h5>
+                <h4>{status === 'Housed' ? 'Fully Funded' : 'Raised'}</h4>
                 <p className="raised">${raised}</p>
               </div>
               <div className="footer-right">
-                <h5>{status}</h5>
+                <h4>{status === 'Housed' ? 'Housed on' : 'Funding began'}</h4>
                 <p className="goal">{date}</p>
               </div>
             </div>

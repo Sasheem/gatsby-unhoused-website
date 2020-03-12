@@ -1,11 +1,16 @@
+@import '../../styles/global.scss';
+
 .story-head {
     flex: 2;
     width: 100%;
 	height: 100%;
 	display: flex;
-	flex-direction: column;
+    flex-direction: column;
+    margin-top: 7em;
+    
 	h1 {
-		text-align: center;
+        text-align: center;
+        margin-bottom: 1em;
     }
 
     @media only screen and (max-width: 960px) {
@@ -29,14 +34,14 @@
 }
 .story-head-image {
     display: block;
-    // width: 50%;
-    max-width: 15em;
-	height: auto;
     border-radius: inherit;
     margin: 0 auto;
 }
 .head-spacer {
     flex: 0.2;
+}
+.head-spacer-sm {
+    flex: 0.1;
 }
 .head-info {
     flex: 1;
@@ -44,6 +49,10 @@
 	flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    p { 
+        text-align: left;
+        margin-top: 0.25em;
+    }
 }
 .info-column {
     display: flex;
@@ -54,6 +63,7 @@
 .info-row {
     display: flex;
     width: 100%;
+    border-radius: 4px;
 }
 .info-metric {
     flex: 1;
@@ -71,8 +81,16 @@
     flex-direction: column;
     align-items: flex-start;
     
-    p, h4, h2 {
-        margin: 0;
+    p, h3, h2 {
         text-align: left;
     }
+    p {
+        margin-top: 0.5em;
+    }
+}
+.raised {
+    color: $main-accent-color;
+}
+.goal {
+    color: $sub-color;
 }

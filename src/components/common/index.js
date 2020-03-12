@@ -4,3 +4,4 @@ export * from './form';
 export * from './errorMessage';
 export * from './storyComments';
 export * from './formSection';
+export * from './buttonLink';

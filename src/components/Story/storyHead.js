@@ -2,6 +2,8 @@ import React from 'react';
 import Img from 'gatsby-image';
 
 import ButtonDonate from '../common/Button/buttonDonate';
+import Button from '../common/button';
+import { ButtonLink } from '../common';
 import ProgressBar from '../ProgressBar/progressBar';
 
 import './story.scss';
@@ -19,6 +21,7 @@ const StoryHead = ({
   <div className="story-head">
     <h1>Meet {firstName}</h1>
     <div className="story-head-content">
+      <div className="head-spacer-sm" />
       <div className="head-image-container">
         <Img fixed={imageUrl} className="story-head-image" />
       </div>
@@ -27,8 +30,8 @@ const StoryHead = ({
         <div className="info-column">
           <ProgressBar percentage={(raised / goal) * 100} />
           <div className="progress-bar-metrics">
-            <p>${raised}</p>
-            <p>raised of ${goal} goal</p>
+            <p className="raised">${raised}</p>
+            <p className="goal">raised of ${goal} goal</p>
           </div>
         </div>
         <div className="info-row">
@@ -52,7 +55,9 @@ const StoryHead = ({
         </div>
         {status === 'Unhoused' ? (
           <div className="info-row">
-            <ButtonDonate label="Donate" destination="/" />
+            <ButtonLink block to="/">
+              Donate
+            </ButtonLink>
           </div>
         ) : null}
       </div>
