@@ -19,6 +19,15 @@ html, body {
     margin: 0;
     padding: 0;
 }
+h1 {
+    font-size: 2.5em;
+}
+h2 {
+    font-size: 2em;
+}
+h3 {
+    font-size: 1.5em;
+}
 h1, h2, h3, h4, h5, h6, p {
     margin: 0;
     text-align: center;
@@ -49,6 +58,43 @@ a {
 .page-link:active {
 	color: $secondary-accent-color;
 }
+.page-body {
+    // margin-top: 3.5em;
+    display: grid;
+	grid-gap: 18em;
+    justify-items: center;
+}
+.page-content {
+    max-width: 1140px;
+    display: grid;
+    grid-gap: 10em;
+    margin: 0 auto;
+}
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    h2, p {
+        text-align: center;
+        margin-bottom: 1em;
+    }
+}
+.content-container-three {
+    display: grid;
+    grid-gap: 5em;
+
+    @media only screen and (min-width: 800px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+.content-card {
+    display: grid;
+    grid-gap: .5em;
+    h3, p {
+        text-align: left;
+    }
+}
 // global styling ends
 
 // blog styling begins
@@ -66,26 +112,9 @@ a {
 // blog styling ends
 
 // home page styling begins
-.page-body {
-    margin-top: 3.5em;
-    display: grid;
-	grid-gap: 18em;
-    justify-items: center;
-}
 .hero-backdrop {
     height: 100vh;
 	width: 100%;
-}
-.mission-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-
-    h2, p {
-        text-align: center;
-        margin-bottom: 1em;
-    }
 }
 .clients-featured-container {
     max-width: 1120px;
@@ -130,7 +159,7 @@ a {
     width: 100%;
     max-width: 60%;
     display: grid;
-    grid-gap: 5em;
+    grid-gap: 1em;
     justify-items: center;
     padding-top: 8em;
     margin: 0 auto;
@@ -324,4 +353,10 @@ input:checked + .slider-help:before {
   transform: translateX(26px);
 }
 // add client, add donor page styling ends
+
+// error page styling
+.error-body {
+    margin-top: 5em;
+}
+// error page styling
 

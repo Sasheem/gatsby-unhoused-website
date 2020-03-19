@@ -42,7 +42,7 @@ const Metrics = styled.div`
   }
 `;
 
-const Hero = ({ title, subtitle, label }) => (
+const Hero = ({ title, subtitle, label, destination }) => (
   <StaticQuery
     query={graphql`
       query {
@@ -76,7 +76,7 @@ const Hero = ({ title, subtitle, label }) => (
           <Content>
             <h1>{title}</h1>
             <p>{subtitle}</p>
-            <Button label={label} destination="/story/Sheena-Salmon" />
+            <Button label={label} destination={destination} />
           </Content>
           <Metrics>
             <CardMetric name="Partners" value="12" />
