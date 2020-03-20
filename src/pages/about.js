@@ -3,7 +3,7 @@ import React from 'react';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
 import Team from '../components/About/team';
-import Partners from '../components/About/partners';
+// import Partners from '../components/About/partners';
 import Board from '../components/About/board';
 
 import '../styles/global.scss';
