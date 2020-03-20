@@ -95,6 +95,28 @@ a {
         text-align: left;
     }
 }
+.about-container {
+    width: 100%;
+    display: grid;
+    grid-gap: 2em;
+}
+.about-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media only screen and (min-width: 800px) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+.about-card-fill {
+  height: 10em;
+  width: 10em;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: lightskyblue;
+}
 // global styling ends
 
 // blog styling begins

@@ -4,6 +4,7 @@ import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
 import Team from '../components/About/team';
 import Partners from '../components/About/partners';
+import Board from '../components/About/board';
 
 import '../styles/global.scss';
 
@@ -67,6 +68,9 @@ const AboutPage = () => (
           luctus. Aliquam pharetra consequat quam. Nulla tellus nisi, fringilla
           sit amet erat eget, sollicitudin iaculis diam.scelerisque.
         </p>
+      </div>
+      <div className="content-container">
+        <Board title="Our Board" />
       </div>
       <div className="content-container">
         {/* <Partners title="Partners and Sponsors" /> */}
