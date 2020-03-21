@@ -1,0 +1,32 @@
+@import '../../styles/global.scss';
+
+.dashboard-row {
+    display: grid;
+    grid-gap: 5em;
+    width: 50vw;
+
+    @media only screen and (min-width: 800px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+.dashboard-donations {
+    display: grid;
+    grid-gap: 1em;
+    width: 60vw;
+    h3, h4, p {
+        text-align: left;
+    }
+    
+}
+.dashboard-donations-content {
+    display: grid;
+    grid-gap: 0.5em;
+}
+.dashboard-donation-row {
+    display: grid;
+    grid-gap: 0.5em;
+
+    @media only screen and (min-width: 800px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}

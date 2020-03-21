@@ -3,6 +3,9 @@ import { Link, navigate } from 'gatsby';
 
 import SEO from '../components/seo';
 import { FirebaseContext } from '../components/Firebase';
+import MetricsDashboard from '../components/Dashboard/metrics';
+import UserHeader from '../components/Header/userHeader';
+import DonationsDashboard from '../components/Dashboard/donations';
 
 import '../styles/global.scss';
 
@@ -11,10 +14,12 @@ const Dashboard = ({ location }) => {
   console.dir(user);
 
   return (
-    <div className="page-body">
+    <div className="page-body-dashboard">
       <SEO title="User dashboard" />
-      <h1>Hello from user dashboard</h1>
-      <p>Welcome to page 2</p>
+      <h1>Dashboard</h1>
+      <MetricsDashboard />
+      <UserHeader />
+      <DonationsDashboard />
       <Link to="/">Go back to the homepage</Link>
     </div>
   );

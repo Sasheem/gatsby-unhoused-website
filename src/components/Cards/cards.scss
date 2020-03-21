@@ -26,6 +26,37 @@
 }
 // card metric home page ends
 
+// card dashboard begins
+.card-dashboard-metric {
+	min-width: 10em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	
+	h3 {
+		font-size: 1em;
+		text-align: left;
+	}
+	p {
+		text-align: left;
+		font-size: 2em;
+		font-weight: 500;
+	}
+}
+.card-donation-metric {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	h4 {
+		color: $sub-color-monochromatic;
+	}
+	
+	
+}
+// card dashboard ends
+
 // card client featured begins
 .card-featured-container {
 	display: flex;

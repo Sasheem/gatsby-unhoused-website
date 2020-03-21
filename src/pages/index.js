@@ -52,8 +52,9 @@ const IndexPage = props => {
         title="IT STARTS WITH YOU"
         subtitle="Join the fight against homelessness today"
         label="Meet client"
+        destination="/story/Sheena-Salmon"
       />
-      <div className="mission-container">
+      <div className="content-container">
         <h2>Our Mission</h2>
         <p>
           To provide a fresh start to people experiencing homelessness while
@@ -75,27 +76,6 @@ const IndexPage = props => {
                 imageUrl={client.imageUrl}
               />
             ))}
-          {/* {props.data.allClient.edges.map(client => (
-            <CardClientFeatured
-              key={client.node.id}
-              firstName={client.node.firstName}
-              lastName={client.node.lastName}
-              situation={`${client.node.situation.slice(0, 90)}...`}
-              raised={client.node.raised}
-              goal={client.node.goal}
-              imageUrl={client.node.localImage.childImageSharp.fixed}
-            />
-            client.node.status === 'Unhoused' ? (
-              <CardClientFeatured
-                key={client.node.id}
-                name={client.node.firstName}
-                situation={`${client.node.situation.slice(0, 90)}...`}
-                raised={client.node.raised}
-                goal={client.node.goal}
-                imageUrl={client.node.localImage.publicURL}
-              />
-            ) : null
-          ))} */}
         </div>
       </div>
       <Process />
