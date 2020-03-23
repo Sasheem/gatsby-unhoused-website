@@ -5,6 +5,7 @@ import ButtonDonate from '../common/Button/buttonDonate';
 import Button from '../common/button';
 import { ButtonLink } from '../common';
 import ProgressBar from '../ProgressBar/progressBar';
+import StoryIcons from '../Story/storyIcons';
 
 import './story.scss';
 
@@ -21,11 +22,12 @@ const StoryHead = ({
   <div className="story-head">
     <h1>Meet {firstName}</h1>
     <div className="story-head-content">
-      <div className="head-spacer-sm" />
+      <div />
       <div className="head-image-container">
+        <div />
         <Img fixed={imageUrl} className="story-head-image" />
+        <div />
       </div>
-      <div className="head-spacer" />
       <div className="head-info">
         <div className="info-column">
           <ProgressBar percentage={(raised / goal) * 100} />
@@ -36,22 +38,22 @@ const StoryHead = ({
         </div>
         <div className="info-row">
           <div className="info-metric">
-            <p>Status</p>
+            <h4>Status</h4>
             <p>{status}</p>
           </div>
           <div className="info-metric">
-            <p>Family Size</p>
+            <h4>Family Size</h4>
             <p>{familySize}</p>
           </div>
           <div className="info-metric">
-            <p>{status === 'Housed' ? 'Date Housed' : 'Funding Began'}</p>
+            <h4>{status === 'Housed' ? 'Date Housed' : 'Funding Began'}</h4>
             <p>{status === 'Housed' ? dateHoused : dateFundingBegan}</p>
             {/* <PostDate date={date} /> */}
           </div>
         </div>
         <div className="info-column">
-          <p>Share their story</p>
-          <p>*place facebook, twitter, and email icons here*</p>
+          <h4>Share their story</h4>
+          <StoryIcons />
         </div>
         {status === 'Unhoused' ? (
           <div className="info-row">
@@ -61,6 +63,7 @@ const StoryHead = ({
           </div>
         ) : null}
       </div>
+      <div />
     </div>
   </div>
 );

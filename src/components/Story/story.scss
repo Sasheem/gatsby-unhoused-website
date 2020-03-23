@@ -20,17 +20,20 @@
 }
 .story-head-content {
     width: 100%;
-	display: flex;
-	flex-direction: column;
-
-	@media only screen and (min-width: 960px) {
-		flex-direction: row;
-		margin-top: 1em;
-	}
+    display: grid;
+    grid-gap: 0.5em;
+    
+    @media only screen and (min-width: 960px) {
+        grid-template-columns: 0.2fr 1fr 1fr 0.2fr;
+    }
 }
 .head-image-container {
     flex: 1;
-	border-radius: calc(0.25rem - 1px);    
+    border-radius: calc(0.25rem - 1px);
+    display: grid;
+    @media only screen and (max-width: 960px) {
+        grid-template-columns: 0.25fr 1fr 0.25fr;
+    }
 }
 .story-head-image {
     display: block;
@@ -49,8 +52,10 @@
 	flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    p { 
+    h4, p { 
         text-align: left;
+    }
+    p {
         margin-top: 0.25em;
     }
 }
@@ -59,11 +64,17 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
+    @media only screen and (max-width: 960px) {
+        margin-top: 1.5em;
+    }
 }
 .info-row {
     display: flex;
     width: 100%;
     border-radius: 4px;
+    @media only screen and (max-width: 960px) {
+        margin-top: 1.5em;
+    }
 }
 .info-metric {
     flex: 1;
@@ -93,4 +104,15 @@
 }
 .goal {
     color: $sub-color;
+}
+.story-social-icons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 0.25em;
+}
+.icon-container {
+    width: 2em;
+    height: 2em;
+    margin-right: 1.5em;
 }
