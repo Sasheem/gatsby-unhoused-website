@@ -37,7 +37,7 @@ const CrowdfundPage = props => {
       mockImage: file(relativePath: { eq: "mac-home-mockup.png" }) {
         base
         childImageSharp {
-          fluid(maxWidth: 300) {
+          fluid(maxWidth: 250) {
             ...GatsbyImageSharpFluid
           }
         }
