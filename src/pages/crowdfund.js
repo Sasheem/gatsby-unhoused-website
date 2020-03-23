@@ -5,7 +5,7 @@ import Img from 'gatsby-image';
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
-import CallToActions from '../components/Home/callToActions';
+import CallToActions from '../components/Crowdfund/callToActions';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
 
 import { Button } from '../components/common';
