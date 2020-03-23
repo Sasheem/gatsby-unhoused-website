@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
+import Img from 'gatsby-image';
 
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
@@ -7,7 +8,7 @@ import Hero from '../components/Home/hero';
 import CallToActions from '../components/Home/callToActions';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
 
-import { Form, Input, Button } from '../components/common';
+import { Button } from '../components/common';
 
 import '../styles/global.scss';
 
@@ -30,8 +31,19 @@ const CrowdfundPage = props => {
     message: '',
   });
   let isMounted = true;
-  console.log('graphql query to props:');
-  console.dir(props.data.allClient.edges);
+
+  const data = useStaticQuery(graphql`
+    query {
+      mockImage: file(relativePath: { eq: "mac-home-mockup.png" }) {
+        base
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `);
 
   useEffect(() => {
     return () => {
@@ -84,7 +96,6 @@ const CrowdfundPage = props => {
       />
       <div className="clients-featured-container">
         <h2>Featured Clients</h2>
-        <p>Read their story and help fund a clients housing</p>
         <div className="clients-featured-content">
           {!!clients &&
             clients.map(client => (
@@ -102,9 +113,11 @@ const CrowdfundPage = props => {
       </div>
       <div className="content-container-two">
         <div className="content-element-two">
-          <h3>Place mockup image here</h3>
+          <Img
+            fluid={data.mockImage.childImageSharp.fluid}
+            alt={data.mockImage.base.split('.')[0]}
+          />
         </div>
-        <div />
         <div className="form-layout-crowdfund">
           <div className="form-header-crowdfund">
             <h3>Do you know someone experiencing homelessness?</h3>
@@ -114,7 +127,7 @@ const CrowdfundPage = props => {
             </p>
           </div>
           <div className="form-container-crowdfund">
-            <form className="form-component">
+            <form className="form-component" onSubmit={handleSubmit}>
               <div className="form-input-row">
                 <label for="firstName">First name</label>
                 <input
@@ -122,6 +135,7 @@ const CrowdfundPage = props => {
                   onChange={handleInputChange}
                   value={formValues.firstName}
                   name="firstName"
+                  placeholder="Your first name"
                 />
               </div>
               <div className="form-input-row">
@@ -131,6 +145,7 @@ const CrowdfundPage = props => {
                   onChange={handleInputChange}
                   value={formValues.lastName}
                   name="lastName"
+                  placeholder="Your last name"
                 />
               </div>
               <div className="form-input-row">
@@ -140,7 +155,7 @@ const CrowdfundPage = props => {
                   onChange={handleInputChange}
                   value={formValues.email}
                   name="email"
-                  placeholder="example@email.com"
+                  placeholder="Your email address"
                 />
               </div>
               <div className="form-input-row">
@@ -158,7 +173,7 @@ const CrowdfundPage = props => {
                   onChange={handleInputChange}
                   value={formValues.message}
                   name="message"
-                  placeholder="Provide client details"
+                  placeholder="Provide details about the clients situation"
                 />
               </div>
               <div className="form-input-row">
@@ -184,36 +199,5 @@ const CrowdfundPage = props => {
     </div>
   );
 };
-
-export const query = graphql`
-  {
-    allClient {
-      edges {
-        node {
-          id
-          firstName
-          lastName
-          raised
-          goal
-          situation
-          familySize
-          status
-          imageUrl
-          localImage {
-            childImageSharp {
-              fixed(width: 331) {
-                ...GatsbyImageSharpFixed
-              }
-            }
-          }
-          dateHoused
-          dateFundingBegan
-          questions
-          answers
-        }
-      }
-    }
-  }
-`;
 
 export default CrowdfundPage;

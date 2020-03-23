@@ -88,19 +88,20 @@ a {
 }
 .content-container-two {
     display: grid;
+    grid-gap: 5em;
     width: 80vw;
      h3, p {
         text-align: left;
     }
 
-    @media only screen and (min-width: 800px) {
-        grid-template-columns: 1fr 0.1fr 1fr;
+    @media only screen and (min-width: 960px) {
+        grid-template-columns: 1fr 1fr;
     } 
 }
 .content-element-two {
     display: flex;
     flex-direction: column;
-
+    justify-content: center;
     h3 {
         margin-bottom: 0.5em;
     }
@@ -213,7 +214,7 @@ a {
 }
 .form-layout-crowdfund {
     display: grid;
-    grid-gap: 1em;
+    grid-gap: 4em;
     justify-items: start;
     
 }
@@ -264,9 +265,6 @@ a {
         min-height: 4rem;
         resize: vertical;
         padding: 0.5em;
-    }
-    label {
-        font-size: 1.2em;
     }
 }
 .two-input-row {
