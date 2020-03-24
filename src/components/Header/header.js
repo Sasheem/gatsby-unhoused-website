@@ -5,10 +5,11 @@ import { FirebaseContext } from '../Firebase';
 
 import Button from '../common/Button/button';
 import Logo from './logo';
+import MenuToggleButton from '../Layout/menuToggleButton';
 
 import './header.scss';
 
-const Header = () => {
+const Header = ({ menuClickHandler }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
 
   function handleLogoutClick() {
@@ -92,7 +93,10 @@ const Header = () => {
             </div>
           )}
         </div>
-        <div className="spacer-sm" />
+        <div className="navbar-toggle-button">
+          <MenuToggleButton click={menuClickHandler} />
+        </div>
+        <div className="spacer-md" />
       </nav>
     </header>
   );

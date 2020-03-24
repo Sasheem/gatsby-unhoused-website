@@ -1,0 +1,80 @@
+.side-drawer {
+	padding-top: 5em;
+	height: 100%;
+	background-color: white;
+	box-shadow: 1px 0 7px rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 70%;
+	max-width: 400px;
+	z-index: 200;
+	transform: translateX(120%);
+	transition: transform 0.3s ease-out;
+}
+
+/* This makes sure you only style elements with both these class names */
+.side-drawer.open {
+	transform: translateX(0);
+}
+.side-drawer ul {
+	height: 15em;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0;
+}
+
+.side-drawer li {
+	margin: 0.5rem 0;
+}
+
+.side-drawer a {
+	color: black;
+	text-decoration: none;
+	font-size: 1.2rem;
+}
+
+.side-drawer a:hover,
+.side-drawer a:active {
+	color: #299ecc;
+}
+.action-menu {
+	background-color: black;
+
+	a {
+		color: white;
+	}
+}
+
+.toggle-button {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	height: 24px;
+	width: 30px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	box-sizing: border-box;
+}
+.toggle-button:focus {
+	outline: none;
+}
+.toggle-button-line {
+	width: 30px;
+	height: 2px;
+	background: black;
+}
+
+.backdrop {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 100;
+}

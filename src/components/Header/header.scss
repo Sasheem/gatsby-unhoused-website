@@ -14,16 +14,16 @@
 	align-items: center;
 	height: 100%;
 	width: 100%;
-
-	@media only screen and (max-width: 800px) {
-		padding: 0 1.5em 0 0;
-	}
 }
 .navbar-logo {
 	flex: 1;
     display: flex;
 	align-items: center;
 	width: 100%;
+
+	@media only screen and (min-width: 769px) {
+		margin-left: 0;
+	}
 	
 }
 .navbar-logo:hover {
@@ -45,6 +45,9 @@
 }
 .spacer-sm {
 	flex: 0.1;
+}
+.spacer-md {
+	flex: 0.5;
 }
 .navbar-content {
 	display: flex;
