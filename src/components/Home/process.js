@@ -1,66 +1,16 @@
 import React from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
-import styled from 'styled-components';
-import Img from 'gatsby-image';
 
 import '../../styles/global.scss';
-
-const ProcessSection = styled.section`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-const ProcessRow = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 5em 0;
-  h3,
-  p {
-    text-align: center;
-  }
-
-  @media only screen and (min-width: 800px) {
-    flex-direction: row;
-    text-align: left;
-    h3,
-    p {
-      text-align: left;
-    }
-
-    ${({ reverse }) =>
-      reverse &&
-      `
-        flex-direction: row-reverse;
-    `}
-  }
-`;
-const ProcessImage = styled.div`
-  flex: 1;
-  display: flex;
-  margin-bottom: 1em;
-`;
-const ProcessText = styled(ProcessImage)``;
-const Content = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  h3,
-  p {
-    margin-bottom: 1em;
-  }
-`;
-const Image = styled(Img)`
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-  object-fit: fill;
-`;
-const Fill = styled.div`
-  flex: 0.3;
-`;
+import {
+  AlternatingSection,
+  AlternatingRow,
+  AlternatingImage,
+  AlternatingText,
+  Content,
+  Image,
+  Fill,
+} from '../common/alternatingInfo';
 
 const Process = () => (
   <StaticQuery
@@ -89,17 +39,17 @@ const Process = () => (
       const dataProcessTwo = data.processTwo.childImageSharp.fixed;
       const dataProcessThree = data.processThree.childImageSharp.fixed;
       return (
-        <ProcessSection>
+        <AlternatingSection>
           <h2>The Unhoused Humanity Process</h2>
-          <ProcessRow reverse={false}>
-            <ProcessImage>
+          <AlternatingRow reverse={false}>
+            <AlternatingImage>
               <Fill />
               <Content>
                 <Image fixed={dataProcessOne} alt="Process One" />
               </Content>
               <Fill />
-            </ProcessImage>
-            <ProcessText>
+            </AlternatingImage>
+            <AlternatingText>
               <Fill />
               <Content>
                 <h3>Client seeks help</h3>
@@ -112,17 +62,17 @@ const Process = () => (
                 </Link>
               </Content>
               <Fill />
-            </ProcessText>
-          </ProcessRow>
-          <ProcessRow reverse={true}>
-            <ProcessImage>
+            </AlternatingText>
+          </AlternatingRow>
+          <AlternatingRow reverse={true}>
+            <AlternatingImage>
               <Fill />
               <Content>
                 <Image fixed={dataProcessTwo} alt="Process Two" />
               </Content>
               <Fill />
-            </ProcessImage>
-            <ProcessText>
+            </AlternatingImage>
+            <AlternatingText>
               <Fill />
               <Content>
                 <h3>Donor funds the client</h3>
@@ -135,17 +85,17 @@ const Process = () => (
                 </Link>
               </Content>
               <Fill />
-            </ProcessText>
-          </ProcessRow>
-          <ProcessRow reverse={false}>
-            <ProcessImage>
+            </AlternatingText>
+          </AlternatingRow>
+          <AlternatingRow reverse={false}>
+            <AlternatingImage>
               <Fill />
               <Content>
                 <Image fixed={dataProcessThree} alt="Process Three" />
               </Content>
               <Fill />
-            </ProcessImage>
-            <ProcessText>
+            </AlternatingImage>
+            <AlternatingText>
               <Fill />
               <Content>
                 <h3>Donor receives client updates</h3>
@@ -158,9 +108,9 @@ const Process = () => (
                 </Link>
               </Content>
               <Fill />
-            </ProcessText>
-          </ProcessRow>
-        </ProcessSection>
+            </AlternatingText>
+          </AlternatingRow>
+        </AlternatingSection>
       );
     }}
   />
