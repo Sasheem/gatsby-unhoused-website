@@ -19,7 +19,7 @@ const SideMenu = ({ show }) => {
           </Link>
         </li>
         <li>
-          <Link to="/contactHelp">
+          <Link to="/contact">
             <a>Contact</a>
           </Link>
         </li>

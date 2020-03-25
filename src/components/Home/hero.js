@@ -40,6 +40,10 @@ const Metrics = styled.div`
     flex-direction: row;
     justify-content: space-around;
   }
+
+  @media only screen and (max-width: 800px) {
+    flex: 1.5;
+  }
 `;
 
 const Hero = ({ title, subtitle, label, destination }) => {
