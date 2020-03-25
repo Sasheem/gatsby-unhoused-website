@@ -126,7 +126,7 @@ const ContactDonate = () => {
             <div className="form-description-row">
               <p>
                 Need help making a donation?{' '}
-                <Link to="/">
+                <Link to="/contact">
                   <span className="form-description-link">Contact Us</span>
                 </Link>
               </p>

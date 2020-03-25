@@ -170,7 +170,7 @@ const ContactHelp = () => {
             <div className="form-description-row">
               <p>
                 Are you a case worker?{' '}
-                <Link to="/">
+                <Link to="/contact">
                   <span className="form-description-link">Contact Us</span>
                 </Link>
               </p>

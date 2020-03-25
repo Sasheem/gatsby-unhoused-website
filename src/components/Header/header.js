@@ -25,7 +25,7 @@ const Header = ({ menuClickHandler }) => {
           <div className="navbar-actions">
             <Button label="Donate" destination="/contactDonate" />
             <Button label="Volunteer" destination="/contactVolunteer" />
-            <Button label="Contact" destination="/contactHelp" />
+            <Button label="Contact" destination="/contact" />
           </div>
           <div className="navbar-items">
             <ul>
