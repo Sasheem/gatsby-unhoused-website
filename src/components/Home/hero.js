@@ -46,6 +46,21 @@ const Metrics = styled.div`
   }
 `;
 
+const StyledHero = styled(BackgroundImage)`
+  height: 50em;
+  width: 100vw;
+  background-color: transparent;
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media only scree and (max-width: 800px) {
+    height: 42em;
+  }
+`;
+
 const Hero = ({ title, subtitle, label, destination }) => {
   return (
     <StaticQuery
@@ -63,20 +78,19 @@ const Hero = ({ title, subtitle, label, destination }) => {
       render={data => {
         const bannerData = data.bannerImage.childImageSharp.fluid;
         return (
-          <BackgroundImage
-            className="hero-image"
+          <StyledHero
             Tag="div"
             fluid={bannerData}
-            style={{
-              height: `50em`,
-              width: `100vw`,
-              backgroundColor: `transparent`,
-              backgroundSize: `cover`,
-              backgroundPosition: `center center`,
-              display: `flex`,
-              flexDirection: `column`,
-              alignItems: `center`,
-            }}
+            // style={{
+            //   height: `50em`,
+            //   width: `100vw`,
+            //   backgroundColor: `transparent`,
+            //   backgroundSize: `cover`,
+            //   backgroundPosition: `center center`,
+            //   display: `flex`,
+            //   flexDirection: `column`,
+            //   alignItems: `center`,
+            // }}
           >
             <Fill />
             <Content>
@@ -89,18 +103,11 @@ const Hero = ({ title, subtitle, label, destination }) => {
               <CardMetric name="Clients Housed" value="196" />
               <CardMetric name="Still Housed" value="85%" />
             </Metrics>
-          </BackgroundImage>
+          </StyledHero>
         );
       }}
     />
   );
 };
 
-const StyledHero = styled(Hero)`
-  /* width: 100%;
-  background-position: bottom center;
-  background-repeat: repeat-y;
-  background-size: cover; */
-`;
-
-export default StyledHero;
+export default Hero;
