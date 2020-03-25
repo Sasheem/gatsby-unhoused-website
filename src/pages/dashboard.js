@@ -6,6 +6,7 @@ import { FirebaseContext } from '../components/Firebase';
 import MetricsDashboard from '../components/Dashboard/metrics';
 import UserHeader from '../components/Header/userHeader';
 import DonationsDashboard from '../components/Dashboard/donations';
+import CardUser from '../components/Cards/cardUser';
 
 import '../styles/global.scss';
 
@@ -16,11 +17,14 @@ const Dashboard = ({ location }) => {
   return (
     <div className="page-body-dashboard">
       <SEO title="User dashboard" />
-      <h1>Dashboard</h1>
-      <MetricsDashboard />
-      <UserHeader />
-      <DonationsDashboard />
-      <Link to="/">Go back to the homepage</Link>
+      <div className="dashboard-component">
+        <div className="dashboard-head">
+          <CardUser />
+        </div>
+        <div className="dashboard-body">
+          <p>Dashboard Menu</p>
+        </div>
+      </div>
     </div>
   );
 };

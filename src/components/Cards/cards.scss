@@ -258,3 +258,32 @@
     height: 2.5em;
 }
 // team member styling ends
+
+// user card styling begins
+.card-component {
+	display: grid;
+	grid-gap: 0.5em;
+	justify-items: start;
+	width: 75%;
+	// background-color: lightsalmon;
+	h1, h2, p {
+		text-align: left;
+	}
+}
+.card-head {
+	display: grid;
+	grid-gap: 1em;
+	width: 100%;
+
+	h2 {
+		color: $sub-color;
+	}
+
+	@media only screen and (max-width: 768px) {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+.divider {
+	width: 50%;
+}
+// user card styling ends

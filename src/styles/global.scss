@@ -64,7 +64,7 @@ a {
     justify-items: center;
 }
 .page-body-dashboard {
-    padding-top: 10em;
+    padding: 10em 2em 0 2em;
     display: grid;
     grid-gap: 2em;
     justify-items: center;
@@ -143,6 +143,31 @@ a {
   background-color: lightskyblue;
 }
 // global styling ends
+
+// user dashboard styling begins
+.dashboard-component {
+    display: grid;
+    grid-gap: 4em;
+    width: 100%;
+    height: 100vh;
+    @media only screen and (min-width: 768px) {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+.dashboard-head {
+    width: 100%;
+    height: 100%;
+    // background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dashboard-body {
+    width: 100%;
+    height: 100%;
+    background-color: lightpink;
+}
+// user dashboard styling ends
 
 // blog styling begins
 .blog-container {
