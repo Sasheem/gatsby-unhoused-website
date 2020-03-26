@@ -264,10 +264,12 @@
 	display: grid;
 	grid-gap: 0.5em;
 	justify-items: start;
-	width: 75%;
-	// background-color: lightsalmon;
 	h1, h2, p {
 		text-align: left;
+	}
+
+	@media only screen and (min-width: 768px) {
+		width: 60%;
 	}
 }
 .card-head {

@@ -7,8 +7,10 @@ import MetricsDashboard from '../components/Dashboard/metrics';
 import UserHeader from '../components/Header/userHeader';
 import DonationsDashboard from '../components/Dashboard/donations';
 import CardUser from '../components/Cards/cardUser';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import '../styles/global.scss';
+import 'react-tabs/style/react-tabs.css';
 
 const Dashboard = ({ location }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
@@ -22,7 +24,40 @@ const Dashboard = ({ location }) => {
           <CardUser />
         </div>
         <div className="dashboard-body">
-          <p>Dashboard Menu</p>
+          <Tabs>
+            <TabList>
+              <Tab>Overview</Tab>
+              <Tab>Metrics</Tab>
+              <Tab>Donations</Tab>
+              <Tab>Clients</Tab>
+              <Tab>Account</Tab>
+              <Tab>Payment Information</Tab>
+            </TabList>
+
+            <TabPanel>
+              <h2>Overview Content</h2>
+            </TabPanel>
+            <TabPanel>
+              <h2>Metrics content</h2>
+              <MetricsDashboard />
+            </TabPanel>
+            <TabPanel>
+              <h2>Donations Content</h2>
+              <DonationsDashboard />
+            </TabPanel>
+            <TabPanel>
+              <h2>Clients Content</h2>
+            </TabPanel>
+            <TabPanel>
+              <h2>Account Content</h2>
+              <p>Implement form to adjust bio</p>
+              <p>Implement form to update password</p>
+            </TabPanel>
+            <TabPanel>
+              <h2>Payment Information Content</h2>
+              <p>Implement form to adjust payment on file.. maybe</p>
+            </TabPanel>
+          </Tabs>
         </div>
       </div>
     </div>
