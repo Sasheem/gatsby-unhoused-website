@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, navigate } from 'gatsby';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import SEO from '../components/seo';
 import { FirebaseContext } from '../components/Firebase';
@@ -7,7 +8,7 @@ import MetricsDashboard from '../components/Dashboard/metrics';
 import UserHeader from '../components/Header/userHeader';
 import DonationsDashboard from '../components/Dashboard/donations';
 import CardUser from '../components/Cards/cardUser';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import BioForm from '../components/Dashboard/bioForm';
 
 import '../styles/global.scss';
 import 'react-tabs/style/react-tabs.css';
@@ -49,8 +50,7 @@ const Dashboard = ({ location }) => {
               <h2>Clients Content</h2>
             </TabPanel>
             <TabPanel>
-              <h2>Account Content</h2>
-              <p>Implement form to adjust bio</p>
+              <BioForm />
               <p>Implement form to update password</p>
             </TabPanel>
             <TabPanel>
