@@ -1,6 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
-
+import React, { useState } from 'react';
 import { Button } from '../common';
 
 import '../../styles/global.scss';
@@ -8,22 +6,10 @@ import '../../styles/global.scss';
 /**
  * todo revisit alg that adds a dash for birthday input
  * todo add a delete account checkbox
+ * todo add input file for profile photo upload
  */
 
 const BioForm = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allSite {
-        edges {
-          node {
-            siteMetadata {
-              states
-            }
-          }
-        }
-      }
-    }
-  `);
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
@@ -96,6 +82,15 @@ const BioForm = () => {
     <div className="form-layout-settings">
       <form className="form-component" onSubmit={handleSubmit}>
         <h4>Your profile info</h4>
+        <div className="form-input-row-file">
+          <div className="form-input-row">
+            <div className="profile-pic-filler" />
+          </div>
+          <div class="form-input-row">
+            <label for="file-profile-picture">Add profile picture</label>
+            <input type="file" name="file-profile-picture" />
+          </div>
+        </div>
         <div className="two-input-row">
           <div className="form-input-row">
             <label for="firstName">First Name</label>
