@@ -4,10 +4,22 @@ import CardStory from '../Cards/cardStory';
 
 import './blog.scss';
 
-const BlogGrid = props => {
+/**
+ *
+ * @param {clients array} param0
+ * @param {loading boolean} param1
+ *
+ * todo add a loading component
+ */
+
+const BlogGrid = ({ clients, loading }) => {
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
   return (
     <div className="blog-grid">
-      {props.clients.map(client => (
+      {clients.map(client => (
         <CardStory
           key={client.id}
           status={client.status}
