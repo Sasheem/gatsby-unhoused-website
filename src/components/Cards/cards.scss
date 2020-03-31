@@ -288,4 +288,16 @@
 .divider {
 	width: 50%;
 }
+.card-row {
+	display: grid;
+	grid-template-columns: 0.25fr 1.5fr;
+	grid-gap: 0.5em;
+	p {
+		text-align: left;
+	}
+}
+.card-user-icon {
+	height: 1em;
+	width: 1em;
+}
 // user card styling ends
