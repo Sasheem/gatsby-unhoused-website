@@ -132,7 +132,8 @@
 }
 .card-call-to-action-content-container {
     display: flex;
-    flex-direction: row;
+	flex-direction: row;
+	flex: 1;
 }
 .card-spacer {
     flex: 0.1;
@@ -176,6 +177,7 @@
 }
 .card-header {
 	border-radius: calc(0.25rem - 1px);
+	flex: 1;
 }
 .card-image {
 	display: block;

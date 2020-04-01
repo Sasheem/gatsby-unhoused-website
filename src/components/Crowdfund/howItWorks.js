@@ -17,8 +17,8 @@ const HowItWorks = () => {
     fragment processHowImage on File {
       base
       childImageSharp {
-        fixed(width: 400) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 400) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
@@ -55,7 +55,7 @@ const HowItWorks = () => {
           <Fill />
           <Content>
             <Image
-              fixed={processHowOne.childImageSharp.fixed}
+              fluid={processHowOne.childImageSharp.fluid}
               alt={processHowOne.base.split('.')[0]}
             />
           </Content>
@@ -78,7 +78,7 @@ const HowItWorks = () => {
           <Fill />
           <Content>
             <Image
-              fixed={processHowTwo.childImageSharp.fixed}
+              fluid={processHowTwo.childImageSharp.fluid}
               alt={processHowTwo.base.split('.')[0]}
             />
           </Content>
@@ -104,7 +104,7 @@ const HowItWorks = () => {
           <Fill />
           <Content>
             <Image
-              fixed={processHowThree.childImageSharp.fixed}
+              fluid={processHowThree.childImageSharp.fluid}
               alt={processHowThree.base.split('.')[0]}
             />
           </Content>
@@ -127,7 +127,7 @@ const HowItWorks = () => {
           <Fill />
           <Content>
             <Image
-              fixed={processHowFour.childImageSharp.fixed}
+              fluid={processHowFour.childImageSharp.fluid}
               alt={processHowFour.base.split('.')[0]}
             />
           </Content>
@@ -150,7 +150,7 @@ const HowItWorks = () => {
           <Fill />
           <Content>
             <Image
-              fixed={processHowFive.childImageSharp.fixed}
+              fluid={processHowFive.childImageSharp.fluid}
               alt={processHowFive.base.split('.')[0]}
             />
           </Content>

@@ -31,8 +31,8 @@ const CallToActions = () => (
     query={graphql`
       fragment processCallImage on File {
         childImageSharp {
-          fixed(width: 325) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 325) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -49,9 +49,9 @@ const CallToActions = () => (
       }
     `}
     render={data => {
-      const dataCallOne = data.callToActionOne.childImageSharp.fixed;
-      const dataCallTwo = data.callToActionTwo.childImageSharp.fixed;
-      const dataCallThree = data.callToActionThree.childImageSharp.fixed;
+      const dataCallOne = data.callToActionOne.childImageSharp.fluid;
+      const dataCallTwo = data.callToActionTwo.childImageSharp.fluid;
+      const dataCallThree = data.callToActionThree.childImageSharp.fluid;
       return (
         <ActionsDiv>
           <h2>Get Involved</h2>
@@ -62,14 +62,14 @@ const CallToActions = () => (
 				Pellentesque quam orci, vestibulum nec odio in, blandit volutpat enim."
               link="Sign Up"
               destination="/register"
-              fixed={dataCallOne}
+              fluid={dataCallOne}
             />
             <CardCallToAction
               title="Success stories"
               text="In ac iaculis metus. Aenean ut aliquam ex. Maecenas viverra magna metus, porttitor sollicitudin dolor ultrices non."
               link="Read a story"
               destination="/stories"
-              fixed={dataCallTwo}
+              fluid={dataCallTwo}
             />
             <CardCallToAction
               title="Opportunities"
@@ -77,7 +77,7 @@ const CallToActions = () => (
 				Nulla non eros diam. Fusce rutrum ligula justo, eu mattis justo hendrerit at."
               link="Join team"
               destination="/"
-              fixed={dataCallThree}
+              fluid={dataCallThree}
             />
           </ActionsContent>
         </ActionsDiv>

@@ -4,12 +4,12 @@ import Img from 'gatsby-image';
 
 import './cards.scss';
 
-const CardCallToAction = ({ title, text, link, destination, fixed }) => (
+const CardCallToAction = ({ title, text, link, destination, fluid }) => (
   <div className="card-call-to-action">
     <div className="card-header">
       <Img
         className="card-image"
-        fixed={fixed}
+        fluid={fluid}
         alt={`${title} blog post image`}
       />
     </div>

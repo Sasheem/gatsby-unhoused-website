@@ -17,8 +17,8 @@ const Process = () => (
     query={graphql`
       fragment processImage on File {
         childImageSharp {
-          fixed(width: 400) {
-            ...GatsbyImageSharpFixed
+          fluid(maxWidth: 400) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -35,9 +35,9 @@ const Process = () => (
       }
     `}
     render={data => {
-      const dataProcessOne = data.processOne.childImageSharp.fixed;
-      const dataProcessTwo = data.processTwo.childImageSharp.fixed;
-      const dataProcessThree = data.processThree.childImageSharp.fixed;
+      const dataProcessOne = data.processOne.childImageSharp.fluid;
+      const dataProcessTwo = data.processTwo.childImageSharp.fluid;
+      const dataProcessThree = data.processThree.childImageSharp.fluid;
       return (
         <AlternatingSection>
           <h2>The Unhoused Humanity Process</h2>
@@ -45,7 +45,7 @@ const Process = () => (
             <AlternatingImage>
               <Fill />
               <Content>
-                <Image fixed={dataProcessOne} alt="Process One" />
+                <Image fluid={dataProcessOne} alt="Process One" />
               </Content>
               <Fill />
             </AlternatingImage>
@@ -68,7 +68,7 @@ const Process = () => (
             <AlternatingImage>
               <Fill />
               <Content>
-                <Image fixed={dataProcessTwo} alt="Process Two" />
+                <Image fluid={dataProcessTwo} alt="Process Two" />
               </Content>
               <Fill />
             </AlternatingImage>
@@ -91,7 +91,7 @@ const Process = () => (
             <AlternatingImage>
               <Fill />
               <Content>
-                <Image fixed={dataProcessThree} alt="Process Three" />
+                <Image fluid={dataProcessThree} alt="Process Three" />
               </Content>
               <Fill />
             </AlternatingImage>
