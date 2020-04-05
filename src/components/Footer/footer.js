@@ -69,27 +69,22 @@ const Footer = () => (
                 <h3>Get Involved</h3>
                 <ul>
                   <li>
-                    <Link to="/">
+                    <Link to="/contactHelp">
                       <a>Request Help</a>
                     </Link>
                   </li>
                   <li>
-                    <Link to="/">
+                    <Link to="/contactVolunteer">
                       <a>Volunteer</a>
                     </Link>
                   </li>
                   <li>
-                    <Link to="/">
-                      <a>One-Time Donation</a>
+                    <Link to="/contactDonate">
+                      <a>Donation</a>
                     </Link>
                   </li>
                   <li>
-                    <Link to="/">
-                      <a>Recurring Donation</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/">
+                    <Link to="/contactGeneral">
                       <a>Contact</a>
                     </Link>
                   </li>
