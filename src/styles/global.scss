@@ -149,7 +149,7 @@ a {
 }
 // global styling ends
 
-// user dashboard styling begins
+// [START dashboard]
 .dashboard-component {
     display: grid;
     grid-gap: 4em;
@@ -177,7 +177,12 @@ a {
   overflow: hidden;
   background-color: lightskyblue;
 }
-// user dashboard styling ends
+.tab-content-container {
+    display: grid;
+    height: 20em;
+    width: 50%;
+}
+// [END dashboard]
 
 // blog styling begins
 .blog-container {
@@ -261,6 +266,13 @@ a {
     padding-top: 8em;
     margin: 0 auto;
 }
+.form-layout-admin {
+    width: 100%;
+    max-width: 60%;
+    display: grid;
+    grid-gap: 1.5em;
+    margin: 10em auto;
+}
 .form-layout-settings {
     width: 100%;
     display: flex;
@@ -302,7 +314,7 @@ a {
 .form-component {
     display: grid;
     grid-gap: 1.5em;
-    h3 {
+    h3, h5 {
         margin: 0;
         text-align: left;
         color: $sub-color;
@@ -347,6 +359,15 @@ a {
 
     @media only screen and (min-width: 800px) {
         grid-template-columns: 1.5fr 0.25fr 0.25fr;
+    }
+}
+.three-even-input-row {
+    width: 100%;
+    display: grid;
+    grid-gap: 1em;
+
+    @media only screen and (min-width: 800px) {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }
 .form-hr-row {
