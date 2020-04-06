@@ -268,7 +268,7 @@ a {
 }
 .form-layout-admin {
     width: 100%;
-    max-width: 60%;
+    max-width: 70%;
     display: grid;
     grid-gap: 1.5em;
     margin: 10em auto;
@@ -324,7 +324,7 @@ a {
     width: 100%;
     display: grid;
     grid-gap: 0.5em;
-    align-items: center;
+    // align-items: center;
 
     textarea {
         min-height: 5rem;
