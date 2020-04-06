@@ -43,7 +43,7 @@ class Firebase {
   async getClients() {
     // we aren't making an https backend request for clients because
     // the rules set in firebase say we can read clients in the front end
-    return this.db.collection('clients').get();
+    return await this.db.collection('clients').get();
   }
 
   // get all clients from 'clientsFeatured' collection
@@ -54,14 +54,34 @@ class Firebase {
   }
 
   // add a client with cloud functions
-  async createClient({ firstName, lastName, situation, clientImage }) {
+  async createClient({
+    firstName,
+    lastName,
+    situation,
+    clientImage,
+    status,
+    goal,
+    raised,
+    familySize,
+    questions,
+    answers,
+    dateFundingBegan,
+    dateHoused,
+  }) {
     const createClientCallable = this.functions.httpsCallable('createClient');
-    console.log(`client name: ${firstName}`);
     return createClientCallable({
       firstName,
       lastName,
       situation,
       clientImage,
+      status,
+      goal,
+      raised,
+      familySize,
+      questions,
+      answers,
+      dateFundingBegan,
+      dateHoused,
     });
   }
 
