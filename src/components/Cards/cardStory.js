@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
-
+import moment from 'moment';
 import BlogDate from '../Blog/blogDate';
 
 import './cards.scss';
@@ -39,7 +39,7 @@ const CardStory = ({
               </div>
               <div className="footer-right">
                 <h5>{status === 'Housed' ? 'Housed on' : 'Funding began'}</h5>
-                <p className="goal">{date}</p>
+                <p className="goal">{moment(date).format('l')}</p>
               </div>
             </div>
           </div>
