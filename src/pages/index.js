@@ -27,23 +27,22 @@ const IndexPage = props => {
   // fetch clients to be featured
   useEffect(() => {
     if (firebase) {
-      firebase.getFeaturedClients().then(snapshot => {
+      firebase.getClients().then(snapshot => {
         if (isMounted) {
           const featuredClients = [];
           snapshot.forEach(doc => {
-            featuredClients.push({
-              id: doc.id,
-              ...doc.data(),
-            });
+            if (doc.data().status === 'Unhoused') {
+              featuredClients.push({
+                id: doc.id,
+                ...doc.data(),
+              });
+            }
           });
           setClients(featuredClients);
         }
       });
     }
   }, [firebase]);
-
-  console.log('clients from FirebaseContext now set to state using hooks');
-  console.dir(clients);
 
   return (
     <div className="page-body">

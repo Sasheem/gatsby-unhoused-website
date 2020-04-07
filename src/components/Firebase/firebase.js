@@ -39,6 +39,13 @@ class Firebase {
     });
   }
 
+  async getClient({ clientId }) {
+    return await this.db
+      .collection('clients')
+      .doc(clientId)
+      .get();
+  }
+
   // get all clients with cloud functions
   async getClients() {
     // we aren't making an https backend request for clients because

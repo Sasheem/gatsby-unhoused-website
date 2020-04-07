@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { graphql } from 'gatsby';
 
 import { FirebaseContext } from '../components/Firebase';
@@ -10,11 +10,19 @@ import { StoryComments } from '../components/common';
 import '../styles/global.scss';
 import './templates.scss';
 
+/**
+ * todo figure out this page reload issue
+ * * why is data from graphql old data and not new data?
+ */
+
 const StoryTemplate = props => {
   const { firebase = null } = useContext(FirebaseContext) || {};
+  const [client, setClient] = useState({});
+  const [isMounted, setIsMounted] = useState(true);
   console.log(`firebase storyTemplate:`);
   console.dir(firebase);
   console.dir(props.data);
+
   const {
     id,
     firstName,
@@ -31,19 +39,37 @@ const StoryTemplate = props => {
     dateFundingBegan,
   } = props.data.client;
 
+  useEffect(() => {
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (firebase) {
+      firebase.getClient({ clientId: id }).then(snapshot => {
+        console.log(`client from firebase`);
+        if (isMounted) {
+          console.dir(snapshot.data());
+          setClient(snapshot.data());
+        }
+      });
+    }
+  }, []);
+
   return (
     <div className="page-body">
-      <SEO title={`${firstName}'s Story`} />
+      <SEO title={`${client.firstName}'s Story`} />
       <div className="story-template">
         <StoryHead
-          firstName={firstName}
-          goal={goal}
-          raised={raised}
-          status={status}
-          familySize={familySize}
+          firstName={client.firstName}
+          goal={client.goal}
+          raised={client.raised}
+          status={client.status}
+          familySize={client.familySize}
           imageUrl={localImage.childImageSharp.fixed}
-          dateHoused={dateHoused}
-          dateFundingBegan={dateFundingBegan}
+          dateHoused={client.dateHoused}
+          dateFundingBegan={client.dateFundingBegan}
         />
         <StoryBody
           situation={situation}
