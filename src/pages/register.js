@@ -20,6 +20,8 @@ const Register = () => {
     password: '',
     confirmPassword: '',
     username: '',
+    firstName: '',
+    lastName: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
   let isMounted = true;
@@ -39,6 +41,7 @@ const Register = () => {
           username: formValues.username,
           email: formValues.email,
           password: formValues.password,
+          name: `${formValues.firstName} ${formValues.lastName}`,
         })
         .then(() => navigate('/dashboard'))
         .catch(error => {
@@ -73,6 +76,28 @@ const Register = () => {
         <div className="form-container">
           <div />
           <form onSubmit={handleSubmit} className="form-component">
+            <div className="two-input-row">
+              <div className="form-input-row">
+                <label for="firstName">First Name</label>
+                <input
+                  name="firstName"
+                  type="text"
+                  onChange={handleInputChange}
+                  value={formValues.firstName}
+                  required
+                />
+              </div>
+              <div className="form-input-row">
+                <label for="lastName">Last Name</label>
+                <input
+                  name="lastName"
+                  type="text"
+                  onChange={handleInputChange}
+                  value={formValues.lastName}
+                  required
+                />
+              </div>
+            </div>
             <div className="form-input-row">
               <label for="username">Username</label>
               <input

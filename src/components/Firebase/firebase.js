@@ -127,7 +127,7 @@ class Firebase {
 
   // creates a new user doc with id set to username
   // creates public profile using cloud functions in backend
-  async register({ username, email, password }) {
+  async register({ username, email, password, name }) {
     await this.auth.createUserWithEmailAndPassword(email, password);
     const createProfileCallable = this.functions.httpsCallable(
       'createPublicProfile'
@@ -135,6 +135,8 @@ class Firebase {
 
     return createProfileCallable({
       username,
+      email,
+      name,
     });
   }
 
