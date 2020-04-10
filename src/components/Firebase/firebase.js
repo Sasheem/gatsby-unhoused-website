@@ -17,6 +17,19 @@ class Firebase {
     }
   }
 
+  // [START write user settings]
+  writeUserSettings({ username, settings, profilePicture }) {
+    const writeUserSettingsCallable = this.functions.httpsCallable(
+      'writeToUserSettings'
+    );
+    return writeUserSettingsCallable({
+      username,
+      settings,
+      profilePicture,
+    });
+  }
+  // [END write user settings]
+
   // create donation with cloud functions
   async createDonationRecord({
     firstName,
@@ -123,6 +136,13 @@ class Firebase {
       .where('userId', '==', userId)
       .limit(1)
       .onSnapshot(onSnapshot);
+  }
+
+  async getUser({ userId }) {
+    return await this.db
+      .collection('publicProfiles')
+      .doc(userId)
+      .get();
   }
 
   // creates a new user doc with id set to username

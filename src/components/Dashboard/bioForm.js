@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { FirebaseContext } from '../../components/Firebase';
+import DatePicker from 'react-date-picker';
+import moment from 'moment';
 import { Button } from '../common';
-
 import '../../styles/global.scss';
 
 /**
- * todo revisit alg that adds a dash for birthday input
  * todo add a delete account checkbox
- * todo add input file for profile photo upload
+ * todo add current user settings as placeholder text
+ * todo change success message to green
+ * todo add a loading icon
+ * todo add current user image to replace blue circle
+ * todo erase file name upon submission
  */
 
+let fileReader;
+if (typeof window !== 'undefined') {
+  fileReader = new FileReader();
+}
+
 const BioForm = () => {
+  const { firebase = null, user } = useContext(FirebaseContext) || {};
+  const [userProfile, setUserProfile] = useState(null);
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
@@ -17,67 +29,122 @@ const BioForm = () => {
     bio: '',
     state: '',
     website: '',
-    birthday: '',
     workplace: '',
   });
-  const [isProfilePrivate, setIsProfilePrivate] = useState(false);
+  const [profilePrivate, setProfilePrivate] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [birthday, setBirthday] = useState(new Date());
+  const [userImage, setUserImage] = useState('');
+  const [birthdayChanged, setBirthdayChanged] = useState(false);
+  const [privacyChanged, setPrivacyChanged] = useState(false);
+  let isMounted = true;
 
+  useEffect(() => {
+    if (firebase && isMounted) {
+      firebase.getUser({ userId: user.username }).then(snapshot => {
+        setUserProfile(snapshot.data());
+      });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // add event listener to file reader only once
+  // when component mounts
+  useEffect(() => {
+    fileReader.addEventListener('load', () => {
+      setUserImage(fileReader.result);
+    });
+  }, []);
+
+  /**
+   * 1 check profile data vs form data
+   * 2 write data to firebase if
+   * * profile data != form data OR
+   * * profile data does not exist AND form data exists
+   */
   function handleSubmit(event) {
     event.preventDefault();
+    let temp = {};
+
+    if (userProfile !== null && firebase) {
+      // Map over all values provided by form
+      for (let [key, value] of Object.entries(formValues)) {
+        if (value.length !== 0) {
+          if (userProfile.hasOwnProperty(key)) {
+            if (userProfile[key] !== value) {
+              temp[key] = value;
+            }
+          } else {
+            temp[key] = value;
+          }
+        }
+      }
+
+      // only change the birthday if it was changed in the form
+      if (birthdayChanged === true) {
+        temp['birthday'] = moment(birthday).format('l');
+      }
+
+      // only change the privacy if it was changed in the form
+      if (privacyChanged === true) {
+        temp['profilePrivate'] = profilePrivate;
+      }
+
+      firebase
+        .writeUserSettings({
+          username: user.username,
+          settings: temp,
+          profilePicture: userImage ? userImage : '',
+        })
+        .then(() => {
+          if (isMounted) {
+            setFormValues({
+              firstName: '',
+              lastName: '',
+              email: '',
+              bio: '',
+              state: '',
+              website: '',
+              workplace: '',
+            });
+            setBirthday(new Date());
+            setUserImage('');
+            setSuccess(true);
+            setBirthdayChanged(false);
+            setPrivacyChanged(false);
+          }
+        })
+        .catch(error => {
+          setErrorMessage(error.message);
+        });
+    }
   }
 
   function handlePrivacySwitch() {
-    setIsProfilePrivate(!isProfilePrivate);
+    setSuccess(false);
+    setPrivacyChanged(true);
+    setProfilePrivate(!profilePrivate);
+  }
+
+  function handleDateChange(date) {
+    setSuccess(false);
+    setBirthdayChanged(true);
+    setBirthday(date);
   }
 
   function handleInputChange(event) {
     event.persist();
     setErrorMessage('');
+    setSuccess(false);
     setFormValues(currentValues => ({
       ...currentValues,
       [event.target.name]: event.target.value,
     }));
   }
-  // measure when birthday state reaches size 2 and 5 from 1 and 4 respectively
-  // to add a / to the value
-  // measure when the birthday state reaches 5 and 2 from 6 and 3 respectively
-  // to take away a / from the value
-  function handleBirthdayChange(event) {
-    event.persist();
-    setErrorMessage('');
 
-    setFormValues(currentValues => {
-      console.log(`currentValues`);
-      console.dir(currentValues);
-      console.log(`targetValue: ${event.target.value}`);
-
-      if (
-        currentValues.birthday.length === 1 &&
-        event.target.value.length >= 2 &&
-        !event.target.value.endsWith('/')
-      ) {
-        return {
-          ...currentValues,
-          [event.target.name]: `${event.target.value}/`,
-        };
-      } else if (
-        currentValues.birthday.length === 4 &&
-        event.target.value.length >= 3 &&
-        !event.target.value.endsWith('/')
-      ) {
-        return {
-          ...currentValues,
-          [event.target.name]: `${event.target.value}/`,
-        };
-      } else {
-        return {
-          ...currentValues,
-          [event.target.name]: event.target.value,
-        };
-      }
-    });
-  }
   return (
     <div className="form-layout-settings">
       <form className="form-component" onSubmit={handleSubmit}>
@@ -87,8 +154,15 @@ const BioForm = () => {
             <div className="profile-pic-filler" />
           </div>
           <div class="form-input-row">
-            <label for="file-profile-picture">Add profile picture</label>
-            <input type="file" name="file-profile-picture" />
+            <label for="profilePicture">Add profile picture</label>
+            <input
+              onChange={e => {
+                e.persist();
+                fileReader.readAsDataURL(e.target.files[0]);
+              }}
+              type="file"
+              name="profilePicture"
+            />
           </div>
         </div>
         <div className="two-input-row">
@@ -159,12 +233,10 @@ const BioForm = () => {
         </div> */}
         <div className="form-input-row">
           <label for="birthday">Birthday</label>
-          <input
-            type="text"
+          <DatePicker
             name="birthday"
-            onChange={handleBirthdayChange}
-            value={formValues.birthday}
-            placeholder="MM / DD / YYYY (Birthday)"
+            value={birthday}
+            onChange={handleDateChange}
           />
         </div>
         <div className="form-input-row">
@@ -186,7 +258,7 @@ const BioForm = () => {
               type="checkbox"
               name="switch-help"
               id="switch-help"
-              checked={isProfilePrivate}
+              checked={profilePrivate}
               onChange={handlePrivacySwitch}
             />
             <span className="slider-help" />
@@ -198,6 +270,10 @@ const BioForm = () => {
           </Button>
           <div />
         </div>
+        {!!success && <div className="success-message">Profile updated</div>}
+        {!!errorMessage && (
+          <div className="error-message">ERROR: {errorMessage}</div>
+        )}
       </form>
     </div>
   );
