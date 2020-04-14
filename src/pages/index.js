@@ -9,6 +9,8 @@ import Newsletter from '../components/Home/newsletter';
 import CallToActions from '../components/Home/callToActions';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
 
+import { FormSection } from '../components/common';
+
 import '../styles/global.scss';
 
 const IndexPage = props => {
@@ -45,42 +47,44 @@ const IndexPage = props => {
   }, [firebase]);
 
   return (
-    <div className="page-body">
+    <FormSection>
       <SEO title="Home" />
-      <Hero
-        title="IT STARTS WITH YOU"
-        subtitle="Join the fight against homelessness today"
-        label="Meet client"
-        destination="/story/Sheena-Salmon"
-      />
-      <div className="content-container">
-        <h2>Our Mission</h2>
-        <p>
-          To provide a fresh start to people experiencing homelessness while
-          chipping away the barrier separating them from society.
-        </p>
-      </div>
-      <div className="clients-featured-container">
-        <h2>Featured Clients</h2>
-        <div className="clients-featured-content">
-          {!!clients &&
-            clients.map(client => (
-              <CardClientFeatured
-                key={client.id}
-                firstName={client.firstName}
-                lastName={client.lastName}
-                situation={`${client.situation.slice(0, 90)}...`}
-                raised={client.raised}
-                goal={client.goal}
-                imageUrl={client.imageUrl}
-              />
-            ))}
+      <div className="page-body">
+        <Hero
+          title="IT STARTS WITH YOU"
+          subtitle="Join the fight against homelessness today"
+          label="Meet client"
+          destination="/story/Sheena-Salmon"
+        />
+        <div className="content-container">
+          <h2>Our Mission</h2>
+          <p>
+            To provide a fresh start to people experiencing homelessness while
+            chipping away the barrier separating them from society.
+          </p>
         </div>
+        <div className="clients-featured-container">
+          <h2>Featured Clients</h2>
+          <div className="clients-featured-content">
+            {!!clients &&
+              clients.map(client => (
+                <CardClientFeatured
+                  key={client.id}
+                  firstName={client.firstName}
+                  lastName={client.lastName}
+                  situation={`${client.situation.slice(0, 90)}...`}
+                  raised={client.raised}
+                  goal={client.goal}
+                  imageUrl={client.imageUrl}
+                />
+              ))}
+          </div>
+        </div>
+        <Process />
+        <Newsletter />
+        <CallToActions />
       </div>
-      <Process />
-      <Newsletter />
-      <CallToActions />
-    </div>
+    </FormSection>
   );
 };
 
