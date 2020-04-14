@@ -7,8 +7,6 @@
 // Backend
 import React from 'react';
 import Layout from './src/components/Layout';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 
 /**
  * @param {*element} - represents the children
@@ -19,12 +17,6 @@ import { loadStripe } from '@stripe/stripe-js';
  * * in browser with the server
  */
 
-const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
-
 export function wrapPageElement({ element, props }) {
-  return (
-    <Elements stripe={stripePromise}>
-      <Layout {...props}>{element}</Layout>
-    </Elements>
-  );
+  return <Layout {...props}>{element}</Layout>;
 }
