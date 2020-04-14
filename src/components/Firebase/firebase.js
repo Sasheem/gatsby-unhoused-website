@@ -17,6 +17,33 @@ class Firebase {
     }
   }
 
+  // [START create payment intent]
+  createPaymentIntent({ amount, email, name }) {
+    const createPaymentIntentCallable = this.functions.httpsCallable(
+      'createPaymentIntent'
+    );
+    return createPaymentIntentCallable({
+      amount,
+      email,
+      name,
+    });
+  }
+  // [END create payment intent]
+
+  // [START auth create payment intent]
+  createAuthPaymentIntent({ amount, email, name, username }) {
+    const createAuthPaymentIntentCallable = this.functions.httpsCallable(
+      'createAuthPaymentIntent'
+    );
+    return createAuthPaymentIntentCallable({
+      amount,
+      email,
+      name,
+      username,
+    });
+  }
+  // [END auth create payment intent]
+
   // [START write user settings]
   writeUserSettings({ username, settings, profilePicture }) {
     const writeUserSettingsCallable = this.functions.httpsCallable(

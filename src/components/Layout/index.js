@@ -10,6 +10,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { FirebaseContext, useAuth } from '../Firebase';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 import Header from '../Header/header';
 import SideMenu from './sideMenu';
@@ -19,7 +21,11 @@ import Footer from '../Footer/footer';
 /**
  * todo frontend: add close sideMenu & backdrop upon navigation from sideMenu link
  * todo frontend: fix the extra spacing to the right of website in mobile view
+ * todo frontend: store stripe key as env variable
+ * todo frotend: change api key from test to production
  */
+
+const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
 
 const LayoutContainer = styled.div`
   width: 100%;
@@ -61,7 +67,9 @@ const Layout = ({ children }) => {
         <Backdrop click={backdropClickHandler} />
       ) : null}
       <LayoutContainer>
-        <main>{children}</main>
+        <main>
+          <Elements stripe={stripePromise}>{children}</Elements>
+        </main>
         <Footer />
       </LayoutContainer>
     </FirebaseContext.Provider>

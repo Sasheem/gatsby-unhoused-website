@@ -399,11 +399,11 @@ a {
     display: grid;
     grid-template-columns: .5fr 1fr .5fr 1fr .5fr;
 }
-.two-input-row input, .form-input-row input, .form-input-row textarea {
+.two-input-row input, .form-input-row input, .form-input-row textarea, .form-input-row select {
     height: 2em;
     padding: .2em .5em;
     font-size: 1rem;
-    border: 1px solid hsla(0,0%,9%,.2);
+    border: 1px solid rgba(23, 23, 23, 0.2);
     border-radius: 3px;
 }
 .form-input-row textarea {
@@ -504,9 +504,13 @@ input:checked + .slider-help:before {
 }
 // add client, add donor page styling ends
 
-// error page styling
-.error-body {
-    margin-top: 5em;
+// [START general pages 404, successDonation ]
+.page-message {
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-// error page styling
-
+// [END general pages 404, successDonation ]
