@@ -25,8 +25,6 @@ import Footer from '../Footer/footer';
  * todo frotend: change api key from test to production
  */
 
-const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
-
 const LayoutContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -35,6 +33,7 @@ const LayoutContainer = styled.div`
 const Layout = ({ children }) => {
   const { user, firebase, loading } = useAuth();
   const [sideMenuIsOpen, setSideMenuIsOpen] = useState(false);
+  const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
 
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -54,6 +53,12 @@ const Layout = ({ children }) => {
 
   function backdropClickHandler() {
     setSideMenuIsOpen(false);
+  }
+
+  if (stripePromise) {
+    console.log('stripe promise loaded');
+  } else {
+    console.log('stripe promises NOT loaded');
   }
 
   return (

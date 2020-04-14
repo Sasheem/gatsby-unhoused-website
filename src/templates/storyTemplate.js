@@ -19,9 +19,6 @@ const StoryTemplate = props => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const [client, setClient] = useState({});
   const [isMounted, setIsMounted] = useState(true);
-  console.log(`firebase storyTemplate:`);
-  console.dir(firebase);
-  console.dir(props.data);
 
   const {
     id,
