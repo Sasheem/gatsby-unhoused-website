@@ -26,7 +26,7 @@ import Footer from '../Footer/footer';
  */
 let stripePromise;
 const loadStripePromise = async () => {
-  stripePromise = await loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
+  stripePromise = await loadStripe('pk_live_3jlLVbsY15nklulYJKZf0hNa');
 };
 loadStripePromise();
 
