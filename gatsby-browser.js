@@ -7,13 +7,20 @@
 // Backend
 import React from 'react';
 import Layout from './src/components/Layout';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 /**
  * @param {*element} - represents the children
  * @param {*props}
  * * wrapPageElement hook is specific to gatsby
  */
+const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
 
-export function wrapPageElement({ element, props }) {
-  return <Layout {...props}>{element}</Layout>;
-}
+export const wrapRootElement = ({ element, props }) => {
+  return (
+    <Layout {...props}>
+      <Elements stripe={stripePromise}>{element}</Elements>
+    </Layout>
+  );
+};

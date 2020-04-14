@@ -5,13 +5,11 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { FirebaseContext, useAuth } from '../Firebase';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 
 import Header from '../Header/header';
 import SideMenu from './sideMenu';
@@ -34,7 +32,7 @@ const LayoutContainer = styled.div`
   width: 100%;
   height: 100%;
 `;
-const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
+
 const Layout = ({ children }) => {
   const { user, firebase, loading } = useAuth();
   const [sideMenuIsOpen, setSideMenuIsOpen] = useState(false);
@@ -58,12 +56,6 @@ const Layout = ({ children }) => {
     setSideMenuIsOpen(false);
   }
 
-  if (stripePromise) {
-    console.log('stripe promise loaded');
-  } else {
-    console.log('stripe promises NOT loaded');
-  }
-
   return (
     <FirebaseContext.Provider value={{ user, firebase, loading }}>
       <Header
@@ -75,9 +67,7 @@ const Layout = ({ children }) => {
         <Backdrop click={backdropClickHandler} />
       ) : null}
       <LayoutContainer>
-        <Elements stripe={stripePromise}>
-          <main>{children}</main>
-        </Elements>
+        <main>{children}</main>
         <Footer />
       </LayoutContainer>
     </FirebaseContext.Provider>

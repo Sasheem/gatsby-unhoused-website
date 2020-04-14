@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import { Link, navigate } from 'gatsby';
 import styled from 'styled-components';
 
@@ -30,8 +28,6 @@ const CardElementContainer = styled.div`
     padding: 15px;
   }
 `;
-
-const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
 
 const ContactDonate = () => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
@@ -234,191 +230,182 @@ const ContactDonate = () => {
   };
 
   return (
-    <Elements stripe={stripePromise}>
-      <FormSection>
-        <SEO title="Unhoused Humanity donation form" />
-        <div className="form-layout">
-          <div className="form-header">
-            <h1>Donate to Unhoused Humanity</h1>
-            <p>Everyone deserves a roof over their head.</p>
-          </div>
-          <div className="form-container">
-            <div />
-            <form onSubmit={handleFormSubmit} className="form-component">
-              <h3>Client Information</h3>
-              <div className="form-input-row">
-                <label for="amount">Amount</label>
-                <select name="amount" id="donation-select" required>
-                  <option value="">--Choose donation amount--</option>
-                  <option value="10">$10</option>
-                  <option value="25">$25</option>
-                  <option value="50">$50</option>
-                  <option value="100">$100</option>
-                </select>
-              </div>
-              <div className="form-input-row">
-                <label for="client">Clients</label>
-                <select name="client" id="client-select" required>
-                  <option value="">--Choose a client to fund--</option>
-                  {!!clients &&
-                    clients.map(client => (
-                      <option key={client.id} value={client.firstName}>
-                        {client.firstName}
-                      </option>
-                    ))}
-                </select>
-              </div>
-              <div className="form-input-row">
-                <label for="message">Message to client</label>
-                <textarea id="message" name="message" />
-              </div>
-              <h3>Billing Information</h3>
-              <div className="form-input-row">
-                <label htmlFor="name">Name</label>
-                <input
-                  name="name"
-                  type="text"
-                  placeholder="Jane Doe"
-                  required
-                />
-              </div>
-              <div className="form-input-row">
-                <label htmlFor="email">Email</label>
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="jane.doe@example.com"
-                  required
-                />
-              </div>
-              <div className="form-input-row">
-                <label htmlFor="address">Address</label>
-                <input
-                  name="address"
-                  type="text"
-                  placeholder="185 Berry St. Suite 550"
-                  required
-                />
-              </div>
-              <div className="form-input-row">
-                <label htmlFor="city">City</label>
-                <input
-                  name="city"
-                  type="text"
-                  placeholder="San Francisco"
-                  required
-                />
-              </div>
-              <div className="form-input-row">
-                <label htmlFor="state">State</label>
-                <input
-                  name="state"
-                  type="text"
-                  placeholder="California"
-                  required
-                />
-              </div>
-              <div className="form-input-row">
-                <label htmlFor="zip">ZIP</label>
-                <input name="zip" type="text" placeholder="94103" required />
-              </div>
-              <div className="form-input-row">
-                <label for="switch-help">
-                  Create Unhoused Humanity Account
-                </label>
-                <label class="switch-help">
-                  <input
-                    type="checkbox"
-                    name="switch-help"
-                    id="switch-help"
-                    checked={registerDonor}
-                    onChange={handleRegisterDonorSwitch}
-                    disabled={user ? true : false}
-                  />
-                  <span className="slider-help" />
-                </label>
-              </div>
-              {registerDonor ? (
-                <div className="form-client-container">
-                  <div className="form-input-row">
-                    <label htmlFor="username">Username</label>
-                    <input
-                      type="text"
-                      name="username"
-                      required={registerDonor ? true : false}
-                    />
-                  </div>
-                  <div className="form-input-row">
-                    <label htmlFor="password">Password</label>
-                    <input
-                      type="password"
-                      name="password"
-                      required={registerDonor ? true : false}
-                      minLength={6}
-                    />
-                  </div>
-                  <div className="form-input-row">
-                    <label htmlFor="confirmPassword">Confirm Password</label>
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      required={registerDonor ? true : false}
-                      minLength={6}
-                    />
-                  </div>
-                </div>
-              ) : null}
-              <div className="form-input-row">
-                <label htmlFor="card-element">Credit Card</label>
-                <CardElementContainer>
-                  <CardElement
-                    options={cardElementOptions}
-                    onChange={handleCardDetailsChange}
-                    name="card-element"
-                  />
-                </CardElementContainer>
-              </div>
-              <div className="form-input-row">
-                <label htmlFor="saving-card">Save card for future use?</label>
-                <label class="switch-help">
-                  <input
-                    type="checkbox"
-                    name="saving-card"
-                    checked={isSavingCard}
-                    onChange={handleSavingCardSwitch}
-                  />
-                  <span className="slider-help" />
-                </label>
-              </div>
-              <div className="form-submit-row">
-                <div />
-                <Button
-                  type="submit"
-                  disabled={isProcessing || !stripe}
-                  block
-                  submit
-                >
-                  {isProcessing ? 'Processing...' : 'Donate'}
-                </Button>
-                <div />
-              </div>
-              {!!errorMessage && (
-                <div className="error-message">ERROR: {errorMessage}</div>
-              )}
-              <div className="form-description-row">
-                <p>
-                  Need help making a donation?{' '}
-                  <Link to="/contact">
-                    <span className="form-description-link">Contact Us</span>
-                  </Link>
-                </p>
-              </div>
-            </form>
-            <div />
-          </div>
+    <FormSection>
+      <SEO title="Unhoused Humanity donation form" />
+      <div className="form-layout">
+        <div className="form-header">
+          <h1>Donate to Unhoused Humanity</h1>
+          <p>Everyone deserves a roof over their head.</p>
         </div>
-      </FormSection>
-    </Elements>
+        <div className="form-container">
+          <div />
+          <form onSubmit={handleFormSubmit} className="form-component">
+            <h3>Client Information</h3>
+            <div className="form-input-row">
+              <label for="amount">Amount</label>
+              <select name="amount" id="donation-select" required>
+                <option value="">--Choose donation amount--</option>
+                <option value="10">$10</option>
+                <option value="25">$25</option>
+                <option value="50">$50</option>
+                <option value="100">$100</option>
+              </select>
+            </div>
+            <div className="form-input-row">
+              <label for="client">Clients</label>
+              <select name="client" id="client-select" required>
+                <option value="">--Choose a client to fund--</option>
+                {!!clients &&
+                  clients.map(client => (
+                    <option key={client.id} value={client.firstName}>
+                      {client.firstName}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div className="form-input-row">
+              <label for="message">Message to client</label>
+              <textarea id="message" name="message" />
+            </div>
+            <h3>Billing Information</h3>
+            <div className="form-input-row">
+              <label htmlFor="name">Name</label>
+              <input name="name" type="text" placeholder="Jane Doe" required />
+            </div>
+            <div className="form-input-row">
+              <label htmlFor="email">Email</label>
+              <input
+                name="email"
+                type="email"
+                placeholder="jane.doe@example.com"
+                required
+              />
+            </div>
+            <div className="form-input-row">
+              <label htmlFor="address">Address</label>
+              <input
+                name="address"
+                type="text"
+                placeholder="185 Berry St. Suite 550"
+                required
+              />
+            </div>
+            <div className="form-input-row">
+              <label htmlFor="city">City</label>
+              <input
+                name="city"
+                type="text"
+                placeholder="San Francisco"
+                required
+              />
+            </div>
+            <div className="form-input-row">
+              <label htmlFor="state">State</label>
+              <input
+                name="state"
+                type="text"
+                placeholder="California"
+                required
+              />
+            </div>
+            <div className="form-input-row">
+              <label htmlFor="zip">ZIP</label>
+              <input name="zip" type="text" placeholder="94103" required />
+            </div>
+            <div className="form-input-row">
+              <label for="switch-help">Create Unhoused Humanity Account</label>
+              <label class="switch-help">
+                <input
+                  type="checkbox"
+                  name="switch-help"
+                  id="switch-help"
+                  checked={registerDonor}
+                  onChange={handleRegisterDonorSwitch}
+                  disabled={user ? true : false}
+                />
+                <span className="slider-help" />
+              </label>
+            </div>
+            {registerDonor ? (
+              <div className="form-client-container">
+                <div className="form-input-row">
+                  <label htmlFor="username">Username</label>
+                  <input
+                    type="text"
+                    name="username"
+                    required={registerDonor ? true : false}
+                  />
+                </div>
+                <div className="form-input-row">
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    required={registerDonor ? true : false}
+                    minLength={6}
+                  />
+                </div>
+                <div className="form-input-row">
+                  <label htmlFor="confirmPassword">Confirm Password</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    required={registerDonor ? true : false}
+                    minLength={6}
+                  />
+                </div>
+              </div>
+            ) : null}
+            <div className="form-input-row">
+              <label htmlFor="card-element">Credit Card</label>
+              <CardElementContainer>
+                <CardElement
+                  options={cardElementOptions}
+                  onChange={handleCardDetailsChange}
+                  name="card-element"
+                />
+              </CardElementContainer>
+            </div>
+            <div className="form-input-row">
+              <label htmlFor="saving-card">Save card for future use?</label>
+              <label class="switch-help">
+                <input
+                  type="checkbox"
+                  name="saving-card"
+                  checked={isSavingCard}
+                  onChange={handleSavingCardSwitch}
+                />
+                <span className="slider-help" />
+              </label>
+            </div>
+            <div className="form-submit-row">
+              <div />
+              <Button
+                type="submit"
+                disabled={isProcessing || !stripe}
+                block
+                submit
+              >
+                {isProcessing ? 'Processing...' : 'Donate'}
+              </Button>
+              <div />
+            </div>
+            {!!errorMessage && (
+              <div className="error-message">ERROR: {errorMessage}</div>
+            )}
+            <div className="form-description-row">
+              <p>
+                Need help making a donation?{' '}
+                <Link to="/contact">
+                  <span className="form-description-link">Contact Us</span>
+                </Link>
+              </p>
+            </div>
+          </form>
+          <div />
+        </div>
+      </div>
+    </FormSection>
   );
 };
 
