@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { Link, navigate } from 'gatsby';
 import styled from 'styled-components';
 
