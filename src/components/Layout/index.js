@@ -58,20 +58,20 @@ const Layout = ({ children }) => {
 
   return (
     <FirebaseContext.Provider value={{ user, firebase, loading }}>
-      <Header
-        siteTitle={data.site.siteMetadata.title}
-        menuClickHandler={menuToggleClickHandler}
-      />
-      <SideMenu show={sideMenuIsOpen} />
-      {sideMenuIsOpen === true ? (
-        <Backdrop click={backdropClickHandler} />
-      ) : null}
-      <LayoutContainer>
-        <main>
-          <Elements stripe={stripePromise}>{children}</Elements>
-        </main>
-        <Footer />
-      </LayoutContainer>
+      <Elements stripe={stripePromise}>
+        <Header
+          siteTitle={data.site.siteMetadata.title}
+          menuClickHandler={menuToggleClickHandler}
+        />
+        <SideMenu show={sideMenuIsOpen} />
+        {sideMenuIsOpen === true ? (
+          <Backdrop click={backdropClickHandler} />
+        ) : null}
+        <LayoutContainer>
+          <main>{children}</main>
+          <Footer />
+        </LayoutContainer>
+      </Elements>
     </FirebaseContext.Provider>
   );
 };
