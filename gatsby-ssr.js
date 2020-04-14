@@ -21,7 +21,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
 
-export const wrapRootElement = ({ element, props }) => {
+export const wrapPageElement = ({ element, props }) => {
   return (
     <Elements stripe={stripePromise}>
       <Layout {...props}>{element}</Layout>
