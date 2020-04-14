@@ -24,8 +24,11 @@ import Footer from '../Footer/footer';
  * todo frontend: store stripe key as env variable
  * todo frotend: change api key from test to production
  */
-
-const stripePromise = await loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
+let stripePromise;
+const loadStripePromise = async () => {
+  stripePromise = await loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
+};
+loadStripePromise();
 
 const LayoutContainer = styled.div`
   width: 100%;
