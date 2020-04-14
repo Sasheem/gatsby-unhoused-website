@@ -419,8 +419,8 @@ const ContactDonate = () => {
             </form>
             <div />
           </div>
-        </Elements>
-      </div>
+        </div>
+      </Elements>
     </FormSection>
   );
 };
