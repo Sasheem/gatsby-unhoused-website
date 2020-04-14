@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
-import { Button, ErrorMessage, FormSection } from '../components/common';
+import { Button, FormSection } from '../components/common';
 
 import '../styles/global.scss';
 
@@ -17,11 +17,6 @@ import '../styles/global.scss';
  * todo Frontend: add register components inside donation form
  * todo Frontend: create and link to contactGeneral page
  */
-let stripePromise;
-const loadStripePromise = async () => {
-  stripePromise = await loadStripe('pk_live_3jlLVbsY15nklulYJKZf0hNa');
-};
-loadStripePromise();
 
 const CardElementContainer = styled.div`
   height: 2.5em;
@@ -35,6 +30,8 @@ const CardElementContainer = styled.div`
     padding: 15px;
   }
 `;
+
+const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
 
 const ContactDonate = () => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
@@ -237,9 +234,9 @@ const ContactDonate = () => {
   };
 
   return (
-    <FormSection>
-      <SEO title="Unhoused Humanity donation form" />
-      <Elements stripe={stripePromise}>
+    <Elements stripe={stripePromise}>
+      <FormSection>
+        <SEO title="Unhoused Humanity donation form" />
         <div className="form-layout">
           <div className="form-header">
             <h1>Donate to Unhoused Humanity</h1>
@@ -420,8 +417,8 @@ const ContactDonate = () => {
             <div />
           </div>
         </div>
-      </Elements>
-    </FormSection>
+      </FormSection>
+    </Elements>
   );
 };
 

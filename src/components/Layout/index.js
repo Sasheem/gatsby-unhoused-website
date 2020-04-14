@@ -24,17 +24,17 @@ import Footer from '../Footer/footer';
  * todo frontend: store stripe key as env variable
  * todo frotend: change api key from test to production
  */
-let stripePromise;
-const loadStripePromise = async () => {
-  stripePromise = await loadStripe('pk_live_3jlLVbsY15nklulYJKZf0hNa');
-};
-loadStripePromise();
+// let stripePromise;
+// const loadStripePromise = async () => {
+//   stripePromise = await loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
+// };
+// loadStripePromise();
 
 const LayoutContainer = styled.div`
   width: 100%;
   height: 100%;
 `;
-
+const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
 const Layout = ({ children }) => {
   const { user, firebase, loading } = useAuth();
   const [sideMenuIsOpen, setSideMenuIsOpen] = useState(false);
@@ -66,20 +66,20 @@ const Layout = ({ children }) => {
 
   return (
     <FirebaseContext.Provider value={{ user, firebase, loading }}>
-      <Elements stripe={stripePromise}>
-        <Header
-          siteTitle={data.site.siteMetadata.title}
-          menuClickHandler={menuToggleClickHandler}
-        />
-        <SideMenu show={sideMenuIsOpen} />
-        {sideMenuIsOpen === true ? (
-          <Backdrop click={backdropClickHandler} />
-        ) : null}
-        <LayoutContainer>
+      <Header
+        siteTitle={data.site.siteMetadata.title}
+        menuClickHandler={menuToggleClickHandler}
+      />
+      <SideMenu show={sideMenuIsOpen} />
+      {sideMenuIsOpen === true ? (
+        <Backdrop click={backdropClickHandler} />
+      ) : null}
+      <LayoutContainer>
+        <Elements stripe={stripePromise}>
           <main>{children}</main>
-          <Footer />
-        </LayoutContainer>
-      </Elements>
+        </Elements>
+        <Footer />
+      </LayoutContainer>
     </FirebaseContext.Provider>
   );
 };
