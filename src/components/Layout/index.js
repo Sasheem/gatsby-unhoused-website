@@ -10,8 +10,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { FirebaseContext, useAuth } from '../Firebase';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 
 import Header from '../Header/header';
 import SideMenu from './sideMenu';
@@ -33,7 +31,6 @@ const LayoutContainer = styled.div`
 const Layout = ({ children }) => {
   const { user, firebase, loading } = useAuth();
   const [sideMenuIsOpen, setSideMenuIsOpen] = useState(false);
-  const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
 
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -55,28 +52,20 @@ const Layout = ({ children }) => {
     setSideMenuIsOpen(false);
   }
 
-  if (stripePromise) {
-    console.log('stripe promise loaded');
-  } else {
-    console.log('stripe promises NOT loaded');
-  }
-
   return (
     <FirebaseContext.Provider value={{ user, firebase, loading }}>
-      <Elements stripe={stripePromise}>
-        <Header
-          siteTitle={data.site.siteMetadata.title}
-          menuClickHandler={menuToggleClickHandler}
-        />
-        <SideMenu show={sideMenuIsOpen} />
-        {sideMenuIsOpen === true ? (
-          <Backdrop click={backdropClickHandler} />
-        ) : null}
-        <LayoutContainer>
-          <main>{children}</main>
-          <Footer />
-        </LayoutContainer>
-      </Elements>
+      <Header
+        siteTitle={data.site.siteMetadata.title}
+        menuClickHandler={menuToggleClickHandler}
+      />
+      <SideMenu show={sideMenuIsOpen} />
+      {sideMenuIsOpen === true ? (
+        <Backdrop click={backdropClickHandler} />
+      ) : null}
+      <LayoutContainer>
+        <main>{children}</main>
+        <Footer />
+      </LayoutContainer>
     </FirebaseContext.Provider>
   );
 };
