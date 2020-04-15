@@ -19,8 +19,8 @@ const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
 
 export const wrapPageElement = ({ element, props }) => {
   return (
-    <Layout {...props}>
-      <Elements stripe={stripePromise}>{element}</Elements>
-    </Layout>
+    <Elements stripe={stripePromise}>
+      <Layout {...props}>{element}</Layout>
+    </Elements>
   );
 };
