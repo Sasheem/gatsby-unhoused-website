@@ -25,7 +25,7 @@ const AboutPage = () => (
           imperdiet pharetra consectetur.
         </p>
       </div>
-      <div className="clients-featured-content">
+      <div className="content-three">
         <div className="content-card">
           <h3>Our misson</h3>
           <p>
