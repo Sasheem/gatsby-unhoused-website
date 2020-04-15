@@ -97,9 +97,9 @@ const CrowdfundPage = props => {
         label="Donate"
         destination="/contactDonate"
       />
-      <div className="clients-featured-container">
+      <div className="container-three">
         <h2>Featured Clients</h2>
-        <div className="clients-featured-content">
+        <div className="content-three">
           {!!clients &&
             clients.map(client => (
               <CardClientFeatured

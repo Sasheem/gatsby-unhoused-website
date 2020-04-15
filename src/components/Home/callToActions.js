@@ -1,30 +1,9 @@
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
-import styled from 'styled-components';
 
 import CardCallToAction from '../Cards/cardCallToAction';
 
-const ActionsDiv = styled.div`
-  max-width: 1120px;
-  width: 100%;
-
-  h2 {
-    text-align: center;
-  }
-`;
-const ActionsContent = styled.div`
-  display: grid;
-  grid-gap: 4em;
-  justify-items: center;
-
-  @media only screen and (min-width: 600px) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media only screen and (min-width: 960px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-`;
+import '../../styles/global.scss';
 
 const CallToActions = () => (
   <StaticQuery
@@ -53,9 +32,9 @@ const CallToActions = () => (
       const dataCallTwo = data.callToActionTwo.childImageSharp.fluid;
       const dataCallThree = data.callToActionThree.childImageSharp.fluid;
       return (
-        <ActionsDiv>
+        <div className="container-three">
           <h2>Get Involved</h2>
-          <ActionsContent>
+          <div className="content-three">
             <CardCallToAction
               title="Recurring Donations"
               text="Sed nunc massa, sodales non dui quis, iaculis dapibus odio. 
@@ -79,8 +58,8 @@ const CallToActions = () => (
               destination="/"
               fluid={dataCallThree}
             />
-          </ActionsContent>
-        </ActionsDiv>
+          </div>
+        </div>
       );
     }}
   />
