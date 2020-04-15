@@ -67,7 +67,7 @@ const Layout = ({ children }) => {
         <Backdrop click={backdropClickHandler} />
       ) : null}
       <LayoutContainer>
-        {children}
+        <main>{children}</main>
         <Footer />
       </LayoutContainer>
     </FirebaseContext.Provider>
