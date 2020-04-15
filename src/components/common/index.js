@@ -6,3 +6,4 @@ export * from './storyComments';
 export * from './formSection';
 export * from './buttonLink';
 export * from './horizontalDivider';
+export * from './common';

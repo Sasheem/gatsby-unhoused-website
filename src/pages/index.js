@@ -9,9 +9,13 @@ import Newsletter from '../components/Home/newsletter';
 import CallToActions from '../components/Home/callToActions';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
 
-import { FormSection } from '../components/common';
-
-import '../styles/global.scss';
+import {
+  FormSection,
+  PageContent,
+  ContentRow,
+  ClientsFeatured,
+  ClientsContent,
+} from '../components/common';
 
 const IndexPage = props => {
   const { firebase = null } = useContext(FirebaseContext) || {};
@@ -49,23 +53,23 @@ const IndexPage = props => {
   return (
     <FormSection>
       <SEO title="Home" />
-      <div className="page-body">
+      <PageContent>
         <Hero
           title="IT STARTS WITH YOU"
           subtitle="Join the fight against homelessness today"
           label="Meet client"
           destination="/story/Sheena-Salmon"
         />
-        <div className="content-container">
+        <ContentRow>
           <h2>Our Mission</h2>
           <p>
             To provide a fresh start to people experiencing homelessness while
             chipping away the barrier separating them from society.
           </p>
-        </div>
-        <div className="clients-featured-container">
+        </ContentRow>
+        <ClientsFeatured>
           <h2>Featured Clients</h2>
-          <div className="clients-featured-content">
+          <ClientsContent>
             {!!clients &&
               clients.map(client => (
                 <CardClientFeatured
@@ -78,12 +82,12 @@ const IndexPage = props => {
                   imageUrl={client.imageUrl}
                 />
               ))}
-          </div>
-        </div>
+          </ClientsContent>
+        </ClientsFeatured>
         <Process />
         <Newsletter />
         <CallToActions />
-      </div>
+      </PageContent>
     </FormSection>
   );
 };
