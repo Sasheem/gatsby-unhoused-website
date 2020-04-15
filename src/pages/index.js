@@ -9,14 +9,6 @@ import Newsletter from '../components/Home/newsletter';
 import CallToActions from '../components/Home/callToActions';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
 
-import {
-  FormSection,
-  PageContent,
-  ContentRow,
-  ClientsFeatured,
-  ClientsContent,
-} from '../components/common';
-
 import '../styles/global.scss';
 
 const IndexPage = props => {
