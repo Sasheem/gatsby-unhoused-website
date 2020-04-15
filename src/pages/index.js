@@ -67,6 +67,7 @@ const IndexPage = props => {
             chipping away the barrier separating them from society.
           </p>
         </ContentRow>
+        <Process />
         <ClientsFeatured>
           <h2>Featured Clients</h2>
           <ClientsContent>
@@ -84,7 +85,6 @@ const IndexPage = props => {
               ))}
           </ClientsContent>
         </ClientsFeatured>
-        <Process />
         <Newsletter />
         <CallToActions />
       </PageContent>
