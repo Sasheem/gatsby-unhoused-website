@@ -53,25 +53,25 @@ const IndexPage = props => {
   }, [firebase]);
 
   return (
-    <FormSection>
+    <div className="page-container">
       <SEO title="Home" />
-      <PageContent>
+      <div className="page-body">
         <Hero
           title="IT STARTS WITH YOU"
           subtitle="Join the fight against homelessness today"
           label="Meet client"
           destination="/story/Sheena-Salmon"
         />
-        <ContentRow>
+        <div className="content-container">
           <h2>Our Mission</h2>
           <p>
             To provide a fresh start to people experiencing homelessness while
             chipping away the barrier separating them from society.
           </p>
-        </ContentRow>
-        <ClientsFeatured>
+        </div>
+        <div className="container-three">
           <h2>Featured Clients</h2>
-          <ClientsContent>
+          <div className="content-three">
             {!!clients &&
               clients.map(client => (
                 <CardClientFeatured
@@ -84,13 +84,13 @@ const IndexPage = props => {
                   imageUrl={client.imageUrl}
                 />
               ))}
-          </ClientsContent>
-        </ClientsFeatured>
+          </div>
+        </div>
         <Process />
         <Newsletter />
         <CallToActions />
-      </PageContent>
-    </FormSection>
+      </div>
+    </div>
   );
 };
 
