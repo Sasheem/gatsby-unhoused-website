@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
 
-import '../../styles/global.scss';
 import {
   AlternatingSection,
   AlternatingRow,

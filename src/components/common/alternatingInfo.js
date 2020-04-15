@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Img from 'gatsby-image';
 
-export const AlternatingSection = styled.section`
+export const AlternatingSection = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
