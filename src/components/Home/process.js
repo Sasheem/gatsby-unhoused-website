@@ -1,15 +1,8 @@
 import React from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
+import Img from 'gatsby-image';
 
-import {
-  AlternatingSection,
-  AlternatingRow,
-  AlternatingImage,
-  AlternatingText,
-  Content,
-  Image,
-  Fill,
-} from '../common/alternatingInfo';
+import '../../styles/global.scss';
 
 const Process = () => (
   <StaticQuery
@@ -38,19 +31,23 @@ const Process = () => (
       const dataProcessTwo = data.processTwo.childImageSharp.fluid;
       const dataProcessThree = data.processThree.childImageSharp.fluid;
       return (
-        <AlternatingSection>
+        <div className="steps-container">
           <h2>The Unhoused Humanity Process</h2>
-          <AlternatingRow reverse={false}>
-            <AlternatingImage>
-              <Fill />
-              <Content>
-                <Image fluid={dataProcessOne} alt="Process One" />
-              </Content>
-              <Fill />
-            </AlternatingImage>
-            <AlternatingText>
-              <Fill />
-              <Content>
+          <div className="steps-row">
+            <div className="steps-content-container">
+              <div className="steps-fill" />
+              <div className="steps-content">
+                <Img
+                  className="steps-img"
+                  fluid={dataProcessOne}
+                  alt="Process One"
+                />
+              </div>
+              <div className="steps-fill" />
+            </div>
+            <div className="steps-content-container">
+              <div className="steps-fill" />
+              <div className="steps-content">
                 <h3>Client seeks help</h3>
                 <p>
                   We identify homeless individuals with a stable income that
@@ -59,21 +56,25 @@ const Process = () => (
                 <Link className="page-link" to="/stories">
                   Success stories
                 </Link>
-              </Content>
-              <Fill />
-            </AlternatingText>
-          </AlternatingRow>
-          <AlternatingRow reverse={true}>
-            <AlternatingImage>
-              <Fill />
-              <Content>
-                <Image fluid={dataProcessTwo} alt="Process Two" />
-              </Content>
-              <Fill />
-            </AlternatingImage>
-            <AlternatingText>
-              <Fill />
-              <Content>
+              </div>
+              <div className="steps-fill" />
+            </div>
+          </div>
+          <div className="steps-row reverse">
+            <div className="steps-content-container">
+              <div className="steps-fill" />
+              <div className="steps-content">
+                <Img
+                  className="steps-img"
+                  fluid={dataProcessTwo}
+                  alt="Process Two"
+                />
+              </div>
+              <div className="steps-fill" />
+            </div>
+            <div className="steps-content-container">
+              <div className="steps-fill" />
+              <div className="steps-content">
                 <h3>Donor funds the client</h3>
                 <p>
                   You select the family in need, read their story, and fund
@@ -82,21 +83,25 @@ const Process = () => (
                 <Link className="page-link" to="/crowdfund">
                   Crowdfunding
                 </Link>
-              </Content>
-              <Fill />
-            </AlternatingText>
-          </AlternatingRow>
-          <AlternatingRow reverse={false}>
-            <AlternatingImage>
-              <Fill />
-              <Content>
-                <Image fluid={dataProcessThree} alt="Process Three" />
-              </Content>
-              <Fill />
-            </AlternatingImage>
-            <AlternatingText>
-              <Fill />
-              <Content>
+              </div>
+              <div className="steps-fill" />
+            </div>
+          </div>
+          <div className="steps-row">
+            <div className="steps-content-container">
+              <div className="steps-fill" />
+              <div className="steps-content">
+                <Img
+                  className="steps-img"
+                  fluid={dataProcessThree}
+                  alt="Process Three"
+                />
+              </div>
+              <div className="steps-fill" />
+            </div>
+            <div className="steps-content-container">
+              <div className="steps-fill" />
+              <div className="steps-content">
                 <h3>Donor receives client updates</h3>
                 <p>
                   Track their progress! Once they are fully funded, you will
@@ -105,11 +110,11 @@ const Process = () => (
                 <Link className="page-link" to="/register">
                   Sign up today
                 </Link>
-              </Content>
-              <Fill />
-            </AlternatingText>
-          </AlternatingRow>
-        </AlternatingSection>
+              </div>
+              <div className="steps-fill" />
+            </div>
+          </div>
+        </div>
       );
     }}
   />

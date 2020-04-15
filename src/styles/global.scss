@@ -147,6 +147,59 @@ a {
   overflow: hidden;
   background-color: lightskyblue;
 }
+.steps-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.steps-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 5em 0;
+    h3,
+    p {
+        text-align: center;
+    }
+    @media only screen and (min-width: 800px) {
+        flex-direction: row;
+        text-align: left;
+        h3,
+        p {
+        text-align: left;
+        }
+    }
+}
+.reverse {
+    @media only screen and (min-width: 800px) {
+        flex-direction: row-reverse;
+    }  
+}
+.steps-content-container {
+    flex: 1;
+    display: flex;
+    margin-bottom: 1em;
+}
+.steps-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h3,
+    p {
+        margin-bottom: 1em;
+    }
+}
+.steps-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    object-fit: fill;
+}
+.steps-fill {
+    flex: 0.3;
+}
 // global styling ends
 
 // [START dashboard]
@@ -239,6 +292,78 @@ a {
 	@media only screen and (min-width: 960px) {
 		grid-template-columns: 1fr 1fr 1fr;
 	}
+}
+.newsletter-container {
+    width: 100%;
+    display: grid;
+    grid-gap: 3em;
+    background-color: black;
+    padding: 5em 0;
+    h2,
+    p {
+        color: white;
+        text-align: center;
+    }
+    @media only screen and (min-width: 600px) {
+        grid-template-columns: 0.5fr 1fr 2fr 0.5fr;
+        text-align: left;
+    }
+}
+.newsletter-text {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1.5em;
+}
+.newsletter-form-container {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1.5em;
+
+    p {
+        text-align: center;
+        margin-bottom: 3em;
+    }
+
+    @media only screen and (min-width: 600px) {
+        p {
+        text-align: left;
+        }
+        align-items: flex-start;
+    }
+}
+.newsletter-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    max-width: 90%;
+    input {
+        flex: 2;
+        padding: 0.5em;
+        border: solid 1px #e1e5e9;
+        border-radius: 3px;
+        font-size: 1em;
+
+        &:focus {
+            outline: none !important;
+            border: 1px solid #299ecc;
+            box-shadow: 0 0 10px #719ece;
+        }
+    }
+}
+.newsletter-submit {
+    flex: 0.6;
+    margin-left: 1em;
+
+    input[type='submit'] {
+        font-size: 1em;
+        color: white;
+    }
 }
 // home page styling ends
 
