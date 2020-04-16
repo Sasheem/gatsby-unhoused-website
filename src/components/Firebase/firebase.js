@@ -44,6 +44,30 @@ class Firebase {
   }
   // [END auth create payment intent]
 
+  // [START create a donation object]
+  createDonation({
+    amount,
+    clientId,
+    clientSecretStripe,
+    donorEmail,
+    message,
+    username,
+  }) {
+    const createDonationCallable = this.functions.httpsCallable(
+      'createDonation'
+    );
+    console.log(`firebase.js - createDonation running ${amount}:${clientId}`);
+    return createDonationCallable({
+      amount,
+      clientId,
+      clientSecretStripe,
+      donorEmail,
+      message,
+      username,
+    });
+  }
+  // [END create a donation object]
+
   // [START write user settings]
   writeUserSettings({ username, settings, profilePicture }) {
     const writeUserSettingsCallable = this.functions.httpsCallable(

@@ -128,6 +128,7 @@ const ContactDonate = () => {
     // client_secret is returned from payment intent
     if (firebase) {
       if (user) {
+        // create payment intent on stripe
         await firebase
           .createAuthPaymentIntent({
             amount: stripeAmount,
@@ -143,6 +144,15 @@ const ContactDonate = () => {
             setProcessingTo(false);
             setErrorMessage(error.message);
           });
+
+        firebase.createDonation({
+          amount: parseInt(amount.value),
+          clientId: client.value, // refers to a client housed
+          clientSecretStripe: clientSecretVariable, // refers to donor
+          donorEmail: email.value,
+          message: message.value,
+          username: user.username,
+        });
       } else {
         await firebase
           .createPaymentIntent({
@@ -257,7 +267,7 @@ const ContactDonate = () => {
                 <option value="">--Choose a client to fund--</option>
                 {!!clients &&
                   clients.map(client => (
-                    <option key={client.id} value={client.firstName}>
+                    <option key={client.id} value={client.id}>
                       {client.firstName}
                     </option>
                   ))}
