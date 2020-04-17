@@ -15,6 +15,8 @@ const Header = ({ menuClickHandler }) => {
   function handleLogoutClick() {
     firebase.logout().then(() => navigate('/login'));
   }
+  console.log('currentUser:');
+  console.dir(user);
   return (
     <header className="header">
       <nav className="navbar">
@@ -77,11 +79,6 @@ const Header = ({ menuClickHandler }) => {
                 <li>
                   <Link className="navbar-link" to="/addClient">
                     Add Client
-                  </Link>
-                </li>
-                <li>
-                  <Link className="navbar-link" to="/addDonation">
-                    Add Donation
                   </Link>
                 </li>
                 <li>
