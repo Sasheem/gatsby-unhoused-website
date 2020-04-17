@@ -1,0 +1,31 @@
+@import '../../styles/global.scss';
+
+.donation-dashboard {
+    display: grid;
+    grid-gap: 1em;
+    width: 100%;
+    h3, h4, p {
+        text-align: left;
+    }
+}
+.donation-row {
+    display: grid;
+    grid-gap: 0.5em;
+    align-items: center;
+
+    @media only screen and (min-width: 800px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+.donation-more {
+    height: 0.8em;
+    width: 0.8em;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.donation-divider {
+    background-color: #e8e8e8;
+    height: 1px;
+    width: 100%;
+}

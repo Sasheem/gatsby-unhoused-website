@@ -5,12 +5,11 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import SEO from '../components/seo';
 import { FirebaseContext } from '../components/Firebase';
 import MetricsDashboard from '../components/Dashboard/metrics';
-import UserHeader from '../components/Header/userHeader';
-import DonationsDashboard from '../components/Dashboard/donations';
+import Donations from '../components/Stripe/donations';
 import CardUser from '../components/Cards/cardUser';
 import BioForm from '../components/Dashboard/bioForm';
 import PasswordForm from '../components/Dashboard/passwordForm';
-import PaymentForm from '../components/Dashboard/paymentForm';
+import UpdateCreditCard from '../components/Stripe/updateCreditCard';
 
 import '../styles/global.scss';
 import 'react-tabs/style/react-tabs.css';
@@ -38,10 +37,12 @@ const Dashboard = ({ location }) => {
             </TabList>
             <TabPanel>
               <h2>Overview Content</h2>
+              <MetricsDashboard />
             </TabPanel>
             <TabPanel>
-              <MetricsDashboard />
-              <DonationsDashboard />
+              <div className="tab-content-container">
+                <Donations firebase={firebase} user={user} />
+              </div>
             </TabPanel>
             <TabPanel>
               <h2>Clients Content</h2>
@@ -53,7 +54,9 @@ const Dashboard = ({ location }) => {
               <PasswordForm />
             </TabPanel>
             <TabPanel>
-              <PaymentForm />
+              <div className="tab-content-container">
+                <UpdateCreditCard />
+              </div>
             </TabPanel>
           </Tabs>
         </div>

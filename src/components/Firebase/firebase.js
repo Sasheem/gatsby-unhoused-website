@@ -44,6 +44,15 @@ class Firebase {
   }
   // [END auth create payment intent]
 
+  // [START fetch all payment intents]
+  listPaymentIntents({ customerId }) {
+    const listPaymentIntentsCallable = this.functions.httpsCallable(
+      'listPaymentIntents'
+    );
+    return listPaymentIntentsCallable({ customerId });
+  }
+  // [END fetch all payment intents]
+
   // [START create a donation object]
   createDonation({
     amount,
