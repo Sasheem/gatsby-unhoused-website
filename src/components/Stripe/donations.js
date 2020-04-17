@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
-import RightArrow from '../../assets/chevron-right-solid.svg';
+import MoreIcon from '../../assets/ellipsis-v-solid.svg';
 
 import '../../styles/global.scss';
 import './stripe.scss';
+
+/**
+ * todo remove getUser and use userProfile as param from dashboard
+ */
 
 const Donations = ({ firebase, user }) => {
   const [userDonations, setUserDonations] = useState(null);
@@ -39,7 +43,7 @@ const Donations = ({ firebase, user }) => {
   }
 
   return (
-    <div className="donation-dashboard">
+    <div className="dashboard-item">
       <h3>Donations</h3>
       {!!userDonations &&
         userDonations.map(donation => (
@@ -66,11 +70,11 @@ const Donations = ({ firebase, user }) => {
                 <h4>Status</h4>
                 <p>{donation.charges.data[0].status}</p>
               </div>
-              <div className="donation-more">
-                <RightArrow />
+              <div className="row-more">
+                <MoreIcon />
               </div>
             </div>
-            <div className="donation-divider" />
+            <div className="row-divider" />
           </>
         ))}
     </div>

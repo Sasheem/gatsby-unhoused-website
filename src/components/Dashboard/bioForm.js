@@ -146,74 +146,73 @@ const BioForm = () => {
   }
 
   return (
-    <div className="form-layout-settings">
-      <form className="form-component" onSubmit={handleSubmit}>
-        <h4>Your profile info</h4>
-        <div className="form-input-row-file">
-          <div className="form-input-row">
-            <div className="profile-pic-filler" />
-          </div>
-          <div class="form-input-row">
-            <label for="profilePicture">Add profile picture</label>
-            <input
-              onChange={e => {
-                e.persist();
-                fileReader.readAsDataURL(e.target.files[0]);
-              }}
-              type="file"
-              name="profilePicture"
-            />
-          </div>
-        </div>
-        <div className="two-input-row">
-          <div className="form-input-row">
-            <label for="firstName">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              onChange={handleInputChange}
-              value={formValues.firstName}
-            />
-          </div>
-          <div className="form-input-row">
-            <label for="lastName">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              onChange={handleInputChange}
-              value={formValues.lastName}
-            />
-          </div>
-        </div>
+    <form className="form-component" onSubmit={handleSubmit}>
+      <h3>Update Profile</h3>
+      <div className="form-input-row-file">
         <div className="form-input-row">
-          <label for="email">Email</label>
+          <div className="profile-pic-filler" />
+        </div>
+        <div class="form-input-row">
+          <label for="profilePicture">Add profile picture</label>
           <input
-            type="email"
-            name="email"
-            onChange={handleInputChange}
-            value={formValues.email}
+            onChange={e => {
+              e.persist();
+              fileReader.readAsDataURL(e.target.files[0]);
+            }}
+            type="file"
+            name="profilePicture"
           />
         </div>
+      </div>
+      <div className="two-input-row">
         <div className="form-input-row">
-          <label for="bio">Short bio</label>
-          <textarea
-            id="bio"
-            name="bio"
-            placeholder="Tell others a little about yourself"
-            value={formValues.bio}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-input-row">
-          <label for="label">Website</label>
+          <label for="firstName">First Name</label>
           <input
-            type="url"
-            name="website"
+            type="text"
+            name="firstName"
             onChange={handleInputChange}
-            value={formValues.website}
+            value={formValues.firstName}
           />
         </div>
-        {/* <div className="two-input-row">
+        <div className="form-input-row">
+          <label for="lastName">Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            onChange={handleInputChange}
+            value={formValues.lastName}
+          />
+        </div>
+      </div>
+      <div className="form-input-row">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          onChange={handleInputChange}
+          value={formValues.email}
+        />
+      </div>
+      <div className="form-input-row">
+        <label for="bio">Short bio</label>
+        <textarea
+          id="bio"
+          name="bio"
+          placeholder="Tell others a little about yourself"
+          value={formValues.bio}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="form-input-row">
+        <label for="label">Website</label>
+        <input
+          type="url"
+          name="website"
+          onChange={handleInputChange}
+          value={formValues.website}
+        />
+      </div>
+      {/* <div className="two-input-row">
           <div className="form-input-row">
             <label for="state">State</label>
             <select
@@ -231,51 +230,50 @@ const BioForm = () => {
             />
           </div>
         </div> */}
-        <div className="form-input-row">
-          <label for="birthday">Birthday</label>
-          <DatePicker
-            name="birthday"
-            value={birthday}
-            onChange={handleDateChange}
-          />
-        </div>
-        <div className="form-input-row">
-          <label for="workplace">Workplace</label>
+      <div className="form-input-row">
+        <label for="birthday">Birthday</label>
+        <DatePicker
+          name="birthday"
+          value={birthday}
+          onChange={handleDateChange}
+        />
+      </div>
+      <div className="form-input-row">
+        <label for="workplace">Workplace</label>
+        <input
+          type="text"
+          name="workplace"
+          onChange={handleInputChange}
+          value={formValues.workplace}
+          placeholder="Add a workplace"
+        />
+      </div>
+      <div className="form-input-row">
+        <label for="switch-help">
+          Make profile private (only visible to you)
+        </label>
+        <label class="switch-help">
           <input
-            type="text"
-            name="workplace"
-            onChange={handleInputChange}
-            value={formValues.workplace}
-            placeholder="Add a workplace"
+            type="checkbox"
+            name="switch-help"
+            id="switch-help"
+            checked={profilePrivate}
+            onChange={handlePrivacySwitch}
           />
-        </div>
-        <div className="form-input-row">
-          <label for="switch-help">
-            Make profile private (only visible to you)
-          </label>
-          <label class="switch-help">
-            <input
-              type="checkbox"
-              name="switch-help"
-              id="switch-help"
-              checked={profilePrivate}
-              onChange={handlePrivacySwitch}
-            />
-            <span className="slider-help" />
-          </label>
-        </div>
-        <div className="form-submit-row-left">
-          <Button type="submit" block submit>
-            Save
-          </Button>
-          <div />
-        </div>
-        {!!success && <div className="success-message">Profile updated</div>}
-        {!!errorMessage && (
-          <div className="error-message">ERROR: {errorMessage}</div>
-        )}
-      </form>
-    </div>
+          <span className="slider-help" />
+        </label>
+      </div>
+      <div className="form-submit-row-left">
+        <Button type="submit" block submit>
+          Save
+        </Button>
+        <div />
+      </div>
+      {!!success && <div className="success-message">Profile updated</div>}
+      {!!errorMessage && (
+        <div className="error-message">ERROR: {errorMessage}</div>
+      )}
+    </form>
   );
 };
 

@@ -235,8 +235,8 @@ a {
 }
 .tab-content-container {
     display: grid;
-    // height: 20em;
-    width: 85%;
+    grid-gap: 2em;
+    width: 50%;
 }
 // [END dashboard]
 
@@ -401,16 +401,10 @@ a {
     grid-gap: 1.5em;
     margin: 10em auto;
 }
-.form-layout-settings {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-}
 .form-layout-crowdfund {
     display: grid;
     grid-gap: 4em;
     justify-items: start;
-    
 }
 .form-header {
     display: flex;

@@ -5,6 +5,10 @@ import moment from 'moment';
 import { Input } from './input';
 import { Button } from './button';
 
+/**
+ * todo frontend convert from styled to sass
+ */
+
 const CommentSection = styled.section`
   max-width: 85%;
   width: 100%;
@@ -37,14 +41,19 @@ const CommentListItem = styled.div`
   margin-top: 0.5em;
 `;
 
-// adding empty array as second arg means useEffect will only
-// run when the component is mounted and won't run when the
-// component is updated
+/**
+ *
+ * @param {firebase} param0 - firebase context
+ * @param {storyId} param1 - the id of client FirstName-LastName
+ */
 export const StoryComments = ({ firebase, storyId }) => {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   console.log(`storyId: ${storyId}`);
 
+  // adding empty array as second arg means useEffect will only
+  // run when the component is mounted and won't run when the
+  // component is updated
   useEffect(() => {
     const unsubscribe = firebase.subscribeToStoryComments({
       storyId,
