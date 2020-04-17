@@ -24,39 +24,37 @@ const PasswordForm = () => {
     }));
   }
   return (
-    <div className="form-layout-settings">
-      <form className="form-component" onSubmit={handleSubmit}>
-        <h4>Update your password</h4>
-        <div className="form-input-row">
-          <label for="newPassword">New password</label>
-          <input
-            type="password"
-            name="newPassword"
-            onChange={handleInputChange}
-            value={formValues.newPassword}
-            required
-            minLength={6}
-          />
-        </div>
-        <div className="form-input-row">
-          <label for="confirmPassword">Confirm new password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            onChange={handleInputChange}
-            value={formValues.confirmPassword}
-            required
-            minLength={6}
-          />
-        </div>
-        <div className="form-submit-row-left">
-          <Button type="submit" block submit>
-            Save
-          </Button>
-          <div />
-        </div>
-      </form>
-    </div>
+    <form className="form-component" onSubmit={handleSubmit}>
+      <h3>Update Password</h3>
+      <div className="form-input-row">
+        <label for="newPassword">New password</label>
+        <input
+          type="password"
+          name="newPassword"
+          onChange={handleInputChange}
+          value={formValues.newPassword}
+          required
+          minLength={6}
+        />
+      </div>
+      <div className="form-input-row">
+        <label for="confirmPassword">Confirm new password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          onChange={handleInputChange}
+          value={formValues.confirmPassword}
+          required
+          minLength={6}
+        />
+      </div>
+      <div className="form-submit-row-left">
+        <Button type="submit" block submit>
+          Save
+        </Button>
+        <div />
+      </div>
+    </form>
   );
 };
 
