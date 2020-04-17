@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, navigate } from 'gatsby';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
@@ -10,13 +10,34 @@ import CardUser from '../components/Cards/cardUser';
 import BioForm from '../components/Dashboard/bioForm';
 import PasswordForm from '../components/Dashboard/passwordForm';
 import UpdateCreditCard from '../components/Stripe/updateCreditCard';
+import SavedCreditCards from '../components/Stripe/savedCreditCards';
 
 import '../styles/global.scss';
 import 'react-tabs/style/react-tabs.css';
 
+/**
+ * todo figure out how to refresh the dashboard render with userProfile
+ * * it gets set the 2nd time around but passes in an empty userProfile on 1st time
+ */
+
 const Dashboard = ({ location }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
-  console.dir(user);
+  const [userProfile, setUserProfile] = useState(null);
+  let isMounted = true;
+
+  useEffect(() => {
+    if (firebase && isMounted) {
+      console.log(`dashboard useEffect running`);
+      firebase.getUser({ userId: user.username }).then(snapshot => {
+        setUserProfile(snapshot.data());
+      });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  console.log(`DASHBOARD userProfile: ${userProfile}`);
 
   return (
     <div className="page-body-dashboard">
@@ -36,8 +57,10 @@ const Dashboard = ({ location }) => {
               <Tab>Payment Information</Tab>
             </TabList>
             <TabPanel>
-              <h2>Overview Content</h2>
-              <MetricsDashboard />
+              <div className="tab-content-container">
+                <h3>Overview Content</h3>
+                <MetricsDashboard />
+              </div>
             </TabPanel>
             <TabPanel>
               <div className="tab-content-container">
@@ -48,14 +71,19 @@ const Dashboard = ({ location }) => {
               <h2>Clients Content</h2>
             </TabPanel>
             <TabPanel>
-              <BioForm />
-            </TabPanel>
-            <TabPanel>
-              <PasswordForm />
+              <div className="tab-content-container">
+                <BioForm />
+              </div>
             </TabPanel>
             <TabPanel>
               <div className="tab-content-container">
-                <UpdateCreditCard />
+                <PasswordForm />
+              </div>
+            </TabPanel>
+            <TabPanel>
+              <div className="tab-content-container">
+                <SavedCreditCards firebase={firebase} user={user} />
+                <UpdateCreditCard firebase={firebase} user={user} />
               </div>
             </TabPanel>
           </Tabs>

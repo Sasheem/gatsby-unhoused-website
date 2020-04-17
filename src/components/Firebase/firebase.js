@@ -30,6 +30,18 @@ class Firebase {
   }
   // [END create payment intent]
 
+  // [START create a SetupIntent for user]
+  createSetupIntent({ customerId, paymentMethodId }) {
+    const createSetupIntentCallable = this.functions.httpsCallable(
+      'createSetupIntent'
+    );
+    return createSetupIntentCallable({
+      customerId,
+      paymentMethodId,
+    });
+  }
+  // [END create a SetupIntent for user]
+
   // [START auth create payment intent]
   createAuthPaymentIntent({ amount, email, name, username }) {
     const createAuthPaymentIntentCallable = this.functions.httpsCallable(
@@ -52,6 +64,15 @@ class Firebase {
     return listPaymentIntentsCallable({ customerId });
   }
   // [END fetch all payment intents]
+
+  // [START ]
+  listPaymentMethods({ customerId }) {
+    const listPaymentMethodsCallable = this.functions.httpsCallable(
+      'listPaymentMethods'
+    );
+    return listPaymentMethodsCallable({ customerId });
+  }
+  // [END ]
 
   // [START create a donation object]
   createDonation({
@@ -89,28 +110,6 @@ class Firebase {
     });
   }
   // [END write user settings]
-
-  // create donation with cloud functions
-  async createDonationRecord({
-    firstName,
-    lastName,
-    // email,
-    clientId,
-    donation,
-    message,
-  }) {
-    const createDonationRecordCallable = this.functions.httpsCallable(
-      'createDonationRecord'
-    );
-    return createDonationRecordCallable({
-      firstName,
-      lastName,
-      // email,
-      clientId,
-      donation,
-      message,
-    });
-  }
 
   async getClient({ clientId }) {
     return await this.db

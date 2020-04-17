@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import styled from 'styled-components';
 
@@ -9,6 +9,7 @@ import '../../styles/global.scss';
 /**
  * todo render saved payment methods
  * todo add option to delete payment record on file
+ * todo clear form data upon successful form submit
  */
 
 const CardElementContainer = styled.div`
@@ -24,14 +25,55 @@ const CardElementContainer = styled.div`
   }
 `;
 
-const UpdateCreditCard = props => {
+const UpdateCreditCard = ({ firebase, user }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setProcessingTo] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [formValues, setFormValues] = useState({
+    name: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+  });
+  const [userProfile, setUserProfile] = useState(null);
+  let isMounted = true;
 
-  const handleSubmit = async event => {
+  useEffect(() => {
+    if (firebase && isMounted) {
+      firebase.getUser({ userId: user.username }).then(snapshot => {
+        setUserProfile(snapshot.data());
+      });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const handleInputChange = ev => {
+    ev.persist();
+    setErrorMessage('');
+    setFormValues(currentValues => ({
+      ...currentValues,
+      [ev.target.name]: ev.target.value,
+    }));
+  };
+
+  const handleSubmit = async ev => {
     // Block native form submission.
-    event.preventDefault();
+    ev.preventDefault();
+    const { name, address, city, state, zip } = ev.target;
+    const billingDetails = {
+      name: name.value,
+      address: {
+        city: city.value,
+        line1: address.value,
+        state: state.value,
+        postal_code: zip.value,
+      },
+    };
+    let clientSecretVariable = '';
     setProcessingTo(true);
 
     if (!stripe || !elements) {
@@ -49,12 +91,45 @@ const UpdateCreditCard = props => {
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card: cardElement,
+      billing_details: billingDetails,
     });
 
     if (error) {
-      console.log('[error]', error);
+      setErrorMessage(error);
     } else {
-      console.log('[PaymentMethod]', paymentMethod);
+      if (userProfile !== null) {
+        console.dir(userProfile);
+        await firebase
+          .createSetupIntent({
+            customerId: userProfile.customerId,
+            paymentMethodId: paymentMethod.id,
+          })
+          .then(clientSecret => {
+            clientSecretVariable = clientSecret.data;
+          });
+      } else {
+        console.log(`userProfile empty`);
+      }
+    }
+
+    const confirmCardSetup = await stripe.confirmCardSetup(
+      clientSecretVariable,
+      {
+        payment_method: paymentMethod.id,
+      }
+    );
+
+    if (confirmCardSetup.error) {
+      setErrorMessage(confirmCardSetup.error.message);
+    } else {
+      setFormValues({
+        name: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+      });
+      cardElement.clear();
     }
     setProcessingTo(false);
   };
@@ -76,6 +151,62 @@ const UpdateCreditCard = props => {
 
   return (
     <form onSubmit={handleSubmit} className="form-component">
+      <h3>Billing Information</h3>
+      <div className="form-input-row">
+        <label htmlFor="name">Full Name</label>
+        <input
+          name="name"
+          type="text"
+          placeholder="As it appears on card"
+          onChange={handleInputChange}
+          value={formValues.name}
+          required
+        />
+      </div>
+      <div className="form-input-row">
+        <label htmlFor="address">Address</label>
+        <input
+          name="address"
+          type="text"
+          placeholder="185 Berry St. Suite 550"
+          onChange={handleInputChange}
+          value={formValues.address}
+          required
+        />
+      </div>
+      <div className="form-input-row">
+        <label htmlFor="city">City</label>
+        <input
+          name="city"
+          type="text"
+          placeholder="San Francisco"
+          onChange={handleInputChange}
+          value={formValues.city}
+          required
+        />
+      </div>
+      <div className="form-input-row">
+        <label htmlFor="state">State</label>
+        <input
+          name="state"
+          type="text"
+          placeholder="California"
+          onChange={handleInputChange}
+          value={formValues.state}
+          required
+        />
+      </div>
+      <div className="form-input-row">
+        <label htmlFor="zip">ZIP</label>
+        <input
+          name="zip"
+          type="text"
+          placeholder="94103"
+          onChange={handleInputChange}
+          value={formValues.zip}
+          required
+        />
+      </div>
       <div className="form-input-row">
         <label htmlFor="card-element">Credit Card</label>
         <CardElementContainer>
@@ -83,17 +214,14 @@ const UpdateCreditCard = props => {
         </CardElementContainer>
       </div>
       <div className="form-submit-row-left">
-        <Button
-          type="submit"
-          // disabled={!stripe}
-          disabled={isProcessing || !stripe}
-          block
-          submit
-        >
-          Save
+        <Button type="submit" disabled={isProcessing || !stripe} block submit>
+          {isProcessing ? '...Processing' : 'Save'}
         </Button>
         <div />
       </div>
+      {!!errorMessage && (
+        <div className="error-message">ERROR: {errorMessage}</div>
+      )}
     </form>
   );
 };
