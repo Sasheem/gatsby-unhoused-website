@@ -10,10 +10,7 @@ import { Button, FormSection } from '../components/common';
 import '../styles/global.scss';
 
 /**
- * todo Backend: navigate to stripe form for checkout
- * todo Frontend: form validation
- * todo Frontend: add register components inside donation form
- * todo Frontend: create and link to contactGeneral page
+ * todo Frontend: break code up into smaller chunks
  */
 
 const CardElementContainer = styled.div`
@@ -94,11 +91,13 @@ const ContactDonate = () => {
         postal_code: zip.value,
       },
     };
-    let clientSecretVariable = '';
+    let clientSecret = '';
+    let paymentIntentId = '';
     let stripeAmount = 100 * parseInt(amount.value);
 
     setProcessingTo(true);
 
+    // check if user wants to create an account
     if (registerDonor) {
       if (password.value === confirmPassword.value) {
         await firebase
@@ -125,7 +124,6 @@ const ContactDonate = () => {
 
     // create a payment intent via firebase function
     // that will call a cloud function on backend
-    // client_secret is returned from payment intent
     if (firebase) {
       if (user) {
         // create payment intent on stripe
@@ -137,22 +135,17 @@ const ContactDonate = () => {
             name: name.value,
             username: user.username,
           })
-          .then(clientSecret => {
-            clientSecretVariable = clientSecret.data;
+          .then(({ data }) => {
+            console.log(`paymentIntent auth: ${typeof data}`);
+            console.dir(data);
+            clientSecret = data.clientSecret;
+            paymentIntentId = data.paymentIntentId;
+            // clientSecretVariable = paymentIntent.clientSecret.data;
           })
           .catch(error => {
             setProcessingTo(false);
             setErrorMessage(error.message);
           });
-
-        firebase.createDonation({
-          amount: parseInt(amount.value),
-          clientId: client.value, // refers to a client housed
-          clientSecretStripe: clientSecretVariable, // refers to donor
-          donorEmail: email.value,
-          message: message.value,
-          username: user.username,
-        });
       } else {
         await firebase
           .createPaymentIntent({
@@ -161,8 +154,12 @@ const ContactDonate = () => {
             email: email.value,
             name: name.value,
           })
-          .then(clientSecret => {
-            clientSecretVariable = clientSecret.data;
+          .then(({ data }) => {
+            console.log(`paymentIntent auth: ${typeof data}`);
+            console.dir(data);
+            clientSecret = data.clientSecret;
+            paymentIntentId = data.paymentIntentId;
+            // clientSecretVariable = clientSecret.data;
           })
           .catch(error => {
             setProcessingTo(false);
@@ -175,33 +172,68 @@ const ContactDonate = () => {
     // need access to stripe.js
     // need a reference to CardElement
     const cardElement = elements.getElement(CardElement);
-
     const paymentMethodRequest = await stripe.createPaymentMethod({
       type: 'card',
       card: cardElement,
       billing_details: billingDetails,
     });
 
-    console.log(`paymentMethodRequest: ${paymentMethodRequest}`);
-    console.dir(paymentMethodRequest);
-
     // confirm card payment
     // combine payment method id + client_secret
-    const confirmCardPayment = await stripe.confirmCardPayment(
-      clientSecretVariable,
-      {
-        payment_method: paymentMethodRequest.paymentMethod.id,
-        setup_future_usage: isSavingCard ? 'off_session' : '',
-      }
-    );
+    const confirmCardPayment = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: paymentMethodRequest.paymentMethod.id,
+      setup_future_usage: isSavingCard ? 'off_session' : '',
+    });
 
+    // post card payment handling
     if (confirmCardPayment.error) {
       setErrorMessage(confirmCardPayment.error.message);
       setProcessingTo(false);
       return;
     } else {
-      console.log(`confirmCardPayment: ${confirmCardPayment}`);
-      console.dir(confirmCardPayment);
+      // success: createDonation and update client
+      // two cases: user logged in or guest
+      let tempFundedBy = [];
+
+      // map over clients to match to one being funded
+      clients.map(clientObj => {
+        // if this is the matched client
+        if (clientObj.id === client.value) {
+          // check if user auth
+          if (user) {
+            // check for any previous fundedBy
+            if (clientObj.fundedBy) {
+              clientObj.fundedBy.map(username => {
+                tempFundedBy.push(username);
+              });
+              tempFundedBy.push(user.username);
+            }
+
+            firebase.updateClientWithUserDonation({
+              amount: parseInt(amount.value),
+              fundedBy:
+                tempFundedBy.length === 0 ? [user.username] : tempFundedBy,
+              clientId: client.value,
+              raised: clientObj.raised,
+            });
+          } else {
+            firebase.updateClientWithGuestDonation({
+              amount: parseInt(amount.value),
+              raised: clientObj.raised,
+              clientId: client.value,
+            });
+          }
+        }
+      });
+
+      firebase.createDonation({
+        amount: parseInt(amount.value),
+        clientId: client.value, // refers to a client housed
+        paymentIntentId,
+        donorEmail: email.value,
+        message: message.value,
+        username: user ? user.username : '',
+      });
       setProcessingTo(false);
       navigate('/successDonation');
     }

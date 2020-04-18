@@ -65,20 +65,20 @@ class Firebase {
   }
   // [END fetch all payment intents]
 
-  // [START ]
+  // [START list user payment methods]
   listPaymentMethods({ customerId }) {
     const listPaymentMethodsCallable = this.functions.httpsCallable(
       'listPaymentMethods'
     );
     return listPaymentMethodsCallable({ customerId });
   }
-  // [END ]
+  // [END list user payment methods]
 
   // [START create a donation object]
   createDonation({
     amount,
     clientId,
-    clientSecretStripe,
+    paymentIntentId,
     donorEmail,
     message,
     username,
@@ -86,17 +86,43 @@ class Firebase {
     const createDonationCallable = this.functions.httpsCallable(
       'createDonation'
     );
-    console.log(`firebase.js - createDonation running ${amount}:${clientId}`);
     return createDonationCallable({
       amount,
       clientId,
-      clientSecretStripe,
+      paymentIntentId,
       donorEmail,
       message,
       username,
     });
   }
   // [END create a donation object]
+
+  // [START update client after a donation]
+  updateClientWithUserDonation({ amount, fundedBy, clientId, raised }) {
+    const updateClientWithUserDonationCallable = this.functions.httpsCallable(
+      'updateClientWithUserDonation'
+    );
+    return updateClientWithUserDonationCallable({
+      amount,
+      fundedBy,
+      clientId,
+      raised,
+    });
+  }
+  // [END update client after a donation]
+
+  // [START update client after un-auth donation]
+  updateClientWithGuestDonation({ amount, raised, clientId }) {
+    const updateClientWithGuestDonationCallable = this.functions.httpsCallable(
+      'updateClientWithGuestDonation'
+    );
+    return updateClientWithGuestDonationCallable({
+      amount,
+      raised,
+      clientId,
+    });
+  }
+  // [END update client after un-auth donation]
 
   // [START write user settings]
   writeUserSettings({ username, settings, profilePicture }) {
