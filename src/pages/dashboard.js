@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, navigate } from 'gatsby';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
@@ -22,22 +22,34 @@ import 'react-tabs/style/react-tabs.css';
 
 const Dashboard = ({ location }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
-  const [userProfile, setUserProfile] = useState(null);
-  let isMounted = true;
+  // const [userProfile, setUserProfile] = useState();
+  // const [isLoading, setIsLoading] = useState(false);
+  // let isMounted = true;
+  // let publicProfile;
 
-  useEffect(() => {
-    if (firebase && isMounted) {
-      console.log(`dashboard useEffect running`);
-      firebase.getUser({ userId: user.username }).then(snapshot => {
-        setUserProfile(snapshot.data());
-      });
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, []);
 
-  console.log(`DASHBOARD userProfile: ${userProfile}`);
+  // useEffect(() => {
+  //   if (firebase && user) {
+  //     setIsLoading(true);
+  //     console.log(`dashboard useEffect running`);
+  //     firebase.getUser({ userId: user.username }).then(snapshot => {
+  //       setUserProfile(snapshot.data());
+  //       console.log(`useEffect publicProfile: ${snapshot.data()}`);
+  //       publicProfile = snapshot.data();
+  //     });
+  //   }
+  //   return () => {
+  //     setIsLoading(false);
+  //   };
+  // }, [firebase]);
+
+  // console.log(`DASHBOARD userProfile: ${userProfile}`);
+  // console.log(`publicProfile: ${publicProfile}`);
 
   return (
     <div className="page-body-dashboard">
