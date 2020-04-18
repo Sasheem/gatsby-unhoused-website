@@ -44,14 +44,14 @@ const ContactHelp = () => {
   }
 
   return (
-    <FormSection>
+    <div className="form-layout-container">
       <SEO title="Unhoused Humanity contact for help form" />
       <div className="form-layout">
         <div className="form-header">
           <h1>Request our help</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacus
-            nisi, aliquam a tortor et, vulputate consectetur ex.
+            Fill out the form if you know someone or are about to experience
+            homelessness.
           </p>
         </div>
         <div className="form-container">
@@ -179,7 +179,7 @@ const ContactHelp = () => {
           <div />
         </div>
       </div>
-    </FormSection>
+    </div>
   );
 };
 

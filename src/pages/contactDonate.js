@@ -272,11 +272,11 @@ const ContactDonate = () => {
   };
 
   return (
-    <FormSection>
+    <div className="form-layout-container">
       <SEO title="Unhoused Humanity donation form" />
       <div className="form-layout">
         <div className="form-header">
-          <h1>Donate to Unhoused Humanity</h1>
+          <h1>Make a Donation</h1>
           <p>Everyone deserves a roof over their head.</p>
         </div>
         <div className="form-container">
@@ -447,7 +447,7 @@ const ContactDonate = () => {
           <div />
         </div>
       </div>
-    </FormSection>
+    </div>
   );
 };
 

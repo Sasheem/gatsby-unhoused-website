@@ -385,6 +385,9 @@ a {
     margin-bottom: 2em;
 }
 // form styling
+.form-layout-container {
+    margin-top: 5vh;
+}
 .form-layout {
     width: 100%;
     max-width: 60%;
@@ -393,6 +396,15 @@ a {
     justify-items: center;
     padding-top: 8em;
     margin: 0 auto;
+
+    @media only screen and (max-width: 768px) {
+        max-width: 80%;
+    }
+
+    @media only screen and (max-width: 470px) {
+        max-width: 100%;
+        padding-top: 5em;
+    }
 }
 .form-layout-admin {
     width: 100%;

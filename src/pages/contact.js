@@ -30,7 +30,7 @@ const Contact = () => {
   }
 
   return (
-    <FormSection>
+    <div className="form-layout-container">
       <SEO title="Contact Unhoused Humanity" />
       <div className="form-layout">
         <div className="form-header">
@@ -84,7 +84,7 @@ const Contact = () => {
           <div />
         </div>
       </div>
-    </FormSection>
+    </div>
   );
 };
 

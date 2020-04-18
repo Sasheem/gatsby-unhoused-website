@@ -41,15 +41,12 @@ const ContactVolunteer = () => {
   }
 
   return (
-    <FormSection>
+    <div className="form-layout-container">
       <SEO title="Unhoused Humanity contact volunteer form" />
       <div className="form-layout">
         <div className="form-header">
           <h1>Join our team</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacus
-            nisi, aliquam a tortor et, vulputate consectetur ex.
-          </p>
+          <p>Fill out the form below to help us make a difference.</p>
         </div>
         <div className="form-container">
           <div />
@@ -126,7 +123,7 @@ const ContactVolunteer = () => {
           <div />
         </div>
       </div>
-    </FormSection>
+    </div>
   );
 };
 
