@@ -20,6 +20,23 @@
         font-size: 1.1em;
     }
 }
+.button-donate-story {
+    display: block; 
+    width: 100%;
+    padding: 0.8em 1.6em;
+    background: $analogous-color-two;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+
+    /* forces text not to wrap */
+    white-space: nowrap;
+
+    &:hover {
+        background: $analogous-color-two-mono;
+    }
+}
 .button-donate:hover {
     cursor: pointer;
     background-color: $analogous-color-two-mono;

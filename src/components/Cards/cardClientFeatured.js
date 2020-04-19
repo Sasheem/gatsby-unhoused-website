@@ -13,40 +13,63 @@ import './cards.scss';
  */
 
 const CardClientFeatured = ({ client }) => {
-  const { firstName, lastName, situation, raised, goal, imageUrl } = client;
+  const {
+    firstName,
+    lastName,
+    situation,
+    raised,
+    goal,
+    imageUrl,
+    status,
+    dateHoused,
+  } = client;
   return (
-    <Link to={`/story/${firstName}-${lastName}`} state={{ client }}>
-      <div className="card-featured-container">
-        <div className="card-header">
+    <div className="card-featured-container">
+      <div className="card-header">
+        <Link
+          to={`/story/${firstName}-${lastName}`}
+          state={{ raised, status, dateHoused }}
+        >
           <img
             src={imageUrl}
             alt={`${firstName}'s card`}
             className="card-image"
           />
-        </div>
-        <div className="featured-info-container">
-          <div className="featured-flex" />
-          <div className="featured-content">
-            <div className="featured-bio">
-              <h3>Meet {firstName}</h3>
-              <h4>Situation</h4>
-              <p className="situation">{`${situation.slice(0, 90)}...`}</p>
-            </div>
-            <div className="featured-progress">
-              <ProgressBar percentage={(raised / goal) * 100} />
-            </div>
-            <div className="featured-status">
-              <div className="status">
-                <p className="raised">${raised}</p>
-                <p className="goal">raised of ${goal}</p>
-              </div>
-              <ButtonDonate label="Donate" destination="/" />
-            </div>
-          </div>
-          <div className="featured-flex" />
-        </div>
+        </Link>
       </div>
-    </Link>
+      <div className="featured-info-container">
+        <div className="featured-flex" />
+        <div className="featured-content">
+          <div className="featured-bio">
+            <Link
+              to={`/story/${firstName}-${lastName}`}
+              state={{ raised, status, dateHoused }}
+              className="card-featured-link"
+            >
+              <h3>Meet {firstName}</h3>
+            </Link>
+
+            <h4>Situation</h4>
+            <p className="situation">{`${situation.slice(0, 90)}...`}</p>
+          </div>
+          <div className="featured-progress">
+            <ProgressBar percentage={(raised / goal) * 100} />
+          </div>
+          <div className="featured-status">
+            <div className="status">
+              <p className="raised">${raised}</p>
+              <p className="goal">raised of ${goal}</p>
+            </div>
+            <ButtonDonate
+              label="Donate"
+              destination="contactDonate"
+              clientId={`${firstName}-${lastName}`}
+            />
+          </div>
+        </div>
+        <div className="featured-flex" />
+      </div>
+    </div>
   );
 };
 

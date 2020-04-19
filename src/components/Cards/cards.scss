@@ -117,6 +117,14 @@
     color: $sub-color;
     font-weight: 400;
 }
+.card-featured-link {
+	color: $main-color;
+	text-decoration: none;
+
+	&:hover {
+		color: $main-accent-color;
+	}
+}
 // card client featured ends
 
 // card call to action begins

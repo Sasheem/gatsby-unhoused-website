@@ -3,10 +3,10 @@ import { Link } from 'gatsby';
 
 import './button.scss';
 
-const ButtonDonate = ({ label, destination, clientId }) => (
+const ButtonDonateStory = ({ label, destination, clientId }) => (
   <Link className="button-link" to={`/${destination}`} state={{ clientId }}>
-    <div className="button-donate">{label}</div>
+    <div className="button-donate-story">{label}</div>
   </Link>
 );
 
-export default ButtonDonate;
+export default ButtonDonateStory;

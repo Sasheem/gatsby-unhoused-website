@@ -62,13 +62,14 @@ const StoryTemplate = ({ data, location, pageContext }) => {
       <SEO title={`${firstName}'s Story`} />
       <div className="story-template">
         <StoryHead
+          clientId={id}
           firstName={firstName}
           goal={goal}
-          raised={raised}
-          status={status}
+          raised={location ? location.state.raised : raised}
+          status={location ? location.state.status : status}
           familySize={familySize}
           imageUrl={imageUrl}
-          dateHoused={dateHoused}
+          dateHoused={location ? location.state.dateHoused : dateHoused}
           dateFundingBegan={dateFundingBegan}
         />
         <StoryBody

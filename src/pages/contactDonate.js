@@ -26,7 +26,7 @@ const CardElementContainer = styled.div`
   }
 `;
 
-const ContactDonate = () => {
+const ContactDonate = ({ location }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
   const [clients, setClients] = useState([]);
   const [isProcessing, setProcessingTo] = useState(false);
@@ -299,7 +299,17 @@ const ContactDonate = () => {
                 <option value="">--Choose a client to fund--</option>
                 {!!clients &&
                   clients.map(client => (
-                    <option key={client.id} value={client.id}>
+                    <option
+                      key={client.id}
+                      value={client.id}
+                      selected={
+                        location &&
+                        location.state.clientId ===
+                          `${client.firstName}-${client.lastName}`
+                          ? true
+                          : false
+                      }
+                    >
                       {client.firstName}
                     </option>
                   ))}

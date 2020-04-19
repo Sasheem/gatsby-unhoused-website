@@ -20,14 +20,15 @@
 }
 .story-head-content {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-gap: 1em;
+
     @media only screen and (min-width: 768px) {
         flex-direction: row;
+        grid-template-columns: 0.1fr 1fr 1fr 0.1fr;
     }
 }
 .head-image-container {
-    flex: 1;
     border-radius: calc(0.25rem - 1px);
 }
 .story-head-image {
@@ -35,7 +36,7 @@
     border-radius: inherit;
     margin: 0 auto;
     width: 100%;
-    // max-width: 25vw;
+
     @media only screen and (min-width: 768px) {
         max-width: 25vw;
         height: 100%;
@@ -48,11 +49,8 @@
     flex: 0.1;
 }
 .head-info {
-    flex: 1;
-	display: flex;
-	flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
+    display: grid;
+    grid-gap: 1em;
     h4, p { 
         text-align: left;
     }

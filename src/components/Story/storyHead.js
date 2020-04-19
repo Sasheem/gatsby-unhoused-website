@@ -2,7 +2,7 @@ import React from 'react';
 import Img from 'gatsby-image';
 import moment from 'moment';
 
-import ButtonDonate from '../common/Button/buttonDonate';
+import ButtonDonateStory from '../common/Button/buttonDonateStory';
 import Button from '../common/button';
 import { ButtonLink } from '../common';
 import ProgressBar from '../ProgressBar/progressBar';
@@ -11,6 +11,7 @@ import StoryIcons from '../Story/storyIcons';
 import './story.scss';
 
 const StoryHead = ({
+  clientId,
   firstName,
   raised,
   goal,
@@ -25,6 +26,7 @@ const StoryHead = ({
     <div className="story-head">
       <h1>Meet {firstName}</h1>
       <div className="story-head-content">
+        <div />
         <div className="head-image-container">
           <img
             src={imageUrl}
@@ -60,12 +62,15 @@ const StoryHead = ({
           </div>
           {status === 'Unhoused' ? (
             <div className="info-row">
-              <ButtonLink block to="/">
-                Donate
-              </ButtonLink>
+              <ButtonDonateStory
+                label="Donate"
+                destination="contactDonate"
+                clientId={clientId}
+              />
             </div>
           ) : null}
         </div>
+        <div />
       </div>
     </div>
   );

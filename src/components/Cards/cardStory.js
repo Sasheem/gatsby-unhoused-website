@@ -20,8 +20,7 @@ const CardStory = ({ key, client }) => {
   return (
     <Link
       to={`/story/${firstName}-${lastName}`}
-      // state={{ clientId: `${firstName}-${lastName}` }}
-      state={{ client }}
+      state={{ raised, status, dateHoused }}
     >
       <div className="card-featured-container">
         <div className="card-header">
