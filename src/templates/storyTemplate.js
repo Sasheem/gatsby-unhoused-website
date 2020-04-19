@@ -14,7 +14,7 @@ import './templates.scss';
  * * could just set it up within StoryComments
  */
 
-const StoryTemplate = ({ location, pageContext }) => {
+const StoryTemplate = ({ pageContext }) => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const {
     id,
@@ -41,13 +41,11 @@ const StoryTemplate = ({ location, pageContext }) => {
           clientId={id}
           firstName={firstName}
           goal={goal}
-          raised={location.state.raised ? location.state.raised : raised}
-          status={location.state.status ? location.state.status : status}
+          raised={raised}
+          status={status}
           familySize={familySize}
           imageUrl={imageUrl}
-          dateHoused={
-            location.state.dateHoused ? location.state.dateHoused : dateHoused
-          }
+          dateHoused={dateHoused}
           dateFundingBegan={dateFundingBegan}
         />
         <StoryBody
