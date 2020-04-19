@@ -151,13 +151,6 @@ class Firebase {
     return await this.db.collection('clients').get();
   }
 
-  // get all clients from 'clientsFeatured' collection
-  // will remove later b/c I want to filter my 'clients' collection
-  // for the Unhoused status in the front end.
-  async getFeaturedClients() {
-    return this.db.collection('clientsFeatured').get();
-  }
-
   // add a client with cloud functions
   async createClient({
     firstName,
@@ -205,7 +198,7 @@ class Firebase {
   // second argument is a callback function, using same naming
   // convention as firebase
   subscribeToStoryComments({ storyId, onSnapshot }) {
-    const storyRef = this.db.collection('clientsFeatured').doc(storyId);
+    const storyRef = this.db.collection('clients').doc(storyId);
     return this.db
       .collection('comments')
       .where('client', '==', storyRef)
