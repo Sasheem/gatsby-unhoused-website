@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { graphql } from 'gatsby';
 
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
@@ -11,10 +12,10 @@ import './templates.scss';
 
 /**
  * todo determine if you need firebase here
- * * could just set it up within StoryComments component
+ * * could just set it up within StoryComments
  */
 
-const StoryTemplate = ({ location }) => {
+const StoryTemplate = ({ data, location }) => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const {
     firstName,
@@ -60,5 +61,33 @@ const StoryTemplate = ({ location }) => {
     </div>
   );
 };
+
+// graphql has access to pageContext set up in gatsby-node.js
+// remember this query will inject data into props under 'data'
+export const query = graphql`
+  query ClientQuery($clientId: String!) {
+    client(id: { eq: $clientId }) {
+      firstName
+      lastName
+      raised
+      goal
+      status
+      familySize
+      dateFundingBegan
+      dateHoused
+      situation
+      questions
+      answers
+      imageUrl
+      localImage {
+        childImageSharp {
+          fixed(width: 331) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default StoryTemplate;
