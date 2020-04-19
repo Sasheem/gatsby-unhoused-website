@@ -25,11 +25,12 @@ const StoryHead = ({
     <div className="story-head">
       <h1>Meet {firstName}</h1>
       <div className="story-head-content">
-        <div />
         <div className="head-image-container">
-          <div />
-          <Img fixed={imageUrl} className="story-head-image" />
-          <div />
+          <img
+            src={imageUrl}
+            className="story-head-image"
+            alt={`${firstName} story photo`}
+          />
         </div>
         <div className="head-info">
           <div className="info-column">
@@ -65,7 +66,6 @@ const StoryHead = ({
             </div>
           ) : null}
         </div>
-        <div />
       </div>
     </div>
   );

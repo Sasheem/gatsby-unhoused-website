@@ -3,4 +3,8 @@
     width: 100%;
     display: grid;
     grid-gap: 5em;
+
+    @media only screen and (max-width: 768px) {
+        padding-top: 8em;
+    }
 }

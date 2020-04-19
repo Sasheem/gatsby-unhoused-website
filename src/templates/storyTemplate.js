@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { graphql } from 'gatsby';
+import React, { useContext } from 'react';
 
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
@@ -11,100 +10,55 @@ import '../styles/global.scss';
 import './templates.scss';
 
 /**
- * todo figure out this page reload issue
- * * why is data from graphql old data and not new data?
+ * todo determine if you need firebase here
+ * * could just set it up within StoryComments component
  */
 
-const StoryTemplate = props => {
+const StoryTemplate = ({ location }) => {
   const { firebase = null } = useContext(FirebaseContext) || {};
-  const [client, setClient] = useState({});
-  const [isMounted, setIsMounted] = useState(true);
-
   const {
-    id,
     firstName,
+    lastName,
+    situation,
     goal,
     raised,
-    situation,
     status,
     familySize,
-    questions,
-    answers,
     imageUrl,
-    localImage,
     dateHoused,
     dateFundingBegan,
-  } = props.data.client;
-
-  useEffect(() => {
-    return () => {
-      setIsMounted(false);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (firebase) {
-      firebase.getClient({ clientId: id }).then(snapshot => {
-        console.log(`client from firebase`);
-        if (isMounted) {
-          console.dir(snapshot.data());
-          setClient(snapshot.data());
-        }
-      });
-    }
-  }, []);
+    questions,
+    answers,
+  } = location.state.client;
 
   return (
     <div className="page-body">
-      <SEO title={`${client.firstName}'s Story`} />
+      <SEO title={`${firstName}'s Story`} />
       <div className="story-template">
         <StoryHead
-          firstName={client.firstName}
-          goal={client.goal}
-          raised={client.raised}
-          status={client.status}
-          familySize={client.familySize}
-          imageUrl={localImage.childImageSharp.fixed}
-          dateHoused={client.dateHoused}
-          dateFundingBegan={client.dateFundingBegan}
+          firstName={firstName}
+          goal={goal}
+          raised={raised}
+          status={status}
+          familySize={familySize}
+          imageUrl={imageUrl}
+          dateHoused={dateHoused}
+          dateFundingBegan={dateFundingBegan}
         />
         <StoryBody
           situation={situation}
           questions={questions}
           answers={answers}
         />
-        {firebase && <StoryComments firebase={firebase} storyId={id} />}
+        {firebase && (
+          <StoryComments
+            firebase={firebase}
+            storyId={`${firstName}-${lastName}`}
+          />
+        )}
       </div>
     </div>
   );
 };
-
-// graphql has access to pageContext set up in gatsby-node.js
-// remember this query will inject data into props under 'data'
-export const query = graphql`
-  query ClientQuery($clientId: String!) {
-    client(id: { eq: $clientId }) {
-      firstName
-      lastName
-      raised
-      goal
-      status
-      familySize
-      dateFundingBegan
-      dateHoused
-      situation
-      questions
-      answers
-      imageUrl
-      localImage {
-        childImageSharp {
-          fixed(width: 331) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-    }
-  }
-`;
 
 export default StoryTemplate;

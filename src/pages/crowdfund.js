@@ -5,7 +5,6 @@ import Img from 'gatsby-image';
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
-import CallToActions from '../components/Crowdfund/callToActions';
 import HowItWorks from '../components/Crowdfund/howItWorks';
 import CardClientFeatured from '../components/Cards/cardClientFeatured';
 
@@ -14,10 +13,7 @@ import { Button } from '../components/common';
 import '../styles/global.scss';
 
 /**
- * todo query graphql image to display next to referral form
- * todo create call to actions
- * todo find generic icons to relate to text in call to actions
- * todo wrap the p text in hero component
+ * todo wrap the p text in hero component, make width smaller
  */
 
 const CrowdfundPage = props => {
@@ -97,23 +93,7 @@ const CrowdfundPage = props => {
         label="Donate"
         destination="/contactDonate"
       />
-      <div className="container-three">
-        <h2>Featured Clients</h2>
-        <div className="content-three">
-          {!!clients &&
-            clients.map(client => (
-              <CardClientFeatured
-                key={client.id}
-                firstName={client.firstName}
-                lastName={client.lastName}
-                situation={`${client.situation.slice(0, 90)}...`}
-                raised={client.raised}
-                goal={client.goal}
-                imageUrl={client.imageUrl}
-              />
-            ))}
-        </div>
-      </div>
+      <HowItWorks />
       <div className="content-container-two">
         <div className="content-element-two">
           <Img
@@ -198,8 +178,15 @@ const CrowdfundPage = props => {
           </div>
         </div>
       </div>
-      <HowItWorks />
-      <CallToActions />
+      <div className="container-three">
+        <h2>Crowdfund these clients today</h2>
+        <div className="content-three">
+          {!!clients &&
+            clients.map(client => (
+              <CardClientFeatured key={client.id} client={client} />
+            ))}
+        </div>
+      </div>
     </div>
   );
 };

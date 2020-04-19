@@ -66,15 +66,7 @@ const IndexPage = props => {
           <div className="content-three">
             {!!clients &&
               clients.map(client => (
-                <CardClientFeatured
-                  key={client.id}
-                  firstName={client.firstName}
-                  lastName={client.lastName}
-                  situation={`${client.situation.slice(0, 90)}...`}
-                  raised={client.raised}
-                  goal={client.goal}
-                  imageUrl={client.imageUrl}
-                />
+                <CardClientFeatured key={client.id} client={client} />
               ))}
           </div>
         </div>

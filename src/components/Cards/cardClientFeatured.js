@@ -7,19 +7,17 @@ import ProgressBar from '../ProgressBar/progressBar';
 
 import './cards.scss';
 
-const CardClientFeatured = ({
-  firstName,
-  lastName,
-  situation,
-  raised,
-  goal,
-  imageUrl,
-}) => {
+/**
+ * todo change button to a link
+ * * include firstName and lastName in the state object
+ */
+
+const CardClientFeatured = ({ client }) => {
+  const { firstName, lastName, situation, raised, goal, imageUrl } = client;
   return (
-    <Link to={`/story/${firstName}-${lastName}`}>
+    <Link to={`/story/${firstName}-${lastName}`} state={{ client }}>
       <div className="card-featured-container">
         <div className="card-header">
-          {/* <Img fixed={imageUrl} className="card-image" /> */}
           <img
             src={imageUrl}
             alt={`${firstName}'s card`}
@@ -32,7 +30,7 @@ const CardClientFeatured = ({
             <div className="featured-bio">
               <h3>Meet {firstName}</h3>
               <h4>Situation</h4>
-              <p className="situation">{situation}</p>
+              <p className="situation">{`${situation.slice(0, 90)}...`}</p>
             </div>
             <div className="featured-progress">
               <ProgressBar percentage={(raised / goal) * 100} />

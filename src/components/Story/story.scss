@@ -20,25 +20,26 @@
 }
 .story-head-content {
     width: 100%;
-    display: grid;
-    grid-gap: 0.5em;
-    
-    @media only screen and (min-width: 960px) {
-        grid-template-columns: 0.2fr 1fr 1fr 0.2fr;
+    display: flex;
+    flex-direction: column;
+    @media only screen and (min-width: 768px) {
+        flex-direction: row;
     }
 }
 .head-image-container {
     flex: 1;
     border-radius: calc(0.25rem - 1px);
-    display: grid;
-    @media only screen and (max-width: 960px) {
-        grid-template-columns: 0.25fr 1fr 0.25fr;
-    }
 }
 .story-head-image {
     display: block;
     border-radius: inherit;
     margin: 0 auto;
+    width: 100%;
+    // max-width: 25vw;
+    @media only screen and (min-width: 768px) {
+        max-width: 25vw;
+        height: 100%;
+    }
 }
 .head-spacer {
     flex: 0.2;

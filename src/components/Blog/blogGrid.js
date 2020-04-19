@@ -20,22 +20,7 @@ const BlogGrid = ({ clients, loading }) => {
   return (
     <div className="blog-grid">
       {clients.map(client => (
-        <CardStory
-          key={client.id}
-          status={client.status}
-          date={
-            client.status === 'Unhoused'
-              ? client.dateHoused
-              : client.dateFundingBegan
-          }
-          firstName={client.firstName}
-          lastName={client.lastName}
-          description={`${client.situation.slice(0, 90)}...`}
-          time="9 min"
-          raised={client.raised}
-          slug={client.slug}
-          imageUrl={client.imageUrl}
-        />
+        <CardStory key={client.id} client={client} />
       ))}
     </div>
   );
