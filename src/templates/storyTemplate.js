@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { graphql } from 'gatsby';
 
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
@@ -15,13 +14,11 @@ import './templates.scss';
  * * could just set it up within StoryComments
  */
 
-const StoryTemplate = ({ data, location, pageContext }) => {
+const StoryTemplate = ({ location, pageContext }) => {
   const { firebase = null } = useContext(FirebaseContext) || {};
-  // const [clientState, setClientState] = useState({});
   const {
     id,
     firstName,
-    lastName,
     situation,
     goal,
     raised,
@@ -33,27 +30,6 @@ const StoryTemplate = ({ data, location, pageContext }) => {
     questions,
     answers,
   } = pageContext;
-  // let isMounted = true;
-
-  // const { id } = data.client;
-
-  // useEffect(() => {
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (firebase) {
-  //     firebase.getClient({ clientId: pageContext.clientId }).then(snapshot => {
-  //       console.log(`client from firebase`);
-  //       if (isMounted) {
-  //         console.dir(snapshot.data());
-  //         setClientState(snapshot.data());
-  //       }
-  //     });
-  //   }
-  // }, []);
 
   console.log(`storyTemplate page context`);
   console.dir(pageContext);
@@ -65,11 +41,13 @@ const StoryTemplate = ({ data, location, pageContext }) => {
           clientId={id}
           firstName={firstName}
           goal={goal}
-          raised={location ? location.state.raised : raised}
-          status={location ? location.state.status : status}
+          raised={location.state.raised ? location.state.raised : raised}
+          status={location.state.status ? location.state.status : status}
           familySize={familySize}
           imageUrl={imageUrl}
-          dateHoused={location ? location.state.dateHoused : dateHoused}
+          dateHoused={
+            location.state.dateHoused ? location.state.dateHoused : dateHoused
+          }
           dateFundingBegan={dateFundingBegan}
         />
         <StoryBody
@@ -82,33 +60,5 @@ const StoryTemplate = ({ data, location, pageContext }) => {
     </div>
   );
 };
-
-// graphql has access to pageContext set up in gatsby-node.js
-// remember this query will inject data into props under 'data'
-// export const query = graphql`
-//   query ClientQuery($clientId: String!) {
-//     client(id: { eq: $clientId }) {
-//       firstName
-//       lastName
-//       raised
-//       goal
-//       status
-//       familySize
-//       dateFundingBegan
-//       dateHoused
-//       situation
-//       questions
-//       answers
-//       imageUrl
-//       localImage {
-//         childImageSharp {
-//           fixed(width: 331) {
-//             ...GatsbyImageSharpFixed
-//           }
-//         }
-//       }
-//     }
-//   }
-// `;
 
 export default StoryTemplate;
