@@ -44,6 +44,18 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            firstName
+            lastName
+            raised
+            goal
+            status
+            familySize
+            dateFundingBegan
+            dateHoused
+            situation
+            questions
+            answers
+            imageUrl
           }
         }
       }
@@ -57,7 +69,8 @@ exports.createPages = async ({ graphql, actions }) => {
       createPage({
         path: `/story/${client.node.id}`,
         component: storyTemplate,
-        context: { clientId: client.node.id },
+        // context: { clientId: client.node.id },
+        context: client.node,
       });
     });
   });

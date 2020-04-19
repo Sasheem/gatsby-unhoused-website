@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { graphql } from 'gatsby';
 
 import { FirebaseContext } from '../components/Firebase';
@@ -15,9 +15,11 @@ import './templates.scss';
  * * could just set it up within StoryComments
  */
 
-const StoryTemplate = ({ data, location }) => {
+const StoryTemplate = ({ data, location, pageContext }) => {
   const { firebase = null } = useContext(FirebaseContext) || {};
+  // const [clientState, setClientState] = useState({});
   const {
+    id,
     firstName,
     lastName,
     situation,
@@ -30,8 +32,31 @@ const StoryTemplate = ({ data, location }) => {
     dateFundingBegan,
     questions,
     answers,
-  } = location.state.client;
+  } = pageContext;
+  // let isMounted = true;
 
+  // const { id } = data.client;
+
+  // useEffect(() => {
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   if (firebase) {
+  //     firebase.getClient({ clientId: pageContext.clientId }).then(snapshot => {
+  //       console.log(`client from firebase`);
+  //       if (isMounted) {
+  //         console.dir(snapshot.data());
+  //         setClientState(snapshot.data());
+  //       }
+  //     });
+  //   }
+  // }, []);
+
+  console.log(`storyTemplate page context`);
+  console.dir(pageContext);
   return (
     <div className="page-body">
       <SEO title={`${firstName}'s Story`} />
@@ -51,12 +76,7 @@ const StoryTemplate = ({ data, location }) => {
           questions={questions}
           answers={answers}
         />
-        {firebase && (
-          <StoryComments
-            firebase={firebase}
-            storyId={`${firstName}-${lastName}`}
-          />
-        )}
+        {firebase && <StoryComments firebase={firebase} storyId={id} />}
       </div>
     </div>
   );
@@ -64,30 +84,30 @@ const StoryTemplate = ({ data, location }) => {
 
 // graphql has access to pageContext set up in gatsby-node.js
 // remember this query will inject data into props under 'data'
-export const query = graphql`
-  query ClientQuery($clientId: String!) {
-    client(id: { eq: $clientId }) {
-      firstName
-      lastName
-      raised
-      goal
-      status
-      familySize
-      dateFundingBegan
-      dateHoused
-      situation
-      questions
-      answers
-      imageUrl
-      localImage {
-        childImageSharp {
-          fixed(width: 331) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-    }
-  }
-`;
+// export const query = graphql`
+//   query ClientQuery($clientId: String!) {
+//     client(id: { eq: $clientId }) {
+//       firstName
+//       lastName
+//       raised
+//       goal
+//       status
+//       familySize
+//       dateFundingBegan
+//       dateHoused
+//       situation
+//       questions
+//       answers
+//       imageUrl
+//       localImage {
+//         childImageSharp {
+//           fixed(width: 331) {
+//             ...GatsbyImageSharpFixed
+//           }
+//         }
+//       }
+//     }
+//   }
+// `;
 
 export default StoryTemplate;
