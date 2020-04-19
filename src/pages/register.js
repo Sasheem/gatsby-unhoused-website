@@ -15,14 +15,6 @@ import '../styles/global.scss';
 
 const Register = () => {
   const { firebase = null } = useContext(FirebaseContext) || {};
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    username: '',
-    firstName: '',
-    lastName: '',
-  });
   const [errorMessage, setErrorMessage] = useState('');
   let isMounted = true;
 
@@ -32,16 +24,24 @@ const Register = () => {
     };
   }, []);
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit(ev) {
+    ev.preventDefault();
+    const {
+      firstName,
+      lastName,
+      username,
+      email,
+      password,
+      confirmPassword,
+    } = ev.target;
 
-    if (formValues.password === formValues.confirmPassword) {
+    if (password.value === confirmPassword.value) {
       firebase
         .register({
-          username: formValues.username,
-          email: formValues.email,
-          password: formValues.password,
-          name: `${formValues.firstName} ${formValues.lastName}`,
+          username: username.value,
+          email: email.value,
+          password: password.value,
+          name: `${firstName.value} ${lastName.value}`,
         })
         .then(() => navigate('/dashboard'))
         .catch(error => {
@@ -57,10 +57,7 @@ const Register = () => {
   function handleInputChange(event) {
     event.persist();
     setErrorMessage('');
-    setFormValues(currentValues => ({
-      ...currentValues,
-      [event.target.name]: event.target.value,
-    }));
+
   }
   return (
     <FormSection>
@@ -83,7 +80,6 @@ const Register = () => {
                   name="firstName"
                   type="text"
                   onChange={handleInputChange}
-                  value={formValues.firstName}
                   required
                 />
               </div>
@@ -93,7 +89,6 @@ const Register = () => {
                   name="lastName"
                   type="text"
                   onChange={handleInputChange}
-                  value={formValues.lastName}
                   required
                 />
               </div>
@@ -104,7 +99,6 @@ const Register = () => {
                 name="username"
                 type="text"
                 onChange={handleInputChange}
-                value={formValues.username}
                 required
               />
             </div>
@@ -114,7 +108,6 @@ const Register = () => {
                 name="email"
                 type="email"
                 onChange={handleInputChange}
-                value={formValues.email}
                 required
               />
             </div>
@@ -124,7 +117,6 @@ const Register = () => {
                 name="password"
                 type="password"
                 onChange={handleInputChange}
-                value={formValues.password}
                 required
                 minLength={6}
               />
@@ -135,7 +127,6 @@ const Register = () => {
                 name="confirmPassword"
                 type="password"
                 onChange={handleInputChange}
-                value={formValues.confirmPassword}
                 required
                 minLength={6}
               />
