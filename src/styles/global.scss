@@ -208,11 +208,12 @@ a {
 // [START dashboard]
 .dashboard-component {
     display: grid;
-    grid-gap: 4em;
+    grid-gap: 2em;
     width: 100%;
     margin-top: 8em;
     @media only screen and (min-width: 768px) {
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 0.1fr 1fr 2fr 0.1fr;
+        grid-gap: 0;
     }
 }
 .dashboard-head {
