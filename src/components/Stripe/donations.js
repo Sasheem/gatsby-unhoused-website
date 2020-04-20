@@ -33,14 +33,14 @@ const Donations = ({ firebase, user }) => {
         );
       });
     }
+    console.log(`setting listPromise in useEffect`);
+    if (listPromise !== null) {
+      listPromise.then(result => {
+        setUserDonations(result.data.data);
+        console.dir(userDonations);
+      });
+    }
   }, [firebase]);
-
-  if (listPromise !== null) {
-    listPromise.then(result => {
-      setUserDonations(result.data.data);
-      console.dir(userDonations);
-    });
-  }
 
   return (
     <div className="dashboard-item">
