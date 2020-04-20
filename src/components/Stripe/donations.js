@@ -24,20 +24,14 @@ const Donations = ({ firebase, user }) => {
 
   useEffect(() => {
     if (firebase && isMounted) {
-      console.log(`isMounted: ${isMounted}`);
       firebase.getUser({ userId: user.username }).then(snapshot => {
-        setListPromise(
-          firebase.listPaymentIntents({
+        firebase
+          .listPaymentIntents({
             customerId: snapshot.data().customerId,
           })
-        );
-      });
-    }
-    console.log(`setting listPromise in useEffect`);
-    if (listPromise !== null) {
-      listPromise.then(result => {
-        setUserDonations(result.data.data);
-        console.dir(userDonations);
+          .then(result => {
+            setUserDonations(result.data.data);
+          });
       });
     }
   }, [firebase]);
