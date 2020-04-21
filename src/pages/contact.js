@@ -46,11 +46,7 @@ const Contact = () => {
           >
             <h3>Your Info</h3>
             <input type="hidden" name="bot-field" />
-            <input
-              type="hidden"
-              name="contact-general"
-              value="contact-general"
-            />
+            <input type="hidden" name="form-name" value="contact-general" />
             <div className="two-input-row">
               <div className="form-input-row">
                 <label for="firstName">First Name</label>
