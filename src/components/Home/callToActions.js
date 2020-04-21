@@ -32,33 +32,30 @@ const CallToActions = () => (
       const dataCallTwo = data.callToActionTwo.childImageSharp.fluid;
       const dataCallThree = data.callToActionThree.childImageSharp.fluid;
       return (
-        <div className="container-three">
-          <h2>Get Involved</h2>
-          <div className="content-three">
-            <CardCallToAction
-              title="Recurring Donations"
-              text="Sed nunc massa, sodales non dui quis, iaculis dapibus odio. 
+        <div className="content-three">
+          <CardCallToAction
+            title="Recurring Donations"
+            text="Sed nunc massa, sodales non dui quis, iaculis dapibus odio. 
 				Pellentesque quam orci, vestibulum nec odio in, blandit volutpat enim."
-              link="Sign Up"
-              destination="/register"
-              fluid={dataCallOne}
-            />
-            <CardCallToAction
-              title="Success stories"
-              text="In ac iaculis metus. Aenean ut aliquam ex. Maecenas viverra magna metus, porttitor sollicitudin dolor ultrices non."
-              link="Read a story"
-              destination="/stories"
-              fluid={dataCallTwo}
-            />
-            <CardCallToAction
-              title="Opportunities"
-              text="Aliquam placerat ligula eu turpis posuere, quis volutpat dolor sagittis. Morbi vehicula pharetra gravida. 
+            link="Sign Up"
+            destination="/register"
+            fluid={dataCallOne}
+          />
+          <CardCallToAction
+            title="Success stories"
+            text="In ac iaculis metus. Aenean ut aliquam ex. Maecenas viverra magna metus, porttitor sollicitudin dolor ultrices non."
+            link="Read a story"
+            destination="/stories"
+            fluid={dataCallTwo}
+          />
+          <CardCallToAction
+            title="Opportunities"
+            text="Aliquam placerat ligula eu turpis posuere, quis volutpat dolor sagittis. Morbi vehicula pharetra gravida. 
 				Nulla non eros diam. Fusce rutrum ligula justo, eu mattis justo hendrerit at."
-              link="Join team"
-              destination="/"
-              fluid={dataCallThree}
-            />
-          </div>
+            link="Join team"
+            destination="/"
+            fluid={dataCallThree}
+          />
         </div>
       );
     }}

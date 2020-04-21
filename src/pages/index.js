@@ -37,7 +37,10 @@ const IndexPage = props => {
         </div>
         <Process />
         <Newsletter />
-        <CallToActions />
+        <div className="container-three">
+          <h2>Get Involved</h2>
+          <CallToActions />
+        </div>
       </div>
     </div>
   );

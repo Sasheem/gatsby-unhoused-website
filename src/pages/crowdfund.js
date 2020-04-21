@@ -83,6 +83,7 @@ const CrowdfundPage = props => {
               name="contact-help-referral"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
+              action="/src/pages/successMessage"
             >
               <input type="hidden" name="bot-field" />
               <input
