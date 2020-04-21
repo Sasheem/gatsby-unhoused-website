@@ -236,8 +236,24 @@ a {
 }
 .tab-content-container {
     display: grid;
-    grid-gap: 2em;
-    width: 50%;
+    grid-gap: 1.5em;
+    width: 60%;
+    h3 {
+        margin: 0;
+        text-align: left;
+        color: $sub-color;
+    }
+    
+}
+.tab-content-clients {
+    display: grid;
+    grid-gap: 1em;
+    width: 90%;
+    h3 {
+        margin: 0;
+        text-align: left;
+        color: $sub-color;
+    }
 }
 // [END dashboard]
 
@@ -283,6 +299,17 @@ a {
         text-align: center;
         margin-bottom: 2em;
     }
+}
+.container-four {
+    max-width: 960px;
+    width: 100%;
+    h2 {
+        text-align: center;
+    }
+}
+.container-head {
+    margin-top: 10em;
+    margin-bottom: 2em;
 }
 .content-three {
     display: grid;

@@ -1,48 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
 import { graphql } from 'gatsby';
 
-import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
 import Process from '../components/Home/process';
 import Newsletter from '../components/Home/newsletter';
 import CallToActions from '../components/Home/callToActions';
-import CardClientFeatured from '../components/Cards/cardClientFeatured';
+import ClientsFeatured from '../components/Home/featuredClients';
 
 import '../styles/global.scss';
 
 const IndexPage = props => {
-  const { firebase = null } = useContext(FirebaseContext) || {};
-  const [clients, setClients] = useState([]);
-  let isMounted = true;
   console.log('graphql query to props:');
   console.dir(props.data.allClient.edges);
-
-  useEffect(() => {
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  // fetch clients to be featured
-  useEffect(() => {
-    if (firebase) {
-      firebase.getClients().then(snapshot => {
-        if (isMounted) {
-          const featuredClients = [];
-          snapshot.forEach(doc => {
-            if (doc.data().status === 'Unhoused') {
-              featuredClients.push({
-                id: doc.id,
-                ...doc.data(),
-              });
-            }
-          });
-          setClients(featuredClients);
-        }
-      });
-    }
-  }, [firebase]);
 
   return (
     <div className="page-container">
@@ -63,12 +33,7 @@ const IndexPage = props => {
         </div>
         <div className="container-three">
           <h2>Featured Clients</h2>
-          <div className="content-three">
-            {!!clients &&
-              clients.map(client => (
-                <CardClientFeatured key={client.id} client={client} />
-              ))}
-          </div>
+          <ClientsFeatured />
         </div>
         <Process />
         <Newsletter />

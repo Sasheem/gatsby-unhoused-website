@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
+
 import { FirebaseContext } from '../Firebase';
 import BlogGrid from '../Blog/blogGrid';
+import Button from '../common/Button/button';
 
-import '../../styles/global.scss';
+import './dashboard.scss';
 
 const ClientsFunded = ({ user }) => {
   const { firebase = null } = useContext(FirebaseContext) || {};
@@ -40,7 +42,21 @@ const ClientsFunded = ({ user }) => {
       });
     }
   }, [firebase]);
-  return <BlogGrid clients={clients} loading={loading} />;
+  return (
+    <>
+      {clients.length !== 0 ? (
+        <div className="dashboard-item">
+          <h3>Clients funded</h3>
+          <BlogGrid clients={clients} loading={loading} />
+        </div>
+      ) : (
+        <div className="dashboard-message">
+          <h5>Read a client story</h5>
+          <Button label="Meet Clients" destination="clientsInNeed" />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default ClientsFunded;

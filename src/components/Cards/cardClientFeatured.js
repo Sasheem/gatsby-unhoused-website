@@ -25,18 +25,18 @@ const CardClientFeatured = ({ client }) => {
   } = client;
   return (
     <div className="card-featured-container">
-      <div className="card-header">
-        <Link
-          to={`/story/${firstName}-${lastName}`}
-          state={{ raised, status, dateHoused }}
-        >
+      <Link
+        to={`/story/${firstName}-${lastName}`}
+        state={{ raised, status, dateHoused }}
+      >
+        <div className="card-header">
           <img
             src={imageUrl}
             alt={`${firstName}'s card`}
             className="card-image"
           />
-        </Link>
-      </div>
+        </div>
+      </Link>
       <div className="featured-info-container">
         <div className="featured-flex" />
         <div className="featured-content">

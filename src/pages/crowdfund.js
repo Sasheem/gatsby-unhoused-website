@@ -1,12 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 
-import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
 import HowItWorks from '../components/Crowdfund/howItWorks';
-import CardClientFeatured from '../components/Cards/cardClientFeatured';
+import FeaturedClients from '../components/Home/featuredClients';
 
 import { Button } from '../components/common';
 
@@ -17,8 +16,6 @@ import '../styles/global.scss';
  */
 
 const CrowdfundPage = props => {
-  const { firebase = null } = useContext(FirebaseContext) || {};
-  const [clients, setClients] = useState([]);
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
@@ -27,7 +24,6 @@ const CrowdfundPage = props => {
     familySize: 1,
     message: '',
   });
-  let isMounted = true;
 
   const data = useStaticQuery(graphql`
     query {
@@ -41,35 +37,6 @@ const CrowdfundPage = props => {
       }
     }
   `);
-
-  useEffect(() => {
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  // fetch clients to be featured
-  useEffect(() => {
-    if (firebase) {
-      firebase.getClients().then(snapshot => {
-        if (isMounted) {
-          const featuredClients = [];
-          snapshot.forEach(doc => {
-            if (doc.data().status === 'Unhoused') {
-              featuredClients.push({
-                id: doc.id,
-                ...doc.data(),
-              });
-            }
-          });
-          setClients(featuredClients);
-        }
-      });
-    }
-  }, [firebase]);
-
-  console.log('clients from FirebaseContext now set to state using hooks');
-  console.dir(clients);
 
   function handleInputChange(event) {
     event.persist();
@@ -180,12 +147,7 @@ const CrowdfundPage = props => {
       </div>
       <div className="container-three">
         <h2>Crowdfund these clients today</h2>
-        <div className="content-three">
-          {!!clients &&
-            clients.map(client => (
-              <CardClientFeatured key={client.id} client={client} />
-            ))}
-        </div>
+        <FeaturedClients />
       </div>
     </div>
   );
