@@ -57,11 +57,7 @@ const ContactVolunteer = () => {
           >
             <h3>Your Info</h3>
             <input type="hidden" name="bot-field" />
-            <input
-              type="hidden"
-              name="contact-volunteer"
-              value="contact-volunteer"
-            />
+            <input type="hidden" name="form-name" value="contact-volunteer" />
             <div className="two-input-row">
               <div className="form-input-row">
                 <label for="firstName">First Name</label>

@@ -65,7 +65,7 @@ const ContactHelp = () => {
             <input type="hidden" name="bot-field" />
             <input
               type="hidden"
-              name="contact-request-for-help"
+              name="form-name"
               value="contact-request-for-help"
             />
             <div className="two-input-row">

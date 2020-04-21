@@ -80,12 +80,13 @@ const CrowdfundPage = props => {
               name="contact-help-referral"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
+              data-netlify-recaptcha="true"
               action="/successMessage"
             >
               <input type="hidden" name="bot-field" />
               <input
                 type="hidden"
-                name="contact-help-referral"
+                name="form-name"
                 value="contact-help-referral"
               />
               <div className="form-input-row">
@@ -144,6 +145,9 @@ const CrowdfundPage = props => {
                   id="familySize"
                   min="1"
                 />
+              </div>
+              <div className="form-input-row">
+                <div data-netlify-recaptcha="true"></div>
               </div>
               <div className="form-submit-row-left">
                 <ButtonSubmit value="Submit" />
