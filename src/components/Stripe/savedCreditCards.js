@@ -26,15 +26,13 @@ const SavedCreditCards = ({ firebase, user }) => {
     console.log(`savedCreditCards useEffect running ${firebase} ${user}`);
     if (firebase && isMounted) {
       firebase.getUser({ userId: user.username }).then(snapshot => {
-        setListPromise(
-          firebase
-            .listPaymentMethods({
-              customerId: snapshot.data().customerId,
-            })
-            .then(result => {
-              setWallet(result.data.data);
-            })
-        );
+        firebase
+          .listPaymentMethods({
+            customerId: snapshot.data().customerId,
+          })
+          .then(result => {
+            setWallet(result.data.data);
+          });
       });
     }
   }, [firebase]);
