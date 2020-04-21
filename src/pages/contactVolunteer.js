@@ -50,8 +50,20 @@ const ContactVolunteer = () => {
         </div>
         <div className="form-container">
           <div />
-          <form onSubmit={handleSubmit} className="form-component">
+          <form
+            onSubmit={handleSubmit}
+            className="form-component"
+            name="contact-volunteer"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+          >
             <h3>Your Info</h3>
+            <input type="hidden" name="bot-field" />
+            <input
+              type="hidden"
+              name="contact-volunteer"
+              value="contact-volunteer"
+            />
             <div className="two-input-row">
               <div className="form-input-row">
                 <label for="firstName">First Name</label>

@@ -39,8 +39,20 @@ const Contact = () => {
         </div>
         <div className="form-container">
           <div />
-          <form className="form-component" onSubmit={handleSubmit}>
+          <form
+            className="form-component"
+            onSubmit={handleSubmit}
+            name="contact-general"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+          >
             <h3>Your Info</h3>
+            <input type="hidden" name="bot-field" />
+            <input
+              type="hidden"
+              name="contact-general"
+              value="contact-general"
+            />
             <div className="two-input-row">
               <div className="form-input-row">
                 <label for="firstName">First Name</label>

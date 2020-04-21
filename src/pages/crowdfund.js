@@ -77,7 +77,19 @@ const CrowdfundPage = props => {
             </p>
           </div>
           <div className="form-container-crowdfund">
-            <form className="form-component" onSubmit={handleSubmit}>
+            <form
+              className="form-component"
+              onSubmit={handleSubmit}
+              name="contact-help-referral"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+            >
+              <input type="hidden" name="bot-field" />
+              <input
+                type="hidden"
+                name="contact-help-referral"
+                value="contact-help-referral"
+              />
               <div className="form-input-row">
                 <label for="firstName">First name</label>
                 <input
