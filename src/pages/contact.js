@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'gatsby';
 
 import SEO from '../components/seo';
-import ButtonSubmit from '../components/common/Button';
+import ButtonSubmit from '../components/common/Button/buttonSubmit';
 
 import '../styles/global.scss';
 
