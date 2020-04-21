@@ -56,7 +56,7 @@ const ContactVolunteer = () => {
             name="contact-volunteer"
             data-netlify="true"
             data-netlify-honeypot="bot-field"
-            action="/src/pages/successMessage"
+            action="/successMessage"
           >
             <h3>Your Info</h3>
             <input type="hidden" name="bot-field" />
