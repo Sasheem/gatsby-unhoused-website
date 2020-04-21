@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
+import { Link } from 'gatsby';
 
 import MoreIcon from '../../assets/ellipsis-v-solid.svg';
+import Button from '../common/Button/button';
 
 import '../../styles/global.scss';
 import './stripe.scss';
 
 /**
- * todo remove getUser and use userProfile as param from dashboard
+ * todo move getUser to Dashboard parent component
+ * todo make use of loading state
  */
 
 const Donations = ({ firebase, user }) => {
-  const [userDonations, setUserDonations] = useState(null);
-  const [listPromise, setListPromise] = useState(null);
+  const [donations, setDonations] = useState([]);
+  const [loading, setLoading] = useState(false);
   let isMounted = true;
 
   // when component un mounts
@@ -23,15 +26,38 @@ const Donations = ({ firebase, user }) => {
   }, []);
 
   useEffect(() => {
-    if (firebase && isMounted) {
+    if (firebase) {
       firebase.getUser({ userId: user.username }).then(snapshot => {
-        firebase
-          .listPaymentIntents({
-            customerId: snapshot.data().customerId,
-          })
-          .then(result => {
-            setUserDonations(result.data.data);
-          });
+        setLoading(true);
+        console.log(`user: ${user.username}`);
+        if (isMounted) {
+          firebase
+            .listPaymentIntents({
+              customerId: snapshot.data().customerId,
+            })
+            .then(result => {
+              const donationsData = [];
+              result.data.data.forEach(doc => {
+                if (doc.status === 'succeeded') {
+                  donationsData.push({
+                    date: moment.unix(doc.created).format('l'),
+                    amount: parseInt(doc.amount) * 0.01,
+                    status: doc.status,
+                    brand:
+                      doc.charges.data[0].payment_method_details.card.brand,
+                    last4:
+                      doc.charges.data[0].payment_method_details.card.last4,
+                  });
+                }
+              });
+              setDonations(donationsData);
+              setLoading(false);
+              console.log(`number of donations: ${donationsData.length}`);
+            })
+            .catch(error => {
+              console.log(`error: ${error.message}`);
+            });
+        }
       });
     }
   }, [firebase]);
@@ -39,30 +65,23 @@ const Donations = ({ firebase, user }) => {
   return (
     <div className="dashboard-item">
       <h3>Donations</h3>
-      {!!userDonations &&
-        userDonations.map(donation => (
+      {donations.length !== 0 ? (
+        donations.map(donation => (
           <>
             <div className="donation-row">
               <div className="donation-item">
                 <h4>Date</h4>
-                <p>
-                  {moment.unix(donation.charges.data[0].created).format('l')}
-                </p>
+                <p>{donation.date}</p>
               </div>
               <div className="donation-item">
                 <h4>Amount</h4>
-                <p>${donation.charges.data[0].amount * 0.01}.00</p>
+                <p>${donation.amount}.00</p>
               </div>
               <div className="donation-item">
                 <h4>Card</h4>
                 <p>
-                  {donation.charges.data[0].payment_method_details.card.brand}{' '}
-                  {donation.charges.data[0].payment_method_details.card.last4}
+                  {donation.brand} {donation.last4}
                 </p>
-              </div>
-              <div className="donation-item">
-                <h4>Status</h4>
-                <p>{donation.charges.data[0].status}</p>
               </div>
               <div className="row-more">
                 <MoreIcon />
@@ -70,7 +89,13 @@ const Donations = ({ firebase, user }) => {
             </div>
             <div className="row-divider" />
           </>
-        ))}
+        ))
+      ) : (
+        <div className="dashboard-message">
+          <h5>Make your first donation</h5>
+          <Button label="Donate" to="/contactDonate" />
+        </div>
+      )}
     </div>
   );
 };

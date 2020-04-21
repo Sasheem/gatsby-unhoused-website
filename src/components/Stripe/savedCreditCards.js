@@ -13,7 +13,6 @@ import '../../styles/global.scss';
 
 const SavedCreditCards = ({ firebase, user }) => {
   const [wallet, setWallet] = useState(null);
-  const [listPromise, setListPromise] = useState(null);
   let isMounted = true;
 
   // when component un mounts
@@ -28,19 +27,17 @@ const SavedCreditCards = ({ firebase, user }) => {
     if (firebase && isMounted) {
       firebase.getUser({ userId: user.username }).then(snapshot => {
         setListPromise(
-          firebase.listPaymentMethods({
-            customerId: snapshot.data().customerId,
-          })
+          firebase
+            .listPaymentMethods({
+              customerId: snapshot.data().customerId,
+            })
+            .then(result => {
+              setWallet(result.data.data);
+            })
         );
       });
     }
   }, [firebase]);
-
-  if (listPromise !== null) {
-    listPromise.then(result => {
-      setWallet(result.data.data);
-    });
-  }
 
   return (
     <div className="dashboard-item">
