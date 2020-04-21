@@ -53,6 +53,8 @@ const ContactHelp = () => {
         <div className="form-container">
           <div />
           <form
+            id="contact-request-for-help"
+            method="POST"
             className="form-component"
             name="contact-request-for-help"
             data-netlify="true"

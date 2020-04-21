@@ -36,8 +36,10 @@ const Contact = () => {
         <div className="form-container">
           <div />
           <form
+            id="contact-general"
             className="form-component"
             name="contact-general"
+            method="POST"
             data-netlify="true"
             data-netlify-honeypot="bot-field"
             action="/successMessage"

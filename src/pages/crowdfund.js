@@ -74,6 +74,8 @@ const CrowdfundPage = props => {
           </div>
           <div className="form-container-crowdfund">
             <form
+              id="contact-help-referral"
+              method="POST"
               className="form-component"
               name="contact-help-referral"
               data-netlify="true"
