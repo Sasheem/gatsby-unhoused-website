@@ -5,13 +5,13 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import SEO from '../components/seo';
 import { FirebaseContext } from '../components/Firebase';
 import MetricsDashboard from '../components/Dashboard/metrics';
-import Donations from '../components/Stripe/donations';
-import CardUser from '../components/Cards/cardUser';
+import Donations from '../components/Dashboard/donations';
+import ClientsFunded from '../components/Dashboard/clientsFunded';
 import BioForm from '../components/Dashboard/bioForm';
 import PasswordForm from '../components/Dashboard/passwordForm';
+import CardUser from '../components/Cards/cardUser';
 import UpdateCreditCard from '../components/Stripe/updateCreditCard';
 import SavedCreditCards from '../components/Stripe/savedCreditCards';
-import ClientsFunded from '../components/Dashboard/clientsFunded';
 
 import '../styles/global.scss';
 import 'react-tabs/style/react-tabs.css';
@@ -73,7 +73,6 @@ const Dashboard = ({ location }) => {
             </TabList>
             <TabPanel>
               <div className="tab-content-container">
-                <h3>Overview Content</h3>
                 <MetricsDashboard />
               </div>
             </TabPanel>
@@ -83,8 +82,9 @@ const Dashboard = ({ location }) => {
               </div>
             </TabPanel>
             <TabPanel>
-              <h2>Clients you funded</h2>
-              <ClientsFunded user={user} />
+              <div className="tab-content-clients">
+                <ClientsFunded user={user} />
+              </div>
             </TabPanel>
             <TabPanel>
               <div className="tab-content-container">
