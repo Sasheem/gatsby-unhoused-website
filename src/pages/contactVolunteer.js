@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'gatsby';
 
 import SEO from '../components/seo';
-import { Button, ErrorMessage, FormSection } from '../components/common';
+import ButtonSubmit from '../components/common/Button/buttonSubmit';
 
 import '../styles/global.scss';
 
@@ -23,10 +23,6 @@ const ContactVolunteer = () => {
   });
   const [userIsClient, setUserIsClient] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
 
   function handleUserClientSwitch(event) {
     setUserIsClient(!userIsClient);
@@ -51,7 +47,6 @@ const ContactVolunteer = () => {
         <div className="form-container">
           <div />
           <form
-            onSubmit={handleSubmit}
             className="form-component"
             name="contact-volunteer"
             data-netlify="true"
@@ -119,9 +114,7 @@ const ContactVolunteer = () => {
             </div>
             <div className="form-submit-row">
               <div />
-              <Button type="submit" block submit>
-                Send
-              </Button>
+              <ButtonSubmit value="Submit" />
               <div />
             </div>
             <div className="form-description-row">

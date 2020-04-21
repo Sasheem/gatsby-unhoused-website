@@ -7,7 +7,7 @@ import Hero from '../components/Home/hero';
 import HowItWorks from '../components/Crowdfund/howItWorks';
 import FeaturedClients from '../components/Home/featuredClients';
 
-import { Button } from '../components/common';
+import ButtonSubmit from '../components/common/Button/buttonSubmit';
 
 import '../styles/global.scss';
 
@@ -47,10 +47,6 @@ const CrowdfundPage = props => {
     }));
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
-
   return (
     <div className="page-body">
       <SEO title="Crowdfunding" />
@@ -79,7 +75,6 @@ const CrowdfundPage = props => {
           <div className="form-container-crowdfund">
             <form
               className="form-component"
-              onSubmit={handleSubmit}
               name="contact-help-referral"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
@@ -149,9 +144,7 @@ const CrowdfundPage = props => {
                 />
               </div>
               <div className="form-submit-row-left">
-                <Button type="submit" block>
-                  Send
-                </Button>
+                <ButtonSubmit value="Submit" />
                 <div />
               </div>
             </form>

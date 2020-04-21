@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'gatsby';
 
 import SEO from '../components/seo';
-import { Button, ErrorMessage, FormSection } from '../components/common';
+import ButtonSubmit from '../components/common/Button';
 
 import '../styles/global.scss';
 
@@ -15,10 +15,6 @@ const Contact = () => {
   });
 
   const [errorMessage, setErrorMessage] = useState('');
-
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
 
   function handleInputChange(event) {
     event.persist();
@@ -41,7 +37,6 @@ const Contact = () => {
           <div />
           <form
             className="form-component"
-            onSubmit={handleSubmit}
             name="contact-general"
             data-netlify="true"
             data-netlify-honeypot="bot-field"
@@ -80,9 +75,7 @@ const Contact = () => {
             </div>
             <div className="form-submit-row">
               <div />
-              <Button type="submit" block submit>
-                Send
-              </Button>
+              <ButtonSubmit value="Submit" />
               <div />
             </div>
             <div className="form-description-row">

@@ -4,11 +4,9 @@ import { Link } from 'gatsby';
 import './button.scss';
 
 const Button = ({ label, destination }) => (
-  <div className="button">
-    <Link className="button-link" to={`/${destination}`}>
-      {label}
-    </Link>
-  </div>
+  <Link className="button-link" to={`/${destination}`}>
+    <div className="button">{label}</div>
+  </Link>
 );
 
 export default Button;
