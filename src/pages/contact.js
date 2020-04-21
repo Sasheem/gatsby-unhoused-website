@@ -43,6 +43,7 @@ const Contact = () => {
             data-netlify="true"
             data-netlify-honeypot="bot-field"
             action="/successMessage"
+            data-netlify-recaptcha="true"
           >
             <h3>Your Info</h3>
             <input type="hidden" name="bot-field" />
@@ -71,6 +72,7 @@ const Contact = () => {
                 onChange={handleInputChange}
               />
             </div>
+            <div data-netlify-recaptcha="true"></div>
             <div className="form-submit-row">
               <div />
               <ButtonSubmit value="Submit" />
