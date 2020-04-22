@@ -31,9 +31,6 @@ const StoryTemplate = ({ pageContext }) => {
     questions,
     answers,
   } = pageContext;
-
-  console.log(`storyTemplate page context`);
-  console.dir(pageContext);
   return (
     <div className="page-body">
       <SEO title={`${firstName}'s Story`} />
