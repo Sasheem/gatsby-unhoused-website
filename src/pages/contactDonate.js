@@ -307,25 +307,6 @@ const ContactDonate = ({ location }) => {
           <form onSubmit={handleFormSubmit} className="form-component">
             <h3>Client Information</h3>
             <div className="form-input-row">
-              <label for="amount">Amount</label>
-              <select name="amount" id="donation-select" required>
-                <option value="">--Choose donation amount--</option>
-                <option value="10">$10</option>
-                <option value="25">$25</option>
-                <option value="50">$50</option>
-                <option value="100">$100</option>
-                {clientSelected !== null ? (
-                  <option value={fullyFund}>${fullyFund} - FULLY FUND</option>
-                ) : location &&
-                  location.hasOwnProperty('state') &&
-                  location.state.hasOwnProperty('fullyFund') ? (
-                  <option value={location.state.fullyFund}>
-                    ${location.state.fullyFund} - FULLY FUND
-                  </option>
-                ) : null}
-              </select>
-            </div>
-            <div className="form-input-row">
               <label for="client">Clients</label>
               <select
                 name="client"
@@ -350,6 +331,25 @@ const ContactDonate = ({ location }) => {
                       {client.firstName}
                     </option>
                   ))}
+              </select>
+            </div>
+            <div className="form-input-row">
+              <label for="amount">Amount</label>
+              <select name="amount" id="donation-select" required>
+                <option value="">--Choose donation amount--</option>
+                <option value="10">$10</option>
+                <option value="25">$25</option>
+                <option value="50">$50</option>
+                <option value="100">$100</option>
+                {clientSelected !== null ? (
+                  <option value={fullyFund}>${fullyFund} - FULLY FUND</option>
+                ) : location &&
+                  location.hasOwnProperty('state') &&
+                  location.state.hasOwnProperty('fullyFund') ? (
+                  <option value={location.state.fullyFund}>
+                    ${location.state.fullyFund} - FULLY FUND
+                  </option>
+                ) : null}
               </select>
             </div>
             <div className="form-input-row">
