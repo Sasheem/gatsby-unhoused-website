@@ -1,10 +1,6 @@
 import React from 'react';
-import Img from 'gatsby-image';
-import moment from 'moment';
 
 import ButtonDonateStory from '../common/Button/buttonDonateStory';
-import Button from '../common/button';
-import { ButtonLink } from '../common';
 import ProgressBar from '../ProgressBar/progressBar';
 import StoryIcons from '../Story/storyIcons';
 
@@ -54,7 +50,7 @@ const StoryHead = ({
             </div>
             <div className="info-metric">
               <h4>{status === 'Housed' ? 'Date Housed' : 'Funding Began'}</h4>
-              <p>{moment(dateToShow).format('l')}</p>
+              <p>{dateToShow}</p>
             </div>
           </div>
           <div className="info-column">

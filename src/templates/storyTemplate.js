@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import moment from 'moment';
 
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
@@ -45,8 +46,8 @@ const StoryTemplate = ({ pageContext }) => {
           status={status}
           familySize={familySize}
           imageUrl={imageUrl}
-          dateHoused={dateHoused}
-          dateFundingBegan={dateFundingBegan}
+          dateHoused={moment(dateHoused).format('l')}
+          dateFundingBegan={moment(dateFundingBegan).format('l')}
         />
         <StoryBody
           situation={situation}
