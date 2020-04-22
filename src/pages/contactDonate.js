@@ -316,7 +316,7 @@ const ContactDonate = ({ location }) => {
                 <option value="100">$100</option>
                 {clientSelected !== null ? (
                   <option value={fullyFund}>${fullyFund} - FULLY FUND</option>
-                ) : location && location.state.fullyFund !== undefined ? (
+                ) : location && location.state.hasOwnProperty('fullyFund') ? (
                   <option value={location.state.fullyFund}>
                     ${location.state.fullyFund} - FULLY FUND
                   </option>
