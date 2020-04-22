@@ -46,8 +46,10 @@ const StoryTemplate = ({ pageContext }) => {
           status={status}
           familySize={familySize}
           imageUrl={imageUrl}
-          dateHoused={moment(dateHoused).format('l')}
-          dateFundingBegan={moment(dateFundingBegan).format('l')}
+          dateHoused={dateHoused}
+          dateFundingBegan={dateFundingBegan}
+          // dateHoused={moment(dateHoused).format('l')}
+          // dateFundingBegan={moment(dateFundingBegan).format('l')}
         />
         <StoryBody
           situation={situation}
