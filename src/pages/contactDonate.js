@@ -33,6 +33,8 @@ const ContactDonate = ({ location }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [registerDonor, setRegisterDonor] = useState(false);
   const [isSavingCard, setIsSavingCard] = useState(false);
+  const [fullyFund, setFullyFund] = useState(null);
+  const [clientSelected, setClientSelected] = useState(null);
   let isMounted = true;
 
   const stripe = useStripe();
@@ -62,11 +64,15 @@ const ContactDonate = ({ location }) => {
         }
       });
     }
+    // check if user navigated from a clientFeaturedCard via its donate button
+    // means a client is intended to be donated to
+    if (location.state.hasOwnProperty(`clientId`) && clients.length !== 0) {
+      handleClientSet(location.state.clientId);
+    }
   }, [firebase]);
 
   const handleFormSubmit = async ev => {
     ev.preventDefault();
-    console.log('form submit pressed');
     const {
       name,
       email,
@@ -136,8 +142,6 @@ const ContactDonate = ({ location }) => {
             username: user.username,
           })
           .then(({ data }) => {
-            console.log(`paymentIntent auth: ${typeof data}`);
-            console.dir(data);
             clientSecret = data.clientSecret;
             paymentIntentId = data.paymentIntentId;
             // clientSecretVariable = paymentIntent.clientSecret.data;
@@ -155,11 +159,8 @@ const ContactDonate = ({ location }) => {
             name: name.value,
           })
           .then(({ data }) => {
-            console.log(`paymentIntent auth: ${typeof data}`);
-            console.dir(data);
             clientSecret = data.clientSecret;
             paymentIntentId = data.paymentIntentId;
-            // clientSecretVariable = clientSecret.data;
           })
           .catch(error => {
             setProcessingTo(false);
@@ -255,6 +256,28 @@ const ContactDonate = ({ location }) => {
     setIsSavingCard(!isSavingCard);
   };
 
+  const handleClientChange = ev => {
+    console.log(`clientChanged to ${ev.target.value}`);
+    handleClientSet(ev.target.value);
+  };
+
+  const handleClientSet = clientId => {
+    console.log(`handleClientSet has ${clientId}`);
+    calculateFullyFundAmount(clientId);
+    setClientSelected(clientId);
+  };
+
+  const calculateFullyFundAmount = clientId => {
+    let amount;
+    clients.map(client => {
+      if (client.id === clientId) {
+        amount = (client.goal - client.raised).toString();
+        setFullyFund(amount);
+        return amount;
+      }
+    });
+  };
+
   // provide styling to stripe card element
   const cardElementOptions = {
     // a way to inject styles into that iframe
@@ -291,11 +314,23 @@ const ContactDonate = ({ location }) => {
                 <option value="25">$25</option>
                 <option value="50">$50</option>
                 <option value="100">$100</option>
+                {clientSelected !== null ? (
+                  <option value={fullyFund}>${fullyFund} - FULLY FUND</option>
+                ) : location.state.fullyFund ? (
+                  <option value={location.state.fullyFund}>
+                    ${location.state.fullyFund} - FULLY FUND
+                  </option>
+                ) : null}
               </select>
             </div>
             <div className="form-input-row">
               <label for="client">Clients</label>
-              <select name="client" id="client-select" required>
+              <select
+                name="client"
+                id="client-select"
+                onChange={handleClientChange}
+                required
+              >
                 <option value="">--Choose a client to fund--</option>
                 {!!clients &&
                   clients.map(client => (

@@ -22,6 +22,7 @@ const StoryHead = ({
   dateHoused,
 }) => {
   const dateToShow = status === 'Housed' ? dateHoused : dateFundingBegan;
+  const fullyFund = (goal - raised).toString();
   return (
     <div className="story-head">
       <h1>Meet {firstName}</h1>
@@ -66,6 +67,7 @@ const StoryHead = ({
                 label="Donate"
                 destination="contactDonate"
                 clientId={clientId}
+                fullyFund={fullyFund}
               />
             </div>
           ) : null}

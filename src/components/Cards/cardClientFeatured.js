@@ -23,6 +23,7 @@ const CardClientFeatured = ({ client }) => {
     status,
     dateHoused,
   } = client;
+  const fullyFund = (goal - raised).toString();
   return (
     <div className="card-featured-container">
       <Link
@@ -64,6 +65,7 @@ const CardClientFeatured = ({ client }) => {
               label="Donate"
               destination="contactDonate"
               clientId={`${firstName}-${lastName}`}
+              fullyFund={fullyFund}
             />
           </div>
         </div>
