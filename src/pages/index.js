@@ -1,5 +1,4 @@
 import React from 'react';
-import { graphql } from 'gatsby';
 
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
@@ -11,9 +10,6 @@ import ClientsFeatured from '../components/Home/featuredClients';
 import '../styles/global.scss';
 
 const IndexPage = props => {
-  console.log('graphql query to props:');
-  console.dir(props.data.allClient.edges);
-
   return (
     <div className="page-container">
       <SEO title="Home" />
@@ -45,36 +41,5 @@ const IndexPage = props => {
     </div>
   );
 };
-
-export const query = graphql`
-  {
-    allClient {
-      edges {
-        node {
-          id
-          firstName
-          lastName
-          raised
-          goal
-          situation
-          familySize
-          status
-          imageUrl
-          localImage {
-            childImageSharp {
-              fixed(width: 331) {
-                ...GatsbyImageSharpFixed
-              }
-            }
-          }
-          dateHoused
-          dateFundingBegan
-          questions
-          answers
-        }
-      }
-    }
-  }
-`;
 
 export default IndexPage;
