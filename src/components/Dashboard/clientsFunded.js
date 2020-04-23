@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../Firebase';
 import BlogGrid from '../Blog/blogGrid';
 import Button from '../common/Button/button';
+import Loader from '../common/Loader/loader';
 
 import './dashboard.scss';
 
@@ -20,9 +21,8 @@ const ClientsFunded = ({ user }) => {
 
   useEffect(() => {
     if (firebase) {
+      setLoading(true);
       firebase.getClients().then(snapshot => {
-        setLoading(true);
-
         // check if component is mounted
         if (isMounted) {
           const fundedClients = [];
@@ -39,12 +39,17 @@ const ClientsFunded = ({ user }) => {
           setClients(fundedClients);
           setLoading(false);
         }
+        setLoading(false);
       });
     }
   }, [firebase]);
   return (
     <>
-      {clients.length !== 0 ? (
+      {loading === true ? (
+        <div className="loader-container">
+          <Loader />
+        </div>
+      ) : clients.length !== 0 ? (
         <div className="dashboard-item">
           <h3>Clients funded</h3>
           <BlogGrid clients={clients} loading={loading} />

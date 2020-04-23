@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import MoreIcon from '../../assets/ellipsis-v-solid.svg';
+import Loader from '../common/Loader/loader';
 
 import '../../styles/global.scss';
+import '../Dashboard/dashboard.scss';
 
 /**
  * todo add dropdown menu upon MoreIcon click
@@ -13,6 +15,7 @@ import '../../styles/global.scss';
 
 const SavedCreditCards = ({ firebase, user }) => {
   const [wallet, setWallet] = useState(null);
+  const [loading, setLoading] = useState(false);
   let isMounted = true;
 
   // when component un mounts
@@ -23,8 +26,8 @@ const SavedCreditCards = ({ firebase, user }) => {
   }, []);
 
   useEffect(() => {
-    console.log(`savedCreditCards useEffect running ${firebase} ${user}`);
     if (firebase && isMounted) {
+      setLoading(true);
       firebase.getUser({ userId: user.username }).then(snapshot => {
         firebase
           .listPaymentMethods({
@@ -32,6 +35,11 @@ const SavedCreditCards = ({ firebase, user }) => {
           })
           .then(result => {
             setWallet(result.data.data);
+            setLoading(false);
+          })
+          .catch(error => {
+            console.log(`ERROR: ${error.message}`);
+            setLoading(false);
           });
       });
     }
@@ -40,7 +48,12 @@ const SavedCreditCards = ({ firebase, user }) => {
   return (
     <div className="dashboard-item">
       <h3>Saved Credit Cards</h3>
-      {!!wallet &&
+      {loading === true ? (
+        <div className="loader-container">
+          <Loader />
+        </div>
+      ) : (
+        !!wallet &&
         wallet.map(card => (
           <>
             <div className="saved-card-row">
@@ -64,7 +77,8 @@ const SavedCreditCards = ({ firebase, user }) => {
             </div>
             <div className="row-divider" />
           </>
-        ))}
+        ))
+      )}
     </div>
   );
 };

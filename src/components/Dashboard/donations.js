@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import MoreIcon from '../../assets/ellipsis-v-solid.svg';
 import Button from '../common/Button/button';
+import Loader from '../common/Loader/loader';
 
 import './dashboard.scss';
 
@@ -25,9 +26,8 @@ const Donations = ({ firebase, user }) => {
 
   useEffect(() => {
     if (firebase) {
+      setLoading(true);
       firebase.getUser({ userId: user.username }).then(snapshot => {
-        setLoading(true);
-        console.log(`user: ${user.username}`);
         if (isMounted) {
           firebase
             .listPaymentIntents({
@@ -50,9 +50,9 @@ const Donations = ({ firebase, user }) => {
               });
               setDonations(donationsData);
               setLoading(false);
-              console.log(`number of donations: ${donationsData.length}`);
             })
             .catch(error => {
+              setLoading(false);
               console.log(`error: ${error.message}`);
             });
         }
@@ -63,7 +63,11 @@ const Donations = ({ firebase, user }) => {
   return (
     <div className="dashboard-item">
       <h3>Donations</h3>
-      {donations.length !== 0 ? (
+      {loading === true ? (
+        <div className="loader-container">
+          <Loader />
+        </div>
+      ) : donations.length !== 0 ? (
         donations.map(donation => (
           <>
             <div className="donation-row">

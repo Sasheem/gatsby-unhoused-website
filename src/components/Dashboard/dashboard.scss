@@ -61,6 +61,10 @@
     height: 1px;
     width: 100%;
 }
+.loader-container {
+    display: flex;
+    justify-content: center;
+}
 
 // [START saved card]
 .saved-card-row {
