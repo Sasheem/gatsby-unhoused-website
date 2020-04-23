@@ -19,7 +19,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       firstName: String!
       lastName: String!
       situation: String
-      dateFundingBegan: String!
+      dateFundingBegan: String
       dateHoused: String
       familySize: Int!
       questions: [String!]!
