@@ -25,7 +25,7 @@ const Footer = () => (
         <footer className="footer">
           <div className="elements-container">
             <div className="footer-left-element">
-              <div className="footer-element newsletter-text">
+              <div className="footer-element newsletter-text-footer">
                 <h3>Join Newsletter</h3>
                 <p>
                   Receive updates on blog posts, events and recently housed

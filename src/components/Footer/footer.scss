@@ -73,7 +73,10 @@
 }
 
 // newsletter styling
-.newsletter-form {
+.newsletter-form-footer {
+    display: grid;
+}
+.newsletter-form-content {
     display: flex;
     flex-direction: row;
     max-width: 25em;
@@ -108,7 +111,7 @@
         width: 100%;
 	}
 }
-.newsletter-text {
+.newsletter-text-footer {
     h3, p {
         margin-bottom: 0.5em;
     }

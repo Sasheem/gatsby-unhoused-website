@@ -183,6 +183,24 @@ class Firebase {
     });
   }
 
+  // [START add email to mailchimp list]
+  async subscribeEmailToLists({ email }) {
+    const subscribeEmailToListsCallable = this.functions.httpsCallable(
+      'subscribeEmailToLists'
+    );
+    console.log(`subscribeEmailToLists firebase: ${email}`);
+    return await subscribeEmailToListsCallable({ email });
+  }
+  // [END add email to mailchimp list]
+
+  checkListForEmail({ email }) {
+    const checkListForEmailCallable = this.functions.httpsCallable(
+      'checkListForEmail'
+    );
+    console.log(`checkLisrForEmail firebase ${email}`);
+    return checkListForEmailCallable({ email });
+  }
+
   // post comment with cloud functions
   async postComment({ text, clientId }) {
     // create reference to function we want to use
