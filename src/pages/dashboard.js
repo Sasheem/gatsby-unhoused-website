@@ -13,6 +13,7 @@ import CardUser from '../components/Cards/cardUser';
 import UpdateCreditCard from '../components/Stripe/updateCreditCard';
 import SavedCreditCards from '../components/Stripe/savedCreditCards';
 import AdminMetrics from '../components/Dashboard/adminMetrics';
+import AdminAllClients from '../components/Dashboard/adminAllClients';
 
 import '../styles/global.scss';
 import 'react-tabs/style/react-tabs.css';
@@ -69,6 +70,7 @@ const Dashboard = ({ location }) => {
               <TabList>
                 <Tab>Admin Dashboard</Tab>
                 <Tab>Add Client</Tab>
+                <Tab>Edit Client</Tab>
               </TabList>
             )}
             {user && !user.isAdmin ? (
@@ -81,10 +83,9 @@ const Dashboard = ({ location }) => {
                 <Tab>Payment Information</Tab>
               </TabList>
             ) : null}
-
             <TabPanel>
               <div className="tab-content-container">
-                {user & !user.isAdmin ? <MetricsDashboard /> : null}
+                {user && !user.isAdmin && <MetricsDashboard />}
                 {user && !!user.isAdmin && <AdminMetrics />}
               </div>
             </TabPanel>
@@ -92,6 +93,13 @@ const Dashboard = ({ location }) => {
               <TabPanel>
                 <div className="tab-content-container">
                   <AdminAddClient />
+                </div>
+              </TabPanel>
+            )}
+            {user && !!user.isAdmin && (
+              <TabPanel>
+                <div className="tab-content-container">
+                  <AdminAllClients />
                 </div>
               </TabPanel>
             )}

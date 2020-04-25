@@ -105,3 +105,18 @@
     width: 100%;
     max-width: 90%;
 }
+.admin-client-row {
+    display: grid;
+    grid-gap: 0.5em;
+    align-items: center;
+
+    @media only screen and (min-width: 800px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }   
+}
+.housed {
+    color: $analogous-color-two;
+}
+.unhoused {
+    color: $main-complement-color;
+}
