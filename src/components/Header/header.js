@@ -73,22 +73,6 @@ const Header = ({ menuClickHandler }) => {
               )}
             </ul>
           </div>
-          {user && !!user.isAdmin && (
-            <div className="navbar-items">
-              <ul>
-                <li>
-                  <Link className="navbar-link" to="/addClient">
-                    Add Client
-                  </Link>
-                </li>
-                <li>
-                  <Link className="navbar-link" to="/dashboard">
-                    Dashboard
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          )}
         </div>
         <div className="navbar-toggle-button">
           <MenuToggleButton click={menuClickHandler} />

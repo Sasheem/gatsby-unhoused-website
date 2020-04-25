@@ -12,9 +12,11 @@ import PasswordForm from '../components/Dashboard/passwordForm';
 import CardUser from '../components/Cards/cardUser';
 import UpdateCreditCard from '../components/Stripe/updateCreditCard';
 import SavedCreditCards from '../components/Stripe/savedCreditCards';
+import AdminMetrics from '../components/Dashboard/adminMetrics';
 
 import '../styles/global.scss';
 import 'react-tabs/style/react-tabs.css';
+import AdminAddClient from '../components/Dashboard/adminAddClient';
 
 /**
  * todo figure out how to refresh the dashboard render with userProfile
@@ -63,19 +65,36 @@ const Dashboard = ({ location }) => {
         </div>
         <div className="dashboard-body">
           <Tabs>
-            <TabList>
-              <Tab>Overview</Tab>
-              <Tab>Donations</Tab>
-              <Tab>Clients</Tab>
-              <Tab>Profile</Tab>
-              <Tab>Password</Tab>
-              <Tab>Payment Information</Tab>
-            </TabList>
+            {user && !!user.isAdmin && (
+              <TabList>
+                <Tab>Admin Dashboard</Tab>
+                <Tab>Add Client</Tab>
+              </TabList>
+            )}
+            {user && !user.isAdmin ? (
+              <TabList>
+                <Tab>Overview</Tab>
+                <Tab>Donations</Tab>
+                <Tab>Clients</Tab>
+                <Tab>Profile</Tab>
+                <Tab>Password</Tab>
+                <Tab>Payment Information</Tab>
+              </TabList>
+            ) : null}
+
             <TabPanel>
               <div className="tab-content-container">
-                <MetricsDashboard />
+                {user & !user.isAdmin ? <MetricsDashboard /> : null}
+                {user && !!user.isAdmin && <AdminMetrics />}
               </div>
             </TabPanel>
+            {user && !!user.isAdmin && (
+              <TabPanel>
+                <div className="tab-content-container">
+                  <AdminAddClient />
+                </div>
+              </TabPanel>
+            )}
             <TabPanel>
               <div className="tab-content-container">
                 <Donations firebase={firebase} user={user} />

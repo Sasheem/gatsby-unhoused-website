@@ -86,3 +86,22 @@
     align-items: center;
     h5 { text-align: center; }
 }
+.admin-button {
+    display: inline-block;
+	background-color: $main-accent-color;
+	border-radius: 2px;
+    padding: 0.5em 2em;
+    border: none;
+    margin: 0 auto;
+    color: $color-light;
+    font-size: 1.1em;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.dashboard-divider {
+    background-color: #e8e8e8;
+    height: 1px;
+    width: 100%;
+    max-width: 90%;
+}

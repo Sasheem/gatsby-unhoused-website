@@ -17,6 +17,21 @@ class Firebase {
     }
   }
 
+  resetClientsMetrics() {
+    const resetClientsMetricsCallable = this.functions.httpsCallable(
+      'resetClientsMetrics'
+    );
+
+    return resetClientsMetricsCallable();
+  }
+
+  async getClientsMetrics() {
+    return await this.db
+      .collection('metrics')
+      .doc('clients')
+      .get();
+  }
+
   // [START create payment intent]
   createPaymentIntent({ amount, email, name }) {
     const createPaymentIntentCallable = this.functions.httpsCallable(
