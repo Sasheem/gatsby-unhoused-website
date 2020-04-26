@@ -20,12 +20,16 @@ const IndexPage = props => {
           label="Meet client"
           destination="/story/Sheena-Salmon"
         />
-        <div className="content-container">
-          <h2>Our Mission</h2>
-          <p>
-            To provide a fresh start to people experiencing homelessness while
-            chipping away the barrier separating them from society.
-          </p>
+        <div className="content-grid-one">
+          <div />
+          <div className="content-container">
+            <h2>Our Mission</h2>
+            <p>
+              To provide a fresh start to people experiencing homelessness while
+              chipping away the barrier separating them from society.
+            </p>
+          </div>
+          <div />
         </div>
         <div className="container-three">
           <h2>Featured Clients</h2>

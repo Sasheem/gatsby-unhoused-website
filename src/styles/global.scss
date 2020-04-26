@@ -93,6 +93,11 @@ a {
         margin-bottom: 1em;
     }
 }
+.content-grid-one {
+    display: grid;
+    grid-template-columns: 0.25fr 1.5fr 0.25fr;
+    background-color: lightcyan;
+}
 .content-container-two {
     display: grid;
     grid-gap: 5em;
@@ -211,6 +216,7 @@ a {
     grid-gap: 2em;
     width: 100%;
     margin-top: 8em;
+    
     @media only screen and (min-width: 768px) {
         grid-template-columns: 0.1fr 1fr 2fr 0.1fr;
         grid-gap: 0;
@@ -310,6 +316,16 @@ a {
 .container-head {
     margin-top: 10em;
     margin-bottom: 2em;
+}
+.container-clients {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    @media only screen and (min-width: 600px) {
+        flex-direction: row;
+    }
 }
 .content-three {
     display: grid;
