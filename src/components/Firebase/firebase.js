@@ -17,6 +17,25 @@ class Firebase {
     }
   }
 
+  getProfileDownloadURL({ username }) {
+    return this.storage.ref(`users/${username}.jpeg`).getDownloadURL();
+  }
+
+  uploadUserProfileImage({ fileObject, username }) {
+    const filename = `users/${username}.jpeg`;
+    const file = this.storage.ref(filename);
+    file
+      .put(fileObject)
+      .then(result => {
+        console.log(`result object:`);
+        console.log(typeof result);
+        console.dir(result);
+      })
+      .catch(error => {
+        console.log(`error: ${error.message}`);
+      });
+  }
+
   resetClientsMetrics() {
     const resetClientsMetricsCallable = this.functions.httpsCallable(
       'resetClientsMetrics'

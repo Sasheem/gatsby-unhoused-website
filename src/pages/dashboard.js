@@ -62,7 +62,7 @@ const Dashboard = ({ location }) => {
       <div className="dashboard-component">
         <div />
         <div className="dashboard-head">
-          <CardUser />
+          {user && <CardUser firebase={firebase} user={user} />}
         </div>
         <div className="dashboard-body">
           <Tabs>
@@ -71,6 +71,7 @@ const Dashboard = ({ location }) => {
                 <Tab>Admin Dashboard</Tab>
                 <Tab>Add Client</Tab>
                 <Tab>Edit Client</Tab>
+                <Tab>Profile</Tab>
               </TabList>
             )}
             {user && !user.isAdmin ? (
@@ -100,6 +101,13 @@ const Dashboard = ({ location }) => {
               <TabPanel>
                 <div className="tab-content-container">
                   <AdminAllClients />
+                </div>
+              </TabPanel>
+            )}
+            {user && !!user.isAdmin && (
+              <TabPanel>
+                <div className="tab-content-container">
+                  <BioForm />
                 </div>
               </TabPanel>
             )}

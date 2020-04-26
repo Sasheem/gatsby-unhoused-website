@@ -36,6 +36,7 @@ const BioForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [birthday, setBirthday] = useState(new Date());
   const [userImage, setUserImage] = useState('');
+  const [profileImage, setProfileImage] = useState(null);
   const [birthdayChanged, setBirthdayChanged] = useState(false);
   const [privacyChanged, setPrivacyChanged] = useState(false);
   let isMounted = true;
@@ -55,6 +56,7 @@ const BioForm = () => {
   // when component mounts
   useEffect(() => {
     fileReader.addEventListener('load', () => {
+      console.log(`fileReader.result: ${fileReader.result}`);
       setUserImage(fileReader.result);
     });
   }, []);
@@ -91,6 +93,13 @@ const BioForm = () => {
       // only change the privacy if it was changed in the form
       if (privacyChanged === true) {
         temp['profilePrivate'] = profilePrivate;
+      }
+
+      if (profileImage !== null) {
+        firebase.uploadUserProfileImage({
+          fileObject: profileImage,
+          username: user.username,
+        });
       }
 
       firebase
@@ -158,6 +167,7 @@ const BioForm = () => {
             onChange={e => {
               e.persist();
               fileReader.readAsDataURL(e.target.files[0]);
+              setProfileImage(e.target.files[0]);
             }}
             type="file"
             name="profilePicture"

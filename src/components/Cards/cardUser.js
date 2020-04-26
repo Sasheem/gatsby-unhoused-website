@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { FirebaseContext } from '../../components/Firebase';
 import { graphql, useStaticQuery, Link } from 'gatsby';
 import Img from 'gatsby-image';
 
@@ -17,7 +18,7 @@ import './cards.scss';
  * todo add dynamic form component
  */
 
-const CardUser = () => {
+const CardUser = ({ firebase, user }) => {
   const data = useStaticQuery(graphql`
     query {
       userImage: file(relativePath: { eq: "profile-sasheem.jpg" }) {
@@ -30,53 +31,91 @@ const CardUser = () => {
       }
     }
   `);
+  // const { firebase = null, user } = useContext(FirebaseContext) || {};
+  const [userProfile, setUserProfile] = useState(null);
+  const [downloadURL, setDownloadURL] = useState('');
+  let isMounted = true;
+
+  useEffect(() => {
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (firebase && user) {
+      firebase.getUser({ userId: user.username }).then(snapshot => {
+        if (isMounted) {
+          setUserProfile(snapshot.data());
+        }
+      });
+
+      firebase
+        .getProfileDownloadURL({ username: user.username })
+        .then(snapshot => {
+          if (isMounted) {
+            console.log(`snapshot is ${typeof snapshot}`);
+            console.dir(snapshot);
+            setDownloadURL(snapshot);
+          }
+        });
+    }
+  }, [firebase]);
+
   return (
     <div className="card-component">
       <div className="card-head">
         <div className="card-image">
-          <Img
-            fluid={data.userImage.childImageSharp.fluid}
-            alt={data.userImage.base.split('.')[0]}
-          />
+          {userProfile && userProfile.profilePicture && downloadURL ? (
+            <img
+              src={downloadURL}
+              alt={`${userProfile.firstName} profile picture`}
+            />
+          ) : (
+            <div className="card-image-filler" />
+          )}
         </div>
         <div className="card-title">
-          <h1>SasheemDev</h1>
-          <h2>Sasheem</h2>
+          <h1>{user ? user.username : 'No user'}</h1>
+          {userProfile && userProfile.firstName && (
+            <h2>{userProfile.firstName}</h2>
+          )}
         </div>
       </div>
-      <div className="divider">
-        <HorizontalDivider />
-      </div>
-      <p>
-        I'm a dog dad, a star wars fan, and an avid video gamer. The homeless
-        need a voice. I give back to the community when I can.
-      </p>
-      <div className="card-row">
-        <div className="card-user-icon">
-          <WorkplaceIcon />
+      <div className="card-divider" />
+      {userProfile && userProfile.bio && <p>{userProfile.bio}</p>}
+      {userProfile && userProfile.workplace && (
+        <div className="card-row">
+          <div className="card-user-icon">
+            <WorkplaceIcon />
+          </div>
+          <p>{userProfile.workplace}</p>
         </div>
-        <p>Web Developer</p>
-      </div>
-      <div className="card-row">
+      )}
+      {userProfile && userProfile.email && (
+        <div className="card-row">
+          <div className="card-user-icon">
+            <MailIcon />
+          </div>
+          <p>{userProfile.email}</p>
+        </div>
+      )}
+      {userProfile && userProfile.website && (
+        <div className="card-row">
+          <div className="card-user-icon">
+            <WebsiteIcon />
+          </div>
+          <a href={userProfile.website} target="_blank">
+            {userProfile.website.split('/')[2]}
+          </a>
+        </div>
+      )}
+      {/* <div className="card-row">
         <div className="card-user-icon">
           <LocationIcon />
         </div>
         <p>Tallahassee, FL</p>
-      </div>
-      <div className="card-row">
-        <div className="card-user-icon">
-          <MailIcon />
-        </div>
-        <p>sasheem@sasheemdev.com</p>
-      </div>
-      <div className="card-row">
-        <div className="card-user-icon">
-          <WebsiteIcon />
-        </div>
-        <a href="https://sasheem.dev" target="_blank">
-          sasheem.dev
-        </a>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 
 import { FirebaseContext } from '../Firebase';
 import CardClientFeatured from '../Cards/cardClientFeatured';
@@ -37,7 +37,7 @@ const FeaturedClients = () => {
   }, [firebase]);
 
   return (
-    <div className="content-three">
+    <div className="container-clients">
       {!!clients &&
         clients.map(client => (
           <CardClientFeatured key={client.id} client={client} />
