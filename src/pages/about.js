@@ -18,7 +18,7 @@ const AboutPage = () => (
       destination="/contactVolunteer"
     />
     <div className="page-content">
-      <div className="content-container">
+      <div className="content-grid-one">
         <h2>We are on a mission to house those experiencing homelessness</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
