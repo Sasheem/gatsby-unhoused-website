@@ -50,6 +50,7 @@ const AdminAddClient = () => {
   const [clientImage, setClientImage] = useState(null);
   const [dateFundingBegan, setDateFundingBegan] = useState(new Date());
   const [dateHoused, setDateHoused] = useState(new Date());
+  const [isProcessing, setProcessingTo] = useState(false);
   let isMounted = true;
 
   useEffect(() => {
@@ -124,7 +125,7 @@ const AdminAddClient = () => {
       questions.push(question8.trim());
       answers.push(answer8.trim());
     }
-
+    setProcessingTo(true);
     if (clientImage !== null) {
       const result = await firebase.uploadClientImage({
         fileObject: clientImage,
@@ -172,9 +173,11 @@ const AdminAddClient = () => {
           setDateFundingBegan(new Date());
           setDateHoused(new Date());
           setSuccess(true);
+          setProcessingTo(false);
         }
       })
       .catch(error => {
+        setProcessingTo(false);
         setErrorMessage(error.message);
       });
   }
@@ -496,8 +499,8 @@ const AdminAddClient = () => {
         <div className="dashboard-divider" />
         <div className="form-submit-row">
           <div />
-          <Button type="submit" block>
-            Add Client
+          <Button type="submit" disabled={isProcessing} block>
+            {isProcessing ? 'Processing...' : 'Add Client'}
           </Button>
           <div />
         </div>

@@ -23,7 +23,7 @@ const FeaturedClients = () => {
         if (isMounted) {
           const featuredClients = [];
           snapshot.forEach(doc => {
-            if (doc.data().status === 'Unhoused') {
+            if (doc.data().status === 'Funding') {
               featuredClients.push({
                 id: doc.id,
                 ...doc.data(),

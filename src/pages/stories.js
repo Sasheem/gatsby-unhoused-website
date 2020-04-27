@@ -44,10 +44,12 @@ const StoriesPage = () => {
         if (isMounted) {
           const availableClients = [];
           snapshot.forEach(doc => {
-            availableClients.push({
-              id: doc.id,
-              ...doc.data(),
-            });
+            if (doc.data().status === 'Housed') {
+              availableClients.push({
+                id: doc.id,
+                ...doc.data(),
+              });
+            }
           });
 
           // save clients to state

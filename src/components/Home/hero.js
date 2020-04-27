@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import BackgroundImage from 'gatsby-background-image';
 
+import { FirebaseContext } from '../Firebase';
 import Button from '../common/Button/button';
 import CardMetric from '../Cards/cardMetric';
 
@@ -62,6 +63,22 @@ const StyledHero = styled(BackgroundImage)`
 `;
 
 const Hero = ({ title, subtitle, label, destination }) => {
+  const { firebase = null } = useContext(FirebaseContext) || {};
+  const [metrics, setMetrics] = useState(null);
+
+  useEffect(() => {
+    if (firebase) {
+      firebase
+        .getClientsMetrics()
+        .then(snapshot => {
+          setMetrics(snapshot.data());
+        })
+        .catch(error => {
+          console.log(`error getting metrics: ${error.message}`);
+        });
+    }
+  }, [firebase]);
+
   return (
     <StaticQuery
       query={graphql`
@@ -78,20 +95,7 @@ const Hero = ({ title, subtitle, label, destination }) => {
       render={data => {
         const bannerData = data.bannerImage.childImageSharp.fluid;
         return (
-          <StyledHero
-            Tag="div"
-            fluid={bannerData}
-            // style={{
-            //   height: `50em`,
-            //   width: `100vw`,
-            //   backgroundColor: `transparent`,
-            //   backgroundSize: `cover`,
-            //   backgroundPosition: `center center`,
-            //   display: `flex`,
-            //   flexDirection: `column`,
-            //   alignItems: `center`,
-            // }}
-          >
+          <StyledHero Tag="div" fluid={bannerData}>
             <Fill />
             <Content>
               <h1>{title}</h1>
@@ -100,8 +104,17 @@ const Hero = ({ title, subtitle, label, destination }) => {
             </Content>
             <Metrics>
               <CardMetric name="Partners" value="12" />
-              <CardMetric name="Clients Housed" value="196" />
-              <CardMetric name="Still Housed" value="85%" />
+              {metrics !== null && (
+                <CardMetric name="Clients Housed" value={metrics.housed} />
+              )}
+              {metrics !== null && (
+                <CardMetric
+                  name="Still Housed"
+                  value={`${((metrics.housed / metrics.total) * 100).toFixed(
+                    0
+                  )}%`}
+                />
+              )}
             </Metrics>
           </StyledHero>
         );
