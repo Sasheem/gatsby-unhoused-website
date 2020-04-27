@@ -36,6 +36,19 @@ class Firebase {
       });
   }
 
+  uploadClientImage({ fileObject, clientId }) {
+    const filename = `clients/${clientId}.jpeg`;
+    const file = this.storage.ref(filename);
+
+    try {
+      const result = file.put(fileObject);
+      console.dir(result);
+      return result;
+    } catch (error) {
+      console.log(`uploadClientImage error: ${error.message}`);
+    }
+  }
+
   resetClientsMetrics() {
     const resetClientsMetricsCallable = this.functions.httpsCallable(
       'resetClientsMetrics'
@@ -190,7 +203,6 @@ class Firebase {
     firstName,
     lastName,
     situation,
-    clientImage,
     status,
     goal,
     raised,
@@ -199,13 +211,15 @@ class Firebase {
     answers,
     dateFundingBegan,
     dateHoused,
+    imagePath,
   }) {
+    const imageUrl = await this.storage.ref(imagePath).getDownloadURL();
     const createClientCallable = this.functions.httpsCallable('createClient');
     return createClientCallable({
       firstName,
       lastName,
       situation,
-      clientImage,
+      imageUrl,
       status,
       goal,
       raised,

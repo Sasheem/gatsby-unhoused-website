@@ -12,11 +12,6 @@ import './dashboard.scss';
  * todo add activity indicator while form submits
  */
 
-let fileReader;
-if (typeof window !== 'undefined') {
-  fileReader = new FileReader();
-}
-
 const AdminAddClient = () => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const [formValues, setFormValues] = useState({
@@ -52,7 +47,7 @@ const AdminAddClient = () => {
   });
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [clientImage, setClientImage] = useState('');
+  const [clientImage, setClientImage] = useState(null);
   const [dateFundingBegan, setDateFundingBegan] = useState(new Date());
   const [dateHoused, setDateHoused] = useState(new Date());
   let isMounted = true;
@@ -63,15 +58,7 @@ const AdminAddClient = () => {
     };
   }, []);
 
-  // add event listener to file reader only once
-  // when component mounts
-  useEffect(() => {
-    fileReader.addEventListener('load', () => {
-      setClientImage(fileReader.result);
-    });
-  }, []);
-
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     const {
       firstName,
       lastName,
@@ -99,9 +86,9 @@ const AdminAddClient = () => {
       answer7,
       answer8,
     } = formValues;
+    let imagePath = '';
 
     event.preventDefault();
-    // call a firebase function
 
     // check each question/answer combo
     // add to respective array if they both exist
@@ -138,20 +125,28 @@ const AdminAddClient = () => {
       answers.push(answer8.trim());
     }
 
-    firebase
+    if (clientImage !== null) {
+      const result = await firebase.uploadClientImage({
+        fileObject: clientImage,
+        clientId: `${firstName}-${lastName}`,
+      });
+      imagePath = result.metadata.fullPath;
+    }
+
+    await firebase
       .createClient({
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         situation: situation.trim(),
-        clientImage,
         status,
         goal,
         raised,
         familySize,
         questions,
         answers,
-        dateFundingBegan: Date(dateFundingBegan),
-        dateHoused: Date(dateHoused),
+        dateFundingBegan: dateFundingBegan.toUTCString(),
+        dateHoused: dateHoused.toUTCString(),
+        imagePath,
       })
       .then(() => {
         if (isMounted) {
@@ -282,11 +277,14 @@ const AdminAddClient = () => {
         </div>
         <div className="two-input-row">
           <div className="form-input-row">
-            <label for="clientImage">Client image</label>
+            <label for="clientImage">
+              Client image <small>(less than 10MB)</small>
+            </label>
+
             <input
               onChange={e => {
                 e.persist();
-                fileReader.readAsDataURL(e.target.files[0]);
+                setClientImage(e.target.files[0]);
               }}
               type="file"
               name="clientImage"
@@ -300,6 +298,7 @@ const AdminAddClient = () => {
               onChange={handleInputChange}
               value={formValues.status}
             >
+              <option value="Funding">Funding</option>
               <option value="Unhoused">Unhoused</option>
               <option value="Housed">Housed</option>
             </select>

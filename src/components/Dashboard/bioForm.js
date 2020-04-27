@@ -14,11 +14,6 @@ import '../../styles/global.scss';
  * todo erase file name upon submission
  */
 
-let fileReader;
-if (typeof window !== 'undefined') {
-  fileReader = new FileReader();
-}
-
 const BioForm = () => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
   const [userProfile, setUserProfile] = useState(null);
@@ -50,15 +45,6 @@ const BioForm = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
-
-  // add event listener to file reader only once
-  // when component mounts
-  useEffect(() => {
-    fileReader.addEventListener('load', () => {
-      console.log(`fileReader.result: ${fileReader.result}`);
-      setUserImage(fileReader.result);
-    });
   }, []);
 
   /**
@@ -106,7 +92,6 @@ const BioForm = () => {
         .writeUserSettings({
           username: user.username,
           settings: temp,
-          profilePicture: userImage ? userImage : '',
         })
         .then(() => {
           if (isMounted) {
@@ -166,7 +151,7 @@ const BioForm = () => {
           <input
             onChange={e => {
               e.persist();
-              fileReader.readAsDataURL(e.target.files[0]);
+              // fileReader.readAsDataURL(e.target.files[0]);
               setProfileImage(e.target.files[0]);
             }}
             type="file"
