@@ -4,7 +4,7 @@ import { graphql, StaticQuery, Link } from 'gatsby';
 
 import './header.scss';
 
-const Logo = () => (
+const Logo = ({ hideBackdrop }) => (
   <StaticQuery
     query={graphql`
       query {
@@ -21,7 +21,7 @@ const Logo = () => (
       const dataLogo = data.logo.childImageSharp.fixed;
       return (
         <div className="navbar-logo">
-          <Link to="/">
+          <Link to="/" onClick={hideBackdrop}>
             <Img fixed={dataLogo} alt="Unhoused Humanity logo dark" />
           </Link>
         </div>

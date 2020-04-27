@@ -48,7 +48,7 @@ const Layout = ({ children }) => {
     setSideMenuIsOpen(!sideMenuIsOpen);
   }
 
-  function backdropClickHandler() {
+  function hideBackdrop() {
     setSideMenuIsOpen(false);
   }
 
@@ -57,11 +57,10 @@ const Layout = ({ children }) => {
       <Header
         siteTitle={data.site.siteMetadata.title}
         menuClickHandler={menuToggleClickHandler}
+        hideBackdrop={hideBackdrop}
       />
-      <SideMenu show={sideMenuIsOpen} />
-      {sideMenuIsOpen === true ? (
-        <Backdrop click={backdropClickHandler} />
-      ) : null}
+      <SideMenu show={sideMenuIsOpen} hideBackdrop={hideBackdrop} />
+      {sideMenuIsOpen === true && <Backdrop click={hideBackdrop} />}
       <LayoutContainer>
         <main>{children}</main>
         <Footer />

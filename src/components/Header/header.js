@@ -9,7 +9,7 @@ import MenuToggleButton from '../Layout/menuToggleButton';
 
 import './header.scss';
 
-const Header = ({ menuClickHandler }) => {
+const Header = ({ menuClickHandler, hideBackdrop }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
 
   function handleLogoutClick() {
@@ -21,7 +21,7 @@ const Header = ({ menuClickHandler }) => {
     <header className="header">
       <nav className="navbar">
         <div className="spacer-sm" />
-        <Logo />
+        <Logo hideBackdrop={hideBackdrop} />
         <div className="spacer" />
         <div className="navbar-content">
           <div className="navbar-actions">
