@@ -59,9 +59,13 @@ const HowItWorks = () => {
           <div className="steps-content">
             <h3>Family seeks homeless shelter</h3>
             <p>Details or statistics regarding homeless shelters</p>
-            <Link className="page-link" to="/">
+            <a
+              href="https://kearneycenter.org/"
+              target="_blank"
+              className="page-link"
+            >
               Kearney Center
-            </Link>
+            </a>
           </div>
           <div className="steps-fill" />
         </div>

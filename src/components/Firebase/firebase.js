@@ -172,14 +172,13 @@ class Firebase {
   // [END update client after un-auth donation]
 
   // [START write user settings]
-  writeUserSettings({ username, settings, profilePicture }) {
+  writeUserSettings({ username, settings }) {
     const writeUserSettingsCallable = this.functions.httpsCallable(
       'writeToUserSettings'
     );
     return writeUserSettingsCallable({
       username,
       settings,
-      profilePicture,
     });
   }
   // [END write user settings]

@@ -128,6 +128,8 @@ a {
 .content-card {
     display: grid;
     grid-gap: .5em;
+    max-width: 20em;
+    
     h3, p {
         text-align: left;
     }

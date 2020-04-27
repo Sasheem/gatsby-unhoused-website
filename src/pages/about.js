@@ -19,11 +19,15 @@ const AboutPage = () => (
     />
     <div className="page-content">
       <div className="content-grid-one">
-        <h2>We are on a mission to house those experiencing homelessness</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-          imperdiet pharetra consectetur.
-        </p>
+        <div />
+        <div className="content-container">
+          <h2>We are on a mission to house those experiencing homelessness</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+            imperdiet pharetra consectetur.
+          </p>
+        </div>
+        <div />
       </div>
       <div className="content-three">
         <div className="content-card">
@@ -54,20 +58,25 @@ const AboutPage = () => (
       <div className="content-container">
         <Team title="Our Team" />
       </div>
-      <div className="content-container">
-        <h2>Our History</h2>
-        <p>
-          Maecenas placerat metus at elit cursus, vel ultricies magna molestie.
-          Cras hendrerit dictum arcu, aliquet ultrices risus iaculis sed. Sed
-          congue placerat nulla, quis vestibulum ipsum pellentesque ut.
-          Curabitur dictum mauris urna, et dictum orci semper vel. Pellentesque
-          tempus dolor non augue bibendum, non aliquet tortor auctor. In
-          vehicula odio sed molestie placerat. Donec ante libero, vehicula sit
-          amet elementum a, pretium at massa. Suspendisse augue ligula, eleifend
-          a ligula ac, commodo feugiat tortor. Vestibulum varius vestibulum
-          luctus. Aliquam pharetra consequat quam. Nulla tellus nisi, fringilla
-          sit amet erat eget, sollicitudin iaculis diam.scelerisque.
-        </p>
+      <div className="content-grid-one">
+        <div />
+        <div className="content-container">
+          <h2>Our History</h2>
+          <p>
+            Maecenas placerat metus at elit cursus, vel ultricies magna
+            molestie. Cras hendrerit dictum arcu, aliquet ultrices risus iaculis
+            sed. Sed congue placerat nulla, quis vestibulum ipsum pellentesque
+            ut. Curabitur dictum mauris urna, et dictum orci semper vel.
+            Pellentesque tempus dolor non augue bibendum, non aliquet tortor
+            auctor. In vehicula odio sed molestie placerat. Donec ante libero,
+            vehicula sit amet elementum a, pretium at massa. Suspendisse augue
+            ligula, eleifend a ligula ac, commodo feugiat tortor. Vestibulum
+            varius vestibulum luctus. Aliquam pharetra consequat quam. Nulla
+            tellus nisi, fringilla sit amet erat eget, sollicitudin iaculis
+            diam.scelerisque.
+          </p>
+        </div>
+        <div />
       </div>
       <div className="content-container">
         <Board title="Our Board" />
