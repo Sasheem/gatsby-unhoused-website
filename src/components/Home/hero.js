@@ -65,9 +65,23 @@ const StyledHero = styled(BackgroundImage)`
 const Hero = ({ title, subtitle, label, destination }) => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const [metrics, setMetrics] = useState(null);
+  const [partners, setPartners] = useState(0);
 
   useEffect(() => {
+    let partnerCount = 0;
     if (firebase) {
+      // get partner count
+      firebase
+        .getPartners()
+        .then(snapshot => {
+          snapshot.forEach(doc => (partnerCount += 1));
+          setPartners(partnerCount);
+        })
+        .catch(error => {
+          console.log(`error getting partners: ${error.message}`);
+        });
+
+      // get clients metrics
       firebase
         .getClientsMetrics()
         .then(snapshot => {
@@ -103,7 +117,7 @@ const Hero = ({ title, subtitle, label, destination }) => {
               <Button label={label} destination={destination} />
             </Content>
             <Metrics>
-              <CardMetric name="Partners" value="12" />
+              <CardMetric name="Partners" value={partners} />
               {metrics !== null && (
                 <CardMetric name="Clients Housed" value={metrics.housed} />
               )}

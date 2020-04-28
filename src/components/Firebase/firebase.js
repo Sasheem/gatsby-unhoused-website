@@ -27,9 +27,7 @@ class Firebase {
     file
       .put(fileObject)
       .then(result => {
-        console.log(`result object:`);
-        console.log(typeof result);
-        console.dir(result);
+        return result;
       })
       .catch(error => {
         console.log(`error: ${error.message}`);
@@ -42,10 +40,21 @@ class Firebase {
 
     try {
       const result = file.put(fileObject);
-      console.dir(result);
       return result;
     } catch (error) {
       console.log(`uploadClientImage error: ${error.message}`);
+    }
+  }
+
+  uploadPartnerImage({ fileObject, name }) {
+    const filename = `partners/${name.replace(/ /g, '-')}.png`;
+    const file = this.storage.ref(filename);
+    console.log(`filename: ${filename}`);
+    try {
+      const result = file.put(fileObject);
+      return result;
+    } catch (error) {
+      console.log(`uploadPartnerImage error: ${error.message}`);
     }
   }
 
@@ -229,6 +238,32 @@ class Firebase {
       dateHoused,
     });
   }
+
+  // [START get all partners]
+  async getPartners() {
+    return await this.db.collection('partners').get();
+  }
+  // [END get all partners]
+
+  // [START create a partner object]
+  async createPartner({ name, email, website, imagePath }) {
+    const imageUrl = await this.storage.ref(imagePath).getDownloadURL();
+    const createPartnerCallable = this.functions.httpsCallable('createPartner');
+    console.log(
+      `name: ${name} - id: ${name.replace(
+        / /g,
+        '-'
+      )} - website: ${website} - imageUrl: ${imageUrl}`
+    );
+    return createPartnerCallable({
+      id: name.replace(/ /g, '-'),
+      name,
+      email,
+      website,
+      imageUrl,
+    });
+  }
+  // [END create a partner object]
 
   // [START add email to mailchimp list]
   async subscribeEmailToLists({ email }) {

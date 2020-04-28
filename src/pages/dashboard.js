@@ -14,6 +14,7 @@ import UpdateCreditCard from '../components/Stripe/updateCreditCard';
 import SavedCreditCards from '../components/Stripe/savedCreditCards';
 import AdminMetrics from '../components/Dashboard/adminMetrics';
 import AdminAllClients from '../components/Dashboard/adminAllClients';
+import AdminAddPartner from '../components/Dashboard/adminAddPartner';
 
 import '../styles/global.scss';
 import 'react-tabs/style/react-tabs.css';
@@ -71,6 +72,7 @@ const Dashboard = ({ location }) => {
                 <Tab>Admin Dashboard</Tab>
                 <Tab>Add Client</Tab>
                 <Tab>Edit Client</Tab>
+                <Tab>Add Partner</Tab>
                 <Tab>Profile</Tab>
               </TabList>
             )}
@@ -101,6 +103,13 @@ const Dashboard = ({ location }) => {
               <TabPanel>
                 <div className="tab-content-container">
                   <AdminAllClients />
+                </div>
+              </TabPanel>
+            )}
+            {user && !!user.isAdmin && (
+              <TabPanel>
+                <div className="tab-content-container">
+                  <AdminAddPartner />
                 </div>
               </TabPanel>
             )}
