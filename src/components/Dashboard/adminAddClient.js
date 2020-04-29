@@ -197,7 +197,7 @@ const AdminAddClient = () => {
     setDateFundingBegan(date);
   }
   // handle input change for dateHoused
-  function handleDateHousedChanged(date) {
+  function handleDateHousedChange(date) {
     setSuccess(false);
     setDateHoused(date);
   }
@@ -320,7 +320,7 @@ const AdminAddClient = () => {
             <label for="dateHoused">Date Housed</label>
             <DatePicker
               name="dateHoused"
-              onChange={handleDateHousedChanged}
+              onChange={handleDateHousedChange}
               value={dateHoused}
             />
           </div>
@@ -341,7 +341,7 @@ const AdminAddClient = () => {
           </div>
           <div className="form-input-row">
             <label for="answer1">Answer 1</label>
-            <input
+            <textarea
               type="text"
               name="answer1"
               onChange={handleInputChange}
@@ -362,7 +362,7 @@ const AdminAddClient = () => {
           </div>
           <div className="form-input-row">
             <label for="answer2">Answer 2</label>
-            <input
+            <textarea
               type="text"
               name="answer2"
               onChange={handleInputChange}
@@ -383,7 +383,7 @@ const AdminAddClient = () => {
           </div>
           <div className="form-input-row">
             <label for="answer3">Answer 3</label>
-            <input
+            <textarea
               type="text"
               name="answer3"
               onChange={handleInputChange}
@@ -404,7 +404,7 @@ const AdminAddClient = () => {
           </div>
           <div className="form-input-row">
             <label for="answer4">Answer 4</label>
-            <input
+            <textarea
               type="text"
               name="answer4"
               onChange={handleInputChange}
@@ -425,7 +425,7 @@ const AdminAddClient = () => {
           </div>
           <div className="form-input-row">
             <label for="answer5">Answer 5</label>
-            <input
+            <textarea
               type="text"
               name="answer5"
               onChange={handleInputChange}
@@ -446,7 +446,7 @@ const AdminAddClient = () => {
           </div>
           <div className="form-input-row">
             <label for="answer6">Answer 6</label>
-            <input
+            <textarea
               type="text"
               name="answer6"
               onChange={handleInputChange}
@@ -467,7 +467,7 @@ const AdminAddClient = () => {
           </div>
           <div className="form-input-row">
             <label for="answer7">Answer 7</label>
-            <input
+            <textarea
               type="text"
               name="answer7"
               onChange={handleInputChange}
@@ -488,7 +488,7 @@ const AdminAddClient = () => {
           </div>
           <div className="form-input-row">
             <label for="answer8">Answer 8</label>
-            <input
+            <textarea
               type="text"
               name="answer8"
               onChange={handleInputChange}

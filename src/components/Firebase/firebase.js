@@ -180,6 +180,19 @@ class Firebase {
   }
   // [END update client after un-auth donation]
 
+  // [START update client from admin]
+  updateClientFromAdmin({ clientId, updateObject }) {
+    const updateClientFromAdminCallable = this.functions.httpsCallable(
+      'updateClientFromAdmin'
+    );
+
+    return updateClientFromAdminCallable({
+      clientId,
+      updateObject,
+    });
+  }
+  // [END update client from admin]
+
   // [START write user settings]
   writeUserSettings({ username, settings }) {
     const writeUserSettingsCallable = this.functions.httpsCallable(
@@ -305,6 +318,16 @@ class Firebase {
       .orderBy('dateCreated', 'desc')
       .onSnapshot(onSnapshot);
   }
+
+  // [START get success clients ordered by date housed]
+  subscribeToSuccessClients({ onSnapshot }) {
+    return this.db
+      .collection('clients')
+      .where('status', '==', 'Housed')
+      .orderBy('dateHoused', 'desc')
+      .onSnapshot(onSnapshot);
+  }
+  // [END get success clients ordered by date housed]
 
   // appending get() at the end, ensures this is called once and not subscribing to
   // any changes in the database

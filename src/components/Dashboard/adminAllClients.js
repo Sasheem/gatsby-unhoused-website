@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import { FirebaseContext } from '../Firebase';
 import MoreIcon from '../../assets/ellipsis-v-solid.svg';
+import EditClientButton from './editClientButton';
 import Loader from '../common/Loader/loader';
 
 import './dashboard.scss';
@@ -85,10 +86,7 @@ const AdminAllClients = () => {
                   {client.status}
                 </p>
               </div>
-
-              <div className="row-more">
-                <MoreIcon />
-              </div>
+              <EditClientButton client={client} />
             </div>
             <div className="row-divider" />
           </>
