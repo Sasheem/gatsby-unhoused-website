@@ -53,7 +53,7 @@ const ContactDonate = ({ location }) => {
         if (isMounted) {
           const featuredClients = [];
           snapshot.forEach(doc => {
-            if (doc.data().status === 'Unhoused') {
+            if (doc.data().status === 'Funding') {
               featuredClients.push({
                 id: doc.id,
                 ...doc.data(),
@@ -227,14 +227,24 @@ const ContactDonate = ({ location }) => {
         }
       });
 
-      firebase.createDonation({
-        amount: parseInt(amount.value),
-        clientId: client.value, // refers to a client housed
-        paymentIntentId,
-        donorEmail: email.value,
-        message: message.value,
-        username: user ? user.username : '',
-      });
+      firebase
+        .createDonation({
+          amount: parseInt(amount.value),
+          clientId: client.value, // refers to a client housed
+          paymentIntentId,
+          donorEmail: email.value,
+          message: message.value,
+          username: user ? user.username : '',
+        })
+        .then(result => {
+          console.log(`successfully added donation: ${result}`);
+          console.dir(result);
+          return result;
+        })
+        .catch(error => {
+          console.log(`error creating donation object: ${error.message}`);
+          setErrorMessage(error.message);
+        });
       setProcessingTo(false);
       navigate('/successDonation');
     }
