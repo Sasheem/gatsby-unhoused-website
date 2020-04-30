@@ -115,8 +115,11 @@
     }   
 }
 .housed {
-    color: $analogous-color-two;
+    color: $color-status-success;
 }
 .unhoused {
-    color: $main-complement-color;
+    color: $color-status-error;
+}
+.funding {
+    color: $color-status-warning;
 }

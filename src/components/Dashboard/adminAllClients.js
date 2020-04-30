@@ -68,8 +68,10 @@ const AdminAllClients = () => {
                 <h5>{client.status === 'Housed' ? 'Housed' : 'Joined UH'}</h5>
                 <p>
                   {client.status === 'Housed'
-                    ? moment(new Date(client.dateHoused)).format('l')
-                    : moment(new Date(client.dateFundingBegan)).format('l')}
+                    ? moment(new Date(client.dateHoused.toDate())).format('l')
+                    : moment(new Date(client.dateFundingBegan.toDate())).format(
+                        'l'
+                      )}
                 </p>
               </div>
               <div className="client-item">
@@ -81,7 +83,13 @@ const AdminAllClients = () => {
               <div className="client-item">
                 <h5>Status</h5>
                 <p
-                  className={client.status === 'Housed' ? 'housed' : 'unhoused'}
+                  className={
+                    client.status === 'Housed'
+                      ? 'housed'
+                      : client.status === 'Funding'
+                      ? 'funding'
+                      : 'unhoused'
+                  }
                 >
                   {client.status}
                 </p>

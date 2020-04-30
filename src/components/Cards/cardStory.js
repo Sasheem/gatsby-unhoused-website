@@ -44,7 +44,7 @@ const CardStory = ({ key, client }) => {
               </div>
               <div className="footer-right">
                 <h5>{status === 'Housed' ? 'Housed on' : 'Funding began'}</h5>
-                <p className="goal">{moment(date).format('l')}</p>
+                <p className="goal">{moment(date.toDate()).format('l')}</p>
               </div>
             </div>
           </div>

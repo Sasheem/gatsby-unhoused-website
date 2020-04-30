@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import DatePicker from 'react-date-picker';
+import moment from 'moment';
 
 import { FirebaseContext } from '../Firebase';
 import ButtonSubmit from '../common/Button/buttonSubmit';
@@ -31,8 +32,9 @@ const EditClientForm = ({ client, closeModal }) => {
   let isMounted = true;
 
   useEffect(() => {
-    setDateFundingBegan(new Date(client.dateFundingBegan));
-    setDateHoused(new Date(client.dateHoused));
+    setDateFundingBegan(client.dateFundingBegan.toDate());
+    setDateHoused(client.dateHoused.toDate());
+
     setFormValues(currentValues => ({
       ...currentValues,
       status: client.status,
