@@ -301,7 +301,9 @@ const AdminAddClient = () => {
               onChange={handleInputChange}
               value={formValues.status}
             >
-              <option value="Funding">Funding</option>
+              <option selected value="Funding">
+                Funding
+              </option>
               <option value="Unhoused">Unhoused</option>
               <option value="Housed">Housed</option>
             </select>
