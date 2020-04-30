@@ -6,6 +6,7 @@ import Process from '../components/Home/process';
 import Newsletter from '../components/Home/newsletter';
 import CallToActions from '../components/Home/callToActions';
 import ClientsFeatured from '../components/Home/featuredClients';
+import Metrics from '../components/common/Metrics/metrics';
 
 import '../styles/global.scss';
 
@@ -19,27 +20,32 @@ const IndexPage = props => {
           subtitle="Join the fight against homelessness today"
           label="Meet client"
           destination="/story/Sheena-Salmon"
+          location="Home"
         />
-        <div className="content-grid-one">
+        <Metrics />
+        <div className="page-content-container">
           <div />
-          <div className="content-container">
-            <h2>Our Mission</h2>
-            <p>
-              To provide a fresh start to people experiencing homelessness while
-              chipping away the barrier separating them from society.
-            </p>
+          <div className="content-grid-one">
+            <div />
+            <div className="content-container">
+              <h2>Our Mission</h2>
+              <p>
+                To provide a fresh start to people experiencing homelessness
+                while chipping away the barrier separating them from society.
+              </p>
+            </div>
+            <div />
           </div>
-          <div />
-        </div>
-        <div className="container-three">
-          <h2>Featured Clients</h2>
-          <ClientsFeatured />
-        </div>
-        <Process />
-        <Newsletter />
-        <div className="container-three">
-          <h2>Get Involved</h2>
-          <CallToActions />
+          <div className="container-three">
+            <h2>Featured Clients</h2>
+            <ClientsFeatured />
+          </div>
+          <Process />
+          <Newsletter />
+          <div className="container-three">
+            <h2>Get Involved</h2>
+            <CallToActions />
+          </div>
         </div>
       </div>
     </div>

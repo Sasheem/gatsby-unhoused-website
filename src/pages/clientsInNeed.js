@@ -7,7 +7,7 @@ import '../styles/global.scss';
 
 const ClientsInNeed = () => {
   return (
-    <div className="page-body">
+    <div className="page-content-container">
       <SEO title="Unhoused Humanity Featured Clients" />
       <div className="container-four">
         <div className="container-head">

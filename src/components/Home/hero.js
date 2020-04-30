@@ -1,11 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import BackgroundImage from 'gatsby-background-image';
 
-import { FirebaseContext } from '../Firebase';
 import Button from '../common/Button/button';
-import CardMetric from '../Cards/cardMetric';
 
 // styled components
 const Fill = styled.div`
@@ -28,25 +26,6 @@ const Content = styled.div`
   }
 `;
 
-const Metrics = styled.div`
-  flex: 0.7;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: black;
-
-  @media only screen and (min-width: 800px) {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  @media only screen and (max-width: 800px) {
-    flex: 1.5;
-  }
-`;
-
 const StyledHero = styled(BackgroundImage)`
   height: 50em;
   width: 100vw;
@@ -62,74 +41,52 @@ const StyledHero = styled(BackgroundImage)`
   }
 `;
 
-const Hero = ({ title, subtitle, label, destination }) => {
-  const { firebase = null } = useContext(FirebaseContext) || {};
-  const [metrics, setMetrics] = useState(null);
-  const [partners, setPartners] = useState(0);
-
-  useEffect(() => {
-    let partnerCount = 0;
-    if (firebase) {
-      // get partner count
-      firebase
-        .getPartners()
-        .then(snapshot => {
-          snapshot.forEach(doc => (partnerCount += 1));
-          setPartners(partnerCount);
-        })
-        .catch(error => {
-          console.log(`error getting partners: ${error.message}`);
-        });
-
-      // get clients metrics
-      firebase
-        .getClientsMetrics()
-        .then(snapshot => {
-          setMetrics(snapshot.data());
-        })
-        .catch(error => {
-          console.log(`error getting metrics: ${error.message}`);
-        });
-    }
-  }, [firebase]);
-
+const Hero = ({ title, subtitle, label, destination, location }) => {
   return (
     <StaticQuery
       query={graphql`
-        query {
-          bannerImage: file(relativePath: { eq: "banner.jpg" }) {
-            childImageSharp {
-              fluid(quality: 90, maxWidth: 1920) {
-                ...GatsbyImageSharpFluid_withWebp
-              }
+        fragment processHeroBanner on File {
+          childImageSharp {
+            fluid(quality: 90, maxWidth: 1920) {
+              ...GatsbyImageSharpFluid_withWebp
             }
+          }
+        }
+        query {
+          bannerHome: file(relativePath: { eq: "banner-home.jpg" }) {
+            ...processHeroBanner
+          }
+          bannerAbout: file(relativePath: { eq: "banner-about.jpg" }) {
+            ...processHeroBanner
+          }
+          bannerCrowdfund: file(relativePath: { eq: "banner-crowdfund.jpg" }) {
+            ...processHeroBanner
           }
         }
       `}
       render={data => {
-        const bannerData = data.bannerImage.childImageSharp.fluid;
+        const bannerHome = data.bannerHome.childImageSharp.fluid;
+        const bannerAbout = data.bannerAbout.childImageSharp.fluid;
+        const bannerCrowdfund = data.bannerCrowdfund.childImageSharp.fluid;
+        let bannerToShow = null;
+
+        if (location === 'About') {
+          bannerToShow = bannerAbout;
+        } else if (location === 'Crowdfund') {
+          bannerToShow = bannerCrowdfund;
+        }
+
         return (
-          <StyledHero Tag="div" fluid={bannerData}>
+          <StyledHero
+            Tag="div"
+            fluid={bannerToShow === null ? bannerHome : bannerToShow}
+          >
             <Fill />
             <Content>
               <h1>{title}</h1>
               <p>{subtitle}</p>
               <Button label={label} destination={destination} />
             </Content>
-            <Metrics>
-              <CardMetric name="Partners" value={partners} />
-              {metrics !== null && (
-                <CardMetric name="Clients Housed" value={metrics.housed} />
-              )}
-              {metrics !== null && (
-                <CardMetric
-                  name="Still Housed"
-                  value={`${((metrics.housed / metrics.total) * 100).toFixed(
-                    0
-                  )}%`}
-                />
-              )}
-            </Metrics>
           </StyledHero>
         );
       }}

@@ -73,7 +73,11 @@ a {
 }
 .page-body {
     display: grid;
-	grid-gap: 15em;
+    justify-items: center;
+}
+.page-content-container {
+    display: grid;
+    grid-gap: 15em;
     justify-items: center;
 }
 .page-body-dashboard {
@@ -328,7 +332,7 @@ a {
     justify-content: space-around;
     align-items: center;
 
-    @media only screen and (min-width: 600px) {
+    @media only screen and (min-width: 700px) {
         flex-direction: row;
     }
 }
@@ -337,7 +341,7 @@ a {
 	grid-gap: 4em;
     justify-items: center;
     
-	@media only screen and (min-width: 600px) {
+	@media only screen and (min-width: 700px) {
 		grid-template-columns: 1fr 1fr;
 	}
 
