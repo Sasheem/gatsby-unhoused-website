@@ -30,10 +30,10 @@ const BioForm = () => {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [birthday, setBirthday] = useState(new Date());
-  const [userImage, setUserImage] = useState('');
   const [profileImage, setProfileImage] = useState(null);
   const [birthdayChanged, setBirthdayChanged] = useState(false);
   const [privacyChanged, setPrivacyChanged] = useState(false);
+  const [isProcessing, setProcessingTo] = useState(false);
   let isMounted = true;
 
   useEffect(() => {
@@ -56,6 +56,7 @@ const BioForm = () => {
   function handleSubmit(event) {
     event.preventDefault();
     let temp = {};
+    let imagePath = '';
 
     if (userProfile !== null && firebase) {
       // Map over all values provided by form
@@ -73,7 +74,7 @@ const BioForm = () => {
 
       // only change the birthday if it was changed in the form
       if (birthdayChanged === true) {
-        temp['birthday'] = moment(birthday).format('l');
+        temp['birthday'] = birthday.toUTCString();
       }
 
       // only change the privacy if it was changed in the form
@@ -81,17 +82,21 @@ const BioForm = () => {
         temp['profilePrivate'] = profilePrivate;
       }
 
+      setProcessingTo(true);
       if (profileImage !== null) {
-        firebase.uploadUserProfileImage({
+        // console.log(`uploading profile Image: ${profileImage}`);
+        const result = firebase.uploadUserProfileImage({
           fileObject: profileImage,
           username: user.username,
         });
+        // imagePath = result.location_.path_;
       }
 
       firebase
         .writeUserSettings({
           username: user.username,
           settings: temp,
+          // imagePath,
         })
         .then(() => {
           if (isMounted) {
@@ -105,7 +110,6 @@ const BioForm = () => {
               workplace: '',
             });
             setBirthday(new Date());
-            setUserImage('');
             setSuccess(true);
             setBirthdayChanged(false);
             setPrivacyChanged(false);
