@@ -57,7 +57,7 @@ const StoryHead = ({
             <h4>Share their story</h4>
             <StoryIcons />
           </div>
-          {status === 'Unhoused' ? (
+          {status === 'Funding' ? (
             <div className="info-row">
               <ButtonDonateStory
                 label="Donate"
