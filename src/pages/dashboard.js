@@ -69,43 +69,63 @@ const Dashboard = ({ location }) => {
           <Tabs>
             {user && !!user.isAdmin && (
               <TabList>
-                <Tab>Admin Dashboard</Tab>
+                <Tab>Dashboard</Tab>
                 <Tab>Add Client</Tab>
                 <Tab>Edit Client</Tab>
                 <Tab>Add Partner</Tab>
                 <Tab>Profile</Tab>
+                <Tab>Password</Tab>
               </TabList>
             )}
             {user && !user.isAdmin ? (
               <TabList>
-                <Tab>Overview</Tab>
+                <Tab>Dashboard</Tab>
                 <Tab>Donations</Tab>
-                <Tab>Clients</Tab>
+                <Tab>Payment Information</Tab>
                 <Tab>Profile</Tab>
                 <Tab>Password</Tab>
-                <Tab>Payment Information</Tab>
               </TabList>
             ) : null}
+
+            {/* PANEL 1 */}
             <TabPanel>
               <div className="tab-content-container">
-                {user && !user.isAdmin && <MetricsDashboard />}
+                {user && !user.isAdmin && (
+                  <div>
+                    <MetricsDashboard />
+                    <div className="tab-content-clients">
+                      <ClientsFunded user={user} />
+                    </div>
+                  </div>
+                )}
                 {user && !!user.isAdmin && <AdminMetrics />}
               </div>
             </TabPanel>
-            {user && !!user.isAdmin && (
-              <TabPanel>
-                <div className="tab-content-container">
-                  <AdminAddClient />
-                </div>
-              </TabPanel>
-            )}
-            {user && !!user.isAdmin && (
-              <TabPanel>
-                <div className="tab-content-container">
-                  <AdminAllClients />
-                </div>
-              </TabPanel>
-            )}
+
+            {/* PANEL 2 */}
+            <TabPanel>
+              <div className="tab-content-container">
+                {user && !user.isAdmin && (
+                  <Donations firebase={firebase} user={user} />
+                )}
+                {user && !!user.isAdmin && <AdminAddClient />}
+              </div>
+            </TabPanel>
+
+            {/* PANEL 3 */}
+            <TabPanel>
+              <div className="tab-content-container">
+                {user && !user.isAdmin && (
+                  <span>
+                    <SavedCreditCards firebase={firebase} user={user} />
+                    <UpdateCreditCard firebase={firebase} user={user} />
+                  </span>
+                )}
+                {user && !!user.isAdmin && <AdminAllClients />}
+              </div>
+            </TabPanel>
+
+            {/* PANEL 4 */}
             {user && !!user.isAdmin && (
               <TabPanel>
                 <div className="tab-content-container">
@@ -113,37 +133,18 @@ const Dashboard = ({ location }) => {
                 </div>
               </TabPanel>
             )}
-            {user && !!user.isAdmin && (
-              <TabPanel>
-                <div className="tab-content-container">
-                  <BioForm />
-                </div>
-              </TabPanel>
-            )}
-            <TabPanel>
-              <div className="tab-content-container">
-                <Donations firebase={firebase} user={user} />
-              </div>
-            </TabPanel>
-            <TabPanel>
-              <div className="tab-content-clients">
-                <ClientsFunded user={user} />
-              </div>
-            </TabPanel>
+
+            {/* PANEL 5 */}
             <TabPanel>
               <div className="tab-content-container">
                 <BioForm />
               </div>
             </TabPanel>
+
+            {/* PANEL 6 */}
             <TabPanel>
               <div className="tab-content-container">
                 <PasswordForm />
-              </div>
-            </TabPanel>
-            <TabPanel>
-              <div className="tab-content-container">
-                <SavedCreditCards firebase={firebase} user={user} />
-                <UpdateCreditCard firebase={firebase} user={user} />
               </div>
             </TabPanel>
           </Tabs>
