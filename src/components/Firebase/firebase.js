@@ -329,6 +329,15 @@ class Firebase {
   }
   // [END get success clients ordered by date housed]
 
+  // [START get all clients ordered by dateFundingBegan]
+  subscribeToAllClients({ onSnapshot }) {
+    return this.db
+      .collection('clients')
+      .orderBy('dateFundingBegan', 'desc')
+      .onSnapshot(onSnapshot);
+  }
+  // [END get all clients ordered by dateFundingBegan]
+
   // appending get() at the end, ensures this is called once and not subscribing to
   // any changes in the database
   getUserProfile({ userId, onSnapshot }) {

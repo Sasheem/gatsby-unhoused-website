@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import moment from 'moment';
 
 import { FirebaseContext } from '../Firebase';
-import MoreIcon from '../../assets/ellipsis-v-solid.svg';
 import EditClientButton from './editClientButton';
 import Loader from '../common/Loader/loader';
 
@@ -14,40 +13,47 @@ const AdminAllClients = () => {
   const [loading, setLoading] = useState(false);
   let isMounted = true;
 
-  useEffect(() => {
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  // applying this form of useEffect ensures
+  // it only runs once when the component mounts
+  // useEffect(() => {}, []);
 
+  // adding empty array as second arg means useEffect will only
+  // run when the component is mounted and won't run when the
+  // component is updated
   useEffect(() => {
-    // query all available clients if firebase exists
     if (firebase) {
       setLoading(true);
-      firebase
-        .getClients()
-        .then(snapshot => {
-          // check if component is mounted
-          if (isMounted) {
-            const availableClients = [];
-            snapshot.forEach(doc => {
-              availableClients.push({
-                id: doc.id,
-                ...doc.data(),
-              });
-            });
+      const unsubscribe = firebase.subscribeToAllClients({
+        onSnapshot: snapshot => {
+          console.dir(snapshot);
+          const snapshotClients = [];
 
-            // save clients to state
-            setClients(availableClients);
-            setLoading(false);
-          }
-        })
-        .catch(error => {
+          // forEach provided from firebase, not javascript forEach
+          // it behaves the same though
+          // data() returns the data for a snapshot
+          snapshot.forEach(doc => {
+            snapshotClients.push({
+              id: doc.id,
+              ...doc.data(),
+            });
+          });
+
+          setClients(snapshotClients);
           setLoading(false);
-          console.log(`error fetching clients: ${error.message}`);
-        });
+        },
+      });
+
+      // when the effect ends, it can return
+      // we use this cause its similar to componentDidUnmount
+      return () => {
+        if (unsubscribe) {
+          console.log(`running unsubscribe`);
+          unsubscribe();
+          setLoading(false);
+        }
+      };
     }
-  }, [firebase]);
+  }, []);
 
   return (
     <div className="dashboard-item">
