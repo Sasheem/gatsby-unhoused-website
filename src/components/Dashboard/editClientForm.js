@@ -52,21 +52,15 @@ const EditClientForm = ({ client, closeModal }) => {
     let tempQuestions = clientQuestions;
     let tempAnswers = clientAnswers;
 
-    console.dir(interviewValues);
-
     if (
-      dateFundingBegan.getTime() !== new Date(client.dateFundingBegan).getTime()
+      dateFundingBegan.getTime() !== client.dateFundingBegan.toDate().getTime()
     ) {
       temp.dateFundingBegan = dateFundingBegan.toUTCString();
     }
 
-    if (dateHoused.getTime() !== new Date(client.dateHoused).getTime()) {
-      console.log(`adding ${dateHoused} to temp`);
+    if (dateHoused.getTime() !== client.dateHoused.toDate().getTime()) {
       temp.dateHoused = dateHoused.toUTCString();
     }
-
-    console.log(`interviewValues:`);
-    console.dir(interviewValues);
 
     // set answers array using index from object key
     for (let [key, value] of Object.entries(interviewValues)) {
@@ -101,7 +95,7 @@ const EditClientForm = ({ client, closeModal }) => {
         temp[key] = value;
       }
     }
-    console.dir(temp);
+
     if (firebase) {
       setProcessingTo(true);
       console.log(`running updateClientFromAdmin`);
