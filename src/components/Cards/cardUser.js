@@ -63,13 +63,13 @@ const CardUser = ({ firebase, user }) => {
         isMounted = false;
       };
     }
-  }, []);
+  }, [firebase]);
 
   return (
     <div className="card-component">
       <div className="card-head">
         <div className="card-image">
-          {userProfile && userProfile.profilePicture && downloadURL ? (
+          {userProfile && downloadURL ? (
             <img
               src={downloadURL}
               alt={`${userProfile.firstName} profile picture`}

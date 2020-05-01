@@ -50,7 +50,7 @@ const ClientsFunded = ({ user }) => {
           <Loader />
         </div>
       ) : clients.length !== 0 ? (
-        <div className="dashboard-item">
+        <div>
           <h3>Clients funded</h3>
           <BlogGrid clients={clients} loading={loading} />
         </div>

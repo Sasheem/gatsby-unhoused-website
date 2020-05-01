@@ -4,7 +4,6 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import SEO from '../components/seo';
 import { FirebaseContext } from '../components/Firebase';
-import MetricsDashboard from '../components/Dashboard/metrics';
 import Donations from '../components/Dashboard/donations';
 import ClientsFunded from '../components/Dashboard/clientsFunded';
 import BioForm from '../components/Dashboard/bioForm';
@@ -89,10 +88,10 @@ const Dashboard = ({ location }) => {
 
             {/* PANEL 1 */}
             <TabPanel>
-              <div className="tab-content-container">
+              <div>
                 {user && !user.isAdmin && (
                   <div>
-                    <MetricsDashboard />
+                    <p>User metrics</p>
                     <div className="tab-content-clients">
                       <ClientsFunded user={user} />
                     </div>
