@@ -13,32 +13,35 @@ const Metrics = () => {
   useEffect(() => {
     let partnerCount = 0;
     if (firebase) {
-      // get partner count
-      firebase
-        .getPartners()
-        .then(snapshot => {
+      const unsubscribe = firebase.subscribeToClientsMetrics({
+        onSnapshot: snapshot => {
+          console.log(`snapshot: ${typeof snapshot}`);
+          console.dir(snapshot.data());
+          setMetrics(snapshot.data());
+        },
+      });
+
+      const unsubscribePartners = firebase.subscribeToPartnersMetrics({
+        onSnapshot: snapshot => {
           snapshot.forEach(doc => (partnerCount += 1));
           setPartners(partnerCount);
-        })
-        .catch(error => {
-          console.log(`error getting partners: ${error.message}`);
-        });
+        },
+      });
 
-      // get clients metrics
-      firebase
-        .getClientsMetrics()
-        .then(snapshot => {
-          setMetrics(snapshot.data());
-        })
-        .catch(error => {
-          console.log(`error getting metrics: ${error.message}`);
-        });
+      return () => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+        if (unsubscribePartners) {
+          unsubscribePartners();
+        }
+      };
     }
   }, [firebase]);
 
   return (
     <div className="metrics-container">
-      <CardMetric name="Partners" value={partners} />
+      {partners !== 0 && <CardMetric name="Partners" value={partners} />}
       {metrics !== null && (
         <CardMetric name="Clients Housed" value={metrics.housed} />
       )}
