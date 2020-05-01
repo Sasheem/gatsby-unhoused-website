@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
 import Process from '../components/Home/process';
@@ -10,7 +11,8 @@ import Metrics from '../components/common/Metrics/metrics';
 
 import '../styles/global.scss';
 
-const IndexPage = props => {
+const IndexPage = () => {
+  const { firebase = null } = useContext(FirebaseContext) || {};
   return (
     <div className="page-container">
       <SEO title="Home" />
@@ -38,7 +40,7 @@ const IndexPage = props => {
           </div>
           <div className="container-three">
             <h2>Featured Clients</h2>
-            <ClientsFeatured />
+            <ClientsFeatured firebase={firebase} />
           </div>
           <Process />
           <Newsletter />

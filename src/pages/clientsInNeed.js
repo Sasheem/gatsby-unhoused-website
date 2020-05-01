@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import SEO from '../components/seo';
 
+import { FirebaseContext } from '../components/Firebase';
 import FeaturedClients from '../components/Home/featuredClients';
 
 import '../styles/global.scss';
 
 const ClientsInNeed = () => {
+  const { firebase = null } = useContext(FirebaseContext) || {};
   return (
     <div className="page-content-container">
       <SEO title="Unhoused Humanity Featured Clients" />
@@ -18,7 +20,7 @@ const ClientsInNeed = () => {
           </p>
         </div>
 
-        <FeaturedClients />
+        <FeaturedClients firebase={firebase} />
       </div>
     </div>
   );

@@ -9,29 +9,22 @@ const AdminMetrics = () => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
   const [metrics, setMetrics] = useState(null);
   const [loading, setLoading] = useState(false);
-  let isMounted = true;
 
   useEffect(() => {
+    const unsubscribe = firebase.subscribeToClientsMetrics({
+      onSnapshot: snapshot => {
+        console.log(`snapshot: ${typeof snapshot}`);
+        console.dir(snapshot.data());
+        setMetrics(snapshot.data());
+      },
+    });
+
     return () => {
-      isMounted = false;
+      if (unsubscribe) {
+        unsubscribe();
+      }
     };
   }, []);
-
-  useEffect(() => {
-    if (firebase) {
-      setLoading(true);
-      firebase
-        .getClientsMetrics()
-        .then(snapshot => {
-          setMetrics(snapshot.data());
-          setLoading(false);
-        })
-        .catch(error => {
-          setLoading(false);
-          console.log(`error getting metrics: ${error.message}`);
-        });
-    }
-  }, [firebase]);
 
   const handleResetClients = () => {
     if (firebase) {

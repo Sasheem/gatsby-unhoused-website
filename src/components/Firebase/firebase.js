@@ -24,14 +24,22 @@ class Firebase {
   uploadUserProfileImage({ fileObject, username }) {
     const filename = `users/${username}.jpeg`;
     const file = this.storage.ref(filename);
-    file
-      .put(fileObject)
-      .then(result => {
-        return result;
-      })
-      .catch(error => {
-        console.log(`error: ${error.message}`);
-      });
+    try {
+      const result = file.put(fileObject);
+      console.log(`result ${typeof result}`);
+      console.dir(result);
+      return result;
+    } catch (error) {
+      console.log(`uploadUserProfileImage error: ${error.message}`);
+    }
+    // file
+    //   .put(fileObject)
+    //   .then(result => {
+    //     return result;
+    //   })
+    //   .catch(error => {
+    //     console.log(`error: ${error.message}`);
+    //   });
   }
 
   uploadClientImage({ fileObject, clientId }) {
@@ -194,10 +202,18 @@ class Firebase {
   // [END update client from admin]
 
   // [START write user settings]
-  writeUserSettings({ username, settings }) {
+  writeUserSettings({ username, settings, imagePath }) {
     const writeUserSettingsCallable = this.functions.httpsCallable(
       'writeToUserSettings'
     );
+    // console.log(`START settings:`);
+    // console.dir(settings);
+    // if (imagePath !== '') {
+    //   const imageUrl = this.storage.ref(imagePath).getDownloadURL();
+    //   settings = { ...settings, imageUrl };
+    // }
+    // console.log(`END settings:`);
+    // console.dir(settings);
     return writeUserSettingsCallable({
       username,
       settings,
@@ -337,6 +353,40 @@ class Firebase {
       .onSnapshot(onSnapshot);
   }
   // [END get all clients ordered by dateFundingBegan]
+
+  // [START get funding clients real time]
+  subscribeToFundingClients({ onSnapshot }) {
+    return this.db
+      .collection('clients')
+      .where('status', '==', 'Funding')
+      .orderBy('dateFundingBegan', 'desc')
+      .onSnapshot(onSnapshot);
+  }
+  // [END get funding clients real time]
+
+  // [START get user info in real time]
+  subscribeToUserInfo({ username, onSnapshot }) {
+    return this.db
+      .collection('publicProfiles')
+      .doc(username)
+      .onSnapshot(onSnapshot);
+  }
+  // [END get user info in real time]
+
+  // [START get client metrics real time]
+  subscribeToClientsMetrics({ onSnapshot }) {
+    return this.db
+      .collection('metrics')
+      .doc('clients')
+      .onSnapshot(onSnapshot);
+  }
+  // [END get client metrics real time]
+
+  // [START get partners real time]
+  subscribeToPartnersMetrics({ onSnapshot }) {
+    return this.db.collection('partners').onSnapshot(onSnapshot);
+  }
+  // [END get partners real time]
 
   // appending get() at the end, ensures this is called once and not subscribing to
   // any changes in the database

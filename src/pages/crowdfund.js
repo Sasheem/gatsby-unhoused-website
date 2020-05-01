@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 
+import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import Hero from '../components/Home/hero';
 import HowItWorks from '../components/Crowdfund/howItWorks';
@@ -17,6 +18,7 @@ import '../styles/global.scss';
  */
 
 const CrowdfundPage = props => {
+  const { firebase = null } = useContext(FirebaseContext) || {};
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
@@ -164,7 +166,7 @@ const CrowdfundPage = props => {
         </div>
         <div className="container-three">
           <h2>Crowdfund these clients today</h2>
-          <FeaturedClients />
+          <FeaturedClients firebase={firebase} />
         </div>
       </div>
     </div>
