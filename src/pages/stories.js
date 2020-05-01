@@ -12,9 +12,8 @@ import { SuccessClients } from '../components/Blog/successClients';
  * * brainstorm how arrow buttons handle state of currentPage
  */
 
-const StoriesPage = () => {
+const StoriesPage = ({ location }) => {
   const { firebase = null } = useContext(FirebaseContext) || {};
-
   return (
     <div>
       <SEO title="Stories" />
@@ -26,7 +25,14 @@ const StoriesPage = () => {
         </p>
         <div className="form-container">
           <div />
-          {firebase && <SuccessClients firebase={firebase} />}
+          {firebase && (
+            <SuccessClients
+              firebase={firebase}
+              nextPage={
+                location.state.nextPage ? location.state.nextPage : null
+              }
+            />
+          )}
           <div />
         </div>
       </div>

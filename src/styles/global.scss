@@ -284,21 +284,6 @@ a {
     margin: 1em 0 5em 0;
     text-align: center;
 }
-.pagination {
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-	margin: 5em auto;
-	max-width: 30em;
-}
-.pagination-icon {
-	width: 2em;
-    height: 2em;
-    
-    &:hover {
-        cursor: pointer;
-    }
-}
 // blog styling ends
 
 // home page styling begins

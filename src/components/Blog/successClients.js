@@ -1,21 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import scrollTo from 'gatsby-plugin-smoothscroll';
+import { navigate } from 'gatsby';
 
 import BlogGrid from './blogGrid';
 import Pagination from './pagination';
 
-import LeftArrow from '../../assets/chevron-left-solid.svg';
-import RightArrow from '../../assets/chevron-right-solid.svg';
-
-export const SuccessClients = ({ firebase }) => {
+export const SuccessClients = ({ firebase, nextPage }) => {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(6);
+  // const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
+  // const [indexOfLastPost, setIndexOfLastPost] = useState(0);
+  // const [currentClients, setCurrentClients] = useState([]);
 
   // applying this form of useEffect ensures
   // it only runs once when the component mounts
   // useEffect(() => {}, []);
+
+  // run once when the component mounts, if nextPage exist
+  // then set that to currentPage, OW keep it at 1;
+  useEffect(() => {
+    console.log(`successClients useEffect firing with nextPage: ${nextPage}`);
+    setCurrentPage(nextPage === null ? 1 : nextPage);
+    console.log(`currentPage * postsPerPage: ${currentPage} * ${postsPerPage}`);
+    // setIndexOfLastPost(currentPage * postsPerPage);
+    // setIndexOfFirstPost(indexOfLastPost - postsPerPage);
+    // setCurrentClients(clients.slice(indexOfFirstPost, indexOfLastPost));
+    console.log(`currentPage: ${currentPage}`);
+    return () => {};
+  }, [nextPage]);
 
   // adding empty array as second arg means useEffect will only
   // run when the component is mounted and won't run when the
@@ -59,26 +73,26 @@ export const SuccessClients = ({ firebase }) => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentClients = clients.slice(indexOfFirstPost, indexOfLastPost);
+  console.log(`indexOfLastPost: ${indexOfLastPost}`);
+  console.log(`indexOfFirstPost: ${indexOfFirstPost}`);
+  console.dir(currentClients);
 
   // change page number
   const paginate = pageNumber => {
-    setCurrentPage(pageNumber);
-    scrollTo('#blog-layout');
+    // setCurrentPage(pageNumber);
+    navigate('/stories/', { state: { nextPage: pageNumber } });
+    // scrollTo('#blog-layout');
   };
 
   return (
     <div>
       <BlogGrid clients={currentClients} />
-      <div className="pagination">
-        <LeftArrow className="pagination-icon" />
-        <Pagination
-          postsPerPage={postsPerPage}
-          totalPosts={clients.length}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
-        <RightArrow className="pagination-icon" />
-      </div>
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={clients.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
     </div>
   );
 };
