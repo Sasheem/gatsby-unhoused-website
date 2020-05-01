@@ -37,17 +37,13 @@ const CardUser = ({ firebase, user }) => {
   let isMounted = true;
 
   useEffect(() => {
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  useEffect(() => {
     if (firebase && user) {
-      firebase.getUser({ userId: user.username }).then(snapshot => {
-        if (isMounted) {
+      const unsubscribe = firebase.subscribeToUserInfo({
+        username: user.username,
+        onSnapshot: snapshot => {
+          console.log(`snapshot data: ${typeof snapshot.data()}`);
           setUserProfile(snapshot.data());
-        }
+        },
       });
 
       firebase
@@ -59,8 +55,15 @@ const CardUser = ({ firebase, user }) => {
             setDownloadURL(snapshot);
           }
         });
+
+      return () => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+        isMounted = false;
+      };
     }
-  }, [firebase]);
+  }, []);
 
   return (
     <div className="card-component">
