@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, navigate } from 'gatsby';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import moment from 'moment';
 
 import SEO from '../components/seo';
 import { FirebaseContext } from '../components/Firebase';
@@ -14,6 +15,7 @@ import SavedCreditCards from '../components/Stripe/savedCreditCards';
 import AdminMetrics from '../components/Dashboard/adminMetrics';
 import AdminAllClients from '../components/Dashboard/adminAllClients';
 import AdminAddPartner from '../components/Dashboard/adminAddPartner';
+import UserMetrics from '../components/Dashboard/userMetrics';
 
 import '../styles/global.scss';
 import 'react-tabs/style/react-tabs.css';
@@ -91,7 +93,11 @@ const Dashboard = ({ location }) => {
               <div>
                 {user && !user.isAdmin && (
                   <div>
-                    <p>User metrics</p>
+                    <p style={{ textAlign: 'right' }}>Date Joined:</p>
+                    <p style={{ textAlign: 'right' }}>
+                      {moment(user.metadata.creationTime).format('ll')}
+                    </p>
+                    <UserMetrics firebase={firebase} user={user} />
                     <div className="tab-content-clients">
                       <ClientsFunded user={user} />
                     </div>

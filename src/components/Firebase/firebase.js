@@ -146,6 +146,7 @@ class Firebase {
     donorEmail,
     message,
     username,
+    familySize,
   }) {
     const createDonationCallable = this.functions.httpsCallable(
       'createDonation'
@@ -157,6 +158,7 @@ class Firebase {
       donorEmail,
       message,
       username,
+      familySize,
     });
   }
   // [END create a donation object]
@@ -387,6 +389,15 @@ class Firebase {
     return this.db.collection('partners').onSnapshot(onSnapshot);
   }
   // [END get partners real time]
+
+  // [START get donations real time for a user]
+  subscribeToDonations({ username, onSnapshot }) {
+    return this.db
+      .collection('donations')
+      .where('donor', '==', username)
+      .onSnapshot(onSnapshot);
+  }
+  // [END get donations real time for a user]
 
   // appending get() at the end, ensures this is called once and not subscribing to
   // any changes in the database

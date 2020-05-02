@@ -35,6 +35,7 @@ const ContactDonate = ({ location }) => {
   const [isSavingCard, setIsSavingCard] = useState(false);
   const [fullyFund, setFullyFund] = useState(null);
   const [clientSelected, setClientSelected] = useState(null);
+  const [clientData, setClientData] = useState(null);
   let isMounted = true;
 
   const stripe = useStripe();
@@ -70,6 +71,19 @@ const ContactDonate = ({ location }) => {
       handleClientSet(location.state.clientId);
     }
   }, [firebase]);
+
+  // grab the client data from firebase whenever client selection occurs
+  useEffect(() => {
+    if (clientSelected !== null) {
+      firebase.getClient({ clientId: clientSelected }).then(result => {
+        setClientData(result.data());
+      });
+    } else if (location.state.hasOwnProperty(`clientId`)) {
+      firebase.getClient({ clientId: location.state.clientId }).then(result => {
+        setClientData(result.data());
+      });
+    }
+  }, [clientSelected, location]);
 
   const handleFormSubmit = async ev => {
     ev.preventDefault();
@@ -240,6 +254,7 @@ const ContactDonate = ({ location }) => {
     });
 
     try {
+      console.log(`familySize before createDonation: ${clientData.familySize}`);
       firebase.createDonation({
         amount: parseInt(amount.value),
         clientId: client.value,
@@ -247,6 +262,7 @@ const ContactDonate = ({ location }) => {
         donorEmail: email.value,
         message: message.value,
         username: user ? user.username : '',
+        familySize: clientData.familySize,
       });
     } catch (error) {
       console.log(`error creating donation object: ${error.message}`);
