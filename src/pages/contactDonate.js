@@ -106,22 +106,17 @@ const ContactDonate = ({ location }) => {
     // check if user wants to create an account
     if (registerDonor) {
       if (password.value === confirmPassword.value) {
-        await firebase
-          .register({
+        try {
+          const registerResult = await firebase.register({
             username: username.value,
             email: email.value,
             password: password.value,
             name: name.value,
-          })
-          .then(result => {
-            console.log(`user registered`);
-            console.dir(result);
-          })
-          .catch(error => {
-            if (isMounted) {
-              setErrorMessage(error.message);
-            }
           });
+          console.dir(registerResult);
+        } catch (error) {
+          setErrorMessage(error.message);
+        }
       } else {
         setErrorMessage('Error: Passwords do not match');
         return;
@@ -133,121 +128,133 @@ const ContactDonate = ({ location }) => {
     if (firebase) {
       if (user) {
         // create payment intent on stripe
-        await firebase
-          .createAuthPaymentIntent({
+        try {
+          const authIntentResult = await firebase.createAuthPaymentIntent({
             amount: stripeAmount,
             currency: 'usd',
             email: email.value,
             name: name.value,
             username: user.username,
-          })
-          .then(({ data }) => {
-            clientSecret = data.clientSecret;
-            paymentIntentId = data.paymentIntentId;
-            // clientSecretVariable = paymentIntent.clientSecret.data;
-          })
-          .catch(error => {
-            setProcessingTo(false);
-            setErrorMessage(error.message);
           });
+          clientSecret = authIntentResult.data.clientSecret;
+          paymentIntentId = authIntentResult.data.paymentIntentId;
+        } catch (error) {
+          setProcessingTo(false);
+          setErrorMessage(error.message);
+        }
       } else {
-        await firebase
-          .createPaymentIntent({
+        try {
+          const paymentIntentResult = await firebase.createPaymentIntent({
             amount: stripeAmount,
             currency: 'usd',
             email: email.value,
             name: name.value,
-          })
-          .then(({ data }) => {
-            clientSecret = data.clientSecret;
-            paymentIntentId = data.paymentIntentId;
-          })
-          .catch(error => {
-            setProcessingTo(false);
-            setErrorMessage(error.message);
           });
+          clientSecret = paymentIntentResult.data.clientSecret;
+          paymentIntentId = paymentIntentResult.data.paymentIntentId;
+        } catch (error) {
+          setProcessingTo(false);
+          setErrorMessage(error.message);
+        }
       }
     }
 
-    // create a payment method
-    // need access to stripe.js
-    // need a reference to CardElement
-    const cardElement = elements.getElement(CardElement);
-    const paymentMethodRequest = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
-      billing_details: billingDetails,
-    });
-
-    // confirm card payment
-    // combine payment method id + client_secret
-    const confirmCardPayment = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: paymentMethodRequest.paymentMethod.id,
-      setup_future_usage: isSavingCard ? 'off_session' : '',
-    });
-
-    // post card payment handling
-    if (confirmCardPayment.error) {
-      setErrorMessage(confirmCardPayment.error.message);
-      setProcessingTo(false);
-      return;
-    } else {
-      // success: createDonation and update client
-      // two cases: user logged in or guest
-      let tempFundedBy = [];
-
-      // map over clients to match to one being funded
-      clients.map(clientObj => {
-        // if this is the matched client
-        if (clientObj.id === client.value) {
-          // check if user auth
-          if (user) {
-            // check for any previous fundedBy
-            if (clientObj.fundedBy) {
-              clientObj.fundedBy.map(username => {
-                tempFundedBy.push(username);
-              });
-              tempFundedBy.push(user.username);
-            }
-
-            firebase.updateClientWithUserDonation({
-              amount: parseInt(amount.value),
-              fundedBy:
-                tempFundedBy.length === 0 ? [user.username] : tempFundedBy,
-              clientId: client.value,
-              raised: clientObj.raised,
-            });
-          } else {
-            firebase.updateClientWithGuestDonation({
-              amount: parseInt(amount.value),
-              raised: clientObj.raised,
-              clientId: client.value,
-            });
-          }
-        }
+    try {
+      // create a payment method
+      // need access to stripe.js
+      // need a reference to CardElement
+      const cardElement = elements.getElement(CardElement);
+      const paymentMethodRequest = await stripe.createPaymentMethod({
+        type: 'card',
+        card: cardElement,
+        billing_details: billingDetails,
       });
 
-      firebase
-        .createDonation({
-          amount: parseInt(amount.value),
-          clientId: client.value, // refers to a client housed
-          paymentIntentId,
-          donorEmail: email.value,
-          message: message.value,
-          username: user ? user.username : '',
-        })
-        .then(result => {
-          console.log(`successfully added donation: ${result}`);
-          console.dir(result);
-          return result;
-        })
-        .catch(error => {
-          console.log(`error creating donation object: ${error.message}`);
-          setErrorMessage(error.message);
-        });
+      // confirm card payment
+      // combine payment method id + client_secret
+      const confirmCardPayment = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: paymentMethodRequest.paymentMethod.id,
+        setup_future_usage: isSavingCard ? 'off_session' : '',
+      });
+    } catch (error) {
+      setErrorMessage(error.message);
       setProcessingTo(false);
-      navigate('/successDonation');
+      return;
     }
+
+    // success: createDonation and update client
+    // two cases: user logged in or guest
+    let tempFundedBy = [];
+
+    // map over clients to match to one being funded
+    clients.map(clientObj => {
+      // if this is the matched client
+      if (clientObj.id === client.value) {
+        // check if user auth
+        if (user) {
+          // check for any previous fundedBy
+          if (clientObj.fundedBy) {
+            clientObj.fundedBy.map(username => {
+              tempFundedBy.push(username);
+            });
+            tempFundedBy.push(user.username);
+          }
+
+          try {
+            const updateUserDonationResult = firebase.updateClientWithUserDonation(
+              {
+                amount: parseInt(amount.value),
+                fundedBy:
+                  tempFundedBy.length === 0 ? [user.username] : tempFundedBy,
+                clientId: client.value,
+                raised: clientObj.raised,
+              }
+            );
+            console.log(
+              `updateUserDonationResult: ${typeof updateUserDonationResult}`
+            );
+            console.dir(updateUserDonationResult);
+          } catch (error) {
+            setErrorMessage(error.message);
+            setProcessingTo(false);
+          }
+        } else {
+          try {
+            const updateGuestDonationResult = firebase.updateClientWithGuestDonation(
+              {
+                amount: parseInt(amount.value),
+                raised: clientObj.raised,
+                clientId: client.value,
+              }
+            );
+            console.log(
+              `updateGuestDonationResult: ${typeof updateGuestDonationResult}`
+            );
+            console.dir(updateGuestDonationResult);
+          } catch (error) {
+            setErrorMessage(error.message);
+            setProcessingTo(false);
+          }
+        }
+      }
+    });
+
+    try {
+      firebase.createDonation({
+        amount: parseInt(amount.value),
+        clientId: client.value,
+        paymentIntentId,
+        donorEmail: email.value,
+        message: message.value,
+        username: user ? user.username : '',
+      });
+    } catch (error) {
+      console.log(`error creating donation object: ${error.message}`);
+      setErrorMessage(error.message);
+    }
+
+    setProcessingTo(false);
+    navigate('/successDonation');
   };
 
   // TIP
@@ -255,7 +262,7 @@ const ContactDonate = ({ location }) => {
   // for setting any errors:
 
   const handleCardDetailsChange = ev => {
-    ev.error ? setErrorMessage(ev.error.message) : setErrorMessage();
+    ev.error ? setErrorMessage(ev.error.message) : setErrorMessage('');
   };
 
   const handleRegisterDonorSwitch = () => {
@@ -267,12 +274,10 @@ const ContactDonate = ({ location }) => {
   };
 
   const handleClientChange = ev => {
-    console.log(`clientChanged to ${ev.target.value}`);
     handleClientSet(ev.target.value);
   };
 
   const handleClientSet = clientId => {
-    console.log(`handleClientSet has ${clientId}`);
     calculateFullyFundAmount(clientId);
     setClientSelected(clientId);
   };
