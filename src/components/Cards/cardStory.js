@@ -16,7 +16,7 @@ const CardStory = ({ key, client }) => {
     dateHoused,
     dateFundingBegan,
   } = client;
-  const date = client.status === 'Unhoused' ? dateHoused : dateFundingBegan;
+  const date = client.status === 'Housed' ? dateHoused : dateFundingBegan;
   return (
     <Link
       to={`/story/${firstName}-${lastName}`}
@@ -43,7 +43,7 @@ const CardStory = ({ key, client }) => {
                 <p className="raised">${raised}</p>
               </div>
               <div className="footer-right">
-                <h5>{status === 'Housed' ? 'Housed on' : 'Funding began'}</h5>
+                <h5>{status === 'Housed' ? 'Housed' : 'Funding began'}</h5>
                 <p className="goal">{moment(date.toDate()).format('l')}</p>
               </div>
             </div>

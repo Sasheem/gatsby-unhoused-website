@@ -77,7 +77,7 @@ const Donations = ({ firebase, user }) => {
               </div>
               <div className="donation-item">
                 <h5>Amount</h5>
-                <p>${donation.amount}.00</p>
+                <p>${donation.amount}</p>
               </div>
               <div className="donation-item">
                 <h5>Card</h5>

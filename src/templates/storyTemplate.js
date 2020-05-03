@@ -31,7 +31,7 @@ const StoryTemplate = ({ pageContext }) => {
     questions,
     answers,
   } = pageContext;
-  console.log(`type of dateHoused: ${dateHoused}`);
+  console.log(`type of dateHoused: ${typeof dateHoused} - ${dateHoused}`);
   return (
     <div className="page-content-container">
       <SEO title={`${firstName}'s Story`} />
