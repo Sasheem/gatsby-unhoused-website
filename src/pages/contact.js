@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { Link } from 'gatsby';
+import React, { useState, useContext } from 'react';
+import { Link, navigate } from 'gatsby';
 
+import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import ButtonSubmit from '../components/common/Button/buttonSubmit';
 
 import '../styles/global.scss';
 
 const Contact = () => {
+  const { firebase = null } = useContext(FirebaseContext) || {};
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
@@ -25,6 +27,29 @@ const Contact = () => {
     }));
   }
 
+  function handleSubmit(ev) {
+    ev.preventDefault();
+    const { firstName, lastName, email, message } = formValues;
+    try {
+      if (firebase) {
+        const result = firebase.createMessage({
+          firstName,
+          lastName,
+          email,
+          message,
+          subject: 'General',
+        });
+        console.log(`result from message: ${typeof result}`);
+        console.dir(result);
+        navigate('/successMessage', {
+          state: { name: firstName },
+        });
+      }
+    } catch (error) {
+      console.log(`createMessage frontend: ${error.message}`);
+    }
+  }
+
   return (
     <div className="form-layout-container">
       <SEO title="Contact Unhoused Humanity" />
@@ -39,40 +64,50 @@ const Contact = () => {
             id="contact-general"
             className="form-component"
             name="contact-general"
-            method="POST"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
-            action="/successMessage"
-            data-netlify-recaptcha="true"
+            onSubmit={handleSubmit}
           >
             <h3>Your Info</h3>
-            <input type="hidden" name="bot-field" />
-            <input type="hidden" name="form-name" value="contact-general" />
             <div className="two-input-row">
               <div className="form-input-row">
-                <label for="firstName">First Name</label>
-                <input type="text" name="firstName" id="firstName" />
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  onChange={handleInputChange}
+                  value={formValues.firstName}
+                  required
+                />
               </div>
               <div className="form-input-row">
-                <label for="lastName">Last Name</label>
-                <input type="text" name="lastName" id="lastName" />
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  onChange={handleInputChange}
+                  value={formValues.lastName}
+                />
               </div>
             </div>
             <div className="form-input-row">
-              <label for="email">Email</label>
-              <input type="email" name="email" id="email" />
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                onChange={handleInputChange}
+                value={formValues.email}
+                required
+              />
             </div>
             <div className="form-input-row">
-              <label for="message">Message</label>
+              <label htmlFor="message">Message</label>
               <textarea
-                id="message"
                 name="message"
                 placeholder="Say hello"
                 value={formValues.message}
                 onChange={handleInputChange}
+                required
               />
             </div>
-            <div data-netlify-recaptcha="true"></div>
             <div className="form-submit-row">
               <div />
               <ButtonSubmit value="Submit" />

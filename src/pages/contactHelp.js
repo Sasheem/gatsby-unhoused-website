@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'gatsby';
+import React, { useState, useContext } from 'react';
+import { Link, navigate } from 'gatsby';
 
+import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import ButtonSubmit from '../components/common/Button/buttonSubmit';
 
@@ -12,14 +13,16 @@ import '../styles/global.scss';
  */
 
 const ContactHelp = () => {
+  const { firebase = null } = useContext(FirebaseContext) || {};
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    message: '',
+    situation: '',
     phone: '',
     familySize: 1,
     discoveryMethod: '',
+    clientEmail: '',
     clientPhone: '',
     clientFirstName: '',
     clientLastName: '',
@@ -39,6 +42,35 @@ const ContactHelp = () => {
     }));
   }
 
+  function handleSubmit(ev) {
+    ev.preventDefault();
+    let emailValues = {};
+    const { firstName } = formValues;
+
+    // loop through formValues
+    for (let [key, value] of Object.entries(formValues)) {
+      if (value.length !== 0) {
+        emailValues[key] = value;
+      }
+    }
+
+    emailValues['subject'] = 'Request Help';
+    console.log(`emailValues: ${typeof emailValues}`);
+    console.dir(emailValues);
+    try {
+      if (firebase) {
+        const result = firebase.createHelpMessage({
+          emailValues,
+        });
+        navigate('/successMessage', {
+          state: { name: firstName },
+        });
+      }
+    } catch (error) {
+      setErrorMessage(`createMessage frontend: ${error.message}`);
+    }
+  }
+
   return (
     <div className="form-layout-container">
       <SEO title="Unhoused Humanity contact for help form" />
@@ -54,61 +86,81 @@ const ContactHelp = () => {
           <div />
           <form
             id="contact-request-for-help"
-            method="POST"
             className="form-component"
             name="contact-request-for-help"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
-            action="/successMessage"
+            onSubmit={handleSubmit}
           >
             <h3>Your Info</h3>
-            <input type="hidden" name="bot-field" />
-            <input
-              type="hidden"
-              name="form-name"
-              value="contact-request-for-help"
-            />
             <div className="two-input-row">
               <div className="form-input-row">
-                <label for="firstName">First Name</label>
-                <input type="text" name="firstName" id="firstName" />
-              </div>
-              <div className="form-input-row">
-                <label for="lastName">Last Name</label>
-                <input type="text" name="lastName" id="lastName" />
-              </div>
-            </div>
-            <div className="form-input-row">
-              <label for="email">Email</label>
-              <input type="email" name="email" id="email" />
-            </div>
-            <div className="form-input-row">
-              <label for="phone">Phone Number</label>
-              <input type="tel" name="phone" id="phone" />
-            </div>
-            <div className="form-input-row">
-              <label for="message">Describe the situation</label>
-              <textarea id="message" name="message" />
-            </div>
-            <div className="two-input-row">
-              <div class="form-input-row">
-                <label for="familySize">Family Size</label>
+                <label htmlFor="firstName">First Name</label>
                 <input
-                  type="number"
-                  name="familySize"
-                  id="familySize"
-                  min="1"
+                  type="text"
+                  name="firstName"
+                  onChange={handleInputChange}
+                  value={formValues.firstName}
+                  required
                 />
               </div>
               <div className="form-input-row">
-                <label for="switch-help">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  onChange={handleInputChange}
+                  value={formValues.lastName}
+                />
+              </div>
+            </div>
+            <div className="form-input-row">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                onChange={handleInputChange}
+                value={formValues.email}
+                required
+              />
+            </div>
+            <div className="form-input-row">
+              <label htmlFor="phone">Phone Number</label>
+              <input
+                type="tel"
+                name="phone"
+                onChange={handleInputChange}
+                value={formValues.phone}
+              />
+            </div>
+            <div className="form-input-row">
+              <label htmlFor="situation">Describe the situation</label>
+              <textarea
+                name="situation"
+                onChange={handleInputChange}
+                value={formValues.situation}
+                required
+              />
+            </div>
+            <div className="two-input-row">
+              <div class="form-input-row">
+                <label htmlFor="familySize">Family Size</label>
+                <input
+                  type="number"
+                  name="familySize"
+                  min="1"
+                  max="12"
+                  onChange={handleInputChange}
+                  value={formValues.familySize}
+                  required
+                />
+              </div>
+              <div className="form-input-row">
+                <label htmlFor="switch-help">
                   I am filling this form out for someone else
                 </label>
                 <label class="switch-help">
                   <input
                     type="checkbox"
                     name="switch-help"
-                    id="switch-help"
                     checked={userIsClient}
                     onChange={handleUserClientSwitch}
                   />
@@ -121,16 +173,17 @@ const ContactHelp = () => {
                 <h4>Client Info</h4>
                 <div className="two-input-row">
                   <div className="form-input-row">
-                    <label for="clientFirstName">First Name</label>
+                    <label htmlFor="clientFirstName">First Name</label>
                     <input
                       type="text"
                       name="clientFirstName"
                       value={formValues.clientFirstName}
                       onChange={handleInputChange}
+                      required={userIsClient ? true : false}
                     />
                   </div>
                   <div className="form-input-row">
-                    <label for="clientLastName">Last Name</label>
+                    <label htmlFor="clientLastName">Last Name</label>
                     <input
                       type="text"
                       name="clientLastName"
@@ -140,7 +193,7 @@ const ContactHelp = () => {
                   </div>
                 </div>
                 <div className="form-input-row">
-                  <label for="clientEmail">Email</label>
+                  <label htmlFor="clientEmail">Email</label>
                   <input
                     type="email"
                     name="clientEmail"
@@ -149,7 +202,7 @@ const ContactHelp = () => {
                   />
                 </div>
                 <div className="form-input-row">
-                  <label for="clientPhone">Phone Number</label>
+                  <label htmlFor="clientPhone">Phone Number</label>
                   <input
                     type="tel"
                     name="clientPhone"
@@ -160,7 +213,7 @@ const ContactHelp = () => {
               </div>
             ) : null}
             <div className="form-input-row">
-              <label for="discoveryMethod">
+              <label htmlFor="discoveryMethod">
                 How did you hear about Unhoused Humanity?
               </label>
               <input
@@ -175,6 +228,9 @@ const ContactHelp = () => {
               <ButtonSubmit value="Submit" />
               <div />
             </div>
+            {!!errorMessage && (
+              <div className="error-message">ERROR: {errorMessage}</div>
+            )}
             <div className="form-description-row">
               <p>
                 Are you a case worker?{' '}

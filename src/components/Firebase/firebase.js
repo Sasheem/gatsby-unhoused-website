@@ -270,6 +270,28 @@ class Firebase {
     });
   }
 
+  // [START create message from general contact form]
+  createMessage({ firstName, lastName, email, message, subject }) {
+    const createMessageCallable = this.functions.httpsCallable('createMessage');
+    return createMessageCallable({
+      firstName,
+      lastName,
+      email,
+      message,
+      subject,
+    });
+  }
+  // [END create message from general contact form]
+
+  // [START create a message from request help form]
+  createHelpMessage({ emailValues }) {
+    const createHelpMessageCallable = this.functions.httpsCallable(
+      'createHelpMessage'
+    );
+    return createHelpMessageCallable({ emailValues });
+  }
+  // [END create a message from request help form]
+
   // [START get all partners]
   async getPartners() {
     return await this.db.collection('partners').get();
