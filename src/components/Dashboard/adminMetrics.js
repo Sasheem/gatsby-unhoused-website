@@ -51,9 +51,9 @@ const AdminMetrics = () => {
           <CardDashboardMetric name="Unhoused" value={metrics.unhoused} />
         </div>
       )}
-      {/* <div className="admin-button" onClick={handleResetClients}>
+      <div className="admin-button" onClick={handleResetClients}>
         {loading ? 'Processing...' : 'Reset client metrics'}
-      </div> */}
+      </div>
     </div>
   );
 };
