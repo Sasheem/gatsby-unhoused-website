@@ -151,7 +151,7 @@ const BioForm = () => {
         <div className="form-input-row">
           <div className="profile-pic-filler" />
         </div>
-        <div class="form-input-row">
+        <div className="form-input-row">
           <label for="profilePicture">Add profile picture</label>
           <input
             onChange={e => {
