@@ -388,6 +388,17 @@ class Firebase {
   }
   // [END get funding clients real time]
 
+  // [START get clients recently housed in real time]
+  subscribeToClientsRecentlyHoused({ onSnapshot }) {
+    return this.db
+      .collection('clients')
+      .where('status', '==', 'Housed')
+      .orderBy('dateHoused', 'desc')
+      .limit(6)
+      .onSnapshot(onSnapshot);
+  }
+  // [END get clients recently housed in real time]
+
   // [START get user info in real time]
   subscribeToUserInfo({ username, onSnapshot }) {
     return this.db

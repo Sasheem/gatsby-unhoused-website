@@ -23,6 +23,9 @@
     width: 0.4em;
     height: 0.4em;
     justify-self: flex-end;
+    &:hover {
+        cursor: pointer;
+    }
 }
 .dashboard-donations-content {
     display: grid;
@@ -49,7 +52,7 @@
     background-color: $color-light;
     // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    h5, p {
+    h3, h5, p {
         text-align: left;
     }
 }
@@ -81,6 +84,16 @@
         margin-bottom: 1em;
         text-align: left;
         color: $sub-color;
+    }
+}
+.admin-clients {
+    width: 100%;
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    h3 {
+        text-align: left;
     }
 }
 .donation-row {

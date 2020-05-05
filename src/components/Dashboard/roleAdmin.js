@@ -2,6 +2,8 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import AdminMetrics from '../Dashboard/adminMetrics';
+import FeaturedClients from '../Home/featuredClients';
+import RecentlyHoused from '../Dashboard/recentlyHoused';
 import AdminAddClient from '../Dashboard/adminAddClient';
 import AdminAllClients from '../Dashboard/adminAllClients';
 import AdminAddPartner from '../Dashboard/adminAddPartner';
@@ -10,7 +12,7 @@ import PasswordForm from '../Dashboard/passwordForm';
 
 import 'react-tabs/style/react-tabs.css';
 
-const RoleAdmin = () => {
+const RoleAdmin = ({ firebase }) => {
   return (
     <div className="dashboard-body">
       <div />
@@ -26,8 +28,16 @@ const RoleAdmin = () => {
 
         {/* Admin Dashboard Panel */}
         <TabPanel>
-          <div>
+          <div className="dashboard-panel">
             <AdminMetrics />
+            <div className="dashboard-item">
+              <h3>Currently Funding</h3>
+              <FeaturedClients firebase={firebase} isAdmin={true} />
+            </div>
+            <div className="dashboard-item">
+              <h3>Recently Housed</h3>
+              <RecentlyHoused firebase={firebase} isAdmin={true} />
+            </div>
           </div>
         </TabPanel>
 

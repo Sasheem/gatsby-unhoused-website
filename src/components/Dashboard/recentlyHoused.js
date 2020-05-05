@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-import { FirebaseContext } from '../Firebase';
 import CardClientFeatured from '../Cards/cardClientFeatured';
 import CardClientAdmin from '../Cards/cardClientAdmin';
 
 import '../../styles/global.scss';
 
-const FeaturedClients = ({ firebase, isAdmin }) => {
+const RecentlyHoused = ({ firebase, isAdmin }) => {
   const [clients, setClients] = useState([]);
 
   useEffect(() => {
     if (firebase) {
-      const unsubscribe = firebase.subscribeToFundingClients({
+      const unsubscribe = firebase.subscribeToClientsRecentlyHoused({
         onSnapshot: snapshot => {
           console.dir(snapshot);
           const snapshotClients = [];
@@ -40,19 +39,14 @@ const FeaturedClients = ({ firebase, isAdmin }) => {
       };
     }
   }, [firebase]);
-
   return (
-    <div className={isAdmin ? `admin-container-clients` : `container-clients`}>
+    <div className="admin-container-clients">
       {!!clients &&
-        clients.map(client => {
-          if (isAdmin) {
-            return <CardClientAdmin client={client} />;
-          } else {
-            return <CardClientFeatured key={client.id} client={client} />;
-          }
-        })}
+        clients.map(client => (
+          <CardClientAdmin key={client.id} client={client} isAdmin={isAdmin} />
+        ))}
     </div>
   );
 };
 
-export default FeaturedClients;
+export default RecentlyHoused;

@@ -44,6 +44,7 @@ const AdminMetrics = () => {
   };
   return (
     <div className="dashboard-item">
+      <h3>Client Metrics</h3>
       {user && !!user.isAdmin && metrics !== null && (
         <div className="dashboard-row">
           <CardDashboardMetric name="Total" value={metrics.total} />

@@ -60,7 +60,7 @@ const Dashboard = ({ location }) => {
           {user && <CardUser firebase={firebase} user={user} />}
           <div />
         </div>
-        {user && !!user.isAdmin && <RoleAdmin />}
+        {user && !!user.isAdmin && <RoleAdmin firebase={firebase} />}
         {user && !user.isAdmin && <RoleUser />}
         <div />
       </div>

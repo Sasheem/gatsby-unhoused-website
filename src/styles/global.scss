@@ -20,6 +20,7 @@ $color-status-warning: #f77f00;
 
 $color-grey-background-1: #EEF1F6;
 $color-grey-background-2: #F7F7F7;
+$color-grey-background-3: #F7F9FA;
 
 html, body {
     background-color: $color-background;
@@ -229,7 +230,7 @@ a {
     margin-top: 6em;
     padding-top: 3em;
     padding-bottom: 5em;
-    background-color: $color-grey-background-2;
+    background-color: $color-grey-background-3;
     
     @media only screen and (min-width: 960px) {
         grid-template-columns: 1fr 2fr 0.15fr;
@@ -316,6 +317,11 @@ a {
     @media only screen and (min-width: 700px) {
         flex-direction: row;
     }
+}
+.admin-container-clients {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1em;
 }
 .content-three {
     display: grid;

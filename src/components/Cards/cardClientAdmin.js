@@ -2,21 +2,12 @@ import React from 'react';
 import { Link } from 'gatsby';
 import moment from 'moment';
 
-import ButtonDonate from '../common/Button/buttonDonate';
 import ProgressBar from '../ProgressBar/progressBar';
 
-import './cards.scss';
-
-/**
- * todo change button to a link
- * * include firstName and lastName in the state object
- */
-
-const CardClientFeatured = ({ client }) => {
+const CardClientAdmin = ({ client }) => {
   const {
     firstName,
     lastName,
-    situation,
     raised,
     goal,
     imageUrl,
@@ -24,7 +15,7 @@ const CardClientFeatured = ({ client }) => {
     dateHoused,
     dateFundingBegan,
   } = client;
-  const fullyFund = (goal - raised).toString();
+
   return (
     <div className="card-featured-container">
       <Link
@@ -48,12 +39,21 @@ const CardClientFeatured = ({ client }) => {
               state={{ raised, status, dateHoused }}
               className="card-featured-link"
             >
-              <h3>Meet {firstName}</h3>
+              <h3>
+                {firstName} {lastName}
+              </h3>
             </Link>
-            <span>
-              <h4>Situation</h4>
-              <p className="situation">{`${situation.slice(0, 90)}...`}</p>
-            </span>
+            {status === 'Housed' ? (
+              <span>
+                <h5>Housed</h5>
+                <p>{moment(dateHoused.toDate()).format('ll')}</p>
+              </span>
+            ) : (
+              <span>
+                <h5>Funding Began</h5>
+                <p>{moment(dateFundingBegan.toDate()).format('ll')}</p>
+              </span>
+            )}
           </div>
           <div className="featured-progress">
             <ProgressBar percentage={(raised / goal) * 100} />
@@ -63,12 +63,6 @@ const CardClientFeatured = ({ client }) => {
               <p className="raised">${raised}</p>
               <p className="goal">raised of ${goal}</p>
             </div>
-            <ButtonDonate
-              label="Donate"
-              destination="contactDonate"
-              clientId={`${firstName}-${lastName}`}
-              fullyFund={fullyFund}
-            />
           </div>
         </div>
         <div className="featured-flex" />
@@ -77,4 +71,4 @@ const CardClientFeatured = ({ client }) => {
   );
 };
 
-export default CardClientFeatured;
+export default CardClientAdmin;
