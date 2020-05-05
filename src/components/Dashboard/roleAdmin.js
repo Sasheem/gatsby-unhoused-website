@@ -9,10 +9,13 @@ import AdminAllClients from '../Dashboard/adminAllClients';
 import AdminAddPartner from '../Dashboard/adminAddPartner';
 import BioForm from '../Dashboard/bioForm';
 import PasswordForm from '../Dashboard/passwordForm';
+import Donations from '../Dashboard/donations';
+import UpdateCreditCard from '../Stripe/updateCreditCard';
+import SavedCreditCards from '../Stripe/savedCreditCards';
 
 import 'react-tabs/style/react-tabs.css';
 
-const RoleAdmin = ({ firebase }) => {
+const RoleAdmin = ({ firebase, user }) => {
   return (
     <div className="dashboard-body">
       <div />
@@ -24,6 +27,8 @@ const RoleAdmin = ({ firebase }) => {
           <Tab>Add Partner</Tab>
           <Tab>Profile</Tab>
           <Tab>Password</Tab>
+          <Tab>Donations</Tab>
+          <Tab>Payment</Tab>
         </TabList>
 
         {/* Admin Dashboard Panel */}
@@ -73,6 +78,21 @@ const RoleAdmin = ({ firebase }) => {
         <TabPanel>
           <div className="tab-content-container">
             <PasswordForm />
+          </div>
+        </TabPanel>
+
+        {/* User Donations Panel */}
+        <TabPanel>
+          <div className="tab-content-container">
+            <Donations firebase={firebase} user={user} />
+          </div>
+        </TabPanel>
+
+        {/* User Payment Information Panel */}
+        <TabPanel>
+          <div className="tab-content-container">
+            <SavedCreditCards firebase={firebase} user={user} />
+            <UpdateCreditCard firebase={firebase} user={user} />
           </div>
         </TabPanel>
       </Tabs>

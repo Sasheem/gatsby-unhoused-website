@@ -57,8 +57,7 @@ const SavedCreditCards = ({ firebase, user }) => {
           <div className="loader-container">
             <Loader />
           </div>
-        ) : (
-          !!wallet &&
+        ) : !!wallet ? (
           wallet.map(card => (
             <div className="saved-card">
               <div className="card-brand">
@@ -84,6 +83,10 @@ const SavedCreditCards = ({ firebase, user }) => {
               </div>
             </div>
           ))
+        ) : (
+          <div className="empty-card-message">
+            <p>Add a card below</p>
+          </div>
         )}
       </div>
     </div>

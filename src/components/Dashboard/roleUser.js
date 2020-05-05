@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 
-import { FirebaseContext } from '../Firebase';
 import UserMetrics from '../Dashboard/userMetrics';
 import ClientsFunded from '../Dashboard/clientsFunded';
 import Donations from '../Dashboard/donations';
@@ -13,8 +12,7 @@ import PasswordForm from '../Dashboard/passwordForm';
 
 import 'react-tabs/style/react-tabs.css';
 
-const RoleUser = () => {
-  const { firebase = null, user } = useContext(FirebaseContext) || {};
+const RoleUser = ({ firebase, user }) => {
   return (
     <div className="dashboard-body">
       <div />
