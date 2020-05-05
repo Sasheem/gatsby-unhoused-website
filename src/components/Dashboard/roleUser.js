@@ -17,6 +17,7 @@ const RoleUser = () => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
   return (
     <div className="dashboard-body">
+      <div />
       <Tabs>
         <TabList>
           <Tab>Dashboard</Tab>
@@ -27,15 +28,23 @@ const RoleUser = () => {
         </TabList>
         {/* User Dashboard Panel */}
         <TabPanel>
-          <div>
-            <p style={{ textAlign: 'right' }}>Date Joined:</p>
-            <p style={{ textAlign: 'right' }}>
-              {moment(user.metadata.creationTime).format('ll')}
-            </p>
-            <UserMetrics firebase={firebase} user={user} />
-            <div className="tab-content-clients">
-              <ClientsFunded user={user} />
+          <div className="dashboard-panel">
+            <div className="dashboard-item">
+              <div className="dashboard-item-header">
+                <div>
+                  <h3>Client Metrics</h3>
+                </div>
+                <div>
+                  <p style={{ textAlign: 'right' }}>Date Joined:</p>
+                  <p style={{ textAlign: 'right' }}>
+                    {moment(user.metadata.creationTime).format('ll')}
+                  </p>
+                </div>
+              </div>
+
+              <UserMetrics firebase={firebase} user={user} />
             </div>
+            <ClientsFunded user={user} />
           </div>
         </TabPanel>
 
@@ -67,6 +76,7 @@ const RoleUser = () => {
           </div>
         </TabPanel>
       </Tabs>
+      <div />
     </div>
   );
 };

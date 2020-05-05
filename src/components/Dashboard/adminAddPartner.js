@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 
 import { FirebaseContext } from '../Firebase';
-import { Button, HorizontalDivider } from '../common';
+import ButtonSubmit from '../common/Button/buttonSubmit';
 
 import './dashboard.scss';
 
@@ -111,9 +111,10 @@ const AdminAddPartner = () => {
         </div>
         <div className="form-submit-row">
           <div />
-          <Button type="submit" disabled={isProcessing} block>
-            {isProcessing ? 'Processing...' : 'Add Partner'}
-          </Button>
+          <ButtonSubmit
+            value={isProcessing ? 'Processing...' : 'Add Partner'}
+            disabled={isProcessing}
+          />
           <div />
         </div>
         {!!success && (

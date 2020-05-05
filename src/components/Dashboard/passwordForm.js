@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button } from '../common';
+import ButtonSubmit from '../common/Button/buttonSubmit';
 
 import '../../styles/global.scss';
 
@@ -9,6 +9,7 @@ const PasswordForm = () => {
     newPassword: '',
     confirmPassword: '',
   });
+  const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   function handleSubmit(event) {
@@ -24,7 +25,7 @@ const PasswordForm = () => {
     }));
   }
   return (
-    <form className="form-component" onSubmit={handleSubmit}>
+    <form className="dashboard-item" onSubmit={handleSubmit}>
       <h3>Update Password</h3>
       <div className="form-input-row">
         <label for="newPassword">New password</label>
@@ -49,9 +50,10 @@ const PasswordForm = () => {
         />
       </div>
       <div className="form-submit-row-left">
-        <Button type="submit" block submit>
-          Save
-        </Button>
+        <ButtonSubmit
+          value={isProcessing ? 'Processing...' : 'Add Partner'}
+          disabled={isProcessing}
+        />
         <div />
       </div>
     </form>

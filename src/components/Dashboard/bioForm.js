@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../../components/Firebase';
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
-import { Button } from '../common';
+
+import ButtonSubmit from '../common/Button/buttonSubmit';
 import '../../styles/global.scss';
 
 /**
@@ -144,7 +145,7 @@ const BioForm = () => {
   }
 
   return (
-    <form className="form-component" onSubmit={handleSubmit}>
+    <form className="dashboard-item" onSubmit={handleSubmit}>
       <h3>Update Profile</h3>
       <div className="form-input-row-file">
         <div className="form-input-row">
@@ -263,9 +264,10 @@ const BioForm = () => {
         </label>
       </div>
       <div className="form-submit-row-left">
-        <Button type="submit" block submit>
-          Save
-        </Button>
+        <ButtonSubmit
+          value={isProcessing ? 'Processing...' : 'Submit'}
+          disabled={isProcessing}
+        />
         <div />
       </div>
       {!!success && <div className="success-message">Profile updated</div>}

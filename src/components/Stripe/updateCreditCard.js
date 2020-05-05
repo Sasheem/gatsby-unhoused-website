@@ -151,7 +151,7 @@ const UpdateCreditCard = ({ firebase, user }) => {
 
   return (
     <form onSubmit={handleSubmit} className="form-component">
-      <h3>Billing Information</h3>
+      <h3>Add Credit Card</h3>
       <div className="form-input-row">
         <label htmlFor="name">Full Name</label>
         <input

@@ -13,6 +13,7 @@ import 'react-tabs/style/react-tabs.css';
 const RoleAdmin = () => {
   return (
     <div className="dashboard-body">
+      <div />
       <Tabs>
         <TabList>
           <Tab>Dashboard</Tab>
@@ -65,6 +66,7 @@ const RoleAdmin = () => {
           </div>
         </TabPanel>
       </Tabs>
+      <div />
     </div>
   );
 };

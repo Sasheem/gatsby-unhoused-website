@@ -5,8 +5,6 @@ import BlogGrid from '../Blog/blogGrid';
 import Button from '../common/Button/button';
 import Loader from '../common/Loader/loader';
 
-import './dashboard.scss';
-
 const ClientsFunded = ({ user }) => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const [clients, setClients] = useState([]);
@@ -50,7 +48,7 @@ const ClientsFunded = ({ user }) => {
           <Loader />
         </div>
       ) : clients.length !== 0 ? (
-        <div>
+        <div className="tab-content-clients">
           <h3>Clients funded</h3>
           <BlogGrid clients={clients} loading={loading} />
         </div>

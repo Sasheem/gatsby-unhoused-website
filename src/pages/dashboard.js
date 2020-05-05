@@ -55,9 +55,10 @@ const Dashboard = ({ location }) => {
     <div className="page-body-dashboard">
       <SEO title="User dashboard" />
       <div className="dashboard-component">
-        <div />
         <div className="dashboard-head">
+          <div />
           {user && <CardUser firebase={firebase} user={user} />}
+          <div />
         </div>
         {user && !!user.isAdmin && <RoleAdmin />}
         {user && !user.isAdmin && <RoleUser />}

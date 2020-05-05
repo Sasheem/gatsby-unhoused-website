@@ -59,15 +59,13 @@ const UserMetrics = ({ firebase, user }) => {
   }, [donations]);
 
   return (
-    <div className="dashboard-item">
-      <div className="dashboard-row">
-        <CardDashboardMetric
-          name="Lifetime Contribution"
-          value={`$${totalContribution}`}
-        />
-        <CardDashboardMetric name="Donations" value={totalDonations} />
-        <CardDashboardMetric name="Lives Impacted" value={totalImpacted} />
-      </div>
+    <div className="dashboard-row">
+      <CardDashboardMetric
+        name="Lifetime Contribution"
+        value={`$${totalContribution}`}
+      />
+      <CardDashboardMetric name="Donations" value={totalDonations} />
+      <CardDashboardMetric name="Lives Impacted" value={totalImpacted} />
     </div>
   );
 };

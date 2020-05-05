@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import DatePicker from 'react-date-picker';
 
-import { Button, HorizontalDivider } from '../common';
+import ButtonSubmit from '../common/Button/buttonSubmit';
 import { FirebaseContext } from '../Firebase';
 
-// import '../../styles/global.scss';
 import './dashboard.scss';
 
 /**
@@ -501,9 +500,10 @@ const AdminAddClient = () => {
         <div className="dashboard-divider" />
         <div className="form-submit-row">
           <div />
-          <Button type="submit" disabled={isProcessing} block>
-            {isProcessing ? 'Processing...' : 'Add Client'}
-          </Button>
+          <ButtonSubmit
+            value={isProcessing ? 'Processing...' : 'Add Client'}
+            disabled={isProcessing}
+          />
           <div />
         </div>
         {!!success && (

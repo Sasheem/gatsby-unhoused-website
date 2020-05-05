@@ -1,9 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { FirebaseContext } from '../../components/Firebase';
-import { graphql, useStaticQuery, Link } from 'gatsby';
-import Img from 'gatsby-image';
+import React, { useState, useEffect } from 'react';
 
-import { HorizontalDivider } from '../common';
 import WorkplaceIcon from '../../assets/user-friends-solid.svg';
 import LocationIcon from '../../assets/map-marker-alt-solid.svg';
 import MailIcon from '../../assets/envelope-solid.svg';
@@ -11,27 +7,7 @@ import WebsiteIcon from '../../assets/link-solid.svg';
 
 import './cards.scss';
 
-/**
- * todo change query to grab all user images and
- * todo render the one that is matched with the logged in user
- * todo add edit field button to bottom right of component
- * todo add dynamic form component
- */
-
 const CardUser = ({ firebase, user }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      userImage: file(relativePath: { eq: "profile-sasheem.jpg" }) {
-        base
-        childImageSharp {
-          fluid(maxWidth: 1800) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-  `);
-  // const { firebase = null, user } = useContext(FirebaseContext) || {};
   const [userProfile, setUserProfile] = useState(null);
   const [downloadURL, setDownloadURL] = useState('');
   let isMounted = true;
