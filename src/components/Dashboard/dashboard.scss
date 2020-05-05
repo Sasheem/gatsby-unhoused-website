@@ -22,7 +22,6 @@
 .row-more {
     width: 0.4em;
     height: 0.4em;
-    justify-self: flex-end;
     &:hover {
         cursor: pointer;
     }
@@ -227,10 +226,10 @@
     display: grid;
     grid-gap: 0.5em;
     align-items: center;
-
-    @media only screen and (min-width: 800px) {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    }   
+    margin-bottom: 0.5em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid $sub-color-monochromatic;
+    grid-template-columns: 0.5fr 0.5fr 1fr 1fr 0.25fr; 
 }
 .housed {
     color: $color-status-success;

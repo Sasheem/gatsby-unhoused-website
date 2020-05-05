@@ -53,7 +53,7 @@ const AdminAllClients = () => {
         }
       };
     }
-  }, []);
+  }, [firebase]);
 
   return (
     <div className="dashboard-item">
@@ -63,31 +63,38 @@ const AdminAllClients = () => {
           <Loader />
         </div>
       ) : clients.length !== 0 ? (
-        clients.map(client => (
-          <>
-            <div className="admin-client-row">
-              <div className="client-item">
-                <h5>Name</h5>
+        <table>
+          <tr className="admin-client-row">
+            <th>
+              <p>Name</p>
+            </th>
+            <th>
+              <p>Goal</p>
+            </th>
+            <th>
+              <p>Joined</p>
+            </th>
+            <th>
+              <p>Status</p>
+            </th>
+            <th></th>
+          </tr>
+          {clients.map(client => (
+            <tr className="admin-client-row">
+              <td className="client-item">
                 <p>{client.firstName}</p>
-              </div>
-              <div className="client-item">
-                <h5>{client.status === 'Housed' ? 'Housed' : 'Joined UH'}</h5>
+              </td>
+              <td className="client-item">
+                <p>${client.goal}</p>
+              </td>
+              <td className="client-item">
                 <p>
-                  {client.status === 'Housed'
-                    ? moment(new Date(client.dateHoused.toDate())).format('l')
-                    : moment(new Date(client.dateFundingBegan.toDate())).format(
-                        'l'
-                      )}
+                  {moment(new Date(client.dateFundingBegan.toDate())).format(
+                    'l'
+                  )}
                 </p>
-              </div>
-              <div className="client-item">
-                <h5>{client.status === 'Housed' ? 'Goal' : 'Raised'}</h5>
-                <p>
-                  ${client.status === 'Housed' ? client.goal : client.raised}
-                </p>
-              </div>
-              <div className="client-item">
-                <h5>Status</h5>
+              </td>
+              <td className="client-item">
                 <p
                   className={
                     client.status === 'Housed'
@@ -99,12 +106,13 @@ const AdminAllClients = () => {
                 >
                   {client.status}
                 </p>
-              </div>
-              <EditClientButton client={client} />
-            </div>
-            <div className="row-divider" />
-          </>
-        ))
+              </td>
+              <td className="client-item">
+                <EditClientButton client={client} />
+              </td>
+            </tr>
+          ))}
+        </table>
       ) : null}
     </div>
   );

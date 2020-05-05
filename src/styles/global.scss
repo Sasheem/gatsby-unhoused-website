@@ -243,7 +243,7 @@ a {
     height: 100%;
     grid-template-columns: 0 1fr 0;
     @media only screen and (max-width: 960px) {
-        grid-template-columns: 0.25fr 1.5fr 0.25fr;
+        grid-template-columns: 0.1fr 2fr 0.1fr;
     }
 }
 .dashboard-head {
@@ -254,9 +254,6 @@ a {
     @media only screen and (max-width: 960px) {
         grid-template-columns: 1fr 1.5fr 1fr;
     }
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
 }
 .profile-pic-filler {
     height: 10em;
