@@ -95,15 +95,6 @@
         text-align: left;
     }
 }
-.donation-row {
-    display: grid;
-    grid-gap: 0.5em;
-    align-items: center;
-
-    @media only screen and (min-width: 800px) {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-}
 .row-divider {
     background-color: #e8e8e8;
     height: 1px;
@@ -230,6 +221,19 @@
     padding-bottom: 1em;
     border-bottom: 1px solid $sub-color-monochromatic;
     grid-template-columns: 0.5fr 0.5fr 1fr 1fr 0.25fr; 
+}
+.donation-row {
+    display: grid;
+    grid-gap: 0.5em;
+    align-items: center;
+    margin-bottom: 0.5em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid $sub-color-monochromatic;
+    grid-template-columns: 0.5fr 0.5fr 1fr 0.25fr; 
+
+    @media only screen and (max-width: 520px) {
+        grid-template-columns: 1fr 1fr 1fr 0.25fr;
+    }
 }
 .housed {
     color: $color-status-success;

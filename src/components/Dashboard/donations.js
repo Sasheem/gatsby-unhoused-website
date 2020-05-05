@@ -68,30 +68,38 @@ const Donations = ({ firebase, user }) => {
           <Loader />
         </div>
       ) : donations.length !== 0 ? (
-        donations.map(donation => (
-          <>
-            <div className="donation-row">
-              <div className="donation-item">
-                <h5>Date</h5>
+        <table>
+          <tr className="donation-row">
+            <th>
+              <p>Date</p>
+            </th>
+            <th>
+              <p>Amount</p>
+            </th>
+            <th>
+              <p>Card</p>
+            </th>
+            <th></th>
+          </tr>
+          {donations.map(donation => (
+            <tr className="donation-row">
+              <td className="client-item">
                 <p>{donation.date}</p>
-              </div>
-              <div className="donation-item">
-                <h5>Amount</h5>
+              </td>
+              <td className="client-item">
                 <p>${donation.amount}</p>
-              </div>
-              <div className="donation-item">
-                <h5>Card</h5>
+              </td>
+              <td className="client-item">
                 <p>
                   {donation.brand} {donation.last4}
                 </p>
-              </div>
-              <div className="row-more">
+              </td>
+              <td className="row-more">
                 <MoreIcon />
-              </div>
-            </div>
-            <div className="row-divider" />
-          </>
-        ))
+              </td>
+            </tr>
+          ))}
+        </table>
       ) : (
         <div className="dashboard-message">
           <h5>Make your first donation</h5>
