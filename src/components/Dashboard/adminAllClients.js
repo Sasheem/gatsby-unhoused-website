@@ -64,54 +64,58 @@ const AdminAllClients = () => {
         </div>
       ) : clients.length !== 0 ? (
         <table>
-          <tr className="admin-client-row">
-            <th>
-              <p>Name</p>
-            </th>
-            <th>
-              <p>Goal</p>
-            </th>
-            <th>
-              <p>Joined</p>
-            </th>
-            <th>
-              <p>Status</p>
-            </th>
-            <th></th>
-          </tr>
-          {clients.map(client => (
+          <thead>
             <tr className="admin-client-row">
-              <td className="client-item">
-                <p>{client.firstName}</p>
-              </td>
-              <td className="client-item">
-                <p>${client.goal}</p>
-              </td>
-              <td className="client-item">
-                <p>
-                  {moment(new Date(client.dateFundingBegan.toDate())).format(
-                    'l'
-                  )}
-                </p>
-              </td>
-              <td className="client-item">
-                <p
-                  className={
-                    client.status === 'Housed'
-                      ? 'housed'
-                      : client.status === 'Funding'
-                      ? 'funding'
-                      : 'unhoused'
-                  }
-                >
-                  {client.status}
-                </p>
-              </td>
-              <td className="client-item">
-                <EditClientButton client={client} />
-              </td>
+              <th>
+                <p>Name</p>
+              </th>
+              <th>
+                <p>Goal</p>
+              </th>
+              <th>
+                <p>Joined</p>
+              </th>
+              <th>
+                <p>Status</p>
+              </th>
+              <th></th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {clients.map(client => (
+              <tr className="admin-client-row">
+                <td className="client-item">
+                  <p>{client.firstName}</p>
+                </td>
+                <td className="client-item">
+                  <p>${client.goal}</p>
+                </td>
+                <td className="client-item">
+                  <p>
+                    {moment(new Date(client.dateFundingBegan.toDate())).format(
+                      'l'
+                    )}
+                  </p>
+                </td>
+                <td className="client-item">
+                  <p
+                    className={
+                      client.status === 'Housed'
+                        ? 'housed'
+                        : client.status === 'Funding'
+                        ? 'funding'
+                        : 'unhoused'
+                    }
+                  >
+                    {client.status}
+                  </p>
+                </td>
+                <td className="client-item">
+                  <EditClientButton client={client} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       ) : null}
     </div>

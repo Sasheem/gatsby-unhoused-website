@@ -20,34 +20,34 @@ const SideMenu = ({ show, hideBackdrop }) => {
       <ul className="action-menu">
         <li>
           <Link to="/contactDonate" onClick={hideBackdrop}>
-            <a>Donate</a>
+            Donate
           </Link>
         </li>
         <li>
           <Link to="/contactVolunteer" onClick={hideBackdrop}>
-            <a>Volunteer</a>
+            Volunteer
           </Link>
         </li>
         <li>
           <Link to="/contact" onClick={hideBackdrop}>
-            <a>Contact</a>
+            Contact
           </Link>
         </li>
       </ul>
       <ul>
         <li>
           <Link to="/about" onClick={hideBackdrop}>
-            <a>About</a>
+            About
           </Link>
         </li>
         <li>
           <Link to="/crowdfund" onClick={hideBackdrop}>
-            <a>Crowdfunding</a>
+            Crowdfunding
           </Link>
         </li>
         <li>
           <Link to="/stories" onClick={hideBackdrop}>
-            <a>Stories</a>
+            Stories
           </Link>
         </li>
         {!!user && !!user.email && (
@@ -72,12 +72,12 @@ const SideMenu = ({ show, hideBackdrop }) => {
           <span>
             <li>
               <Link to="/login" onClick={hideBackdrop}>
-                <a>Log In</a>
+                Log In
               </Link>
             </li>
             <li>
               <Link to="/register" onClick={hideBackdrop}>
-                <a>Sign Up</a>
+                Sign Up
               </Link>
             </li>
           </span>

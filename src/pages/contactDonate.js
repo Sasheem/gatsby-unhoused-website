@@ -338,7 +338,7 @@ const ContactDonate = ({ location }) => {
           <form onSubmit={handleFormSubmit} className="form-component">
             <h3>Client Information</h3>
             <div className="form-input-row">
-              <label for="client">Clients</label>
+              <label htmlFor="client">Clients</label>
               <select
                 name="client"
                 id="client-select"
@@ -351,7 +351,7 @@ const ContactDonate = ({ location }) => {
                     <option
                       key={client.id}
                       value={client.id}
-                      selected={
+                      defaultValue={
                         location &&
                         location.state.clientId ===
                           `${client.firstName}-${client.lastName}`
@@ -365,7 +365,7 @@ const ContactDonate = ({ location }) => {
               </select>
             </div>
             <div className="form-input-row">
-              <label for="amount">Amount</label>
+              <label htmlFor="amount">Amount</label>
               <select name="amount" id="donation-select" required>
                 <option value="">--Choose donation amount--</option>
                 <option value="10">$10</option>
@@ -384,7 +384,7 @@ const ContactDonate = ({ location }) => {
               </select>
             </div>
             <div className="form-input-row">
-              <label for="message">Message to client</label>
+              <label htmlFor="message">Message to client</label>
               <textarea id="message" name="message" />
             </div>
             <h3>Billing Information</h3>
@@ -433,8 +433,10 @@ const ContactDonate = ({ location }) => {
               <input name="zip" type="text" placeholder="94103" required />
             </div>
             <div className="form-input-row">
-              <label for="switch-help">Create Unhoused Humanity Account</label>
-              <label class="switch-help">
+              <label htmlFor="switch-help">
+                Create Unhoused Humanity Account
+              </label>
+              <label className="switch-help">
                 <input
                   type="checkbox"
                   name="switch-help"
@@ -488,7 +490,7 @@ const ContactDonate = ({ location }) => {
             </div>
             <div className="form-input-row">
               <label htmlFor="saving-card">Save card for future use?</label>
-              <label class="switch-help">
+              <label className="switch-help">
                 <input
                   type="checkbox"
                   name="saving-card"

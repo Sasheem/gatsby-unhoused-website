@@ -141,7 +141,7 @@ const ContactHelp = () => {
               />
             </div>
             <div className="two-input-row">
-              <div class="form-input-row">
+              <div className="form-input-row">
                 <label htmlFor="familySize">Family Size</label>
                 <input
                   type="number"
@@ -157,7 +157,7 @@ const ContactHelp = () => {
                 <label htmlFor="switch-help">
                   I am filling this form out for someone else
                 </label>
-                <label class="switch-help">
+                <label className="switch-help">
                   <input
                     type="checkbox"
                     name="switch-help"

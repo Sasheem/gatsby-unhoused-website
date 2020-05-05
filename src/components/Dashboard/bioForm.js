@@ -252,7 +252,7 @@ const BioForm = () => {
         <label for="switch-help">
           Make profile private (only visible to you)
         </label>
-        <label class="switch-help">
+        <label className="switch-help">
           <input
             type="checkbox"
             name="switch-help"

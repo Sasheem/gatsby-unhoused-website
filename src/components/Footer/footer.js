@@ -44,24 +44,16 @@ const Footer = () => (
                 <h3>Navigate</h3>
                 <ul>
                   <li>
-                    <Link to="/about">
-                      <a>About</a>
-                    </Link>
+                    <Link to="/about">About</Link>
                   </li>
                   <li>
-                    <Link to="/crowdfund">
-                      <a>Crowdfunding</a>
-                    </Link>
+                    <Link to="/crowdfund">Crowdfunding</Link>
                   </li>
                   <li>
-                    <Link to="/stories">
-                      <a>Stories</a>
-                    </Link>
+                    <Link to="/stories">Stories</Link>
                   </li>
                   <li>
-                    <Link to="/">
-                      <a>FAQs</a>
-                    </Link>
+                    <Link to="/">FAQs</Link>
                   </li>
                 </ul>
               </div>
@@ -69,24 +61,16 @@ const Footer = () => (
                 <h3>Get Involved</h3>
                 <ul>
                   <li>
-                    <Link to="/contactHelp">
-                      <a>Request Help</a>
-                    </Link>
+                    <Link to="/contactHelp">Request Help</Link>
                   </li>
                   <li>
-                    <Link to="/contactVolunteer">
-                      <a>Volunteer</a>
-                    </Link>
+                    <Link to="/contactVolunteer">Volunteer</Link>
                   </li>
                   <li>
-                    <Link to="/contactDonate">
-                      <a>Donation</a>
-                    </Link>
+                    <Link to="/contactDonate">Donation</Link>
                   </li>
                   <li>
-                    <Link to="/contact">
-                      <a>Contact</a>
-                    </Link>
+                    <Link to="/contact">Contact</Link>
                   </li>
                 </ul>
               </div>
@@ -94,24 +78,16 @@ const Footer = () => (
                 <h3>Our Team</h3>
                 <ul>
                   <li>
-                    <Link to="/about">
-                      <a>Founders</a>
-                    </Link>
+                    <Link to="/about">Founders</Link>
                   </li>
                   <li>
-                    <Link to="/about">
-                      <a>Board of Directors</a>
-                    </Link>
+                    <Link to="/about">The Team</Link>
                   </li>
                   <li>
-                    <Link to="/about">
-                      <a>The Team</a>
-                    </Link>
+                    <Link to="/about">Board of Directors</Link>
                   </li>
                   <li>
-                    <Link to="/about">
-                      <a>Partners</a>
-                    </Link>
+                    <Link to="/about">Partners</Link>
                   </li>
                 </ul>
               </div>

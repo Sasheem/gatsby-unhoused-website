@@ -69,36 +69,40 @@ const Donations = ({ firebase, user }) => {
         </div>
       ) : donations.length !== 0 ? (
         <table>
-          <tr className="donation-row">
-            <th>
-              <p>Date</p>
-            </th>
-            <th>
-              <p>Amount</p>
-            </th>
-            <th>
-              <p>Card</p>
-            </th>
-            <th></th>
-          </tr>
-          {donations.map(donation => (
+          <thead>
             <tr className="donation-row">
-              <td className="client-item">
-                <p>{donation.date}</p>
-              </td>
-              <td className="client-item">
-                <p>${donation.amount}</p>
-              </td>
-              <td className="client-item">
-                <p>
-                  {donation.brand} {donation.last4}
-                </p>
-              </td>
-              <td className="row-more">
-                <MoreIcon />
-              </td>
+              <th>
+                <p>Date</p>
+              </th>
+              <th>
+                <p>Amount</p>
+              </th>
+              <th>
+                <p>Card</p>
+              </th>
+              <th></th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {donations.map(donation => (
+              <tr className="donation-row">
+                <td className="client-item">
+                  <p>{donation.date}</p>
+                </td>
+                <td className="client-item">
+                  <p>${donation.amount}</p>
+                </td>
+                <td className="client-item">
+                  <p>
+                    {donation.brand} {donation.last4}
+                  </p>
+                </td>
+                <td className="row-more">
+                  <MoreIcon />
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       ) : (
         <div className="dashboard-message">
