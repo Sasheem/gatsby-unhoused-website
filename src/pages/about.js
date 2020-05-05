@@ -91,6 +91,7 @@ const AboutPage = () => (
         <div className="content-container">
           <Partners title="Partners and Sponsors" />
         </div>
+        <div />
       </div>
     </div>
   </div>

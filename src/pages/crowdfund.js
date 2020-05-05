@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery, navigate } from 'gatsby';
 import Img from 'gatsby-image';
 
 import { FirebaseContext } from '../components/Firebase';
@@ -17,16 +17,17 @@ import '../styles/global.scss';
  * todo wrap the p text in hero component, make width smaller
  */
 
-const CrowdfundPage = props => {
+const CrowdfundPage = () => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    firstNameClient: '',
+    clientName: '',
     familySize: 1,
     message: '',
   });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const data = useStaticQuery(graphql`
     query {
@@ -48,6 +49,37 @@ const CrowdfundPage = props => {
       ...currentValues,
       [event.target.name]: event.target.value,
     }));
+  }
+
+  function handleSubmit(ev) {
+    ev.preventDefault();
+    let emailValues = {};
+    const { firstName } = formValues;
+    // loop through formValues
+    for (let [key, value] of Object.entries(formValues)) {
+      if (value.length !== 0) {
+        emailValues[key] = value;
+      }
+    }
+
+    emailValues['subject'] = 'Client Referral';
+    console.log(`emailValues: ${typeof emailValues}`);
+    console.dir(emailValues);
+
+    try {
+      if (firebase) {
+        const result = firebase.createHelpMessage({
+          emailValues,
+        });
+        console.log(`email result:`);
+        console.dir(result);
+        navigate('/successMessage', {
+          state: { name: firstName },
+        });
+      }
+    } catch (error) {
+      setErrorMessage(`createMessage Referral frontend: ${error.message}`);
+    }
   }
 
   return (
@@ -82,22 +114,12 @@ const CrowdfundPage = props => {
             <div className="form-container-crowdfund">
               <form
                 id="contact-help-referral"
-                method="POST"
                 className="form-component"
                 name="contact-help-referral"
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
-                data-netlify-recaptcha="true"
-                action="/successMessage"
+                onSubmit={handleSubmit}
               >
-                <input type="hidden" name="bot-field" />
-                <input
-                  type="hidden"
-                  name="form-name"
-                  value="contact-help-referral"
-                />
                 <div className="form-input-row">
-                  <label for="firstName">First name</label>
+                  <label htmlFor="firstName">First name</label>
                   <input
                     type="text"
                     onChange={handleInputChange}
@@ -107,7 +129,7 @@ const CrowdfundPage = props => {
                   />
                 </div>
                 <div className="form-input-row">
-                  <label for="lastName">Last name</label>
+                  <label htmlFor="lastName">Last name</label>
                   <input
                     type="text"
                     onChange={handleInputChange}
@@ -117,7 +139,7 @@ const CrowdfundPage = props => {
                   />
                 </div>
                 <div className="form-input-row">
-                  <label for="email">Email</label>
+                  <label htmlFor="email">Email</label>
                   <input
                     type="email"
                     onChange={handleInputChange}
@@ -127,16 +149,16 @@ const CrowdfundPage = props => {
                   />
                 </div>
                 <div className="form-input-row">
-                  <label for="firstNameClient">Client's first name</label>
+                  <label htmlFor="clientName">Client's full name</label>
                   <input
                     type="text"
                     onChange={handleInputChange}
-                    value={formValues.firstNameClient}
-                    name="firstNameClient"
+                    value={formValues.clientName}
+                    name="clientName"
                   />
                 </div>
                 <div className="form-input-row">
-                  <label for="message">Describe their situation</label>
+                  <label htmlFor="message">Describe their situation</label>
                   <textarea
                     onChange={handleInputChange}
                     value={formValues.message}
@@ -145,21 +167,23 @@ const CrowdfundPage = props => {
                   />
                 </div>
                 <div className="form-input-row">
-                  <label for="familySize">Family size</label>
+                  <label htmlFor="familySize">Family size</label>
                   <input
                     type="number"
                     name="familySize"
                     id="familySize"
                     min="1"
+                    onChange={handleInputChange}
+                    value={formValues.familySize}
                   />
-                </div>
-                <div className="form-input-row">
-                  <div data-netlify-recaptcha="true"></div>
                 </div>
                 <div className="form-submit-row-left">
                   <ButtonSubmit value="Submit" />
                   <div />
                 </div>
+                {!!errorMessage && (
+                  <div className="error-message">ERROR: {errorMessage}</div>
+                )}
               </form>
             </div>
           </div>
@@ -168,6 +192,7 @@ const CrowdfundPage = props => {
           <h2>Crowdfund these clients today</h2>
           <FeaturedClients firebase={firebase} />
         </div>
+        <div />
       </div>
     </div>
   );

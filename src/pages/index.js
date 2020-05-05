@@ -48,6 +48,7 @@ const IndexPage = () => {
             <h2>Get Involved</h2>
             <CallToActions />
           </div>
+          <div />
         </div>
       </div>
     </div>
