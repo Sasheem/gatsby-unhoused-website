@@ -3,13 +3,7 @@ import { navigate, Link } from 'gatsby';
 
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
-import {
-  Form,
-  Input,
-  Button,
-  ErrorMessage,
-  FormSection,
-} from '../components/common';
+import ButtonSubmit from '../components/common/Button/buttonSubmit';
 
 import '../styles/global.scss';
 
@@ -47,7 +41,7 @@ const LoginPage = () => {
   }
 
   return (
-    <FormSection>
+    <div className="form-layout-container">
       <SEO title="Login page" />
       <div className="form-layout">
         <div className="form-header">
@@ -83,12 +77,12 @@ const LoginPage = () => {
             </div>
             <div className="form-submit-row">
               <div />
-              <Button type="submit" block submit>
-                Login
-              </Button>
+              <ButtonSubmit value="Log In" />
               <div />
             </div>
-            {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+            {!!errorMessage && (
+              <div className="error-message">ERROR: {errorMessage}</div>
+            )}
             <div className="form-description-row">
               <p>
                 Don't have an account?{' '}
@@ -101,7 +95,7 @@ const LoginPage = () => {
           <div />
         </div>
       </div>
-    </FormSection>
+    </div>
   );
 };
 

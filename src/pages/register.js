@@ -2,16 +2,15 @@ import React, { useState, useContext, useEffect } from 'react';
 import { navigate, Link } from 'gatsby';
 
 import SEO from '../components/seo';
-import {
-  Form,
-  Input,
-  Button,
-  ErrorMessage,
-  FormSection,
-} from '../components/common';
+import ButtonSubmit from '../components/common/Button/buttonSubmit';
+
 import { FirebaseContext } from '../components/Firebase';
 
 import '../styles/global.scss';
+
+/**
+ * todo convert styled components to sass
+ */
 
 const Register = () => {
   const { firebase = null } = useContext(FirebaseContext) || {};
@@ -57,10 +56,9 @@ const Register = () => {
   function handleInputChange(event) {
     event.persist();
     setErrorMessage('');
-
   }
   return (
-    <FormSection>
+    <div className="form-layout-container">
       <SEO title="Register page" />
       <div className="form-layout">
         <div className="form-header">
@@ -133,12 +131,12 @@ const Register = () => {
             </div>
             <div className="form-submit-row">
               <div />
-              <Button type="submit" block submit>
-                Register
-              </Button>
+              <ButtonSubmit value="Register" />
               <div />
             </div>
-            {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+            {!!errorMessage && (
+              <div className="error-message">ERROR: {errorMessage}</div>
+            )}
             <div className="form-description-row">
               <p>
                 Already have an account?{' '}
@@ -151,7 +149,7 @@ const Register = () => {
           <div />
         </div>
       </div>
-    </FormSection>
+    </div>
   );
 };
 
