@@ -3,8 +3,12 @@ import { Link } from 'gatsby';
 
 import './button.scss';
 
-const Button = ({ label, destination }) => (
-  <Link className="button-link" to={`/${destination}`}>
+const Button = ({ label, destination, userProfile }) => (
+  <Link
+    className="button-link"
+    to={`/${destination}`}
+    state={userProfile !== null ? { userProfile } : {}}
+  >
     <div className="button">{label}</div>
   </Link>
 );

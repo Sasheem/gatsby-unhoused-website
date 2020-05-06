@@ -36,6 +36,8 @@ const ContactDonate = ({ location }) => {
   const [fullyFund, setFullyFund] = useState(null);
   const [clientSelected, setClientSelected] = useState(null);
   const [clientData, setClientData] = useState(null);
+  const [wallet, setWallet] = useState(null);
+  const [selectedPayment, setSelectedPayment] = useState('');
   let isMounted = true;
 
   const stripe = useStripe();
@@ -84,6 +86,23 @@ const ContactDonate = ({ location }) => {
       });
     }
   }, [clientSelected, location]);
+
+  // fetch and supply the users saved payments
+  useEffect(() => {
+    if (firebase && location && location.state.userProfile) {
+      try {
+        firebase
+          .listPaymentMethods({
+            customerId: location.state.userProfile.customerId,
+          })
+          .then(result => {
+            setWallet(result.data.data);
+          });
+      } catch (error) {
+        console.log(`error fetching payment intents: ${error.message}`);
+      }
+    }
+  }, [user]);
 
   const handleFormSubmit = async ev => {
     ev.preventDefault();
@@ -146,8 +165,8 @@ const ContactDonate = ({ location }) => {
           const authIntentResult = await firebase.createAuthPaymentIntent({
             amount: stripeAmount,
             currency: 'usd',
-            email: email.value,
-            name: name.value,
+            email: location.state.userProfile.email,
+            name: `${location.state.userProfile.firstName} ${location.state.userProfile.lastName}`,
             username: user.username,
           });
           clientSecret = authIntentResult.data.clientSecret;
@@ -178,17 +197,19 @@ const ContactDonate = ({ location }) => {
       // need access to stripe.js
       // need a reference to CardElement
       const cardElement = elements.getElement(CardElement);
-      const paymentMethodRequest = await stripe.createPaymentMethod({
-        type: 'card',
-        card: cardElement,
-        billing_details: billingDetails,
-      });
 
       // confirm card payment
       // combine payment method id + client_secret
       const confirmCardPayment = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: paymentMethodRequest.paymentMethod.id,
-        setup_future_usage: isSavingCard ? 'off_session' : '',
+        payment_method:
+          selectedPayment !== ''
+            ? selectedPayment
+            : {
+                type: 'card',
+                card: cardElement,
+                billing_details: billingDetails,
+              },
+        setup_future_usage: isSavingCard ? 'on_session' : '',
       });
     } catch (error) {
       setErrorMessage(error.message);
@@ -254,7 +275,6 @@ const ContactDonate = ({ location }) => {
     });
 
     try {
-      console.log(`familySize before createDonation: ${clientData.familySize}`);
       firebase.createDonation({
         amount: parseInt(amount.value),
         clientId: client.value,
@@ -279,6 +299,10 @@ const ContactDonate = ({ location }) => {
 
   const handleCardDetailsChange = ev => {
     ev.error ? setErrorMessage(ev.error.message) : setErrorMessage('');
+  };
+
+  const handlePaymentChange = ev => {
+    setSelectedPayment(ev.target.value);
   };
 
   const handleRegisterDonorSwitch = () => {
@@ -323,6 +347,7 @@ const ContactDonate = ({ location }) => {
       complete: {},
     },
     hidePostalCode: true,
+    disabled: selectedPayment !== '' ? true : false,
   };
 
   return (
@@ -389,8 +414,50 @@ const ContactDonate = ({ location }) => {
             </div>
             <h3>Billing Information</h3>
             <div className="form-input-row">
+              <label htmlFor="card-element">Credit Card</label>
+              {wallet && wallet.length !== 0 && (
+                <select name="paymentMethod" onChange={handlePaymentChange}>
+                  <option value="">--Choose a card on file--</option>
+                  {wallet.map(card => (
+                    <option value={card.id}>**** {card.card.last4}</option>
+                  ))}
+                </select>
+              )}
+              {wallet && wallet.length !== 0 && (
+                <span style={{ textAlign: `center`, margin: `0.5em 0` }}>
+                  <p>Or enter a new card</p>
+                </span>
+              )}
+              {console.log(`selectedPayment: ${selectedPayment}`)}
+              <CardElementContainer>
+                <CardElement
+                  options={cardElementOptions}
+                  onChange={handleCardDetailsChange}
+                  name="card-element"
+                />
+              </CardElementContainer>
+            </div>
+            <div className="form-input-row">
+              <label htmlFor="saving-card">Save card for future use?</label>
+              <label className="switch-help">
+                <input
+                  type="checkbox"
+                  name="saving-card"
+                  checked={isSavingCard}
+                  onChange={handleSavingCardSwitch}
+                  disabled={selectedPayment !== '' ? true : false}
+                />
+                <span className="slider-help" />
+              </label>
+            </div>
+            <div className="form-input-row">
               <label htmlFor="name">Name</label>
-              <input name="name" type="text" placeholder="Jane Doe" required />
+              <input
+                name="name"
+                type="text"
+                placeholder="Jane Doe"
+                required={selectedPayment === '' ? true : false}
+              />
             </div>
             <div className="form-input-row">
               <label htmlFor="email">Email</label>
@@ -398,7 +465,7 @@ const ContactDonate = ({ location }) => {
                 name="email"
                 type="email"
                 placeholder="jane.doe@example.com"
-                required
+                required={selectedPayment === '' ? true : false}
               />
             </div>
             <div className="form-input-row">
@@ -407,7 +474,7 @@ const ContactDonate = ({ location }) => {
                 name="address"
                 type="text"
                 placeholder="185 Berry St. Suite 550"
-                required
+                required={selectedPayment === '' ? true : false}
               />
             </div>
             <div className="form-input-row">
@@ -416,7 +483,7 @@ const ContactDonate = ({ location }) => {
                 name="city"
                 type="text"
                 placeholder="San Francisco"
-                required
+                required={selectedPayment === '' ? true : false}
               />
             </div>
             <div className="form-input-row">
@@ -425,12 +492,17 @@ const ContactDonate = ({ location }) => {
                 name="state"
                 type="text"
                 placeholder="California"
-                required
+                required={selectedPayment === '' ? true : false}
               />
             </div>
             <div className="form-input-row">
               <label htmlFor="zip">ZIP</label>
-              <input name="zip" type="text" placeholder="94103" required />
+              <input
+                name="zip"
+                type="text"
+                placeholder="94103"
+                required={selectedPayment === '' ? true : false}
+              />
             </div>
             <div className="form-input-row">
               <label htmlFor="switch-help">
@@ -478,28 +550,6 @@ const ContactDonate = ({ location }) => {
                 </div>
               </div>
             ) : null}
-            <div className="form-input-row">
-              <label htmlFor="card-element">Credit Card</label>
-              <CardElementContainer>
-                <CardElement
-                  options={cardElementOptions}
-                  onChange={handleCardDetailsChange}
-                  name="card-element"
-                />
-              </CardElementContainer>
-            </div>
-            <div className="form-input-row">
-              <label htmlFor="saving-card">Save card for future use?</label>
-              <label className="switch-help">
-                <input
-                  type="checkbox"
-                  name="saving-card"
-                  checked={isSavingCard}
-                  onChange={handleSavingCardSwitch}
-                />
-                <span className="slider-help" />
-              </label>
-            </div>
             <div className="form-submit-row">
               <div />
               <Button

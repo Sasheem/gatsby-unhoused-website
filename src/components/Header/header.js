@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, navigate } from 'gatsby';
 import PropTypes from 'prop-types';
 import { FirebaseContext } from '../Firebase';
@@ -11,6 +11,19 @@ import './header.scss';
 
 const Header = ({ menuClickHandler, hideBackdrop }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
+  const [userProfile, setUserProfile] = useState(null);
+  let isMounted = true;
+
+  useEffect(() => {
+    if (firebase && isMounted && user) {
+      firebase.getUser({ userId: user.username }).then(snapshot => {
+        setUserProfile(snapshot.data());
+      });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [user]);
 
   function handleLogoutClick() {
     firebase.logout().then(() => navigate('/login'));
@@ -25,7 +38,11 @@ const Header = ({ menuClickHandler, hideBackdrop }) => {
         <div className="spacer" />
         <div className="navbar-content">
           <div className="navbar-actions">
-            <Button label="Donate" destination="/contactDonate" />
+            <Button
+              label="Donate"
+              destination="/contactDonate"
+              userProfile={user && userProfile !== null ? userProfile : null}
+            />
             <Button label="Volunteer" destination="/contactVolunteer" />
             <Button label="Contact" destination="/contact" />
           </div>
