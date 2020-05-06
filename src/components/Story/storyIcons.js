@@ -1,26 +1,49 @@
 import React from 'react';
-
-import EmailIcon from '../../assets/envelope-solid.svg';
-import TwitterIcon from '../../assets/twitter-brands.svg';
-import FacebookIcon from '../../assets/facebook-brands.svg';
-import SMSIcon from '../../assets/sms-solid.svg';
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  EmailIcon,
+  EmailShareButton,
+} from 'react-share';
 
 import './story.scss';
 
-const StoryIcons = () => {
+const StoryIcons = ({ url, title, summary, fbHashtag, twHashtags }) => {
   return (
     <div className="story-social-icons">
       <div className="icon-container">
-        <FacebookIcon />
+        <FacebookShareButton url={url} quote={title} hashtag={fbHashtag}>
+          <FacebookIcon size={40} round={true} />
+        </FacebookShareButton>
       </div>
       <div className="icon-container">
-        <TwitterIcon />
+        <TwitterShareButton
+          url={url}
+          title={title}
+          via="unhousedhumans"
+          hashtags={twHashtags}
+        >
+          <TwitterIcon size={40} round={true} />
+        </TwitterShareButton>
       </div>
       <div className="icon-container">
-        <EmailIcon />
+        <LinkedinShareButton
+          url={url}
+          title={title}
+          summary={summary}
+          source="Unhoused Humanity"
+        >
+          <LinkedinIcon size={40} round={true} />
+        </LinkedinShareButton>
       </div>
       <div className="icon-container">
-        <SMSIcon />
+        <EmailShareButton url={url} subject={title} body={summary}>
+          <EmailIcon size={40} round={true} />
+        </EmailShareButton>
       </div>
     </div>
   );

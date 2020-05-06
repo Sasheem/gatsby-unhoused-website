@@ -9,6 +9,7 @@ import './story.scss';
 const StoryHead = ({
   clientId,
   firstName,
+  lastName,
   raised,
   goal,
   status,
@@ -55,7 +56,17 @@ const StoryHead = ({
           </div>
           <div className="info-column">
             <h4>Share their story</h4>
-            <StoryIcons />
+            <StoryIcons
+              url={`https://musing-joliot-870301.netlify.app/story/${firstName}-${lastName}`}
+              fbHashtag="EndHomelessness"
+              title={`${firstName} has been funded by Unhoused Humanity`}
+              twHashtags={[
+                'EndHomelessness',
+                'UnhousedHumanity',
+                'BreakingTheBarrier',
+              ]}
+              summary={`Unhoused Humanity has funded ${firstName} through generous donations from good people like you. Read their story today!`}
+            />
           </div>
           {status === 'Funding' ? (
             <div className="info-row">

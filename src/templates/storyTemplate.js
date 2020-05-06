@@ -20,6 +20,7 @@ const StoryTemplate = ({ pageContext }) => {
   const {
     id,
     firstName,
+    lastName,
     situation,
     goal,
     raised,
@@ -39,6 +40,7 @@ const StoryTemplate = ({ pageContext }) => {
         <StoryHead
           clientId={id}
           firstName={firstName}
+          lastName={lastName}
           goal={goal}
           raised={raised}
           status={status}
