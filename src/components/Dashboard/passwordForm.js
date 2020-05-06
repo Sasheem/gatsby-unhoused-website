@@ -51,7 +51,7 @@ const PasswordForm = () => {
       </div>
       <div className="form-submit-row-left">
         <ButtonSubmit
-          value={isProcessing ? 'Processing...' : 'Add Partner'}
+          value={isProcessing ? 'Processing...' : 'Save'}
           disabled={isProcessing}
         />
         <div />
