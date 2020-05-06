@@ -138,6 +138,15 @@ class Firebase {
   }
   // [END list user payment methods]
 
+  // [START ]
+  detachPaymentMethod({ id }) {
+    const detachPaymentMethodCallable = this.functions.httpsCallable(
+      'detachPaymentMethod'
+    );
+    return detachPaymentMethodCallable({ id });
+  }
+  // [END ]
+
   // [START create a donation object]
   createDonation({
     amount,
