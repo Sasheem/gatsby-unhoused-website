@@ -49,8 +49,7 @@
     border-radius: 2px;
     padding: 1em;
     background-color: $color-light;
-    // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     h3, h5, p {
         text-align: left;
     }
@@ -58,6 +57,8 @@
 .dashboard-item-header {
     display: flex;
     justify-content: space-between;
+    padding-left: 1em;
+    padding-right: 1em;
     
     h2 {
         text-align: left;

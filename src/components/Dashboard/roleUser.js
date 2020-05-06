@@ -39,10 +39,16 @@ const RoleUser = ({ firebase, user }) => {
                   </p>
                 </div>
               </div>
-
-              <UserMetrics firebase={firebase} user={user} />
+              <div className="dashboard-item-header">
+                <UserMetrics firebase={firebase} user={user} />
+              </div>
             </div>
-            <ClientsFunded user={user} />
+            <div className="dashboard-item">
+              <div className="dashboard-item-header">
+                <h3>Clients Funded</h3>
+              </div>
+              <ClientsFunded user={user} />
+            </div>
           </div>
         </TabPanel>
 

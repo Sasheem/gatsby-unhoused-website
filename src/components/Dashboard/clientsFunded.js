@@ -49,7 +49,6 @@ const ClientsFunded = ({ user }) => {
         </div>
       ) : clients.length !== 0 ? (
         <div className="tab-content-clients">
-          <h3>Clients funded</h3>
           <BlogGrid clients={clients} loading={loading} />
         </div>
       ) : (
