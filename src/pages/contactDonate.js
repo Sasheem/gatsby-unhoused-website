@@ -437,19 +437,21 @@ const ContactDonate = ({ location }) => {
                 />
               </CardElementContainer>
             </div>
-            <div className="form-input-row">
-              <label htmlFor="saving-card">Save card for future use?</label>
-              <label className="switch-help">
-                <input
-                  type="checkbox"
-                  name="saving-card"
-                  checked={isSavingCard}
-                  onChange={handleSavingCardSwitch}
-                  disabled={selectedPayment !== '' ? true : false}
-                />
-                <span className="slider-help" />
-              </label>
-            </div>
+            {(user || registerDonor) && (
+              <div className="form-input-row">
+                <label htmlFor="saving-card">Save card for future use?</label>
+                <label className="switch-help">
+                  <input
+                    type="checkbox"
+                    name="saving-card"
+                    checked={isSavingCard}
+                    onChange={handleSavingCardSwitch}
+                    disabled={selectedPayment !== '' ? true : false}
+                  />
+                  <span className="slider-help" />
+                </label>
+              </div>
+            )}
             <div className="form-input-row">
               <label htmlFor="name">Name</label>
               <input
@@ -504,22 +506,24 @@ const ContactDonate = ({ location }) => {
                 required={selectedPayment === '' ? true : false}
               />
             </div>
-            <div className="form-input-row">
-              <label htmlFor="switch-help">
-                Create Unhoused Humanity Account
-              </label>
-              <label className="switch-help">
-                <input
-                  type="checkbox"
-                  name="switch-help"
-                  id="switch-help"
-                  checked={registerDonor}
-                  onChange={handleRegisterDonorSwitch}
-                  disabled={user ? true : false}
-                />
-                <span className="slider-help" />
-              </label>
-            </div>
+            {!user && (
+              <div className="form-input-row">
+                <label htmlFor="switch-help">
+                  Create Unhoused Humanity Account
+                </label>
+                <label className="switch-help">
+                  <input
+                    type="checkbox"
+                    name="switch-help"
+                    id="switch-help"
+                    checked={registerDonor}
+                    onChange={handleRegisterDonorSwitch}
+                    disabled={user ? true : false}
+                  />
+                  <span className="slider-help" />
+                </label>
+              </div>
+            )}
             {registerDonor ? (
               <div className="form-client-container">
                 <div className="form-input-row">
