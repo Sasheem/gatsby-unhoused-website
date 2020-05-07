@@ -31,6 +31,7 @@ const SavedCreditCards = ({ firebase, user }) => {
   const [wallet, setWallet] = useState(null);
   const [loading, setLoading] = useState(false);
   const [deleteCard, setDeleteCard] = useState('');
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
   let isMounted = true;
   var subtitle;
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -71,7 +72,7 @@ const SavedCreditCards = ({ firebase, user }) => {
           });
       });
     }
-  }, [firebase]);
+  }, [firebase, deleteSuccess]);
 
   function handleDeleteCard(card) {
     console.log(`are you sure you want to delete card: ${card}`);
@@ -86,9 +87,8 @@ const SavedCreditCards = ({ firebase, user }) => {
           id: deleteCard,
         })
         .then(result => {
+          setDeleteSuccess(true);
           closeModal();
-          console.log(`successfully removed: ${typeof result}`);
-          console.dir(result);
         })
         .catch(error => {
           console.log(`delete card error: ${error.message}`);
