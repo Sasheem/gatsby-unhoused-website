@@ -17,6 +17,20 @@ class Firebase {
     }
   }
 
+  writeToAuth({ firstName, lastName, email }) {
+    const writeToAuthCallable = this.functions.httpsCallable('writeToAuth');
+
+    return writeToAuthCallable({ firstName, lastName, email });
+  }
+
+  updateAuthUserPassword({ password }) {
+    const updateAuthUserPasswordCallable = this.functions.httpsCallable(
+      'updateAuthUserPassword'
+    );
+
+    return updateAuthUserPasswordCallable({ password });
+  }
+
   getProfileDownloadURL({ username }) {
     return this.storage.ref(`users/${username}.jpeg`).getDownloadURL();
   }
@@ -40,6 +54,17 @@ class Firebase {
     //   .catch(error => {
     //     console.log(`error: ${error.message}`);
     //   });
+  }
+
+  uploadVolunteerResume({ fileObject, volunteerId }) {
+    const filename = `volunteers/${volunteerId}.pdf`;
+    const file = this.storage.ref(filename);
+    try {
+      const result = file.put(fileObject);
+      return result;
+    } catch (error) {
+      console.log(`uploadResume error ./firebase.js => ${error.message}`);
+    }
   }
 
   uploadClientImage({ fileObject, clientId }) {
@@ -300,6 +325,17 @@ class Firebase {
     return createHelpMessageCallable({ emailValues });
   }
   // [END create a message from request help form]
+
+  // [START create a message from volunteer form]
+  async createVolunteerMessage({ emailValues, filePath }) {
+    const createVolunteerMessageCallable = this.functions.httpsCallable(
+      'createVolunteerMessage'
+    );
+    const fileUrl = await this.storage.ref(filePath).getDownloadURL();
+
+    return createVolunteerMessageCallable({ emailValues, fileUrl });
+  }
+  // [END create a message from volunteer form]
 
   // [START get all partners]
   async getPartners() {
