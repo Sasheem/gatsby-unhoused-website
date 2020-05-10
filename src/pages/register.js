@@ -140,7 +140,7 @@ const Register = () => {
             <div className="form-description-row">
               <p>
                 Already have an account?{' '}
-                <Link to="/register">
+                <Link to="/login">
                   <span className="form-description-link">Login</span>
                 </Link>
               </p>

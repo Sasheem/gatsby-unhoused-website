@@ -31,6 +31,14 @@ class Firebase {
     return updateAuthUserPasswordCallable({ password });
   }
 
+  sendPasswordReset({ email }) {
+    const sendPasswordResetCallable = this.functions.httpsCallable(
+      'sendPasswordReset'
+    );
+
+    return sendPasswordResetCallable({ email });
+  }
+
   getProfileDownloadURL({ username }) {
     return this.storage.ref(`users/${username}.jpeg`).getDownloadURL();
   }
@@ -237,6 +245,19 @@ class Firebase {
   }
   // [END update client from admin]
 
+  // [START update partner from admin]
+  updatePartnerFromAdmin({ partnerId, updateObject }) {
+    const updatePartnerFromAdminCallable = this.functions.httpsCallable(
+      'updatePartnerFromAdmin'
+    );
+
+    return updatePartnerFromAdminCallable({
+      partnerId,
+      updateObject,
+    });
+  }
+  // [END update partner from admin]
+
   // [START write user settings]
   writeUserSettings({ username, settings, imagePath }) {
     const writeUserSettingsCallable = this.functions.httpsCallable(
@@ -347,12 +368,7 @@ class Firebase {
   async createPartner({ name, email, website, imagePath }) {
     const imageUrl = await this.storage.ref(imagePath).getDownloadURL();
     const createPartnerCallable = this.functions.httpsCallable('createPartner');
-    console.log(
-      `name: ${name} - id: ${name.replace(
-        / /g,
-        '-'
-      )} - website: ${website} - imageUrl: ${imageUrl}`
-    );
+
     return createPartnerCallable({
       id: name.replace(/ /g, '-'),
       name,
@@ -443,6 +459,12 @@ class Firebase {
       .onSnapshot(onSnapshot);
   }
   // [END get clients recently housed in real time]
+
+  // [START get all partners]
+  subscribeToAllPartners({ onSnapshot }) {
+    return this.db.collection('partners').onSnapshot(onSnapshot);
+  }
+  // [END get all partners]
 
   // [START get user info in real time]
   subscribeToUserInfo({ username, onSnapshot }) {
