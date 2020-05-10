@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'gatsby';
 
 import WorkplaceIcon from '../../assets/user-friends-solid.svg';
 import LocationIcon from '../../assets/map-marker-alt-solid.svg';
@@ -7,55 +8,24 @@ import WebsiteIcon from '../../assets/link-solid.svg';
 
 import './cards.scss';
 
-const CardUser = ({ firebase, user }) => {
-  const [userProfile, setUserProfile] = useState(null);
-  const [downloadURL, setDownloadURL] = useState('');
-  let isMounted = true;
-
-  useEffect(() => {
-    if (firebase && user) {
-      const unsubscribe = firebase.subscribeToUserInfo({
-        username: user.username,
-        onSnapshot: snapshot => {
-          console.log(`snapshot data: ${typeof snapshot.data()}`);
-          setUserProfile(snapshot.data());
-        },
-      });
-
-      firebase
-        .getProfileDownloadURL({ username: user.username })
-        .then(snapshot => {
-          if (isMounted) {
-            console.log(`snapshot is ${typeof snapshot}`);
-            console.dir(snapshot);
-            setDownloadURL(snapshot);
-          }
-        });
-
-      return () => {
-        if (unsubscribe) {
-          unsubscribe();
-        }
-        isMounted = false;
-      };
-    }
-  }, [firebase]);
-
+const CardUser = ({ userProfile, downloadURL, username }) => {
   return (
     <div className="card-component">
       <div className="card-head">
-        <div className="card-image">
-          {userProfile && downloadURL ? (
-            <img
-              src={downloadURL}
-              alt={`${userProfile.firstName} profile picture`}
-            />
-          ) : (
-            <div className="card-image-filler" />
-          )}
-        </div>
+        <Link to="/donorProfile" state={{ userProfile, downloadURL, username }}>
+          <div className="card-image">
+            {userProfile && downloadURL ? (
+              <img
+                src={downloadURL}
+                alt={`${userProfile.firstName} profile picture`}
+              />
+            ) : (
+              <div className="card-image-filler" />
+            )}
+          </div>
+        </Link>
         <div className="card-title">
-          <h1>{user ? user.username : 'No user'}</h1>
+          <h1>{username ? username : 'No user'}</h1>
           {userProfile && userProfile.firstName && (
             <h2>{userProfile.firstName}</h2>
           )}
