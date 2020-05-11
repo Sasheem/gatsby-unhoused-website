@@ -35,7 +35,7 @@ const Process = () => (
           <h2>The Unhoused Humanity Process</h2>
           <div className="steps-row">
             <div className="steps-content-container">
-              <div className="steps-fill" />
+              <div className="steps-fill-responsive" />
               <div className="steps-content">
                 <Img
                   className="steps-img"
@@ -57,7 +57,7 @@ const Process = () => (
                   Success stories
                 </Link>
               </div>
-              <div className="steps-fill" />
+              <div className="steps-fill-responsive" />
             </div>
           </div>
           <div className="steps-row reverse">
@@ -70,10 +70,10 @@ const Process = () => (
                   alt="Process Two"
                 />
               </div>
-              <div className="steps-fill" />
+              <div className="steps-fill-responsive" />
             </div>
             <div className="steps-content-container">
-              <div className="steps-fill" />
+              <div className="steps-fill-responsive" />
               <div className="steps-content">
                 <h3>Donor funds the client</h3>
                 <p>
@@ -89,7 +89,7 @@ const Process = () => (
           </div>
           <div className="steps-row">
             <div className="steps-content-container">
-              <div className="steps-fill" />
+              <div className="steps-fill-responsive" />
               <div className="steps-content">
                 <Img
                   className="steps-img"
@@ -111,7 +111,7 @@ const Process = () => (
                   Sign up today
                 </Link>
               </div>
-              <div className="steps-fill" />
+              <div className="steps-fill-responsive" />
             </div>
           </div>
         </div>

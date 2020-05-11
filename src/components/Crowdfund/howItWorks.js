@@ -44,7 +44,7 @@ const HowItWorks = () => {
       <h2>How It Works</h2>
       <div className="steps-row">
         <div className="steps-content-container">
-          <div className="steps-fill" />
+          <div className="steps-fill-responsive" />
           <div className="steps-content">
             <Img
               className="steps-img"
@@ -67,7 +67,7 @@ const HowItWorks = () => {
               Kearney Center
             </a>
           </div>
-          <div className="steps-fill" />
+          <div className="steps-fill-responsive" />
         </div>
       </div>
       <div className="steps-row reverse">
@@ -80,10 +80,10 @@ const HowItWorks = () => {
               alt={processHowTwo.base.split('.')[0]}
             />
           </div>
-          <div className="steps-fill" />
+          <div className="steps-fill-responsive" />
         </div>
         <div className="steps-content-container">
-          <div className="steps-fill" />
+          <div className="steps-fill-responsive" />
           <div className="steps-content">
             <h3>Family learns about Unhoused Humanity</h3>
             <p>
@@ -99,7 +99,7 @@ const HowItWorks = () => {
       </div>
       <div className="steps-row">
         <div className="steps-content-container">
-          <div className="steps-fill" />
+          <div className="steps-fill-responsive" />
           <div className="steps-content">
             <Img
               className="steps-img"
@@ -118,7 +118,7 @@ const HowItWorks = () => {
               Case workers
             </Link>
           </div>
-          <div className="steps-fill" />
+          <div className="steps-fill-responsive" />
         </div>
       </div>
       <div className="steps-row reverse">
@@ -131,10 +131,10 @@ const HowItWorks = () => {
               alt={processHowFour.base.split('.')[0]}
             />
           </div>
-          <div className="steps-fill" />
+          <div className="steps-fill-responsive" />
         </div>
         <div className="steps-content-container">
-          <div className="steps-fill" />
+          <div className="steps-fill-responsive" />
           <div className="steps-content">
             <h3>Donors fund a client</h3>
             <p>Details or statistics about donations</p>
@@ -147,7 +147,7 @@ const HowItWorks = () => {
       </div>
       <div className="steps-row">
         <div className="steps-content-container">
-          <div className="steps-fill" />
+          <div className="steps-fill-responsive" />
           <div className="steps-content">
             <Img
               className="steps-img"
@@ -166,7 +166,7 @@ const HowItWorks = () => {
               Sign up
             </Link>
           </div>
-          <div className="steps-fill" />
+          <div className="steps-fill-responsive" />
         </div>
       </div>
     </div>

@@ -14,6 +14,8 @@
 	align-items: center;
 	height: 100%;
 	width: 100%;
+	max-width: 1120px;
+	margin: 0 auto;
 }
 .navbar-logo {
 	flex: 1;
@@ -35,7 +37,6 @@
 .navbar-actions {
 	display: flex;
 	justify-content: flex-end;
-	margin-right: 2em;
 }
 .navbar-actions div {
 	margin-left: 1em;
@@ -53,11 +54,10 @@
 	}
 }
 .navbar-content {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+	display: grid;
+	grid-gap: 0.5em;
 	flex: 1.5;
-	height: 70%;
+	// height: 70%;
 }
 
 .navbar-items ul {
@@ -65,7 +65,7 @@
 	margin: 0;
 	padding: 0;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 }
 .navbar-items li {
     // padding: 0 0.5rem;

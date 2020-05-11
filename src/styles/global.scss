@@ -21,6 +21,7 @@ $color-status-warning: #f77f00;
 $color-grey-background-1: #EEF1F6;
 $color-grey-background-2: #F7F7F7;
 $color-grey-background-3: #F7F9FA;
+$color-grey-background-4: #e3e8ef;
 
 html, body {
     background-color: $color-background;
@@ -111,7 +112,7 @@ a {
 .content-container-two {
     display: grid;
     grid-gap: 5em;
-    width: 80vw;
+    max-width: 1120px;
      h3, p {
         text-align: left;
     }
@@ -171,6 +172,8 @@ a {
     width: 100%;
     display: flex;
     flex-direction: column;
+    max-width: 1120px;
+    margin: 0 autp;
 }
 .steps-row {
     width: 100%;
@@ -220,17 +223,35 @@ a {
 .steps-fill {
     flex: 0.3;
 }
+.steps-fill-responsive {
+    @media only screen and (max-width: 800px) {
+        flex: 0.3;
+    }
+}
 // global styling ends
 
+// [START donor profile styling]
+.donor-profile-panel {
+    width: 100%;
+    display: grid;
+    grid-gap: 5em;
+}
+// [END donor profile styling
+
 // [START dashboard]
+.dashboard-bg-grey {
+    background-color: $color-grey-background-3;
+    width: 100%;
+    height: 100%;
+}
 .dashboard-component {
     display: grid;
     width: 100%;
     grid-gap: 5em;
-    margin-top: 6em;
     padding-top: 3em;
     padding-bottom: 5em;
-    background-color: $color-grey-background-3;
+    max-width: 1220px;
+    margin: 6em auto 0 auto;
     
     @media only screen and (min-width: 960px) {
         grid-template-columns: 1fr 2fr 0.15fr;
@@ -463,7 +484,6 @@ a {
 .form-layout-crowdfund {
     display: grid;
     grid-gap: 4em;
-    justify-items: start;
 }
 .form-header {
     display: flex;
@@ -572,6 +592,10 @@ a {
     display: grid;
     grid-template-columns: 2fr 1fr 2fr;
 }
+.form-submit-row-sm {
+    display: grid;
+    grid-template-columns: 0.1fr 1fr 0.1fr;
+}
 .form-submit-row-left {
     display: grid;
     grid-template-columns: 0.5fr 2fr;
@@ -611,7 +635,7 @@ a {
 
     p {
         text-align: center;
-        margin: 0;
+        margin-bottom: 1em;
     }
 }
 .form-description-link {

@@ -33,7 +33,6 @@ const Header = ({ menuClickHandler, hideBackdrop }) => {
   return (
     <header className="header">
       <nav className="navbar">
-        <div className="spacer-sm" />
         <Logo hideBackdrop={hideBackdrop} />
         <div className="spacer" />
         <div className="navbar-content">
