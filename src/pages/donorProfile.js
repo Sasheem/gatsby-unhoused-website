@@ -31,7 +31,7 @@ const DonorProfile = ({ location }) => {
 
   // find the clients donated by this donor
   useEffect(() => {
-    if (firebase && location.state.username) {
+    if (firebase && location && location.state.username) {
       setLoading(true);
       firebase.getClients().then(snapshot => {
         // check if component is mounted
@@ -109,7 +109,8 @@ const DonorProfile = ({ location }) => {
       <div className="dashboard-component">
         <div className="dashboard-head">
           <div />
-          {location.state.userProfile &&
+          {location &&
+            location.state.userProfile &&
             location.state.downloadURL &&
             location.state.username && (
               <CardUser
