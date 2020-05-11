@@ -4,9 +4,13 @@ import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 
 import CardUser from '../components/Cards/cardUser';
-import CardDashboardMetric from '../components/Cards/cardDashboardMetric';
+import CardProfileMetric from '../components/Cards/cardProfileMetric';
+import BlogGrid from '../components/Blog/blogGrid';
+import Loader from '../components/common/Loader/loader';
 
+import '../components/common/Metrics/metrics.scss';
 import '../components/Dashboard/dashboard.scss';
+import '../components/Blog/blog.scss';
 
 const DonorProfile = ({ location }) => {
   const { firebase = null } = useContext(FirebaseContext) || {};
@@ -15,6 +19,41 @@ const DonorProfile = ({ location }) => {
   const [totalImpacted, setTotalImpacted] = useState(0);
   const [totalContribution, setTotalContribution] = useState(0);
   const [totalDonations, setTotalDonations] = useState(0);
+  const [clients, setClients] = useState([]);
+  const [loading, setLoading] = useState(false);
+  let isMounted = true;
+
+  useEffect(() => {
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // find the clients donated by this donor
+  useEffect(() => {
+    if (firebase && location.state.username) {
+      setLoading(true);
+      firebase.getClients().then(snapshot => {
+        // check if component is mounted
+        if (isMounted) {
+          const fundedClients = [];
+          snapshot.forEach(doc => {
+            if (doc.data().hasOwnProperty('fundedBy')) {
+              if (doc.data().fundedBy.includes(`${location.state.username}`)) {
+                fundedClients.push({
+                  id: doc.id,
+                  ...doc.data(),
+                });
+              }
+            }
+          });
+          setClients(fundedClients);
+          setLoading(false);
+        }
+        setLoading(false);
+      });
+    }
+  }, [firebase]);
 
   useEffect(() => {
     if (firebase && location.state.username) {
@@ -85,17 +124,31 @@ const DonorProfile = ({ location }) => {
             )}
           <div />
         </div>
-        <div className="dashboard-panel">
-          <div className="donor-profile-row">
-            <CardDashboardMetric
-              name="Lifetime Contribution"
+        <div className="donor-profile-panel">
+          <div className="blog-grid">
+            <CardProfileMetric
+              name="Total Contribution"
               value={`$${totalContribution}`}
             />
-            <CardDashboardMetric name="Donations" value={totalDonations} />
-            <CardDashboardMetric name="Lives Impacted" value={totalImpacted} />
+            <CardProfileMetric name="Donations Made" value={totalDonations} />
+            <CardProfileMetric name="Lives Impacted" value={totalImpacted} />
           </div>
-          <p>Families funded by donor</p>
+          <div>
+            <h3>Clients funded</h3>
+            {loading === true ? (
+              <div className="loader-container">
+                <Loader />
+              </div>
+            ) : (
+              clients.length !== 0 && (
+                <div className="tab-content-clients">
+                  <BlogGrid clients={clients} loading={loading} />
+                </div>
+              )
+            )}
+          </div>
         </div>
+        <div />
       </div>
     </div>
   );

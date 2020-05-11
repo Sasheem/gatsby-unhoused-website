@@ -32,7 +32,9 @@ const CardUser = ({ userProfile, downloadURL, username }) => {
         </div>
       </div>
       <div className="card-divider" />
-      {userProfile && userProfile.bio && <p>{userProfile.bio}</p>}
+      {userProfile && userProfile.bio && (
+        <p style={{ marginBottom: `0.5em` }}>{userProfile.bio}</p>
+      )}
       {userProfile && userProfile.workplace && (
         <div className="card-row">
           <div className="card-user-icon">

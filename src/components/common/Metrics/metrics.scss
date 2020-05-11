@@ -6,14 +6,10 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: black;
+    background-color: $main-color;
 
     @media only screen and (min-width: 800px) {
         flex-direction: row;
         justify-content: space-around;
-    }
-
-    @media only screen and (max-width: 800px) {
-        flex: 1.5;
     }
 }

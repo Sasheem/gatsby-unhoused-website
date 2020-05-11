@@ -27,6 +27,13 @@
 }
 // card metric home page ends
 
+// [START card metric border]
+.card-border-lg {
+	padding: 2em;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+// [END card metric border]
+
 // card dashboard begins
 .card-dashboard-metric {
 	min-width: 10em;
@@ -305,6 +312,7 @@
 	height: 1px;
 	width: 100%;
 	max-width: 80%;
+	margin-bottom: 0.75em;
 }
 .card-row {
 	display: grid;
