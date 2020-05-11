@@ -56,7 +56,7 @@ const DonorProfile = ({ location }) => {
   }, [firebase]);
 
   useEffect(() => {
-    if (firebase && location.state.username) {
+    if (firebase && location && location.state.username) {
       const unsubscribe = firebase.subscribeToDonations({
         username: location.state.username,
         onSnapshot: snapshot => {
@@ -110,6 +110,7 @@ const DonorProfile = ({ location }) => {
         <div className="dashboard-head">
           <div />
           {location &&
+            location.state &&
             location.state.userProfile &&
             location.state.downloadURL &&
             location.state.username && (

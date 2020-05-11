@@ -64,7 +64,14 @@ const Header = ({ menuClickHandler, hideBackdrop }) => {
               </li>
               {!!user && !!user.email && (
                 <li>
-                  <Link className="navbar-link" to="/dashboard">
+                  <Link
+                    className="navbar-link"
+                    to="/dashboard"
+                    state={{
+                      userProfile:
+                        user && userProfile !== null ? userProfile : null,
+                    }}
+                  >
                     Hello, {user.username || user.email}
                   </Link>
                 </li>
