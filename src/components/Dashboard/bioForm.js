@@ -147,23 +147,6 @@ const BioForm = () => {
   return (
     <form className="dashboard-item" onSubmit={handleSubmit}>
       <h3>Update Profile</h3>
-      <div className="form-input-row-file">
-        <div className="form-input-row">
-          <div className="profile-pic-filler" />
-        </div>
-        <div className="form-input-row">
-          <label for="profilePicture">Add profile picture</label>
-          <input
-            onChange={e => {
-              e.persist();
-              // fileReader.readAsDataURL(e.target.files[0]);
-              setProfileImage(e.target.files[0]);
-            }}
-            type="file"
-            name="profilePicture"
-          />
-        </div>
-      </div>
       <div className="two-input-row">
         <div className="form-input-row">
           <label for="firstName">First Name</label>

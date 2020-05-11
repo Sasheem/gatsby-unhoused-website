@@ -137,10 +137,6 @@ const EditClientForm = ({ client, closeModal }) => {
     }));
   }
 
-  function handleQuestionChange(event) {}
-
-  function handleAnswerChange(event) {}
-
   // handle file change
   function handleFileChange(ev) {
     ev.persist();
