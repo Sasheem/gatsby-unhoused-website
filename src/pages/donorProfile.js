@@ -103,10 +103,6 @@ const DonorProfile = ({ location }) => {
     }
   }, [donations]);
 
-  console.log(`location.state.userProfile:`);
-  console.dir(location.state.userProfile);
-  console.dir(donations);
-
   return (
     <div className="page-body-dashboard">
       <SEO title="Donor Profile" />

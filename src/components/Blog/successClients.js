@@ -10,10 +10,6 @@ export const SuccessClients = ({ firebase, nextPage }) => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(6);
-  // const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
-  // const [indexOfLastPost, setIndexOfLastPost] = useState(0);
-  // const [currentClients, setCurrentClients] = useState([]);
-
   // applying this form of useEffect ensures
   // it only runs once when the component mounts
   // useEffect(() => {}, []);
@@ -24,9 +20,6 @@ export const SuccessClients = ({ firebase, nextPage }) => {
     console.log(`successClients useEffect firing with nextPage: ${nextPage}`);
     setCurrentPage(nextPage === null ? 1 : nextPage);
     console.log(`currentPage * postsPerPage: ${currentPage} * ${postsPerPage}`);
-    // setIndexOfLastPost(currentPage * postsPerPage);
-    // setIndexOfFirstPost(indexOfLastPost - postsPerPage);
-    // setCurrentClients(clients.slice(indexOfFirstPost, indexOfLastPost));
     console.log(`currentPage: ${currentPage}`);
     return () => {};
   }, [nextPage]);
