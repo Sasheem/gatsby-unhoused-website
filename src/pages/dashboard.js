@@ -21,50 +21,70 @@ import 'react-tabs/style/react-tabs.css';
 
 const Dashboard = ({ location }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
+  const [userProfile, setUserProfile] = useState(null);
+  const [downloadURL, setDownloadURL] = useState('');
+  const [profiledFetched, setProfileFetched] = useState(false);
+  let isMounted = true;
 
-  // const [userProfile, setUserProfile] = useState();
-  // const [isLoading, setIsLoading] = useState(false);
-  // let isMounted = true;
+  useEffect(() => {
+    if (firebase && user) {
+      const unsubscribe = firebase.subscribeToUserInfo({
+        username: user.username,
+        onSnapshot: snapshot => {
+          console.log(`snapshot data: ${typeof snapshot.data()}`);
+          setUserProfile(snapshot.data());
+        },
+      });
 
-  // // maybe I should only render the below content if isMounted is true?
-  // useEffect(() => {
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, []);
+      firebase
+        .getProfileDownloadURL({ username: user.username })
+        .then(snapshot => {
+          if (isMounted) {
+            console.log(`snapshot is ${typeof snapshot}`);
+            console.dir(snapshot);
+            setDownloadURL(snapshot);
+          }
+        });
 
-  // useEffect(() => {
-  //   if (firebase && user) {
-  //     setIsLoading(true);
-  //     console.log(`dashboard useEffect running`);
-  //     firebase.getUser({ userId: user.username }).then(snapshot => {
-  //       setUserProfile(snapshot.data());
-  //       console.log(`useEffect publicProfile: ${snapshot.data()}`);
-  //       publicProfile = snapshot.data();
-  //     });
-  //   }
-  //   return () => {
-  //     setIsLoading(false);
-  //   };
-  // }, [firebase]);
-
-  // console.log(`DASHBOARD userProfile: ${userProfile}`);
-  // console.log(`publicProfile: ${publicProfile}`);
+      return () => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+        isMounted = false;
+      };
+    }
+  }, [firebase, user]);
 
   return (
     <div className="page-body-dashboard">
       <SEO title="User dashboard" />
-      <div className="dashboard-component">
-        <div className="dashboard-head">
-          <div />
-          {user && <CardUser firebase={firebase} user={user} />}
+      <div className="dashboard-bg-grey">
+        <div className="dashboard-component">
+          <div className="dashboard-head">
+            <div />
+            {user && userProfile && downloadURL && (
+              <CardUser
+                userProfile={userProfile}
+                downloadURL={downloadURL}
+                username={user.username}
+              />
+            )}
+            <div />
+          </div>
+          {user && !!user.isAdmin && (
+            <RoleAdmin firebase={firebase} user={user} />
+          )}
+          {user && !user.isAdmin && (
+            <RoleUser
+              firebase={firebase}
+              user={user}
+              userProfile={
+                location.state.userProfile ? location.state.userProfile : null
+              }
+            />
+          )}
           <div />
         </div>
-        {user && !!user.isAdmin && (
-          <RoleAdmin firebase={firebase} user={user} />
-        )}
-        {user && !user.isAdmin && <RoleUser firebase={firebase} user={user} />}
-        <div />
       </div>
     </div>
   );

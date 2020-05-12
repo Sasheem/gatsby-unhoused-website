@@ -7,6 +7,7 @@ import RecentlyHoused from '../Dashboard/recentlyHoused';
 import AdminAddClient from '../Dashboard/adminAddClient';
 import AdminAllClients from '../Dashboard/adminAllClients';
 import AdminAddPartner from '../Dashboard/adminAddPartner';
+import AdminAllPartners from '../Dashboard/adminAllPartners';
 import BioForm from '../Dashboard/bioForm';
 import PasswordForm from '../Dashboard/passwordForm';
 import Donations from '../Dashboard/donations';
@@ -25,6 +26,7 @@ const RoleAdmin = ({ firebase, user }) => {
           <Tab>Add Client</Tab>
           <Tab>Edit Client</Tab>
           <Tab>Add Partner</Tab>
+          <Tab>Edit Partner</Tab>
           <Tab>Profile</Tab>
           <Tab>Password</Tab>
           <Tab>Donations</Tab>
@@ -64,6 +66,13 @@ const RoleAdmin = ({ firebase, user }) => {
         <TabPanel>
           <div className="tab-content-container">
             <AdminAddPartner />
+          </div>
+        </TabPanel>
+
+        {/* Admin Edit Partner Panel */}
+        <TabPanel>
+          <div className="tab-content-container">
+            <AdminAllPartners />
           </div>
         </TabPanel>
 
