@@ -292,6 +292,22 @@ class Firebase {
     return await this.db.collection('clients').get();
   }
 
+  // [START delete client from database]
+  deleteClient({ clientId }) {
+    const deleteClientCallable = this.functions.httpsCallable('deleteClient');
+    const filename = `clients/${clientId}.jpeg`;
+    const file = this.storage.ref(filename);
+    try {
+      const result = file.delete();
+      console.log(`result ${typeof result}`);
+      console.dir(result);
+      return deleteClientCallable({ clientId });
+    } catch (error) {
+      console.log(`uploadUserProfileImage error: ${error.message}`);
+    }
+  }
+  // [END delete client from database]
+
   // add a client with cloud functions
   async createClient({
     firstName,
@@ -363,6 +379,22 @@ class Firebase {
     return await this.db.collection('partners').get();
   }
   // [END get all partners]
+
+  // [START delete partner from database]
+  deletePartner({ partnerId }) {
+    const deletePartnerCallable = this.functions.httpsCallable('deletePartner');
+    const filename = `partners/${partnerId}.png`;
+    const file = this.storage.ref(filename);
+    try {
+      const result = file.delete();
+      console.log(`result ${typeof result}`);
+      console.dir(result);
+      return deletePartnerCallable({ partnerId });
+    } catch (error) {
+      console.log(`uploadUserProfileImage error: ${error.message}`);
+    }
+  }
+  // [END delete partner from database]
 
   // [START create a partner object]
   async createPartner({ name, email, website, imagePath }) {
@@ -515,6 +547,13 @@ class Firebase {
       .doc(userId)
       .get();
   }
+
+  // [START delete a user]
+  deleteUser({ username }) {
+    const deleteUserCallable = this.functions.httpsCallable('deleteUser');
+    return deleteUserCallable({ username });
+  }
+  // [END delete a user]
 
   // creates a new user doc with id set to username
   // creates public profile using cloud functions in backend

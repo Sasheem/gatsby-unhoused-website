@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
+import DeleteClientForm from './deleteClientForm';
 import EditClientForm from './editClientForm';
 import MoreIcon from '../../assets/ellipsis-v-solid.svg';
 
@@ -51,8 +52,11 @@ const EditClientButton = ({ client }) => {
         <h2 ref={_subtitle => (subtitle = _subtitle)}>
           Client Profile: {client.firstName}
         </h2>
-        <button onClick={closeModal}>Close</button>
-        <EditClientForm client={client} closeModal={closeModal} />
+        <div className="modal-content">
+          <DeleteClientForm client={client} closeModal={closeModal} />
+          <div className="dashboard-divider" />
+          <EditClientForm client={client} closeModal={closeModal} />
+        </div>
       </Modal>
     </div>
   );

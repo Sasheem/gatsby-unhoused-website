@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
+import DeletePartnerForm from './deletePartnerForm';
 import EditPartnerForm from './editPartnerForm';
 import MoreIcon from '../../assets/ellipsis-v-solid.svg';
 
@@ -23,7 +24,7 @@ const customStyles = {
 // Bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#___gatsby');
 
-const EditClientButton = ({ partner }) => {
+const EditPartnerButton = ({ partner }) => {
   var subtitle;
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -49,13 +50,16 @@ const EditClientButton = ({ partner }) => {
         contentLabel="Edit Partner"
       >
         <h2 ref={_subtitle => (subtitle = _subtitle)}>
-          Parnter: {partner.name}
+          Partner: {partner.name}
         </h2>
-        <button onClick={closeModal}>Close</button>
-        <EditPartnerForm partner={partner} closeModal={closeModal} />
+        <div className="modal-content">
+          <DeletePartnerForm partner={partner} closeModal={closeModal} />
+          <div className="dashboard-divider" />
+          <EditPartnerForm partner={partner} closeModal={closeModal} />
+        </div>
       </Modal>
     </div>
   );
 };
 
-export default EditClientButton;
+export default EditPartnerButton;

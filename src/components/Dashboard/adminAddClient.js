@@ -22,7 +22,7 @@ const AdminAddClient = () => {
     questions: [],
     answers: [],
     situation: '',
-    status: '',
+    status: 'Funding',
     question1:
       'Where did you grow up and what did you like about your home town?',
     question2:

@@ -156,7 +156,7 @@ const EditClientForm = ({ client, closeModal }) => {
 
   return (
     <form onSubmit={handleSubmit} className="form-component">
-      <h3>Make changes to client</h3>
+      <h3>Edit client</h3>
       <div className="two-input-row">
         <div className="form-input-row">
           <label for="firstName">First Name</label>

@@ -73,7 +73,7 @@ const EditPartnerForm = ({ partner, closeModal }) => {
 
   return (
     <form className="form-component" onSubmit={handleSubmit}>
-      <h3>Make changes to partner</h3>
+      <h3>Edit partner</h3>
       <div className="form-input-row">
         <label htmlFor="name">Name</label>
         <input
