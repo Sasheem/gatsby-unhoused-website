@@ -64,8 +64,9 @@ class Firebase {
     //   });
   }
 
-  uploadVolunteerResume({ fileObject, volunteerId }) {
-    const filename = `volunteers/${volunteerId}.pdf`;
+  uploadVolunteerResume({ name, fileObject, volunteerId }) {
+    const nameSplit = name.split('.');
+    const filename = `volunteers/${volunteerId}.${nameSplit[1]}`;
     const file = this.storage.ref(filename);
     try {
       const result = file.put(fileObject);

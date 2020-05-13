@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'gatsby';
+import React, { useState, useContext } from 'react';
+import { Link, navigate } from 'gatsby';
 
 import SEO from '../components/seo';
+import { FirebaseContext } from '../components/Firebase';
 import ButtonSubmit from '../components/common/Button/buttonSubmit';
 
 import '../styles/global.scss';
@@ -13,6 +14,7 @@ import '../styles/global.scss';
  */
 
 const ContactVolunteer = () => {
+  const { firebase = null } = useContext(FirebaseContext) || {};
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
@@ -21,12 +23,9 @@ const ContactVolunteer = () => {
     message: '',
     discoverMethod: '',
   });
-  const [userIsClient, setUserIsClient] = useState(false);
+  const [resume, setResume] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
-  function handleUserClientSwitch(event) {
-    setUserIsClient(!userIsClient);
-  }
   function handleInputChange(event) {
     event.persist();
     setErrorMessage('');
@@ -34,6 +33,50 @@ const ContactVolunteer = () => {
       ...currentValues,
       [event.target.name]: event.target.value,
     }));
+  }
+
+  // handle file change
+  function handleFileChange(ev) {
+    ev.persist();
+    setResume(ev.target.files[0]);
+  }
+
+  async function handleSubmit(ev) {
+    ev.preventDefault();
+    let emailValues = {};
+    let filePath = '';
+    const { firstName, lastName } = formValues;
+
+    // loop through formValues
+    for (let [key, value] of Object.entries(formValues)) {
+      if (value.length !== 0) {
+        emailValues[key] = value;
+      }
+    }
+
+    emailValues['subject'] = 'Volunteer Opportunity';
+
+    if (resume !== null) {
+      const result = await firebase.uploadVolunteerResume({
+        name: resume.name,
+        fileObject: resume,
+        volunteerId: `${firstName}-${lastName}`,
+      });
+      filePath = result.metadata.fullPath;
+    }
+    try {
+      if (firebase) {
+        const result = await firebase.createVolunteerMessage({
+          emailValues,
+          filePath,
+        });
+        navigate('/successMessage', {
+          state: { name: firstName },
+        });
+      }
+    } catch (error) {
+      setErrorMessage(`createMessage frontend: ${error.message}`);
+    }
   }
 
   return (
@@ -48,47 +91,45 @@ const ContactVolunteer = () => {
           <div />
           <form
             id="contact-volunteer"
-            method="POST"
             className="form-component"
             name="contact-volunteer"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
-            action="/successMessage"
+            onSubmit={handleSubmit}
           >
             <h3>Your Info</h3>
-            <input type="hidden" name="bot-field" />
-            <input type="hidden" name="form-name" value="contact-volunteer" />
             <div className="two-input-row">
               <div className="form-input-row">
-                <label for="firstName">First Name</label>
+                <label htmlFor="firstName">First Name</label>
                 <input
                   type="text"
                   name="firstName"
                   value={formValues.firstName}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
               <div className="form-input-row">
-                <label for="lastName">Last Name</label>
+                <label htmlFor="lastName">Last Name</label>
                 <input
                   type="text"
                   name="lastName"
                   value={formValues.lastName}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>
             <div className="form-input-row">
-              <label for="email">Email</label>
+              <label htmlFor="email">Email</label>
               <input
                 type="text"
                 name="email"
                 value={formValues.email}
                 onChange={handleInputChange}
+                required
               />
             </div>
             <div className="form-input-row">
-              <label for="position">Position</label>
+              <label htmlFor="position">Position</label>
               <input
                 type="text"
                 name="position"
@@ -97,18 +138,19 @@ const ContactVolunteer = () => {
               />
             </div>
             <div className="form-input-row">
-              <label for="message">Message</label>
+              <label htmlFor="message">Message</label>
               <textarea
                 id="message"
                 name="message"
                 placeholder="Tell us a little about yourself"
                 value={formValues.message}
                 onChange={handleInputChange}
+                required
               />
             </div>
             <div className="form-input-row">
-              <label for="file-volunteer">Attach your resume</label>
-              <input type="file" name="file-volunteer" id="file-volunteer" />
+              <label htmlFor="resume">Attach your resume (pdf only)</label>
+              <input onChange={handleFileChange} type="file" name="resume" />
             </div>
             <div className="form-submit-row">
               <div />

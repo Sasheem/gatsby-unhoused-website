@@ -53,7 +53,7 @@ const CallToActions = () => (
             text="Aliquam placerat ligula eu turpis posuere, quis volutpat dolor sagittis. Morbi vehicula pharetra gravida. 
 				Nulla non eros diam. Fusce rutrum ligula justo, eu mattis justo hendrerit at."
             link="Join team"
-            destination="/"
+            destination="/contactVolunteer"
             fluid={dataCallThree}
           />
         </div>
