@@ -725,3 +725,93 @@ input:checked + .slider-help:before {
     padding-top: 5em;
 }
 // [END general pages 404, successDonation ]
+
+// [START faq styling]
+.faq-container {
+    display: grid;
+    grid-gap: 1em;
+    margin: 6em auto;
+    max-width: 1120px;
+
+    h1, h2, h3, h4, h5, h6, p {
+        text-align: left;
+    }
+
+    @media only screen and (min-width: 1080px) {
+        grid-template-columns: 0.5fr 1fr;
+    }
+}
+.faq-side-menu {
+    display: flex;
+    flex-direction: column;
+
+    @media only screen and (max-width: 1080px) {
+        display: grid;
+        grid-template-columns: 0.25fr 1fr 0.25fr;
+    }
+}
+.side-menu-content {
+    display: flex;
+    flex-direction: column;
+    a {
+        text-decoration: none;
+        color: #8c969b;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    li {
+        margin-top: 5px;
+    }
+    button {
+        border: none;
+        color: #8c969b;
+        font-size: 1em;
+        &:hover {
+            cursor: pointer;
+        }
+        &:active {
+            border: none;
+            background-color: inherit;
+        }
+    }
+}
+.faq-content-container {
+    display: grid;
+
+    @media only screen and (max-width: 1080px) {
+        grid-template-columns: 0.15fr 1fr 0.15fr;
+    }
+}
+.faq-content {
+    display: grid;
+    grid-gap: 1.5em;
+}
+.faq-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    p {
+        text-align: left;
+    }
+    a {
+        text-decoration: none;
+        color: $main-accent-color;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+.faq-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    cursor: pointer;
+    padding: 1;
+}
+// [END faq styling]
