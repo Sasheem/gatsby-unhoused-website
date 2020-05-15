@@ -74,7 +74,7 @@ const Comments = ({ firebase, storyId, user }) => {
 
   return (
     <section className="comments-section">
-      <h3>Message of encouragement</h3>
+      {comments.length !== 0 && <h3>Message of encouragement</h3>}
       {user && (
         <div>
           <h4>Leave a comment</h4>
