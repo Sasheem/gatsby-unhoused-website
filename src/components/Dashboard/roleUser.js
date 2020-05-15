@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 
+import { FirebaseContext } from '../Firebase';
 import UserMetrics from '../Dashboard/userMetrics';
 import ClientsFunded from '../Dashboard/clientsFunded';
 import Donations from '../Dashboard/donations';
@@ -9,10 +10,13 @@ import UpdateCreditCard from '../Stripe/updateCreditCard';
 import SavedCreditCards from '../Stripe/savedCreditCards';
 import BioForm from '../Dashboard/bioForm';
 import PasswordForm from '../Dashboard/passwordForm';
+import DeleteUserForm from './deleteUserForm';
 
 import 'react-tabs/style/react-tabs.css';
 
-const RoleUser = ({ firebase, user }) => {
+const RoleUser = ({ userProfile }) => {
+  const { firebase = null, user } = useContext(FirebaseContext) || {};
+
   return (
     <div className="dashboard-body">
       <div />
@@ -28,6 +32,7 @@ const RoleUser = ({ firebase, user }) => {
         <TabPanel>
           <div className="dashboard-panel">
             <div className="dashboard-item">
+              {/* <button onClick={writeToAuth}>Write settings to auth</button> */}
               <div className="dashboard-item-header">
                 <div>
                   <h3>Client Metrics</h3>
@@ -71,8 +76,16 @@ const RoleUser = ({ firebase, user }) => {
         <TabPanel>
           <div className="tab-content-container">
             <BioForm />
+            <div className="dashboard-item" style={{ paddingBottom: `3em` }}>
+              <DeleteUserForm
+                username={user.username}
+                customerId={userProfile.customerId}
+                email={userProfile.email}
+              />
+            </div>
           </div>
         </TabPanel>
+
         {/* User Password Panel */}
         <TabPanel>
           <div className="tab-content-container">

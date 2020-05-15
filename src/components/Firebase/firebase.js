@@ -550,9 +550,9 @@ class Firebase {
   }
 
   // [START delete a user]
-  deleteUser({ username }) {
+  async deleteUser({ username, customerId, email }) {
     const deleteUserCallable = this.functions.httpsCallable('deleteUser');
-    return deleteUserCallable({ username });
+    return deleteUserCallable({ username, customerId, email });
   }
   // [END delete a user]
 

@@ -23,7 +23,7 @@ const Header = ({ menuClickHandler, hideBackdrop }) => {
     return () => {
       isMounted = false;
     };
-  }, [user]);
+  }, [firebase, user]);
 
   function handleLogoutClick() {
     firebase.logout().then(() => navigate('/login'));

@@ -62,7 +62,7 @@ const Dashboard = ({ location }) => {
         <div className="dashboard-component">
           <div className="dashboard-head">
             <div />
-            {user && userProfile && downloadURL && (
+            {user && userProfile && (
               <CardUser
                 userProfile={userProfile}
                 downloadURL={downloadURL}
@@ -74,12 +74,14 @@ const Dashboard = ({ location }) => {
           {user && !!user.isAdmin && (
             <RoleAdmin firebase={firebase} user={user} />
           )}
-          {user && !user.isAdmin && (
+          {user && !user.isAdmin && userProfile && (
             <RoleUser
               firebase={firebase}
               user={user}
               userProfile={
-                location.state.userProfile ? location.state.userProfile : null
+                location.state.userProfile
+                  ? location.state.userProfile
+                  : userProfile
               }
             />
           )}

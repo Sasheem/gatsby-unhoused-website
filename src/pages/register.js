@@ -15,6 +15,7 @@ import '../styles/global.scss';
 const Register = () => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const [errorMessage, setErrorMessage] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
   let isMounted = true;
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const Register = () => {
     } = ev.target;
 
     if (password.value === confirmPassword.value) {
+      setIsProcessing(true);
       firebase
         .register({
           username: username.value,
@@ -42,11 +44,13 @@ const Register = () => {
           password: password.value,
           name: `${firstName.value} ${lastName.value}`,
         })
-        .then(() => navigate('/dashboard'))
+        .then(() => {
+          setIsProcessing(false);
+          navigate('/dashboard');
+        })
         .catch(error => {
-          if (isMounted) {
-            setErrorMessage(error.message);
-          }
+          setIsProcessing(false);
+          setErrorMessage(error.message);
         });
     } else {
       setErrorMessage('Password and Confirm Password fields must match.');
@@ -131,7 +135,9 @@ const Register = () => {
             </div>
             <div className="form-submit-row">
               <div />
-              <ButtonSubmit value="Register" />
+              <ButtonSubmit
+                value={isProcessing ? 'Processing...' : 'Register'}
+              />
               <div />
             </div>
             {!!errorMessage && (
