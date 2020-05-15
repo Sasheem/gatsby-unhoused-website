@@ -15,10 +15,8 @@ const StoryHead = ({
   status,
   familySize,
   imageUrl,
-  dateFundingBegan,
-  dateHoused,
+  date,
 }) => {
-  const dateToShow = status === 'Housed' ? dateHoused : dateFundingBegan;
   const fullyFund = (goal - raised).toString();
   return (
     <div className="story-head">
@@ -51,7 +49,7 @@ const StoryHead = ({
             </div>
             <div className="info-metric">
               <h4>{status === 'Housed' ? 'Date Housed' : 'Funding Began'}</h4>
-              <p>{dateToShow}</p>
+              <p>{date}</p>
             </div>
           </div>
           <div className="info-column">

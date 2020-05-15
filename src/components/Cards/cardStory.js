@@ -16,11 +16,15 @@ const CardStory = ({ key, client }) => {
     dateHoused,
     dateFundingBegan,
   } = client;
-  const date = client.status === 'Housed' ? dateHoused : dateFundingBegan;
+  const date = status === 'Housed' ? dateHoused : dateFundingBegan;
   return (
     <Link
       to={`/story/${firstName}-${lastName}`}
-      state={{ raised, status, dateHoused }}
+      state={{
+        raised,
+        status,
+        date: moment(date.toDate()).format('l'),
+      }}
     >
       <div className="card-featured-container">
         <div className="card-header">

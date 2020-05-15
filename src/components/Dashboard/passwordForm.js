@@ -28,6 +28,7 @@ const PasswordForm = () => {
           })
           .catch(error => {
             setIsProcessing(false);
+            formRef.current.reset();
             setErrorMessage(`updateUser frontend: ${error.message}`);
           });
       } else {

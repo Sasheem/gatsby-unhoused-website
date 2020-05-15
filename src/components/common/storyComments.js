@@ -46,7 +46,7 @@ const CommentListItem = styled.div`
  * @param {firebase} param0 - firebase context
  * @param {storyId} param1 - the id of client FirstName-LastName
  */
-export const StoryComments = ({ firebase, storyId }) => {
+export const StoryComments = ({ firebase, storyId, user }) => {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   console.log(`storyId: ${storyId}`);
@@ -102,11 +102,16 @@ export const StoryComments = ({ firebase, storyId }) => {
 
   return (
     <CommentSection>
-      <h2>Leave a comment</h2>
-      <CommentForm onSubmit={handlePostCommentSubmit}>
-        <Input value={commentText} onChange={handleInputChange} />
-        <Button type="submit">Post comment</Button>
-      </CommentForm>
+      <h3>Words of encouragement</h3>
+      {user && (
+        <div>
+          <h4>Leave a comment</h4>
+          <CommentForm onSubmit={handlePostCommentSubmit}>
+            <Input value={commentText} onChange={handleInputChange} />
+            <Button type="submit">Post comment</Button>
+          </CommentForm>
+        </div>
+      )}
       {comments.map(comment => (
         <CommentListItem key={comment.id}>
           <strong>

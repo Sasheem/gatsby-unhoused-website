@@ -6,6 +6,7 @@ import SEO from '../components/seo';
 import StoryHead from '../components/Story/storyHead';
 import StoryBody from '../components/Story/storyBody';
 import { StoryComments } from '../components/common';
+import Comments from '../components/common/Comments/comments';
 
 import '../styles/global.scss';
 import './templates.scss';
@@ -15,8 +16,8 @@ import './templates.scss';
  * * could just set it up within StoryComments
  */
 
-const StoryTemplate = ({ pageContext }) => {
-  const { firebase = null } = useContext(FirebaseContext) || {};
+const StoryTemplate = ({ pageContext, location }) => {
+  const { firebase = null, user } = useContext(FirebaseContext) || {};
   const {
     id,
     firstName,
@@ -32,29 +33,54 @@ const StoryTemplate = ({ pageContext }) => {
     questions,
     answers,
   } = pageContext;
-  console.log(`type of dateHoused: ${typeof dateHoused} - ${dateHoused}`);
+  const date = status === 'Housed' ? dateHoused : dateFundingBegan;
+
   return (
     <div className="page-content-container">
       <SEO title={`${firstName}'s Story`} />
       <div className="story-template">
-        <StoryHead
-          clientId={id}
-          firstName={firstName}
-          lastName={lastName}
-          goal={goal}
-          raised={raised}
-          status={status}
-          familySize={familySize}
-          imageUrl={imageUrl}
-          dateHoused={moment(dateHoused).format('l')}
-          dateFundingBegan={moment(dateFundingBegan).format('l')}
-        />
+        {location &&
+        location.state &&
+        location.state.raised &&
+        location.state.status &&
+        location.state.date ? (
+          <StoryHead
+            clientId={id}
+            firstName={firstName}
+            lastName={lastName}
+            goal={goal}
+            raised={location.state.raised}
+            status={location.state.status}
+            familySize={familySize}
+            imageUrl={imageUrl}
+            date={location.state.date}
+          />
+        ) : (
+          <StoryHead
+            clientId={id}
+            firstName={firstName}
+            lastName={lastName}
+            goal={goal}
+            raised={raised}
+            status={status}
+            familySize={familySize}
+            imageUrl={imageUrl}
+            date={date}
+          />
+        )}
+
         <StoryBody
           situation={situation}
           questions={questions}
           answers={answers}
         />
-        {firebase && <StoryComments firebase={firebase} storyId={id} />}
+        {firebase && (
+          <Comments
+            firebase={firebase}
+            storyId={`${firstName}-${lastName}`}
+            user={user}
+          />
+        )}
       </div>
     </div>
   );

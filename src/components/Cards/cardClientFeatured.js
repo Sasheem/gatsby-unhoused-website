@@ -25,11 +25,12 @@ const CardClientFeatured = ({ client }) => {
     dateFundingBegan,
   } = client;
   const fullyFund = (goal - raised).toString();
+  const date = status === 'Housed' ? dateHoused : dateFundingBegan;
   return (
     <div className="card-featured-container">
       <Link
         to={`/story/${firstName}-${lastName}`}
-        state={{ raised, status, dateHoused }}
+        state={{ raised, status, date: moment(date.toDate()).format('l') }}
       >
         <div className="card-header">
           <img
