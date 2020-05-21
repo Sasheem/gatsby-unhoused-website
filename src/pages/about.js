@@ -30,8 +30,8 @@ const AboutPage = () => (
               We are on a mission to house those experiencing homelessness
             </h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Vestibulum imperdiet pharetra consectetur.
+              We all fall down sometimes. It is our duty as human beings to
+              extend our hands and help each other back up.
             </p>
           </div>
           <div />

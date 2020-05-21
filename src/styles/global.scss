@@ -55,12 +55,20 @@ p, a, label {
     font-family: 'open sans', sans-serif;
 }
 ul {
-    list-style-type: none;
+    list-style-type: circle;
 }
 a {
     text-shadow: none;
     text-decoration: none;
     background-image: none;
+}
+.light-text {
+    color: $color-light;
+    margin: 2em auto;
+
+    a {
+        color: $main-accent-color;
+    }
 }
 .page-link  {
 	color: $main-accent-color;;
@@ -815,3 +823,28 @@ input:checked + .slider-help:before {
     padding: 1;
 }
 // [END faq styling]
+
+// [START resource page styling]
+.resource-container {
+    display: flex;
+    flex-direction: column;
+    
+    ul {
+        padding: 0;
+        display: grid;
+        grid-gap: 1.25em;
+    }
+    // li {
+  
+    // }
+    p, a {
+        text-align: left;
+    }
+    a {
+        text-decoration: none;
+    }
+    a:hover, a:active {
+        color: $main-accent-color;
+    }
+}
+// [END resource page styling]
