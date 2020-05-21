@@ -55,7 +55,7 @@ p, a, label {
     font-family: 'open sans', sans-serif;
 }
 ul {
-    list-style-type: circle;
+    list-style-type: none;
 }
 a {
     text-shadow: none;
@@ -834,9 +834,6 @@ input:checked + .slider-help:before {
         display: grid;
         grid-gap: 1.25em;
     }
-    // li {
-  
-    // }
     p, a {
         text-align: left;
     }
