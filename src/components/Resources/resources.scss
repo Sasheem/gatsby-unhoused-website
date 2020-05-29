@@ -4,18 +4,28 @@
     display: grid;
     grid-gap: 0.25em;
     align-items: start;
+    p { text-align: left; }
 }
 .resource-title {
     font-size: 1.1em;
     color: $main-color;
+    font-weight: 600;
+
+    &:hover {
+        color: $main-accent-color;
+    }
 }
 .resource-detail {
     color: $sub-color;
-}
-.resource-row {
-    display: grid;
-    grid-template-columns: 0.15fr 1.5fr;
+    &:hover {
+        color: $sub-color-monochromatic;
+    }
 }
 .resource-icon {
     align-self: center;
+}
+.resource-scroll-anchor {
+    position: relative;
+    bottom: 100px;
+    height: 10px;
 }

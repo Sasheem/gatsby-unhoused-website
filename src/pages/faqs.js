@@ -21,24 +21,24 @@ const FAQs = () => {
               <p className="faq-title">What Is Homelessness?</p>
               <ul>
                 <li>
-                  <button onClick={() => scrollTo('#homeless-types')}>
+                  <span onClick={() => scrollTo('#homeless-types')}>
                     Unsheltered
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#homeless-types')}>
+                  <span onClick={() => scrollTo('#homeless-types')}>
                     Sheltered
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#homeless-types')}>
+                  <span onClick={() => scrollTo('#homeless-types')}>
                     Doubled Up
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#homeless-types')}>
+                  <span onClick={() => scrollTo('#homeless-types')}>
                     Couch Surfing
-                  </button>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -47,29 +47,29 @@ const FAQs = () => {
               <p className="faq-title">What Causes Homelessness?</p>
               <ul>
                 <li>
-                  <button onClick={() => scrollTo('#housing-out-of-reach')}>
+                  <span onClick={() => scrollTo('#housing-out-of-reach')}>
                     Housing Out of Reach
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#income-affordability')}>
+                  <span onClick={() => scrollTo('#income-affordability')}>
                     Income Affordability
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#homelessness-health')}>
+                  <span onClick={() => scrollTo('#homelessness-health')}>
                     Homelessness &amp; Health
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#domestic-violence')}>
+                  <span onClick={() => scrollTo('#domestic-violence')}>
                     Domestic Violence
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#racial-inequality')}>
+                  <span onClick={() => scrollTo('#racial-inequality')}>
                     Racial Inequality
-                  </button>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -77,29 +77,27 @@ const FAQs = () => {
               <p className="faq-title">Who Experiences Homelessness?</p>
               <ul>
                 <li>
-                  <button onClick={() => scrollTo('#single-adults')}>
+                  <span onClick={() => scrollTo('#single-adults')}>
                     Single Adults
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#children-families')}>
+                  <span onClick={() => scrollTo('#children-families')}>
                     Children &amp; Families
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#veterans')}>
-                    Veterans
-                  </button>
+                  <span onClick={() => scrollTo('#veterans')}>Veterans</span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#chronically-homeless')}>
+                  <span onClick={() => scrollTo('#chronically-homeless')}>
                     Chronically Homeless
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#youth-young-adults')}>
+                  <span onClick={() => scrollTo('#youth-young-adults')}>
                     Youth &amp; Young Adults
-                  </button>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -107,34 +105,32 @@ const FAQs = () => {
               <p className="faq-title">Some Solutions</p>
               <ul>
                 <li>
-                  <button
-                    onClick={() => scrollTo('#creating-systems-that-work')}
-                  >
+                  <span onClick={() => scrollTo('#creating-systems-that-work')}>
                     A Coordinated Approach
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#rapid-rehousing')}>
+                  <span onClick={() => scrollTo('#rapid-rehousing')}>
                     Rapid Re-Housing
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button
+                  <span
                     onClick={() => scrollTo('#permanent-supportive-housing')}
                   >
                     Permanent Supportive Housing
-                  </button>
+                  </span>
                 </li>
 
                 <li>
-                  <button onClick={() => scrollTo('#crisis-response')}>
+                  <span onClick={() => scrollTo('#crisis-response')}>
                     Crisis Response
-                  </button>
+                  </span>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo('#income-opportunities')}>
+                  <span onClick={() => scrollTo('#income-opportunities')}>
                     Income Opportunities
-                  </button>
+                  </span>
                 </li>
               </ul>
             </div>

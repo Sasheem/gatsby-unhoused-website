@@ -55,6 +55,9 @@ const Footer = () => (
                   <li>
                     <Link to="/faqs">FAQs</Link>
                   </li>
+                  <li>
+                    <Link to="/resources">Resources</Link>
+                  </li>
                 </ul>
               </div>
               <div className="footer-navbar-items">
