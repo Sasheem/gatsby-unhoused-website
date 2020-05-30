@@ -122,7 +122,7 @@ const ResourceContent = () => {
           <ResourceItem
             resource="making-miracles-group-home"
             title="Making Miracles Group Home"
-            description="Faith-based transiƟonal group home for pregnant young women and teens."
+            description="Faith-based transitional group home for pregnant young women and teens."
             webLink="https://www.makingmiraclesgrouphome.org/"
             addressLink=""
             address=""

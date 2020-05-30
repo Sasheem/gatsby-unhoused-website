@@ -31,31 +31,45 @@ const ResourceItem = ({
         </a>
         <p>{description}</p>
         {subtitleOne && <h5>{subtitleOne}</h5>}
-        <a href={addressLink} target="_blank" className="resource-detail">
-          {address}
-        </a>
-        <a href={phoneLink} className="resource-detail">
-          {phone}
-        </a>
+        <p>
+          <a href={addressLink} target="_blank" className="resource-detail">
+            {address}
+          </a>
+        </p>
+        <p>
+          <a href={phoneLink} className="resource-detail">
+            {phone}
+          </a>
+        </p>
         {subtitleTwo && <h5>{subtitleTwo}</h5>}
         {email && (
-          <a
-            href="mailto:info@goodsamaritanchapel.org"
-            target="_blank"
-            className="resource-detail"
-          >
-            {email}
-          </a>
+          <p>
+            <a
+              href="mailto:info@goodsamaritanchapel.org"
+              target="_blank"
+              className="resource-detail"
+            >
+              {email}
+            </a>
+          </p>
         )}
         {addressTwo && addressLinkTwo && (
-          <a href={addressLinkTwo} target="_blank" className="resource-detail">
-            {addressTwo}
-          </a>
+          <p>
+            <a
+              href={addressLinkTwo}
+              target="_blank"
+              className="resource-detail"
+            >
+              {addressTwo}
+            </a>
+          </p>
         )}
         {phoneLink && phoneLinkTwo && (
-          <a href={phoneLinkTwo} className="resource-detail">
-            {phoneTwo}
-          </a>
+          <p>
+            <a href={phoneLinkTwo} className="resource-detail">
+              {phoneTwo}
+            </a>
+          </p>
         )}
       </div>
     </div>

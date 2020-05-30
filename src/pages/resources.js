@@ -3,9 +3,10 @@ import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import ArrowIcon from '../assets/chevron-up-solid.svg';
 import SEO from '../components/seo';
-import ResourceItem from '../components/Resources/resourceItem';
 import ResourceSideMenu from '../components/Resources/resourceSideMenu';
 import ResourceContent from '../components/Resources/resourceContent';
+
+import '../components/Resources/resources.scss';
 
 import '../components/common/Metrics/metrics.scss';
 
@@ -14,9 +15,40 @@ const Resources = () => {
     scrollTo('#top-of-faq-page');
   };
   return (
-    <div id="top-of-faq-page" style={{ marginTop: `6em` }}>
+    <div id="top-of-faq-page" style={{ marginTop: `10em` }}>
       <SEO title="Resources for Homeless" />
-      <h1>Unhoused Humanity Resources</h1>
+      <div className="faq-header">
+        <div className="faq-header-info">
+          <h1>
+            <a href="http://bigbendcoc.org/" target="_blank">
+              Big Bend Continuum of Care
+            </a>
+          </h1>
+        </div>
+        <div className="faq-header-spacing" />
+        <div className="faq-header-details">
+          <p>
+            For 24‐Hour Counseling, Suicide Prevention, Community Information,
+            and Referrals, contact 2‐1‐1 Big Bend Helpline Dial “211,”{' '}
+            <a href="tel:850-617-6333" className="resource-detail">
+              850‐617‐NEED (6333)
+            </a>
+            , or{' '}
+            <a href="tel:850-921-4020" className="resource-detail">
+              850‐921‐4020
+            </a>{' '}
+            TTY
+          </p>
+          <p>
+            If you are in an emotional crisis, you can also <br />
+            call{' '}
+            <a href="tel:1-800-273-8255" className="resource-detail">
+              1‐800‐273‐TALK (8255)
+            </a>{' '}
+          </p>
+        </div>
+      </div>
+
       <div className="faq-container">
         <div className="faq-side-menu">
           <div />

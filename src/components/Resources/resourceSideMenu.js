@@ -8,7 +8,7 @@ import '../common/Metrics/metrics.scss';
 const ResourceSideMenu = () => {
   return (
     <div className="side-menu-content">
-      <h2>Unhoused Resources</h2>
+      <h2>Resources</h2>
       {/* Emergency Shelters */}
       <div className="question-div">
         <h4>Emergency Shelters</h4>
