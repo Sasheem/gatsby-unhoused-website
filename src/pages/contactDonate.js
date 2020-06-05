@@ -43,12 +43,6 @@ const ContactDonate = ({ location }) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  useEffect(() => {
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
   // fetch clients to be featured
   useEffect(() => {
     if (firebase) {
@@ -72,6 +66,10 @@ const ContactDonate = ({ location }) => {
     if (location.state.hasOwnProperty(`clientId`) && clients.length !== 0) {
       handleClientSet(location.state.clientId);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [firebase]);
 
   // grab the client data from firebase whenever client selection occurs
@@ -220,77 +218,70 @@ const ContactDonate = ({ location }) => {
     // success: createDonation and update client
     // two cases: user logged in or guest
     let tempFundedBy = [];
+    let tempClientObj = null;
 
     // map over clients to match to one being funded
     clients.map(clientObj => {
       // if this is the matched client
       if (clientObj.id === client.value) {
-        // check if user auth
-        if (user) {
-          // check for any previous fundedBy
-          if (clientObj.fundedBy) {
-            clientObj.fundedBy.map(username => {
-              tempFundedBy.push(username);
-            });
-            tempFundedBy.push(user.username);
-          }
-
-          try {
-            const updateUserDonationResult = firebase.updateClientWithUserDonation(
-              {
-                amount: parseInt(amount.value),
-                fundedBy:
-                  tempFundedBy.length === 0 ? [user.username] : tempFundedBy,
-                clientId: client.value,
-                raised: clientObj.raised,
-              }
-            );
-            console.log(
-              `updateUserDonationResult: ${typeof updateUserDonationResult}`
-            );
-            console.dir(updateUserDonationResult);
-          } catch (error) {
-            setErrorMessage(error.message);
-            setProcessingTo(false);
-          }
-        } else {
-          try {
-            const updateGuestDonationResult = firebase.updateClientWithGuestDonation(
-              {
-                amount: parseInt(amount.value),
-                raised: clientObj.raised,
-                clientId: client.value,
-              }
-            );
-            console.log(
-              `updateGuestDonationResult: ${typeof updateGuestDonationResult}`
-            );
-            console.dir(updateGuestDonationResult);
-          } catch (error) {
-            setErrorMessage(error.message);
-            setProcessingTo(false);
-          }
-        }
+        tempClientObj = clientObj;
       }
     });
 
-    try {
-      firebase.createDonation({
-        amount: parseInt(amount.value),
-        clientId: client.value,
-        paymentIntentId,
-        donorEmail: email.value,
-        message: message.value,
-        username: user ? user.username : '',
-        familySize: clientData.familySize,
-      });
-    } catch (error) {
-      console.log(`error creating donation object: ${error.message}`);
-      setErrorMessage(error.message);
-    }
+    // check if user auth
+    if (user) {
+      // check for any previous fundedBy
+      if (tempClientObj.hasOwnProperty('fundedBy')) {
+        tempClientObj.fundedBy.map(username => {
+          tempFundedBy.push(username);
+        });
+        tempFundedBy.push(user.username);
+      } else {
+        tempFundedBy.push(user.username);
+      }
 
-    setProcessingTo(false);
-    navigate('/successDonation');
+      firebase
+        .updateClientWithUserDonation({
+          amount: parseInt(amount.value),
+          fundedBy: tempFundedBy,
+          clientId: client.value,
+          raised: parseInt(tempClientObj.raised),
+          paymentIntentId,
+          donorEmail: email.value,
+          message: message.value,
+          username: user ? user.username : '',
+          familySize: clientData.familySize,
+          segmentId: clientData.segmentId,
+        })
+        .then(result => {
+          console.log(`result:`);
+          console.dir(result);
+          setProcessingTo(false);
+          navigate('/successDonation');
+        })
+        .catch(error => {
+          setErrorMessage(error.message);
+          setProcessingTo(false);
+        });
+    } else {
+      try {
+        firebase.updateClientWithGuestDonation({
+          amount: parseInt(amount.value),
+          raised: tempClientObj.raised,
+          clientId: client.value,
+          paymentIntentId,
+          donorEmail: email.value,
+          message: message.value,
+          familySize: clientData.familySize,
+          segmentId: clientData.segmentId,
+        });
+        setProcessingTo(false);
+        navigate('/successDonation');
+      } catch (error) {
+        setErrorMessage(error.message);
+        setProcessingTo(false);
+      }
+    }
   };
 
   // TIP

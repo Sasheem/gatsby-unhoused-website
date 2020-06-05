@@ -1,7 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link, navigate } from 'gatsby';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import moment from 'moment';
 
 import SEO from '../components/seo';
 import { FirebaseContext } from '../components/Firebase';

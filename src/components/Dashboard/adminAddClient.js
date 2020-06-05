@@ -26,7 +26,7 @@ const AdminAddClient = () => {
     question1:
       'Where did you grow up and what did you like about your home town?',
     question2:
-      'Do you have any brothers or sisters? If so, tell us about them.',
+      'Do you have any brothers, sisters or children? If so, tell us about them.',
     question3:
       'Do you have any goals you would like to achieve in the short term, long term, or both?',
     question4:

@@ -190,6 +190,7 @@ class Firebase {
     message,
     username,
     familySize,
+    segmentId,
   }) {
     const createDonationCallable = this.functions.httpsCallable(
       'createDonation'
@@ -202,12 +203,24 @@ class Firebase {
       message,
       username,
       familySize,
+      segmentId,
     });
   }
   // [END create a donation object]
 
   // [START update client after a donation]
-  updateClientWithUserDonation({ amount, fundedBy, clientId, raised }) {
+  updateClientWithUserDonation({
+    amount,
+    fundedBy,
+    clientId,
+    raised,
+    paymentIntentId,
+    donorEmail,
+    message,
+    username,
+    familySize,
+    segmentId,
+  }) {
     const updateClientWithUserDonationCallable = this.functions.httpsCallable(
       'updateClientWithUserDonation'
     );
@@ -216,12 +229,27 @@ class Firebase {
       fundedBy,
       clientId,
       raised,
+      paymentIntentId,
+      donorEmail,
+      message,
+      username,
+      familySize,
+      segmentId,
     });
   }
   // [END update client after a donation]
 
   // [START update client after un-auth donation]
-  updateClientWithGuestDonation({ amount, raised, clientId }) {
+  updateClientWithGuestDonation({
+    amount,
+    raised,
+    clientId,
+    paymentIntentId,
+    donorEmail,
+    message,
+    familySize,
+    segmentId,
+  }) {
     const updateClientWithGuestDonationCallable = this.functions.httpsCallable(
       'updateClientWithGuestDonation'
     );
@@ -229,6 +257,11 @@ class Firebase {
       amount,
       raised,
       clientId,
+      paymentIntentId,
+      donorEmail,
+      message,
+      familySize,
+      segmentId,
     });
   }
   // [END update client after un-auth donation]
