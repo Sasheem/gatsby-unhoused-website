@@ -445,13 +445,23 @@ class Firebase {
   }
   // [END create a partner object]
 
-  // [START add email to mailchimp list]
-  async subscribeEmailToLists({ email }) {
-    const subscribeEmailToListsCallable = this.functions.httpsCallable(
-      'subscribeEmailToLists'
+  // [START subscribe guest to mailchimp list]
+  async subscribeGuestToList({ email, name }) {
+    const subscribeGuestToListCallable = this.functions.httpsCallable(
+      'subscribeGuestToList'
     );
-    console.log(`subscribeEmailToLists firebase: ${email}`);
-    return await subscribeEmailToListsCallable({ email });
+
+    return await subscribeGuestToListCallable({ email, name });
+  }
+  // [END subscribe guest to mailchimp list]
+
+  // [START add email to mailchimp list]
+  async subscribeEmailToList({ email }) {
+    const subscribeEmailToListCallable = this.functions.httpsCallable(
+      'subscribeEmailToList'
+    );
+
+    return await subscribeEmailToListCallable({ email });
   }
   // [END add email to mailchimp list]
 
@@ -459,7 +469,7 @@ class Firebase {
     const checkListForEmailCallable = this.functions.httpsCallable(
       'checkListForEmail'
     );
-    console.log(`checkLisrForEmail firebase ${email}`);
+    console.log(`checkListForEmail firebase ${email}`);
     return checkListForEmailCallable({ email });
   }
 

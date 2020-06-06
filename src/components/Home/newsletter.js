@@ -38,7 +38,7 @@ const Newsletter = () => {
 
       if (status === 404) {
         await firebase
-          .subscribeEmailToLists({
+          .subscribeEmailToList({
             email,
           })
           .then(() => {

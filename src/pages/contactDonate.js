@@ -265,9 +265,20 @@ const ContactDonate = ({ location }) => {
         });
     } else {
       try {
+        // check if email is subscribed to mailchimp
+        firebase.checkListForEmail({ email: email.value }).then(result => {
+          // add donor email to mailchimp list
+          if (result.data.status === 404) {
+            firebase.subscribeGuestToList({
+              email: email.value,
+              name: name.value,
+            });
+          }
+        });
+
         firebase.updateClientWithGuestDonation({
           amount: parseInt(amount.value),
-          raised: tempClientObj.raised,
+          raised: parseInt(tempClientObj.raised),
           clientId: client.value,
           paymentIntentId,
           donorEmail: email.value,

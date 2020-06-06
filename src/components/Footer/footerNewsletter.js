@@ -37,7 +37,7 @@ const FooterNewsletter = () => {
 
       if (status === 404) {
         await firebase
-          .subscribeEmailToLists({
+          .subscribeEmailToList({
             email,
           })
           .then(() => {
