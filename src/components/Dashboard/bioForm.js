@@ -90,14 +90,15 @@ const BioForm = () => {
           fileObject: profileImage,
           username: user.username,
         });
-        // imagePath = result.location_.path_;
+        console.dir(result);
+        imagePath = result.location_.path_;
+        temp['imagePath'] = result.location_.path_;
       }
 
       firebase
         .writeUserSettings({
           username: user.username,
           settings: temp,
-          // imagePath,
         })
         .then(() => {
           if (isMounted) {
@@ -147,6 +148,20 @@ const BioForm = () => {
   return (
     <form className="dashboard-item" onSubmit={handleSubmit}>
       <h3>Update Profile</h3>
+      <div className="form-input-row">
+        <label for="profileImage">
+          Profile picture <small>(less than 10MB)</small>
+        </label>
+
+        <input
+          onChange={e => {
+            e.persist();
+            setProfileImage(e.target.files[0]);
+          }}
+          type="file"
+          name="profileImage"
+        />
+      </div>
       <div className="two-input-row">
         <div className="form-input-row">
           <label for="firstName">First Name</label>

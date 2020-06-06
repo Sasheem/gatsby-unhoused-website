@@ -51,6 +51,7 @@ const EditClientForm = ({ client, closeModal }) => {
     let temp = {};
     let tempQuestions = clientQuestions;
     let tempAnswers = clientAnswers;
+    let imagePath = '';
 
     if (
       dateFundingBegan.getTime() !== client.dateFundingBegan.toDate().getTime()
@@ -96,8 +97,18 @@ const EditClientForm = ({ client, closeModal }) => {
       }
     }
 
+    setProcessingTo(true);
+    if (clientImage !== null) {
+      const result = firebase.uploadClientImage({
+        fileObject: clientImage,
+        clientId: `${client.firstName}-${client.lastName}`,
+      });
+      console.dir(result);
+      temp['imagePath'] = result.location_.path_;
+      // imagePath = result.metadata.fullPath;
+    }
+
     if (firebase) {
-      setProcessingTo(true);
       console.log(`running updateClientFromAdmin`);
       firebase
         .updateClientFromAdmin({
