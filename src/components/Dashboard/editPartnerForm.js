@@ -38,6 +38,7 @@ const EditPartnerForm = ({ partner, closeModal }) => {
   function handleSubmit(ev) {
     ev.preventDefault();
     let temp = {};
+
     setProcessingTo(true);
     // check all values on formValues for any changes
     // set those on temp if they exist
@@ -49,6 +50,15 @@ const EditPartnerForm = ({ partner, closeModal }) => {
       } else {
         temp[key] = value;
       }
+    }
+
+    if (partnerImage !== null) {
+      const result = firebase.uploadPartnerImage({
+        fileObject: partnerImage,
+        name: partner.name,
+      });
+      console.dir(result);
+      temp['imagePath'] = result.location_.path_;
     }
 
     if (firebase) {
@@ -116,6 +126,12 @@ const EditPartnerForm = ({ partner, closeModal }) => {
         />
         <div />
       </div>
+      {!!success && (
+        <div className="success-message">Client successfully updated</div>
+      )}
+      {!!errorMessage && (
+        <div className="error-message">ERROR: {errorMessage}</div>
+      )}
     </form>
   );
 };
