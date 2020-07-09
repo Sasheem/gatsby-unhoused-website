@@ -128,6 +128,20 @@ class Firebase {
   }
   // [END create payment intent]
 
+  // [START confirm a payment intent]
+  confirmPaymentIntent({ intentId, paymentMethodId, isSavingCard }) {
+    const confirmPaymentIntentCallable = this.functions.httpsCallable(
+      'confirmPaymentIntent'
+    );
+
+    return confirmPaymentIntentCallable({
+      intentId,
+      paymentMethodId,
+      isSavingCard,
+    });
+  }
+  // [END confirm a payment intent]
+
   // [START create a SetupIntent for user]
   createSetupIntent({ customerId, paymentMethodId }) {
     const createSetupIntentCallable = this.functions.httpsCallable(
@@ -141,15 +155,15 @@ class Firebase {
   // [END create a SetupIntent for user]
 
   // [START auth create payment intent]
-  createAuthPaymentIntent({ amount, email, name, username }) {
+  createAuthPaymentIntent({ amount, customer, email, paymentMethodId }) {
     const createAuthPaymentIntentCallable = this.functions.httpsCallable(
       'createAuthPaymentIntent'
     );
     return createAuthPaymentIntentCallable({
       amount,
+      customer,
       email,
-      name,
-      username,
+      paymentMethodId,
     });
   }
   // [END auth create payment intent]

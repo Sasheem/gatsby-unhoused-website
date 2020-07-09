@@ -2,15 +2,17 @@ import React, { useState, useContext, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Link, navigate } from 'gatsby';
 import styled from 'styled-components';
+import Modal from 'react-modal';
 
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
 import { Button, FormSection } from '../components/common';
+import PreviewDonation from '../components/Donations/previewDonation';
 
 import '../styles/global.scss';
 
 /**
- * todo Frontend: break code up into smaller chunks
+ * todo Frontend: handle cases if user backs from modal view
  */
 
 const CardElementContainer = styled.div`
@@ -26,8 +28,38 @@ const CardElementContainer = styled.div`
   }
 `;
 
+const customStyles = {
+  content: {
+    top: '53%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    height: '600px',
+    overflow: 'scroll',
+  },
+};
+
+// Bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+Modal.setAppElement('#___gatsby');
+
 const ContactDonate = ({ location }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
+  const [formValues, setFormValues] = useState({
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    line1: '',
+    city: '',
+    state: '',
+    zip: '',
+    amount: '',
+    client: '',
+    message: '',
+  });
   const [clients, setClients] = useState([]);
   const [isProcessing, setProcessingTo] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -36,9 +68,27 @@ const ContactDonate = ({ location }) => {
   const [fullyFund, setFullyFund] = useState(null);
   const [clientSelected, setClientSelected] = useState(null);
   const [clientData, setClientData] = useState(null);
+  const [donationAmount, setDonationAmount] = useState(null);
   const [wallet, setWallet] = useState(null);
   const [selectedPayment, setSelectedPayment] = useState('');
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [statePaymentMethod, setStatePaymentMethod] = useState(null);
+
   let isMounted = true;
+
+  var subtitle;
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = 'black';
+  }
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   const stripe = useStripe();
   const elements = useElements();
@@ -102,12 +152,17 @@ const ContactDonate = ({ location }) => {
     }
   }, [user]);
 
+  /**
+   * * 1 create payment method with stripe
+   * * 2 show modal with form data + payment method
+   * * 3 pass in necessary functions to submit payment to modal
+   */
   const handleFormSubmit = async ev => {
     ev.preventDefault();
     const {
       name,
       email,
-      address,
+      line1,
       city,
       state,
       zip,
@@ -118,181 +173,61 @@ const ContactDonate = ({ location }) => {
       password,
       confirmPassword,
     } = ev.target;
-    const billingDetails = {
-      name: name.value,
-      email: email.value,
-      address: {
-        city: city.value,
-        line1: address.value,
-        state: state.value,
-        postal_code: zip.value,
-      },
-    };
-    let clientSecret = '';
-    let paymentIntentId = '';
-    let stripeAmount = 100 * parseInt(amount.value);
+
+    if (formValues.password !== formValues.confirmPassword) {
+      setErrorMessage('Error: Passwords do not match');
+      return;
+    }
 
     setProcessingTo(true);
 
-    // check if user wants to create an account
-    if (registerDonor) {
-      if (password.value === confirmPassword.value) {
-        try {
-          const registerResult = await firebase.register({
-            username: username.value,
-            email: email.value,
-            password: password.value,
-            name: name.value,
-          });
-          console.dir(registerResult);
-        } catch (error) {
-          setErrorMessage(error.message);
-        }
-      } else {
-        setErrorMessage('Error: Passwords do not match');
+    if (!stripe || !elements) {
+      // Stripe.js has not loaded yet. Make sure to disable
+      // form submission until Stripe.js has loaded.
+      return;
+    }
+
+    if (selectedPayment === '') {
+      const billingDetails = {
+        name: name.value,
+        email: email.value,
+        address: {
+          city: city.value,
+          line1: line1.value,
+          state: state.value,
+          postal_code: zip.value,
+        },
+      };
+
+      // Get a reference to a mounted CardElement. Elements knows how
+      // to find your CardElement because there can only ever be one of
+      // each type of element.
+      const cardElement = elements.getElement(CardElement);
+
+      console.log(`contactDonate handle submit running`);
+      // create a payment intent via firebase function
+      // that will call a cloud function on backend
+
+      // Use your card Element with other Stripe.js APIs
+      const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: cardElement,
+        billing_details: billingDetails,
+      });
+
+      console.dir(paymentMethod);
+      setStatePaymentMethod(paymentMethod);
+      console.log(`running guest paymentIntent creation`);
+
+      if (error) {
+        setErrorMessage(`createPaymentMethod: ${error.message}`);
         return;
       }
     }
 
-    // create a payment intent via firebase function
-    // that will call a cloud function on backend
-    if (firebase) {
-      if (user) {
-        // create payment intent on stripe
-        try {
-          const authIntentResult = await firebase.createAuthPaymentIntent({
-            amount: stripeAmount,
-            currency: 'usd',
-            email: location.state.userProfile.email,
-            name: `${location.state.userProfile.firstName} ${location.state.userProfile.lastName}`,
-            username: user.username,
-          });
-          clientSecret = authIntentResult.data.clientSecret;
-          paymentIntentId = authIntentResult.data.paymentIntentId;
-        } catch (error) {
-          setProcessingTo(false);
-          setErrorMessage(error.message);
-        }
-      } else {
-        try {
-          const paymentIntentResult = await firebase.createPaymentIntent({
-            amount: stripeAmount,
-            currency: 'usd',
-            email: email.value,
-            name: name.value,
-          });
-          clientSecret = paymentIntentResult.data.clientSecret;
-          paymentIntentId = paymentIntentResult.data.paymentIntentId;
-        } catch (error) {
-          setProcessingTo(false);
-          setErrorMessage(error.message);
-        }
-      }
-    }
-
-    try {
-      // create a payment method
-      // need access to stripe.js
-      // need a reference to CardElement
-      const cardElement = elements.getElement(CardElement);
-
-      // confirm card payment
-      // combine payment method id + client_secret
-      const confirmCardPayment = await stripe.confirmCardPayment(clientSecret, {
-        payment_method:
-          selectedPayment !== ''
-            ? selectedPayment
-            : {
-                type: 'card',
-                card: cardElement,
-                billing_details: billingDetails,
-              },
-        setup_future_usage: isSavingCard ? 'on_session' : '',
-      });
-    } catch (error) {
-      setErrorMessage(error.message);
-      setProcessingTo(false);
-      return;
-    }
-
-    // success: createDonation and update client
-    // two cases: user logged in or guest
-    let tempFundedBy = [];
-    let tempClientObj = null;
-
-    // map over clients to match to one being funded
-    clients.map(clientObj => {
-      // if this is the matched client
-      if (clientObj.id === client.value) {
-        tempClientObj = clientObj;
-      }
-    });
-
-    // check if user auth
-    if (user) {
-      // check for any previous fundedBy
-      if (tempClientObj.hasOwnProperty('fundedBy')) {
-        tempClientObj.fundedBy.map(username => {
-          tempFundedBy.push(username);
-        });
-        tempFundedBy.push(user.username);
-      } else {
-        tempFundedBy.push(user.username);
-      }
-
-      firebase
-        .updateClientWithUserDonation({
-          amount: parseInt(amount.value),
-          fundedBy: tempFundedBy,
-          clientId: client.value,
-          raised: parseInt(tempClientObj.raised),
-          paymentIntentId,
-          donorEmail: email.value,
-          message: message.value,
-          username: user ? user.username : '',
-          familySize: clientData.familySize,
-          segmentId: clientData.segmentId,
-        })
-        .then(result => {
-          console.log(`result:`);
-          console.dir(result);
-          setProcessingTo(false);
-          navigate('/successDonation');
-        })
-        .catch(error => {
-          setErrorMessage(error.message);
-          setProcessingTo(false);
-        });
-    } else {
-      try {
-        // check if email is subscribed to mailchimp
-        firebase.checkListForEmail({ email: email.value }).then(result => {
-          // add donor email to mailchimp list
-          if (result.data.status === 404) {
-            firebase.subscribeGuestToList({
-              email: email.value,
-              name: name.value,
-            });
-          }
-        });
-
-        firebase.updateClientWithGuestDonation({
-          amount: parseInt(amount.value),
-          raised: parseInt(tempClientObj.raised),
-          clientId: client.value,
-          paymentIntentId,
-          donorEmail: email.value,
-          message: message.value,
-          familySize: clientData.familySize,
-          segmentId: clientData.segmentId,
-        });
-        setProcessingTo(false);
-        navigate('/successDonation');
-      } catch (error) {
-        setErrorMessage(error.message);
-        setProcessingTo(false);
-      }
-    }
+    setProcessingTo(false);
+    // show modal here
+    openModal();
   };
 
   // TIP
@@ -305,6 +240,13 @@ const ContactDonate = ({ location }) => {
 
   const handlePaymentChange = ev => {
     setSelectedPayment(ev.target.value);
+    if (wallet !== null) {
+      wallet.map(card => {
+        if (card.id === ev.target.value) {
+          setSelectedCard(card);
+        }
+      });
+    }
   };
 
   const handleRegisterDonorSwitch = () => {
@@ -319,9 +261,22 @@ const ContactDonate = ({ location }) => {
     handleClientSet(ev.target.value);
   };
 
+  const handleAmountChange = ev => {
+    setDonationAmount(ev.target.value);
+  };
+
   const handleClientSet = clientId => {
     calculateFullyFundAmount(clientId);
     setClientSelected(clientId);
+  };
+
+  // handle all other input changes
+  const handleInputChange = event => {
+    event.persist();
+    setFormValues(currentValues => ({
+      ...currentValues,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const calculateFullyFundAmount = clientId => {
@@ -349,7 +304,7 @@ const ContactDonate = ({ location }) => {
       complete: {},
     },
     hidePostalCode: true,
-    disabled: selectedPayment !== '' ? true : false,
+    disabled: selectedPayment === '' ? false : true,
   };
 
   return (
@@ -393,7 +348,12 @@ const ContactDonate = ({ location }) => {
             </div>
             <div className="form-input-row">
               <label htmlFor="amount">Amount</label>
-              <select name="amount" id="donation-select" required>
+              <select
+                name="amount"
+                id="donation-select"
+                onChange={handleAmountChange}
+                required
+              >
                 <option value="">--Choose donation amount--</option>
                 <option value="10">$10</option>
                 <option value="25">$25</option>
@@ -412,7 +372,12 @@ const ContactDonate = ({ location }) => {
             </div>
             <div className="form-input-row">
               <label htmlFor="message">Message to client</label>
-              <textarea id="message" name="message" />
+              <textarea
+                id="message"
+                name="message"
+                onChange={handleInputChange}
+                value={formValues.message}
+              />
             </div>
             <h3>Billing Information</h3>
             <div className="form-input-row">
@@ -425,21 +390,22 @@ const ContactDonate = ({ location }) => {
                   ))}
                 </select>
               )}
-              {wallet && wallet.length !== 0 && (
+              {wallet && wallet.length !== 0 && selectedPayment === '' && (
                 <span style={{ textAlign: `center`, margin: `0.5em 0` }}>
                   <p>Or enter a new card</p>
                 </span>
               )}
-              {console.log(`selectedPayment: ${selectedPayment}`)}
-              <CardElementContainer>
-                <CardElement
-                  options={cardElementOptions}
-                  onChange={handleCardDetailsChange}
-                  name="card-element"
-                />
-              </CardElementContainer>
+              {selectedPayment === '' && (
+                <CardElementContainer>
+                  <CardElement
+                    options={cardElementOptions}
+                    onChange={handleCardDetailsChange}
+                    name="card-element"
+                  />
+                </CardElementContainer>
+              )}
             </div>
-            {(user || registerDonor) && (
+            {(user || registerDonor) && selectedPayment === '' && (
               <div className="form-input-row">
                 <label htmlFor="saving-card">Save card for future use?</label>
                 <label className="switch-help">
@@ -454,60 +420,76 @@ const ContactDonate = ({ location }) => {
                 </label>
               </div>
             )}
-            <div className="form-input-row">
-              <label htmlFor="name">Name</label>
-              <input
-                name="name"
-                type="text"
-                placeholder="Jane Doe"
-                required={selectedPayment === '' ? true : false}
-              />
-            </div>
-            <div className="form-input-row">
-              <label htmlFor="email">Email</label>
-              <input
-                name="email"
-                type="email"
-                placeholder="jane.doe@example.com"
-                required={selectedPayment === '' ? true : false}
-              />
-            </div>
-            <div className="form-input-row">
-              <label htmlFor="address">Address</label>
-              <input
-                name="address"
-                type="text"
-                placeholder="185 Berry St. Suite 550"
-                required={selectedPayment === '' ? true : false}
-              />
-            </div>
-            <div className="form-input-row">
-              <label htmlFor="city">City</label>
-              <input
-                name="city"
-                type="text"
-                placeholder="San Francisco"
-                required={selectedPayment === '' ? true : false}
-              />
-            </div>
-            <div className="form-input-row">
-              <label htmlFor="state">State</label>
-              <input
-                name="state"
-                type="text"
-                placeholder="California"
-                required={selectedPayment === '' ? true : false}
-              />
-            </div>
-            <div className="form-input-row">
-              <label htmlFor="zip">ZIP</label>
-              <input
-                name="zip"
-                type="text"
-                placeholder="94103"
-                required={selectedPayment === '' ? true : false}
-              />
-            </div>
+            {selectedPayment === '' && (
+              <>
+                <div className="form-input-row">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    name="name"
+                    type="text"
+                    onChange={handleInputChange}
+                    value={formValues.name}
+                    placeholder="Jane Doe"
+                    required={selectedPayment === '' ? true : false}
+                  />
+                </div>
+                <div className="form-input-row">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    name="email"
+                    type="email"
+                    onChange={handleInputChange}
+                    value={formValues.email}
+                    placeholder="jane.doe@example.com"
+                    required={selectedPayment === '' ? true : false}
+                  />
+                </div>
+                <div className="form-input-row">
+                  <label htmlFor="line1">Address</label>
+                  <input
+                    name="line1"
+                    type="text"
+                    onChange={handleInputChange}
+                    value={formValues.line1}
+                    placeholder="185 Berry St. Suite 550"
+                    required={selectedPayment !== '' ? true : false}
+                  />
+                </div>
+                <div className="form-input-row">
+                  <label htmlFor="city">City</label>
+                  <input
+                    name="city"
+                    type="text"
+                    onChange={handleInputChange}
+                    value={formValues.city}
+                    placeholder="San Francisco"
+                    required={selectedPayment === '' ? true : false}
+                  />
+                </div>
+                <div className="form-input-row">
+                  <label htmlFor="state">State</label>
+                  <input
+                    name="state"
+                    type="text"
+                    placeholder="California"
+                    onChange={handleInputChange}
+                    value={formValues.state}
+                    required={selectedPayment === '' ? true : false}
+                  />
+                </div>
+                <div className="form-input-row">
+                  <label htmlFor="zip">ZIP</label>
+                  <input
+                    name="zip"
+                    type="text"
+                    placeholder="94103"
+                    onChange={handleInputChange}
+                    value={formValues.zip}
+                    required={selectedPayment === '' ? true : false}
+                  />
+                </div>
+              </>
+            )}
             {!user && (
               <div className="form-input-row">
                 <label htmlFor="switch-help">
@@ -533,6 +515,8 @@ const ContactDonate = ({ location }) => {
                   <input
                     type="text"
                     name="username"
+                    onChange={handleInputChange}
+                    value={formValues.username}
                     required={registerDonor ? true : false}
                   />
                 </div>
@@ -541,6 +525,8 @@ const ContactDonate = ({ location }) => {
                   <input
                     type="password"
                     name="password"
+                    onChange={handleInputChange}
+                    value={formValues.password}
                     required={registerDonor ? true : false}
                     minLength={6}
                   />
@@ -550,6 +536,8 @@ const ContactDonate = ({ location }) => {
                   <input
                     type="password"
                     name="confirmPassword"
+                    onChange={handleInputChange}
+                    value={formValues.confirmPassword}
                     required={registerDonor ? true : false}
                     minLength={6}
                   />
@@ -564,7 +552,7 @@ const ContactDonate = ({ location }) => {
                 block
                 submit
               >
-                {isProcessing ? 'Processing...' : 'Donate'}
+                Donate
               </Button>
               <div />
             </div>
@@ -582,6 +570,32 @@ const ContactDonate = ({ location }) => {
           </form>
           <div />
         </div>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Preview Donation"
+        >
+          <h2 ref={_subtitle => (subtitle = _subtitle)}>
+            Donation to:{' '}
+            {clientData && clientData.firstName ? clientData.firstName : ''}
+          </h2>
+          <PreviewDonation
+            firebase={firebase}
+            user={user}
+            closeModal={closeModal}
+            formValues={formValues}
+            paymentMethod={statePaymentMethod}
+            selectedPayment={selectedPayment}
+            selectedCard={selectedCard}
+            clients={clients}
+            clientData={clientData}
+            clientSelected={clientSelected}
+            donationAmount={donationAmount}
+            isSavingCard={isSavingCard}
+          />
+        </Modal>
       </div>
     </div>
   );

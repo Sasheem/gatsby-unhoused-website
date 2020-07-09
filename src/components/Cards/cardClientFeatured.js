@@ -52,7 +52,6 @@ const CardClientFeatured = ({ client }) => {
               <h3>Meet {firstName}</h3>
             </Link>
             <span>
-              <h4>Situation</h4>
               <p className="situation">{`${situation.slice(0, 90)}...`}</p>
             </span>
           </div>

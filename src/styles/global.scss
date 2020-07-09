@@ -451,7 +451,7 @@ a {
     font-size: 1.2em;
     font-weight: 500;
     width: 100%;
-    margin-top: 0.5em;
+    margin-top: 1.5em;
     color: green;
 }
 .error-message {
@@ -529,6 +529,18 @@ a {
         color: $sub-color;
     }
 }
+.form-modal {
+    display: grid;
+    grid-gap: 1.5em;
+    h3, h5 {
+        margin: 0;
+        text-align: left;
+        color: $sub-color;
+    }
+    h4, p {
+        text-align: left;
+    }
+}
 .form-input-row {
     width: 100%;
     display: grid;
@@ -599,6 +611,10 @@ a {
 .form-submit-row {
     display: grid;
     grid-template-columns: 2fr 1fr 2fr;
+}
+.two-input-row {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.5fr 1fr 0.5fr;
 }
 .form-submit-row-sm {
     display: grid;
