@@ -15,7 +15,7 @@ import { loadStripe } from '@stripe/stripe-js';
  * @param {*props}
  * * wrapPageElement hook is specific to gatsby
  */
-const stripePromise = loadStripe('pk_test_LAvs2Fvcfl3PgL2TjKuFEeRk');
+const stripePromise = loadStripe('pk_test_kfC9Tjzf7w4Ko5nUH8AycCMe');
 
 export const wrapPageElement = ({ element, props }) => {
   return (
