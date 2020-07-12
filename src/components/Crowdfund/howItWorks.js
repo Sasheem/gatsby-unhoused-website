@@ -136,7 +136,7 @@ const HowItWorks = () => {
         <div className="steps-content-container">
           <div className="steps-fill-responsive" />
           <div className="steps-content">
-            <h3>Donors fund a client</h3>
+            <h3>Donors funds a client</h3>
             <p>Details or statistics about donations</p>
             <Link className="page-link" to="/contactDonate">
               Donate

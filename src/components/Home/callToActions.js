@@ -34,11 +34,11 @@ const CallToActions = () => (
       return (
         <div className="content-three">
           <CardCallToAction
-            title="Recurring Donations"
+            title="Donations"
             text="Sed nunc massa, sodales non dui quis, iaculis dapibus odio. 
 				Pellentesque quam orci, vestibulum nec odio in, blandit volutpat enim."
-            link="Sign Up"
-            destination="/register"
+            link="Donate"
+            destination="/contactDonate"
             fluid={dataCallOne}
           />
           <CardCallToAction

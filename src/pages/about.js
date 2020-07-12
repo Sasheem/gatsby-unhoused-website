@@ -26,9 +26,7 @@ const AboutPage = () => (
         <div className="content-grid-one">
           <div />
           <div className="content-container">
-            <h2>
-              We are on a mission to house those experiencing homelessness
-            </h2>
+            <h2>Our mission is to house those experiencing homelessness</h2>
             <p>
               We all fall down sometimes. It is our duty as human beings to
               extend our hands and help each other back up.
