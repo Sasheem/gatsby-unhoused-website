@@ -107,6 +107,11 @@
 	align-items: flex-end;
 	justify-content: space-between;
 }
+.featured-bio {
+	h4 {
+		margin-bottom: 0.5em;
+	}
+}
 .status, .featured-bio {
 	display: flex;
 	flex-direction: column;
