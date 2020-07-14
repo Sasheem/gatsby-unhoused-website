@@ -65,6 +65,21 @@ a {
     text-decoration: none;
     background-image: none;
 }
+
+// margin 
+.m-top-sm {
+    margin-top: 0.25rem;
+}
+.m-top-md {
+    margin-top: 0.5rem;
+}
+.m-top-lg {
+    margin-top: 0.75rem;
+}
+.m-top-xl {
+    margin-top: 1rem;
+}
+
 .light-text {
     color: $color-light;
     margin: 2em auto;
@@ -538,15 +553,33 @@ a {
 }
 .form-modal {
     display: grid;
-    grid-gap: 1.5em;
-    h3, h5 {
-        margin: 0;
+    grid-gap: 0.5em;
+    
+    h4 {
         text-align: left;
         color: $sub-color;
+        margin-top: 0.5em;
     }
-    h4, p {
+}
+.form-modal-row-duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5em;
+}
+.form-modal-title-color {
+    color: $sub-color;
+}
+.form-modal-row {
+    display: grid;
+    grid-gap: 0.25em;
+    h5, p {
         text-align: left;
     }
+}
+.form-modal-buttons {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 0.25fr 1fr 0.25fr 1fr 0.25fr;
 }
 .form-input-row {
     width: 100%;

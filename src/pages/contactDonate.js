@@ -577,10 +577,10 @@ const ContactDonate = ({ location }) => {
           style={customStyles}
           contentLabel="Preview Donation"
         >
-          <h2 ref={_subtitle => (subtitle = _subtitle)}>
-            Donation to:{' '}
+          <h4 ref={_subtitle => (subtitle = _subtitle)}>
+            Donation:{' '}
             {clientData && clientData.firstName ? clientData.firstName : ''}
-          </h2>
+          </h4>
           <PreviewDonation
             firebase={firebase}
             user={user}

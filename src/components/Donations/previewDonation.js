@@ -233,66 +233,91 @@ const PreviewDonation = ({
       : paymentMethod.billing_details.address.postal_code;
   return (
     <div className="form-modal">
-      <h4>Client Details</h4>
-      <div className="form-input-row">
-        <h5>Amount</h5>
-        <p>${donationAmount}.00</p>
+      <h4>Donation Details</h4>
+      <div className="form-modal-row-duo">
+        <div className="form-modal-row">
+          <p>
+            <strong>Amount</strong>
+          </p>
+          <p>${donationAmount}.00</p>
+        </div>
+        <div className="form-modal-row">
+          <p>
+            <strong>Message</strong>
+          </p>
+          <p>{formValues.message}</p>
+        </div>
       </div>
-      <div className="form-input-row">
-        <h5>Message to client</h5>
-        <p>{formValues.message}</p>
-      </div>
+
       <h4>Billing Details</h4>
-      <div className="form-input-row">
-        <h5>Name</h5>
+      <div className="form-modal-row">
+        <p>
+          <strong>Name</strong>
+        </p>
         <p>{cardName}</p>
       </div>
-      <div className="form-input-row">
-        <h5>Email</h5>
+      <div className="form-modal-row">
+        <p>
+          <strong>Email</strong>
+        </p>
         <p>{cardEmail}</p>
       </div>
       <div className="three-even-input-row">
-        <div className="form-input-row">
-          <h5>Card Number</h5>
+        <div className="form-modal-row">
+          <p>
+            <strong>Card</strong>
+          </p>
           <p>**** {cardNumber}</p>
         </div>
-        <div className="form-input-row">
-          <h5>Expiration Date</h5>
+        <div className="form-modal-row">
+          <p>
+            <strong>Exp</strong>
+          </p>
           <p>
             {expMonth} / {expYear}
           </p>
         </div>
-        <div className="form-input-row">
-          <h5>Type</h5>
+        <div className="form-modal-row">
+          <p>
+            <strong>Type</strong>
+          </p>
           <p>{cardBrand}</p>
         </div>
       </div>
-      <div className="form-input-row">
-        <h5>Address</h5>
+      <div className="form-modal-row">
+        <p>
+          <strong>Address</strong>
+        </p>
         <p>{line1}</p>
       </div>
       <div className="three-even-input-row">
-        <div className="form-input-row">
-          <h5>City</h5>
+        <div className="form-modal-row">
+          <p>
+            <strong>City</strong>
+          </p>
           <p>{city}</p>
         </div>
-        <div className="form-input-row">
-          <h5>State</h5>
+        <div className="form-modal-row">
+          <p>
+            <strong>State</strong>
+          </p>
           <p>{state}</p>
         </div>
-        <div className="form-input-row">
-          <h5>Zip Code</h5>
+        <div className="form-modal-row">
+          <p>
+            <strong>Zip</strong>
+          </p>
           <p>{postalCode}</p>
         </div>
       </div>
-      <div className="two-input-row">
+      <div className="form-modal-buttons m-top-xl">
         <div />
         <ButtonModal disabled={isProcessing} actionClick={handleBack}>
           Back
         </ButtonModal>
         <div />
         <ButtonModal disabled={isProcessing} actionClick={handleSubmit}>
-          {isProcessing ? 'Processing...' : 'Submit'}
+          {isProcessing ? 'Processing...' : 'Donate'}
         </ButtonModal>
         <div />
       </div>
