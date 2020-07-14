@@ -18,7 +18,7 @@ const StoriesPage = ({ location }) => {
     <div>
       <SEO title="Stories" />
       <div className="blog-container" id="blog-layout">
-        <h1 id="blog-main-title">Blog: Success Stories</h1>
+        <h1 id="blog-main-title">Success Stories</h1>
         <p className="blog-subtext">
           Read the stories of all the families and individuals Unhoused Humanity
           has impacted.
