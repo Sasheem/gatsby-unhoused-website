@@ -15,50 +15,33 @@ import './dashboard.scss';
 const Donations = ({ firebase, user }) => {
   const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(false);
-  let isMounted = true;
 
-  // when component un mounts
+  // subscribe to donations
   useEffect(() => {
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (firebase) {
+    if (firebase && user) {
       setLoading(true);
-      firebase.getUser({ userId: user.username }).then(snapshot => {
-        if (isMounted) {
-          firebase
-            .listPaymentIntents({
-              customerId: snapshot.data().customerId,
-            })
-            .then(result => {
-              const donationsData = [];
-              result.data.data.forEach(doc => {
-                if (doc.status === 'succeeded') {
-                  donationsData.push({
-                    date: moment.unix(doc.created).format('l'),
-                    amount: parseInt(doc.amount) * 0.01,
-                    status: doc.status,
-                    brand:
-                      doc.charges.data[0].payment_method_details.card.brand,
-                    last4:
-                      doc.charges.data[0].payment_method_details.card.last4,
-                  });
-                }
-              });
-              setDonations(donationsData);
-              setLoading(false);
-            })
-            .catch(error => {
-              setLoading(false);
-              console.log(`error: ${error.message}`);
+      const unsubscribe = firebase.subscribeToDonations({
+        username: user.username,
+        onSnapshot: snapshot => {
+          const snapshotDonations = [];
+          snapshot.forEach(doc => {
+            snapshotDonations.push({
+              id: doc.id,
+              ...doc.data(),
             });
-        }
+          });
+          setDonations(snapshotDonations);
+          setLoading(false);
+        },
       });
+
+      return () => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+      };
     }
-  }, [firebase]);
+  }, []);
 
   return (
     <div className="dashboard-item">
@@ -75,10 +58,10 @@ const Donations = ({ firebase, user }) => {
                 <p>Date</p>
               </th>
               <th>
-                <p>Amount</p>
+                <p>Client</p>
               </th>
               <th>
-                <p>Card</p>
+                <p>Amount</p>
               </th>
               <th></th>
             </tr>
@@ -87,16 +70,15 @@ const Donations = ({ firebase, user }) => {
             {donations.map(donation => (
               <tr className="donation-row">
                 <td className="client-item">
-                  <p>{donation.date}</p>
+                  <p>{moment(donation.date.toDate()).format('ll')}</p>
+                </td>
+                <td>
+                  <p>{donation.client}</p>
                 </td>
                 <td className="client-item">
                   <p>${donation.amount}</p>
                 </td>
-                <td className="client-item">
-                  <p>
-                    {donation.brand} {donation.last4}
-                  </p>
-                </td>
+
                 <td className="row-more">
                   <MoreIcon />
                 </td>
