@@ -3,14 +3,9 @@ import Modal from 'react-modal';
 
 import MoreIcon from '../../assets/ellipsis-v-solid.svg';
 import AddIcon from '../../assets/plus-solid.svg';
+import DeleteIcon from '../../assets/times-solid.svg';
 import Loader from '../common/Loader/loader';
 import AddCreditCardButton from '../Dashboard/addCreditCardButton';
-/**
- * todo add dropdown menu upon MoreIcon click
- * * update credit card or billing details
- * * delete credit card
- * todo figure out how to refesh page after new credit card added
- */
 
 const customStyles = {
   content: {
@@ -55,24 +50,22 @@ const SavedCreditCards = ({ firebase, user }) => {
   }, []);
 
   useEffect(() => {
-    if (firebase && isMounted) {
-      setLoading(true);
-      firebase.getUser({ userId: user.username }).then(snapshot => {
-        firebase
-          .listPaymentMethods({
-            customerId: snapshot.data().customerId,
-          })
-          .then(result => {
-            setWallet(result.data.data);
-            setLoading(false);
-          })
-          .catch(error => {
-            console.log(`ERROR: ${error.message}`);
-            setLoading(false);
-          });
+    if (firebase && user) {
+      const unsubscribe = firebase.subscribeToUserInfo({
+        username: user.username,
+        onSnapshot: snapshot => {
+          console.log(`snapshot data: ${typeof snapshot.data()}`);
+          setWallet(snapshot.data().cards);
+        },
       });
+
+      return () => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+      };
     }
-  }, [firebase, deleteSuccess]);
+  }, [firebase]);
 
   function handleDeleteCard(card) {
     console.log(`are you sure you want to delete card: ${card}`);
@@ -82,17 +75,32 @@ const SavedCreditCards = ({ firebase, user }) => {
 
   function deleteConfirmed() {
     if (firebase && deleteCard !== '') {
-      firebase
-        .detachPaymentMethod({
-          id: deleteCard,
-        })
-        .then(result => {
-          setDeleteSuccess(true);
-          closeModal();
-        })
-        .catch(error => {
-          console.log(`delete card error: ${error.message}`);
+      try {
+        firebase
+          .detachPaymentMethod({
+            id: deleteCard,
+          })
+          .then(result => {
+            console.log(
+              `detached paymentMethod from customer: ${typeof result}`
+            );
+            console.dir(result);
+          });
+
+        const modifiedCards = wallet.filter(
+          card => card.paymentMethodId !== deleteCard
+        );
+        console.dir(modifiedCards);
+        firebase.saveSetupIntent({
+          username: user.username,
+          cards: modifiedCards,
         });
+
+        setDeleteSuccess(true);
+        closeModal();
+      } catch (error) {
+        console.log(`deletePaymentMethod error: ${error.message}`);
+      }
     }
   }
 
@@ -100,74 +108,75 @@ const SavedCreditCards = ({ firebase, user }) => {
   return (
     <div className="dashboard-item">
       <h3>Saved Credit Cards</h3>
-      <div className="dashboard-cards">
-        {/* <AddCreditCardButton /> */}
-        {/* <div className="add-card">
-          <div className="dashboard-icon">
-            <AddIcon />
-          </div>
-        </div> */}
-        {loading === true ? (
-          <div className="loader-container">
-            <Loader />
-          </div>
-        ) : !!wallet ? (
-          wallet.map(card => (
-            <div className="saved-card-container">
-              <div className="saved-card">
-                <div className="card-brand">
-                  <p>{card.card.brand}</p>
-                </div>
-                <div className="card-number">
-                  <p>****</p>
-                  <p>****</p>
-                  <p>****</p>
-                  <p>{card.card.last4}</p>
-                </div>
-                <div className="card-details">
-                  <div className="card-flex-md">
-                    <p>Name</p>
-                    <p>{card.billing_details.name}</p>
-                  </div>
-                  <div className="card-flex-sm">
-                    <p>Exp</p>
-                    <p>
-                      {card.card.exp_month}/{card.card.exp_year}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="saved-card-options">
-                <p
-                  className="option-delete"
-                  onClick={handleDeleteCard.bind(null, card.id)}
-                >
-                  DELETE
-                </p>
-              </div>
-              <Modal
-                isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Delete Card"
-              >
-                <h3 ref={_subtitle => (subtitle = _subtitle)}>
-                  Are you sure you want to delete this card?
-                </h3>
-                <div className="option-delete-response">
-                  <button onClick={deleteConfirmed}>Yes</button>
-                  <button onClick={closeModal}>No</button>
-                </div>
-              </Modal>
-            </div>
-          ))
-        ) : (
-          <div className="empty-card-message">
-            <p>Add a card below</p>
-          </div>
-        )}
-      </div>
+      {loading === true ? (
+        <div className="loader-container">
+          <Loader />
+        </div>
+      ) : !!wallet ? (
+        <table>
+          <thead>
+            <tr className="saved-card-row">
+              <th>
+                <p>Name</p>
+              </th>
+              <th>
+                <p>Last 4</p>
+              </th>
+              <th>
+                <p>Expiration</p>
+              </th>
+              <th>
+                <p>Brand</p>
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {wallet.map(card => (
+              <tr className="saved-card-row">
+                <td>
+                  <p>{card.billingDetails.name}</p>
+                </td>
+                <td>
+                  <p>{card.last4}</p>
+                </td>
+                <td>
+                  <p>
+                    {card.expMonth}/{card.expYear}
+                  </p>
+                </td>
+                <td>
+                  <p>{card.brand}</p>
+                </td>
+                <td className="row-more">
+                  <DeleteIcon
+                    onClick={handleDeleteCard.bind(null, card.paymentMethodId)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div className="empty-card-message">
+          <p>Add a card below</p>
+        </div>
+      )}
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Delete Card"
+      >
+        <h3 ref={_subtitle => (subtitle = _subtitle)}>
+          Are you sure you want to delete this card?
+        </h3>
+        <div className="option-delete-response">
+          <button onClick={deleteConfirmed}>Yes</button>
+          <button onClick={closeModal}>No</button>
+        </div>
+      </Modal>
     </div>
   );
 };

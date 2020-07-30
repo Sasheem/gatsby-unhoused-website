@@ -154,6 +154,19 @@ class Firebase {
   }
   // [END create a SetupIntent for user]
 
+  // [START save card info to user private profile]
+  saveSetupIntent({ username, cards }) {
+    const saveSetupIntentCallable = this.functions.httpsCallable(
+      'saveSetupIntent'
+    );
+
+    return saveSetupIntentCallable({
+      username,
+      cards,
+    });
+  }
+  // [END save card info to user private profile]
+
   // [START auth create payment intent]
   createAuthPaymentIntent({ amount, customer, email, paymentMethodId }) {
     const createAuthPaymentIntentCallable = this.functions.httpsCallable(
@@ -186,12 +199,21 @@ class Firebase {
   }
   // [END list user payment methods]
 
-  // [START ]
+  // [START detach payment method from stripe]
   detachPaymentMethod({ id }) {
     const detachPaymentMethodCallable = this.functions.httpsCallable(
       'detachPaymentMethod'
     );
     return detachPaymentMethodCallable({ id });
+  }
+  // [END detach payment method from stripe]
+
+  // [START ]
+  deletePaymentMethod({ clientSecret, cards, username }) {
+    const deletePaymentMethodCallable = this.functions.httpsCallable(
+      'deletePaymentMethod'
+    );
+    return deletePaymentMethodCallable({ clientSecret, cards, username });
   }
   // [END ]
 

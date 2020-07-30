@@ -32,7 +32,8 @@ const UpdateCreditCard = ({ firebase, user }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [formValues, setFormValues] = useState({
     name: '',
-    address: '',
+    line1: '',
+    line2: '',
     city: '',
     state: '',
     zip: '',
@@ -63,17 +64,20 @@ const UpdateCreditCard = ({ firebase, user }) => {
   const handleSubmit = async ev => {
     // Block native form submission.
     ev.preventDefault();
-    const { name, address, city, state, zip } = ev.target;
+    const { name, line1, line2, city, state, zip } = ev.target;
     const billingDetails = {
       name: name.value,
       address: {
         city: city.value,
-        line1: address.value,
+        line1: line1.value,
+        line2: line2.value,
         state: state.value,
         postal_code: zip.value,
       },
     };
     let clientSecretVariable = '';
+
+    console.log(`setting ProcessingTo true`);
     setProcessingTo(true);
 
     if (!stripe || !elements) {
@@ -95,10 +99,14 @@ const UpdateCreditCard = ({ firebase, user }) => {
     });
 
     if (error) {
-      setErrorMessage(error);
+      console.log(`createPaymentMethod error on frontend: ${error.message}`);
+      setErrorMessage(error.message);
     } else {
       if (userProfile !== null) {
         console.dir(userProfile);
+        console.dir(paymentMethod);
+        var temp = [];
+
         await firebase
           .createSetupIntent({
             customerId: userProfile.customerId,
@@ -106,6 +114,39 @@ const UpdateCreditCard = ({ firebase, user }) => {
           })
           .then(clientSecret => {
             clientSecretVariable = clientSecret.data;
+          });
+
+        // map over all saved cards if cards arr exists on user doc
+        // push each one to temp arr if clientSecrets do not match
+        if (userProfile.hasOwnProperty('cards')) {
+          userProfile.cards.map(card => {
+            if (card.paymentMethodId === paymentMethod.id) {
+              setErrorMessage('Card already exists');
+              return;
+            }
+            temp.push(card);
+          });
+        }
+
+        // push new cards onto either an empty temp
+        // or a prefilled one with all saved cards
+        temp.push({
+          paymentMethodId: paymentMethod.id,
+          last4: paymentMethod.card.last4,
+          expMonth: paymentMethod.card.exp_month,
+          expYear: paymentMethod.card.exp_year,
+          brand: paymentMethod.card.brand,
+          billingDetails: paymentMethod.billing_details,
+        });
+
+        await firebase
+          .saveSetupIntent({
+            username: user.username,
+            cards: temp,
+          })
+          .then(response => {
+            console.log(`saveSetupIntent response: ${typeof response}`);
+            console.dir(response);
           });
       } else {
         console.log(`userProfile empty`);
@@ -124,13 +165,15 @@ const UpdateCreditCard = ({ firebase, user }) => {
     } else {
       setFormValues({
         name: '',
-        address: '',
+        line1: '',
+        line2: '',
         city: '',
         state: '',
         zip: '',
       });
       cardElement.clear();
     }
+    console.log(`setting processingTo false`);
     setProcessingTo(false);
   };
 
@@ -164,14 +207,24 @@ const UpdateCreditCard = ({ firebase, user }) => {
         />
       </div>
       <div className="form-input-row">
-        <label htmlFor="address">Address</label>
+        <label htmlFor="line1">Address Line 1</label>
         <input
-          name="address"
+          name="line1"
           type="text"
           placeholder="185 Berry St. Suite 550"
           onChange={handleInputChange}
-          value={formValues.address}
+          value={formValues.line1}
           required
+        />
+      </div>
+      <div className="form-input-row">
+        <label htmlFor="line2">Address Line 2</label>
+        <input
+          name="line2"
+          type="text"
+          placeholder="Apartment/Suite/etc"
+          onChange={handleInputChange}
+          value={formValues.line2}
         />
       </div>
       <div className="form-input-row">

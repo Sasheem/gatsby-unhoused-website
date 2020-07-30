@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="19px" viewBox="0 0 18 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>times-solid</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Logos---Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons" transform="translate(-438.000000, -469.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="times-solid" transform="translate(438.225000, 469.725000)">
+                <path d="M12.136,8.8 L17.1395,3.7965 C17.7535,3.1825 17.7535,2.187 17.1395,1.5725 L16.0275,0.4605 C15.4135,-0.1535 14.418,-0.1535 13.8035,0.4605 L8.8,5.464 L3.7965,0.4605 C3.1825,-0.1535 2.187,-0.1535 1.5725,0.4605 L0.4605,1.5725 C-0.1535,2.1865 -0.1535,3.182 0.4605,3.7965 L5.464,8.8 L0.4605,13.8035 C-0.1535,14.4175 -0.1535,15.413 0.4605,16.0275 L1.5725,17.1395 C2.1865,17.7535 3.1825,17.7535 3.7965,17.1395 L8.8,12.136 L13.8035,17.1395 C14.4175,17.7535 15.4135,17.7535 16.0275,17.1395 L17.1395,16.0275 C17.7535,15.4135 17.7535,14.418 17.1395,13.8035 L12.136,8.8 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>
