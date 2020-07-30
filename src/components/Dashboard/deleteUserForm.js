@@ -35,7 +35,7 @@ const DeleteUserForm = ({ username, customerId, email }) => {
           })
           .catch(error => {
             setProcessingTo(false);
-            setErrorMessage(`deletePartner frontend: ${error.message}`);
+            setErrorMessage(`deleteUser frontend: ${error.message}`);
           });
       }
     } else {

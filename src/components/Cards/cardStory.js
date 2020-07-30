@@ -5,7 +5,7 @@ import BlogDate from '../Blog/blogDate';
 
 import './cards.scss';
 
-const CardStory = ({ key, client }) => {
+const CardStory = ({ client }) => {
   const {
     firstName,
     lastName,

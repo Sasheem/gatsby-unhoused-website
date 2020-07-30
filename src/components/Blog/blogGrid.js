@@ -20,7 +20,10 @@ const BlogGrid = ({ clients, loading }) => {
   return (
     <div className="blog-grid">
       {clients.map(client => (
-        <CardStory key={client.id} client={client} />
+        <CardStory
+          key={`${client.firstName}-${client.lastName}`}
+          client={client}
+        />
       ))}
     </div>
   );

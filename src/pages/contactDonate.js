@@ -163,6 +163,7 @@ const ContactDonate = ({ location }) => {
       name,
       email,
       line1,
+      line2,
       city,
       state,
       zip,
@@ -194,6 +195,7 @@ const ContactDonate = ({ location }) => {
         address: {
           city: city.value,
           line1: line1.value,
+          line2: line2.value === '' ? '' : line2.value,
           state: state.value,
           postal_code: zip.value,
         },
@@ -445,7 +447,7 @@ const ContactDonate = ({ location }) => {
                   />
                 </div>
                 <div className="form-input-row">
-                  <label htmlFor="line1">Address</label>
+                  <label htmlFor="line1">Address Line 1</label>
                   <input
                     name="line1"
                     type="text"
@@ -453,6 +455,16 @@ const ContactDonate = ({ location }) => {
                     value={formValues.line1}
                     placeholder="185 Berry St. Suite 550"
                     required={selectedPayment !== '' ? true : false}
+                  />
+                </div>
+                <div className="form-input-row">
+                  <label htmlFor="address2">Address Line 2</label>
+                  <input
+                    name="line2"
+                    type="text"
+                    onChange={handleInputChange}
+                    value={formValues.line2}
+                    placeholder="Apartment/Suite/etc"
                   />
                 </div>
                 <div className="form-input-row">

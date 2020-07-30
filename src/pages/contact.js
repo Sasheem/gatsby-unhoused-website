@@ -117,7 +117,7 @@ const Contact = () => {
               <p>
                 Are you about to be or experiencing homelessness?{' '}
                 <Link to="/contactHelp">
-                  <span className="form-description-link">Contact Us</span>
+                  <span className="form-description-link">Request help</span>
                 </Link>
               </p>
             </div>
