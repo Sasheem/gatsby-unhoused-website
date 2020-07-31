@@ -315,7 +315,10 @@ const ContactDonate = ({ location }) => {
       <div className="form-layout">
         <div className="form-header">
           <h1>Make a Donation</h1>
-          <p>Everyone deserves a roof over their head.</p>
+          <p>
+            100% of your donation goes to funding an individual or family in
+            need.
+          </p>
         </div>
         <div className="form-container">
           <div />

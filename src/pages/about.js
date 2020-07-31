@@ -36,15 +36,14 @@ const AboutPage = () => (
         </div>
         <div className="content-three">
           <div className="content-card">
-            <h3>Our misson</h3>
+            <h4>Our misson</h4>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Vestibulum imperdiet pharetra consectetur. Mauris vitae rhoncus
-              ex, luctus lacinia eros.
+              To provide a fresh start to people experiencing homelessness while
+              chipping away the barrier separating them from society.
             </p>
           </div>
           <div className="content-card">
-            <h3>Our vision</h3>
+            <h4>Our vision</h4>
             <p>
               Nunc sit amet faucibus sem. Aenean condimentum, sem id tincidunt
               ultricies, tortor ex sollicitudin tellus, sit amet porttitor
@@ -52,11 +51,10 @@ const AboutPage = () => (
             </p>
           </div>
           <div className="content-card">
-            <h3>Our values</h3>
+            <h4>Our values</h4>
             <p>
               Phasellus convallis enim vitae urna malesuada, vitae ultrices quam
-              imperdiet. Nullam condimentum, nisl vel aliquam aliquam, erat
-              augue malesuada justo, euismod sollicitudin tortor erat id lacus.
+              imperdiet. Nullam condimentum, nisl vel aliquam aliquam.
             </p>
           </div>
         </div>

@@ -19,10 +19,14 @@ const Board = ({ title }) => (
         boardOne: file(relativePath: { eq: "profile-sam.jpg" }) {
           ...processMemberImage
         }
+        boardTwo: file(relativePath: { eq: "profile-susan.jpg" }) {
+          ...processMemberImage
+        }
       }
     `}
     render={data => {
       const boardOneData = data.boardOne.childImageSharp.fixed;
+      const boardTwoData = data.boardTwo.childImageSharp.fixed;
       return (
         <div className="about-container">
           <h2>{title}</h2>
@@ -32,7 +36,11 @@ const Board = ({ title }) => (
               name="Sam"
               title="Board Member"
             />
-            <div className="about-card-fill" />
+            <CardTeamMember
+              data={boardTwoData}
+              name="Susan"
+              title="Board Member"
+            />
             <div className="about-card-fill" />
             <div className="about-card-fill" />
           </div>

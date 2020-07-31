@@ -56,7 +56,7 @@ const Contact = () => {
       <div className="form-layout">
         <div className="form-header">
           <h1>Contact Us</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>Send us a detailed message and we will get back to you.</p>
         </div>
         <div className="form-container">
           <div />

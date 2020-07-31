@@ -34,24 +34,22 @@ const CallToActions = () => (
       return (
         <div className="content-three">
           <CardCallToAction
-            title="Donations"
-            text="Sed nunc massa, sodales non dui quis, iaculis dapibus odio. 
-				Pellentesque quam orci, vestibulum nec odio in, blandit volutpat enim."
+            title="Crowdfunding"
+            text="Help an individual or family fighting homelessness by donating today."
             link="Donate"
             destination="/contactDonate"
             fluid={dataCallOne}
           />
           <CardCallToAction
             title="Success stories"
-            text="In ac iaculis metus. Aenean ut aliquam ex. Maecenas viverra magna metus, porttitor sollicitudin dolor ultrices non."
+            text="Read about recently housed clients and learn about their journey from homelessness."
             link="Read a story"
             destination="/stories"
             fluid={dataCallTwo}
           />
           <CardCallToAction
             title="Opportunities"
-            text="Aliquam placerat ligula eu turpis posuere, quis volutpat dolor sagittis. Morbi vehicula pharetra gravida. 
-				Nulla non eros diam. Fusce rutrum ligula justo, eu mattis justo hendrerit at."
+            text="We are looking for passionate volunteers ready to make an impact against homelessness."
             link="Join team"
             destination="/contactVolunteer"
             fluid={dataCallThree}

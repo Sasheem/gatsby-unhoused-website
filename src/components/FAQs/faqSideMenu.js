@@ -8,7 +8,7 @@ import '../common/Metrics/metrics.scss';
 const FAQSideMenu = () => {
   return (
     <div className="side-menu-content">
-      <h1>Get Informed</h1>
+      <h3>Get Informed</h3>
       <div className="question-div">
         <p className="faq-title">What Is Homelessness?</p>
         <ul>

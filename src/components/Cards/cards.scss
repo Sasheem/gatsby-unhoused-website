@@ -168,7 +168,7 @@
     padding-top: 1em;
 
     h4, p {
-		margin: 0.5em 0;
+		margin: 0.25em 0;
 		text-align: left;
     }
 
@@ -273,7 +273,16 @@
     }
 }
 .card-image-container {
-	border-radius: 50%;
+	// border-radius: 50%;
+}
+.card-image-circle {
+	 border-radius: 50%;
+	height: 150px;
+	width: 150px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .partner-image-container {
     height: 10em;

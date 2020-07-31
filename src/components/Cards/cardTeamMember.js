@@ -6,7 +6,7 @@ import './cards.scss';
 const CardTeamMember = ({ data, name, title }) => {
   return (
     <div className="card-team-member">
-      <div className="card-image-container">
+      <div className="card-image-circle">
         <Img
           className="card-img"
           fixed={data}

@@ -28,8 +28,8 @@ const Footer = () => (
               <div className="footer-element newsletter-text-footer">
                 <h3>Join Newsletter</h3>
                 <p>
-                  Receive updates on blog posts, events and recently housed
-                  clients
+                  Receive updates on new clients, blog posts, and success
+                  stories.
                 </p>
                 <FooterNewsletter />
               </div>
