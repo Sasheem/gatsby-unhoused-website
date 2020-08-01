@@ -13,6 +13,8 @@ const Row = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 60%;
+  margin: 0 auto;
 
   @media only screen and (min-width: 800px) {
     flex-direction: row;
@@ -53,18 +55,19 @@ const Team = ({ title }) => (
         <TeamContainer>
           <h2>{title}</h2>
           <Row>
-            <Member />
-            <CardTeamMember
-              data={dataDeveloperImage}
-              name="Sasheem"
-              title="Web Developer"
-            />
+            {/* <Member /> */}
             <CardTeamMember
               data={dataDirectorImage}
               name="Jackie"
               title="Executive Director"
             />
-            <Member />
+            <CardTeamMember
+              data={dataDeveloperImage}
+              name="Sasheem"
+              title="Web Developer"
+            />
+
+            {/* <Member /> */}
           </Row>
         </TeamContainer>
       );

@@ -23,6 +23,8 @@ const Content = styled.div`
   }
   p {
     margin: 1em;
+    max-width: 90%;
+    line-height: 1.625;
   }
 `;
 

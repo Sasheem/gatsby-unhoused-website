@@ -39,16 +39,18 @@ const Metrics = () => {
     }
   }, [firebase]);
 
+  const housedBuffer = metrics ? metrics.housed + 52 : 0;
+  const totalBuffer = metrics ? metrics.total + 52 : 0;
   return (
     <div className="metrics-container">
       {partners !== 0 && <CardMetric name="Partners" value={partners} />}
       {metrics !== null && (
-        <CardMetric name="Clients Housed" value={metrics.housed} />
+        <CardMetric name="Clients Housed" value={housedBuffer} />
       )}
       {metrics !== null && (
         <CardMetric
           name="Still Housed"
-          value={`${((metrics.housed / metrics.total) * 100).toFixed(0)}%`}
+          value={`${((housedBuffer / totalBuffer) * 100).toFixed(0)}%`}
         />
       )}
     </div>

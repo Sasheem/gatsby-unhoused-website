@@ -262,10 +262,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-	max-width: 12em;
+	min-width: 15em;
 	
     p {
-        margin: 0.5em 0 0 0;
+		line-height: 1.5;
+		margin-top: 0.5em;
     }
 
     @media only screen and (max-width: 800px) {
