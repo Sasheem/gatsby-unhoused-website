@@ -36,25 +36,61 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
     }
   }
 
+  const firstNumber = pageNumbers[0];
+  const lastNumber = pageNumbers[pageNumbers.length - 1];
+
   return (
     <div className="pagination">
       <LeftArrow className="pagination-icon" onClick={handleLeftArrowClick} />
       <nav className="pagination-items">
         <ul>
-          {pageNumbers.map(number => (
-            <li key={number}>
+          {currentPage !== firstNumber && (
+            <li>
               <a
-                onClick={() => paginate(number)}
-                className={
-                  currentPage === number
-                    ? 'pagination-link pagination-active'
-                    : 'pagination-link'
-                }
+                onClick={() => paginate(firstNumber)}
+                className="pagination-link"
               >
-                {number}
+                {firstNumber}
               </a>
             </li>
-          ))}
+          )}
+          {currentPage !== firstNumber && currentPage !== firstNumber + 1 && (
+            <span>...</span>
+          )}
+          {/* Only render current page and two items before and after */}
+          {pageNumbers.map(number =>
+            number === currentPage ||
+            (number === currentPage + 2 && number !== lastNumber) ||
+            (number === currentPage + 1 && number !== lastNumber) ||
+            (number === currentPage - 2 && number !== firstNumber) ||
+            (number === currentPage - 1 && number !== firstNumber) ? (
+              <li key={number}>
+                <a
+                  onClick={() => paginate(number)}
+                  className={
+                    currentPage === number
+                      ? 'pagination-link pagination-active'
+                      : 'pagination-link'
+                  }
+                >
+                  {number}
+                </a>
+              </li>
+            ) : null
+          )}
+          {currentPage !== lastNumber && currentPage !== lastNumber - 1 && (
+            <span>...</span>
+          )}
+          {currentPage !== lastNumber && (
+            <li>
+              <a
+                onClick={() => paginate(lastNumber)}
+                className="pagination-link"
+              >
+                {lastNumber}
+              </a>
+            </li>
+          )}
         </ul>
       </nav>
       <RightArrow className="pagination-icon" onClick={handleRightArrowClick} />

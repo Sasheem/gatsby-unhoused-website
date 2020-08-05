@@ -22,7 +22,6 @@ const StoryHead = ({
     <div className="story-head">
       <h1>Meet {firstName}</h1>
       <div className="story-head-content">
-        <div />
         <div className="head-image-container">
           <img
             src={imageUrl}
