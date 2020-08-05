@@ -34,10 +34,10 @@ const CallToActions = () => (
       return (
         <div className="content-three">
           <CardCallToAction
-            title="Crowdfunding"
-            text="Help an individual or family fighting homelessness by donating today."
-            link="Donate"
-            destination="/contactDonate"
+            title="Homeless Resources"
+            text="Are you about to experience homelessness? See our resources to find help."
+            link="Resources"
+            destination="/resources"
             fluid={dataCallOne}
           />
           <CardCallToAction

@@ -18,10 +18,10 @@ const IndexPage = () => {
       <SEO title="Home" />
       <div className="page-body">
         <Hero
-          title="IT STARTS WITH YOU"
-          subtitle="Join the fight against homelessness today"
-          label="Meet client"
-          destination="/story/Sheena-Salmon"
+          title="Housed or not, we are all human"
+          subtitle="Are you about to experience homelessness? See our resources for help."
+          label="Resources"
+          destination="/resources"
           location="Home"
         />
         <Metrics />
