@@ -55,13 +55,13 @@ const Hero = ({ title, subtitle, label, destination, location }) => {
           }
         }
         query {
-          bannerHome: file(relativePath: { eq: "banner-home.jpg" }) {
+          bannerHome: file(relativePath: { eq: "hero-home.jpg" }) {
             ...processHeroBanner
           }
-          bannerAbout: file(relativePath: { eq: "banner-about.jpg" }) {
+          bannerAbout: file(relativePath: { eq: "hero-about.jpg" }) {
             ...processHeroBanner
           }
-          bannerCrowdfund: file(relativePath: { eq: "banner-crowdfund.jpg" }) {
+          bannerCrowdfund: file(relativePath: { eq: "hero-crowdfund.jpg" }) {
             ...processHeroBanner
           }
         }
