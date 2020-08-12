@@ -1,4 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
+import Img from 'gatsby-image';
 
 import { FirebaseContext } from '../components/Firebase';
 import SEO from '../components/seo';
@@ -13,6 +15,27 @@ import '../styles/global.scss';
 const AboutPage = () => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const [metrics, setMetrics] = useState(null);
+
+  const data = useStaticQuery(graphql`
+    query {
+      missionImage: file(relativePath: { eq: "mission-image.png" }) {
+        base
+        childImageSharp {
+          fluid(maxWidth: 250) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      visionImage: file(relativePath: { eq: "vision-image.png" }) {
+        base
+        childImageSharp {
+          fluid(maxWidth: 250) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `);
 
   useEffect(() => {
     if (firebase) {
@@ -46,7 +69,69 @@ const AboutPage = () => {
       <div className="page-content-container">
         <div />
         <div className="page-content">
-          <div className="content-grid-one">
+          <div className="content-container-grid-two">
+            <div className="content-element-three">
+              <h2>Our Mission</h2>
+              <Img
+                className="steps-img"
+                fluid={data.visionImage.childImageSharp.fluid}
+                alt={data.visionImage.base.split('.')[0]}
+              />
+            </div>
+            <div className="content-element-three">
+              <p>
+                We are on a mission to provide a fresh start to the homeless
+                community while chipping away at the barrier that separates them
+                from society
+              </p>
+              <p>
+                As we drive on the way to school or work, we try not to make eye
+                contact with those who have fallen and have been forgotten. We
+                either look forward, or ignore their presence. We pretend not to
+                notice them and acknowledge their existence.
+              </p>
+              <p>
+                This is something we hear time and time again. Surprisingly the
+                worst part about being homeless is the feeling of not being
+                apart of society. getting ignored by everyone, because they are
+                stereotyping you.
+              </p>
+            </div>
+          </div>
+          <div className="content-container">
+            <Team title="Our Team" />
+          </div>
+          <div className="content-container-grid-two">
+            <div className="content-element-three">
+              <p>
+                Unhoused Humanity was founded for one reason; to fill the
+                growing gap of initial expense required to get housed.
+              </p>
+              <p>
+                A great deal of individuals who are experiencing homelessness
+                have an income, but don't have the necessary amount of capital
+                to enter a home. There are others who experience life
+                difficulties such as high medical bills, and electricity bills,
+                which causes them to run short on their monthly budget.
+              </p>
+              <p>
+                At Unhoused Humanity we strongly believe that individuals who
+                are experiencing these situations should never be homeless, or
+                experience long- term homelessness. That is why our grant
+                program provides those start-up cost for people who need the
+                extra help back up.
+              </p>
+            </div>
+            <div className="content-element-three">
+              <h2>Our Vision</h2>
+              <Img
+                className="steps-img"
+                fluid={data.missionImage.childImageSharp.fluid}
+                alt={data.missionImage.base.split('.')[0]}
+              />
+            </div>
+          </div>
+          {/* <div className="content-grid-one">
             <div />
             <div className="content-container">
               <h2>Who We Are</h2>
@@ -61,8 +146,8 @@ const AboutPage = () => {
               </p>
             </div>
             <div />
-          </div>
-          <div className="content-three">
+          </div> */}
+          {/* <div className="content-three">
             <div className="content-card">
               <h4>Our misson</h4>
               <p>
@@ -89,12 +174,9 @@ const AboutPage = () => {
                 environmentally.
               </p>
             </div>
-          </div>
-          <div className="content-container">
-            <Team title="Our Team" />
-          </div>
+          </div> */}
 
-          <div className="content-grid-one">
+          {/* <div className="content-grid-one">
             <div />
             <div className="content-container">
               <h2>Our Goals</h2>
@@ -110,7 +192,7 @@ const AboutPage = () => {
               </p>
             </div>
             <div />
-          </div>
+          </div> */}
           <div className="content-container">
             <Board title="Our Board" />
           </div>

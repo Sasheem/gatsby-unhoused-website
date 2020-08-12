@@ -81,26 +81,25 @@
     flex: 1;
 }
 .interview-container {
-    width: 90vw;
+    width: 60vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
 
     @media only screen and (max-width: 960px) {
-        width: 80%;
+        width: 80vw;
         margin: 0 auto;
     }
 }
 .interview-content {
-    
     width: 100%;
     margin: 0 auto 4em auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     
-    p, h3, h2 {
+    p, h4, h2 {
         text-align: left;
     }
     p {

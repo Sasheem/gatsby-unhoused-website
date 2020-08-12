@@ -58,7 +58,10 @@ const HowItWorks = () => {
           <div className="steps-fill" />
           <div className="steps-content">
             <h3>Family seeks homeless shelter</h3>
-            <p>Details or statistics regarding homeless shelters</p>
+            <p>
+              Adults and children in families make up about{' '}
+              <strong>33 percent of the homeless population</strong>
+            </p>
             <a
               href="https://kearneycenter.org/"
               target="_blank"
@@ -85,11 +88,8 @@ const HowItWorks = () => {
         <div className="steps-content-container">
           <div className="steps-fill-responsive" />
           <div className="steps-content">
-            <h3>Family learns about Unhoused Humanity</h3>
-            <p>
-              Details or statistics about Unhoused Humanity receiving clients
-              from shelters
-            </p>
+            <h3>Client learns about Unhoused Humanity</h3>
+            <p>Our cause makes a direct impact in an individuals life</p>
             <Link className="page-link" to="/about">
               About us
             </Link>
@@ -112,8 +112,11 @@ const HowItWorks = () => {
         <div className="steps-content-container">
           <div className="steps-fill" />
           <div className="steps-content">
-            <h3>Case worker submits referral to Unhoused Humanity</h3>
-            <p>Details about case workers and what they do</p>
+            <h3>Submitted referral to Unhoused Humanity</h3>
+            <p>
+              Case worker assesses if client will be sustainable after being
+              funded
+            </p>
             <Link className="page-link" to="/">
               Case workers
             </Link>
@@ -137,7 +140,10 @@ const HowItWorks = () => {
           <div className="steps-fill-responsive" />
           <div className="steps-content">
             <h3>Donors funds a client</h3>
-            <p>Details or statistics about donations</p>
+            <p>
+              100% of donations received goes directly to housing a person or
+              family in need
+            </p>
             <Link className="page-link" to="/contactDonate">
               Donate
             </Link>
@@ -161,7 +167,10 @@ const HowItWorks = () => {
           <div className="steps-fill" />
           <div className="steps-content">
             <h3>Donors receive client updates</h3>
-            <p>Sign up for an account to manage updates</p>
+            <p>
+              Receive email updates when the person or family you funded is
+              housed
+            </p>
             <Link className="page-link" to="/register">
               Sign up
             </Link>

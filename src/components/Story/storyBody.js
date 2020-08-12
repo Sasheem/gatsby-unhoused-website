@@ -13,7 +13,7 @@ const StoryBody = ({ situation, questions, answers }) => (
     {Object.keys(questions).map(key => {
       return (
         <div className="interview-content" key={key}>
-          <h3>{questions[key]}</h3>
+          <h4>{questions[key]}</h4>
           <p>{answers[key]}</p>
         </div>
       );

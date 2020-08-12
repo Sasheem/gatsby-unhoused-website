@@ -140,6 +140,14 @@ a {
     display: grid;
     grid-template-columns: 0.15fr 1.5fr 0.15fr;
 }
+.content-grid-two {
+    display: grid;
+    max-width: 80vw;
+    background-color: lightpink;
+    @media only screen and (min-width: 960px) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
 .content-container-two {
     display: grid;
     grid-gap: 5em;
@@ -152,12 +160,39 @@ a {
         grid-template-columns: 1fr 1fr;
     } 
 }
+.content-container-grid-two {
+    display: grid;
+    grid-gap: 8em;
+    max-width: 80vw;
+    h2, h3, p {
+        text-align: left;
+    }
+    @media only screen and (min-width: 960px) {
+        grid-template-columns: 1fr 1fr;
+    } 
+}
 .content-element-two {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     h3 {
         margin-bottom: 0.5em;
+    }
+    
+}
+.content-element-three {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    h2, h3 {
+        margin-bottom: 0.5em;
+    }
+    p {
+
+        line-height: 1.750;
+        margin-bottom: 1.5em;
     }
 }
 .content-container-three {
@@ -515,7 +550,7 @@ a {
 }
 .form-layout-crowdfund {
     display: grid;
-    grid-gap: 4em;
+    grid-gap: 2em;
 }
 .form-header {
     display: flex;
@@ -531,8 +566,11 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    h3, p {
+    h4, p {
         text-align: left;
+    }
+    h4 {
+        margin-bottom: 0.5em;
     }
 }
 .form-container {
