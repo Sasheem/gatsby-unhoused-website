@@ -86,11 +86,11 @@ const Header = ({ menuClickHandler, hideBackdrop }) => {
               {(!user || !user.email) && (
                 <li>
                   <Link to="/login" className="navbar-link">
-                    Log In
+                    Sign In
                   </Link>
                   <span className="header-divider" />
                   <Link to="/register" className="navbar-link">
-                    Register
+                    Sign Up
                   </Link>
                 </li>
               )}

@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import moment from 'moment';
 
 import ProgressBar from '../ProgressBar/progressBar';
+import './cards.scss';
 
 const CardClientAdmin = ({ client }) => {
   const {
@@ -39,19 +40,23 @@ const CardClientAdmin = ({ client }) => {
               state={{ raised, status, dateHoused }}
               className="card-featured-link"
             >
-              <h3>
+              <p>
                 {firstName} {lastName}
-              </h3>
+              </p>
             </Link>
             {status === 'Housed' ? (
-              <span>
-                <h5>Housed</h5>
-                <p>{moment(dateHoused.toDate()).format('ll')}</p>
+              <span className="m-top-lg">
+                <p>
+                  <strong>Housed:</strong>{' '}
+                  {moment(dateHoused.toDate()).format('ll')}
+                </p>
               </span>
             ) : (
-              <span>
-                <h5>Funding Began</h5>
-                <p>{moment(dateFundingBegan.toDate()).format('ll')}</p>
+              <span className="m-top-lg">
+                <p>
+                  <strong>Joined: </strong>
+                  {moment(dateFundingBegan.toDate()).format('ll')}
+                </p>
               </span>
             )}
           </div>

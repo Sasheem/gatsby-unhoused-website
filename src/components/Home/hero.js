@@ -23,8 +23,9 @@ const Content = styled.div`
   }
   p {
     margin: 1em;
-    max-width: 90%;
+    max-width: 70%;
     line-height: 1.625;
+    overflow-wrap: break-word;
   }
 `;
 

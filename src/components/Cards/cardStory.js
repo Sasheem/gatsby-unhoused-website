@@ -38,7 +38,7 @@ const CardStory = ({ client }) => {
           <div className="featured-flex" />
           <div className="featured-content">
             <div className="featured-bio">
-              <h3>Meet {firstName}</h3>
+              <h5>Meet {firstName}</h5>
               <p className="situation">{`${situation.slice(0, 90)}...`}</p>
             </div>
             <div className="card-footer">

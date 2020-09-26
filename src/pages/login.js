@@ -9,7 +9,7 @@ import '../styles/global.scss';
 
 const LoginPage = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
-  const { firebase = null } = useContext(FirebaseContext) || {};
+  const { firebase = null, user } = useContext(FirebaseContext) || {};
   const [errorMessage, setErrorMessage] = useState('');
   let isMounted = true;
 
@@ -21,6 +21,7 @@ const LoginPage = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
+
     firebase
       .login({ email: formValues.email, password: formValues.password })
       .then(() => navigate('/dashboard'))
@@ -29,6 +30,39 @@ const LoginPage = () => {
           setErrorMessage(error.message);
         }
       });
+    // try {
+    //   await firebase.login({
+    //     email: formValues.email,
+    //     password: formValues.password,
+    //   });
+
+    //   return await firebase
+    //     .getUser({ userId: user.username })
+    //     .then(snapshot => {
+    //       navigate('/dashboard', { state: { userProfile: snapshot.data() } });
+    //     });
+    // } catch (error) {
+    //   if (isMounted) {
+    //     setErrorMessage(error.message);
+    //   }
+    // }
+
+    // firebase
+    //   .login({ email: formValues.email, password: formValues.password })
+    //   .then(UserCredentials => {
+    //     console.dir(UserCredentials);
+    //     const userProfile = firebase
+    //       .getUser({ userId: user.username })
+    //       .then(snapshot => {
+    //         navigate('/dashboard', { state: { userProfile: snapshot.data() } });
+    //       });
+    //     return userProfile;
+    //   })
+    //   .catch(error => {
+    //     if (isMounted) {
+    //       setErrorMessage(error.message);
+    //     }
+    //   });
   }
 
   function handleInputChange(event) {
@@ -45,11 +79,8 @@ const LoginPage = () => {
       <SEO title="Login page" />
       <div className="form-layout">
         <div className="form-header">
-          <h1>Login to Unhoused Dashboard</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacus
-            nisi, aliquam a tortor et, vulputate consectetur ex.
-          </p>
+          <h1>Sign in to Unhoused Dashboard</h1>
+          <p>See the newest clients and track the donations you make.</p>
         </div>
         <div className="form-container">
           <div />
@@ -77,7 +108,7 @@ const LoginPage = () => {
             </div>
             <div className="form-submit-row">
               <div />
-              <ButtonSubmit value="Log In" />
+              <ButtonSubmit value="Sign In" />
               <div />
             </div>
             {!!errorMessage && (
@@ -87,7 +118,13 @@ const LoginPage = () => {
               <p>
                 Don't have an account?{' '}
                 <Link to="/register">
-                  <span className="form-description-link">Register</span>
+                  <span className="form-description-link">Signup</span>
+                </Link>
+              </p>
+              <p>
+                Forgot your password?{' '}
+                <Link to="/forgotPassword">
+                  <span className="form-description-link">Reset password</span>
                 </Link>
               </p>
             </div>

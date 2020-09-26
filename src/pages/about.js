@@ -59,7 +59,7 @@ const AboutPage = () => {
     <div className="page-body">
       <SEO title="About" />
       <Hero
-        title="About Unhoused Humanity"
+        title="About Us"
         subtitle="We believe everyone deserves a roof over their head"
         label="Join our team"
         destination="/contactVolunteer"

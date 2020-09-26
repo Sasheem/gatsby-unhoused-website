@@ -49,7 +49,7 @@ const CardClientFeatured = ({ client }) => {
               state={{ raised, status, dateHoused }}
               className="card-featured-link"
             >
-              <h4>Meet {firstName}</h4>
+              <h5>Meet {firstName}</h5>
             </Link>
             <span>
               <p className="situation">{`${situation.slice(0, 90)}...`}</p>

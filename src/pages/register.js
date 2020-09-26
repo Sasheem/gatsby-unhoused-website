@@ -66,11 +66,8 @@ const Register = () => {
       <SEO title="Register page" />
       <div className="form-layout">
         <div className="form-header">
-          <h1>Register with Unhoused Humanity</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacus
-            nisi, aliquam a tortor et, vulputate consectetur ex.
-          </p>
+          <h1>Sign up to end homelessness</h1>
+          <p>Read a client's story and change their life today.</p>
         </div>
         <div className="form-container">
           <div />
@@ -136,7 +133,7 @@ const Register = () => {
             <div className="form-submit-row">
               <div />
               <ButtonSubmit
-                value={isProcessing ? 'Processing...' : 'Register'}
+                value={isProcessing ? 'Processing...' : 'Sign Up'}
               />
               <div />
             </div>
