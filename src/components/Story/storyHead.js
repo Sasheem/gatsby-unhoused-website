@@ -52,7 +52,7 @@ const StoryHead = ({
             </div>
           </div>
           <div className="info-column">
-            <h4>Share their story</h4>
+            <h4>Share {firstName}'s story</h4>
             <StoryIcons
               url={`https://musing-joliot-870301.netlify.app/story/${firstName}-${lastName}`}
               fbHashtag="EndHomelessness"

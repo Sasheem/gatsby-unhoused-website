@@ -89,7 +89,7 @@ const HowItWorks = () => {
           <div className="steps-fill-responsive" />
           <div className="steps-content">
             <h3>Informed about Unhoused Humanity</h3>
-            <p>Our cause makes a direct impact in an individuals life.</p>
+            <p>Our cause makes a direct impact in an individual's life.</p>
             <Link className="page-link" to="/about">
               About us
             </Link>
