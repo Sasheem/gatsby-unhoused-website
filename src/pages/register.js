@@ -37,21 +37,21 @@ const Register = () => {
 
     if (password.value === confirmPassword.value) {
       setIsProcessing(true);
-      firebase
-        .register({
-          username: username.value,
-          email: email.value,
-          password: password.value,
-          name: `${firstName.value} ${lastName.value}`,
-        })
-        .then(() => {
-          setIsProcessing(false);
-          navigate('/dashboard');
-        })
-        .catch(error => {
-          setIsProcessing(false);
-          setErrorMessage(error.message);
-        });
+      // firebase
+      //   .register({
+      //     username: username.value,
+      //     email: email.value,
+      //     password: password.value,
+      //     name: `${firstName.value} ${lastName.value}`,
+      //   })
+      //   .then(() => {
+      //     setIsProcessing(false);
+      //     navigate('/dashboard');
+      //   })
+      //   .catch(error => {
+      //     setIsProcessing(false);
+      //     setErrorMessage(error.message);
+      //   });
     } else {
       setErrorMessage('Password and Confirm Password fields must match.');
     }
