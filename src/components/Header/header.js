@@ -28,8 +28,7 @@ const Header = ({ menuClickHandler, hideBackdrop }) => {
   function handleLogoutClick() {
     firebase.logout().then(() => navigate('/login'));
   }
-  console.log('currentUser:');
-  console.dir(user);
+
   return (
     <header className="header">
       <nav className="navbar">

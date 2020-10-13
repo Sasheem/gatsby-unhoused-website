@@ -46,6 +46,7 @@ Modal.setAppElement('#___gatsby');
 
 const ContactDonate = ({ location }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
+  const [userProfile, setUserProfile] = useState(null);
   const [formValues, setFormValues] = useState({
     name: '',
     username: '',
@@ -93,6 +94,20 @@ const ContactDonate = ({ location }) => {
   const stripe = useStripe();
   const elements = useElements();
 
+  useEffect(() => {
+    if (firebase && user) {
+      firebase.getUser({ userId: user.username }).then(snapshot => {
+        setUserProfile(snapshot.data());
+        if (snapshot.data().hasOwnProperty('customerId')) {
+          fetchWallet(snapshot.data().customerId);
+        }
+      });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [firebase, user]);
+
   // fetch clients to be featured
   useEffect(() => {
     if (firebase) {
@@ -135,22 +150,11 @@ const ContactDonate = ({ location }) => {
     }
   }, [clientSelected, location]);
 
-  // fetch and supply the users saved payments
-  useEffect(() => {
-    if (firebase && location && location.state.userProfile) {
-      try {
-        firebase
-          .listPaymentMethods({
-            customerId: location.state.userProfile.customerId,
-          })
-          .then(result => {
-            setWallet(result.data.data);
-          });
-      } catch (error) {
-        console.log(`error fetching payment intents: ${error.message}`);
-      }
-    }
-  }, [user]);
+  // fetch user payment methods
+  const fetchWallet = async customerId => {
+    const result = await firebase.listPaymentMethods({ customerId });
+    setWallet(result.data.data);
+  };
 
   /**
    * * 1 create payment method with stripe
@@ -323,7 +327,7 @@ const ContactDonate = ({ location }) => {
         <div className="form-container">
           <div />
           <form onSubmit={handleFormSubmit} className="form-component">
-            <h3>Client Information</h3>
+            <h3>Client Details</h3>
             <div className="form-input-row">
               <label htmlFor="client">Clients</label>
               <select
@@ -384,20 +388,22 @@ const ContactDonate = ({ location }) => {
                 value={formValues.message}
               />
             </div>
-            <h3>Billing Information</h3>
+            <h3>Card Info</h3>
             <div className="form-input-row">
               <label htmlFor="card-element">Credit Card</label>
               {wallet && wallet.length !== 0 && (
                 <select name="paymentMethod" onChange={handlePaymentChange}>
                   <option value="">--Choose a card on file--</option>
                   {wallet.map(card => (
-                    <option value={card.id}>**** {card.card.last4}</option>
+                    <option key={card.id} value={card.id}>
+                      **** {card.card.last4}
+                    </option>
                   ))}
                 </select>
               )}
               {wallet && wallet.length !== 0 && selectedPayment === '' && (
-                <span style={{ textAlign: `center`, margin: `0.5em 0` }}>
-                  <p>Or enter a new card</p>
+                <span style={{ margin: `0.5em 0` }}>
+                  <p style={{ textAlign: `left` }}>Or enter a new card</p>
                 </span>
               )}
               {selectedPayment === '' && (
@@ -427,6 +433,7 @@ const ContactDonate = ({ location }) => {
             )}
             {selectedPayment === '' && (
               <>
+                <h3>Billing Info</h3>
                 <div className="form-input-row">
                   <label htmlFor="name">Name</label>
                   <input
