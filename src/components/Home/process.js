@@ -107,7 +107,7 @@ const Process = () => (
                   Track their progress! Once they are fully funded, you will
                   receive an update of the family in their new home.
                 </p>
-                <Link className="page-link" to="/register">
+                <Link className="page-link" to="/signUp">
                   Sign up today
                 </Link>
               </div>

@@ -76,7 +76,7 @@ const SideMenu = ({ show, hideBackdrop }) => {
               </Link>
             </li>
             <li>
-              <Link to="/register" onClick={hideBackdrop}>
+              <Link to="/signUp" onClick={hideBackdrop}>
                 Sign Up
               </Link>
             </li>

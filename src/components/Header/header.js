@@ -88,7 +88,7 @@ const Header = ({ menuClickHandler, hideBackdrop }) => {
                     Sign In
                   </Link>
                   <span className="header-divider" />
-                  <Link to="/register" className="navbar-link">
+                  <Link to="/signUp" className="navbar-link">
                     Sign Up
                   </Link>
                 </li>

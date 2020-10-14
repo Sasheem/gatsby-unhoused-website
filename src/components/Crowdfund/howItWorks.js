@@ -171,7 +171,7 @@ const HowItWorks = () => {
               Receive email updates when the person or family you funded is
               housed.
             </p>
-            <Link className="page-link" to="/register">
+            <Link className="page-link" to="/signUp">
               Sign up
             </Link>
           </div>
