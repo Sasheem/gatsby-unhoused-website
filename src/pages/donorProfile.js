@@ -104,7 +104,7 @@ const DonorProfile = ({ location }) => {
   }, [donations]);
 
   const donorUsername =
-    location && location.state.hasOwnProperty('username')
+    location && location.state && location.state.hasOwnProperty('username')
       ? location.state.username
       : '';
 
