@@ -103,9 +103,10 @@ const DonorProfile = ({ location }) => {
     }
   }, [donations]);
 
-  const donorUsername = location.state.hasOwnProperty('username')
-    ? location.state.username
-    : '';
+  const donorUsername =
+    location && location.state.hasOwnProperty('username')
+      ? location.state.username
+      : '';
 
   return (
     <div className="page-body-dashboard">
