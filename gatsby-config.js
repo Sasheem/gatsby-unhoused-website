@@ -4,11 +4,14 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `Unhoused Humanity Website`,
+    title: `Unhoused Humanity`,
     description: `Join our movement to end homelessness in Tallahassee. Learn about homelessness and read some of our client success stories. Donate to our cause to help combat homelessness in Tallahassee, Florida.`,
     author: `@sasheemdev`,
+    url: `https://unhousedhumanity.org`,
+    twitterUsername: `@unhousedhumans`,
   },
   plugins: [
+    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
@@ -62,26 +65,6 @@ module.exports = {
               firstName: doc.firstName,
             }),
           },
-          // {
-          //   type: 'Post',
-          //   collection: 'clients',
-          //   map: doc => ({
-          //     firstName: doc.firstName,
-          //     lastName: doc.lastName,
-          //     goal: doc.goal,
-          //     raised: doc.raised,
-          //     questions: doc.questions,
-          //     answers: doc.answers,
-          //     situation: doc.situation,
-          //     familySize: doc.familySize,
-          //     status: doc.status,
-          //     donors: doc.donors,
-          //     dateHoused: doc.dateHoused,
-          //     dateFundingBegan: doc.dateFundingBegan,
-          //     slug: doc.slug,
-          //     imageUrl: doc.imageUrl,
-          //   }),
-          // },
         ],
       },
     },
