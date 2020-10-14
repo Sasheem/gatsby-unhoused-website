@@ -103,9 +103,18 @@ const DonorProfile = ({ location }) => {
     }
   }, [donations]);
 
+  const donorUsername = location.state.hasOwnProperty('username')
+    ? location.state.username
+    : '';
+
   return (
     <div className="page-body-dashboard">
-      <SEO title="Donor Profile" />
+      <SEO
+        title={`${donorUsername !== '' ? donorUsername : 'Donor'} Profile`}
+        description={`Take a look at the impact ${
+          donorUsername !== '' ? donorUsername : 'this donor'
+        } has made against homelessness.`}
+      />
       <div className="dashboard-component">
         <div className="dashboard-head">
           <div />

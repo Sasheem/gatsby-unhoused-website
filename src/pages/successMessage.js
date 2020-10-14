@@ -8,7 +8,10 @@ import '../styles/global.scss';
 const SuccessDonation = () => {
   return (
     <div className="page-content-container">
-      <SEO title="Successful message to Unhoused Humanity" />
+      <SEO
+        title="Successful message to Unhoused Humanity"
+        description="Thank you for reaching out to Unhoused Humanity. We will get back to you soon."
+      />
       <div className="page-message">
         <h1>Thank you for reaching out!</h1>
         <p>

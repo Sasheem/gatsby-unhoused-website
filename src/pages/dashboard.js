@@ -54,7 +54,10 @@ const Dashboard = ({ location }) => {
 
   return (
     <div className="page-body-dashboard">
-      <SEO title="User dashboard" />
+      <SEO
+        title="User dashboard"
+        description="User has secure and private access to their manage their account with Unhoused Humanity."
+      />
       <div className="dashboard-bg-grey">
         <div className="dashboard-component">
           <div className="dashboard-head">

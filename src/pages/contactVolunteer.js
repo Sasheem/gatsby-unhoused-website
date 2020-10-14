@@ -81,7 +81,10 @@ const ContactVolunteer = () => {
 
   return (
     <div className="form-layout-container">
-      <SEO title="Unhoused Humanity contact volunteer form" />
+      <SEO
+        title="Become a volunteer"
+        description="Join the fight against homelessness and become a volunteer for Unhoused Humanity."
+      />
       <div className="form-layout">
         <div className="form-header">
           <h1>Join our team</h1>

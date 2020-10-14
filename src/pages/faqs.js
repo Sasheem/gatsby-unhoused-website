@@ -12,7 +12,10 @@ const FAQs = () => {
   };
   return (
     <div id="top-of-faq-page" style={{ marginTop: `6em` }}>
-      <SEO title="Frequently Asked Questions" />
+      <SEO
+        title="Common Questions about Homelessness"
+        description="Learn about who can become homeless and the different ways you can help end homelessness."
+      />
       <h1>Breaking Down Homelessness</h1>
       <div className="faq-container">
         <div id="faq-side-bar" className="faq-side-menu">

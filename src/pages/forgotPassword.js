@@ -35,7 +35,10 @@ const ForgotPassword = () => {
 
   return (
     <div className="page-content-container">
-      <SEO title="Forgot password" />
+      <SEO
+        title="Forgot password"
+        description="Change your password to rejoin the fight against homelessness."
+      />
       <div className="page-message">
         <form className="form-component" onSubmit={submitForm}>
           <h2>Forgot password?</h2>
@@ -54,7 +57,7 @@ const ForgotPassword = () => {
           <div className="form-description-row-sm">
             <p>
               Don't have an account?{' '}
-              <Link to="/register">
+              <Link to="/signUp">
                 <span className="form-description-link">Signup</span>
               </Link>
             </p>

@@ -76,7 +76,10 @@ const LoginPage = () => {
 
   return (
     <div className="form-layout-container">
-      <SEO title="Login page" />
+      <SEO
+        title="Log In"
+        description="Log in to your Unhoused Portal to track donations, real time family updates, and donation metrics."
+      />
       <div className="form-layout">
         <div className="form-header">
           <h1>Sign in to Unhoused Dashboard</h1>
@@ -117,7 +120,7 @@ const LoginPage = () => {
             <div className="form-description-row">
               <p>
                 Don't have an account?{' '}
-                <Link to="/register">
+                <Link to="/signUp">
                   <span className="form-description-link">Signup</span>
                 </Link>
               </p>

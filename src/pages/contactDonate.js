@@ -315,7 +315,10 @@ const ContactDonate = ({ location }) => {
 
   return (
     <div className="form-layout-container">
-      <SEO title="Unhoused Humanity donation form" />
+      <SEO
+        title="Make a donation"
+        description="Make a donation to a featured family we are funding or to a future client we have yet to find."
+      />
       <div className="form-layout">
         <div className="form-header">
           <h1>Make a Donation</h1>

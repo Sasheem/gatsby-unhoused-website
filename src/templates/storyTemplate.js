@@ -37,7 +37,10 @@ const StoryTemplate = ({ pageContext, location }) => {
 
   return (
     <div className="page-content-container">
-      <SEO title={`${firstName}'s Story`} />
+      <SEO
+        title={`${firstName}'s Story`}
+        description={`Meet ${firstName}! Read their story and donate to Unhoused Humanity to help change the life for someone else.`}
+      />
       <div className="story-template">
         {location &&
         location.state &&

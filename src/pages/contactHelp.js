@@ -73,7 +73,10 @@ const ContactHelp = () => {
 
   return (
     <div className="form-layout-container">
-      <SEO title="Unhoused Humanity contact for help form" />
+      <SEO
+        title="Are you about to be homeless?"
+        description="Reach out to us if you are about to experience homelessness. Provide as much details about your situation as you can."
+      />
       <div className="form-layout">
         <div className="form-header">
           <h1>Request our help</h1>

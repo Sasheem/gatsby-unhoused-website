@@ -63,7 +63,10 @@ const Register = () => {
   }
   return (
     <div className="form-layout-container">
-      <SEO title="Register page" />
+      <SEO
+        title="Sign Up"
+        description="Sign up for an Unhoused Portal to track and manage donations. Get real time updates on families you have funded and view metrics about your impact against homelessness."
+      />
       <div className="form-layout">
         <div className="form-header">
           <h1>Sign up to end homelessness</h1>

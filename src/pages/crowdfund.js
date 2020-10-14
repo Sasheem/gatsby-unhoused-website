@@ -84,7 +84,10 @@ const CrowdfundPage = () => {
 
   return (
     <div className="page-body">
-      <SEO title="Crowdfunding" />
+      <SEO
+        title="Crowdfunding for homelessness"
+        description="Everyone deserves to have a roof over their head. Unhoused humanity uses the modern web technologies to raise small donations for individuals and families experiencing homelessness."
+      />
       <Hero
         title="What is Crowdfunding?"
         subtitle="The practice of funding a project or venture by raising many small amounts of money from a large number of people, typically via the Internet."

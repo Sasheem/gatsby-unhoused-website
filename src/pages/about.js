@@ -57,7 +57,10 @@ const AboutPage = () => {
   const housedBuffer = metrics ? metrics.housed + 52 : 0;
   return (
     <div className="page-body">
-      <SEO title="About" />
+      <SEO
+        title="About Unhoused Humanity"
+        description="We are a small group of professionals working to help those experiencing homelessness and to spread awareness in Tallahassee, Florida."
+      />
       <Hero
         title="About Us"
         subtitle="We believe everyone deserves a roof over their head"

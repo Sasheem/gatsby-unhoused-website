@@ -16,7 +16,10 @@ const Resources = () => {
   };
   return (
     <div id="top-of-faq-page" style={{ marginTop: `10em` }}>
-      <SEO title="Resources for Homeless" />
+      <SEO
+        title="Resources for Homeless"
+        description="Our resources for those about to be or experiencing homelessness include Emergency Services, Housing Services, Veterans Services, Food and Clothing, Drop-In Centers, Job Training and Placement, Legal Services, Financial Services, Mental Health and Medical Services, Family Services, Social Security Cards and Disability Benefits, Transportation and Identification, and Substance Abuse Services."
+      />
       <div className="faq-header">
         <div className="faq-header-info">
           <h1>
