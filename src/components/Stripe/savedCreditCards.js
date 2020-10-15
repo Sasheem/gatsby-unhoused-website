@@ -133,7 +133,7 @@ const SavedCreditCards = ({ firebase, user }) => {
           </thead>
           <tbody>
             {wallet.map(card => (
-              <tr className="saved-card-row">
+              <tr key={card.paymentMethodId} className="saved-card-row">
                 <td>
                   <p>{card.billingDetails.name}</p>
                 </td>

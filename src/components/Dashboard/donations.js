@@ -68,7 +68,7 @@ const Donations = ({ firebase, user }) => {
           </thead>
           <tbody>
             {donations.map(donation => (
-              <tr className="donation-row">
+              <tr key={donation.id} className="donation-row">
                 <td className="client-item">
                   <p>{moment(donation.date.toDate()).format('ll')}</p>
                 </td>

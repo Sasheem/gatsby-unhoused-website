@@ -62,7 +62,7 @@ const Partners = ({ title }) => {
         <div />
         <TeamGrid>
           {data.allFile.edges.map(({ node }) => (
-            <Partner>
+            <Partner key={node.base.split('.')[0]}>
               <Img
                 fluid={node.childImageSharp.fluid}
                 alt={node.base.split('.')[0]}

@@ -106,6 +106,14 @@ const AboutPage = () => {
           </div>
           <div className="content-container-grid-two">
             <div className="content-element-three">
+              <h2>Our Vision</h2>
+              <Img
+                className="steps-img"
+                fluid={data.missionImage.childImageSharp.fluid}
+                alt={data.missionImage.base.split('.')[0]}
+              />
+            </div>
+            <div className="content-element-three">
               <p>
                 Unhoused Humanity was founded for one reason; to fill the
                 growing gap of initial expense required to get housed.
@@ -124,14 +132,6 @@ const AboutPage = () => {
                 program provides those start-up cost for people who need the
                 extra help back up.
               </p>
-            </div>
-            <div className="content-element-three">
-              <h2>Our Vision</h2>
-              <Img
-                className="steps-img"
-                fluid={data.missionImage.childImageSharp.fluid}
-                alt={data.missionImage.base.split('.')[0]}
-              />
             </div>
           </div>
           {/* <div className="content-grid-one">
