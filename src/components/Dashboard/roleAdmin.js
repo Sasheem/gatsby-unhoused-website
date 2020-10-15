@@ -16,7 +16,7 @@ import SavedCreditCards from '../Stripe/savedCreditCards';
 
 import 'react-tabs/style/react-tabs.css';
 
-const RoleAdmin = ({ firebase, user }) => {
+const RoleAdmin = ({ firebase, user, userProfile }) => {
   return (
     <div className="dashboard-body">
       <div />
@@ -79,7 +79,7 @@ const RoleAdmin = ({ firebase, user }) => {
         {/* Admin Profile Panel */}
         <TabPanel>
           <div className="tab-content-container">
-            <BioForm />
+            <BioForm userProfile={userProfile} />
           </div>
         </TabPanel>
 

@@ -75,7 +75,7 @@ const RoleUser = ({ userProfile }) => {
         {/* User Profile Panel */}
         <TabPanel>
           <div className="tab-content-container">
-            <BioForm />
+            <BioForm userProfile={userProfile} />
             <div className="dashboard-item" style={{ paddingBottom: `3em` }}>
               <DeleteUserForm
                 username={user.username}

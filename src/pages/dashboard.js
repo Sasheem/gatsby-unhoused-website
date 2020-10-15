@@ -20,7 +20,6 @@ const Dashboard = ({ location }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
   const [userProfile, setUserProfile] = useState(null);
   const [downloadURL, setDownloadURL] = useState('');
-  const [profiledFetched, setProfileFetched] = useState(false);
   let isMounted = true;
 
   useEffect(() => {
@@ -71,8 +70,12 @@ const Dashboard = ({ location }) => {
             )}
             <div />
           </div>
-          {user && !!user.isAdmin && (
-            <RoleAdmin firebase={firebase} user={user} />
+          {user && !!user.isAdmin && userProfile && (
+            <RoleAdmin
+              firebase={firebase}
+              user={user}
+              userProfile={userProfile}
+            />
           )}
           {user && !user.isAdmin && userProfile && (
             <RoleUser
