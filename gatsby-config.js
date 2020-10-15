@@ -7,7 +7,7 @@ module.exports = {
     title: `Unhoused Humanity`,
     description: `Join our movement to end homelessness in Tallahassee. Learn about homelessness and read some of our client success stories. Donate to our cause to help combat homelessness in Tallahassee, Florida.`,
     author: `@sasheemdev`,
-    url: `https://unhousedhumanity.org`,
+    siteUrl: `https://unhousedhumanity.org`,
     twitterUsername: `@unhousedhumans`,
   },
   plugins: [
