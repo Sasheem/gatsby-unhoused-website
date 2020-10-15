@@ -53,7 +53,7 @@ const CardUser = ({ userProfile, downloadURL, username }) => {
               <p>{userProfile.email}</p>
             </div>
           )}
-          {userProfile.website && (
+          {/* {userProfile.website && (
             <div className="card-row">
               <div className="card-user-icon">
                 <WebsiteIcon />
@@ -62,7 +62,7 @@ const CardUser = ({ userProfile, downloadURL, username }) => {
                 {userProfile.website.split('/')[2]}
               </a>
             </div>
-          )}
+          )} */}
         </>
       )}
     </div>
