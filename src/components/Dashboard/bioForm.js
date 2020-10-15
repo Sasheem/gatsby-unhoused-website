@@ -15,24 +15,22 @@ import '../../styles/global.scss';
  * todo erase file name upon submission
  */
 
-const BioForm = () => {
+const BioForm = ({ userProfile }) => {
   const { firebase = null, user } = useContext(FirebaseContext) || {};
-  const [userProfile, setUserProfile] = useState(null);
+  const [userProfileState, setUserProfileState] = useState(null);
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
     email: '',
     bio: '',
-    state: '',
-    website: '',
     workplace: '',
   });
   const [profilePrivate, setProfilePrivate] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [birthday, setBirthday] = useState(new Date());
+  // const [birthday, setBirthday] = useState(new Date());
   const [profileImage, setProfileImage] = useState(null);
-  const [birthdayChanged, setBirthdayChanged] = useState(false);
+  // const [birthdayChanged, setBirthdayChanged] = useState(false);
   const [privacyChanged, setPrivacyChanged] = useState(false);
   const [isProcessing, setProcessingTo] = useState(false);
   let isMounted = true;
@@ -40,7 +38,8 @@ const BioForm = () => {
   useEffect(() => {
     if (firebase && isMounted) {
       firebase.getUser({ userId: user.username }).then(snapshot => {
-        setUserProfile(snapshot.data());
+        setUserProfileState(snapshot.data());
+        setProfilePrivate(snapshot.data().profilePrivate);
       });
     }
     return () => {
@@ -59,12 +58,12 @@ const BioForm = () => {
     let temp = {};
     let imagePath = '';
 
-    if (userProfile !== null && firebase) {
+    if (userProfileState !== null && firebase) {
       // Map over all values provided by form
       for (let [key, value] of Object.entries(formValues)) {
         if (value.length !== 0) {
-          if (userProfile.hasOwnProperty(key)) {
-            if (userProfile[key] !== value) {
+          if (userProfileState.hasOwnProperty(key)) {
+            if (userProfileState[key] !== value) {
               temp[key] = value;
             }
           } else {
@@ -74,16 +73,15 @@ const BioForm = () => {
       }
 
       // only change the birthday if it was changed in the form
-      if (birthdayChanged === true) {
-        temp['birthday'] = birthday.toUTCString();
-      }
+      // if (birthdayChanged === true) {
+      //   temp['birthday'] = birthday.toUTCString();
+      // }
 
       // only change the privacy if it was changed in the form
       if (privacyChanged === true) {
         temp['profilePrivate'] = profilePrivate;
       }
 
-      setProcessingTo(true);
       if (profileImage !== null) {
         // console.log(`uploading profile Image: ${profileImage}`);
         const result = firebase.uploadUserProfileImage({
@@ -95,6 +93,7 @@ const BioForm = () => {
         temp['imagePath'] = result.location_.path_;
       }
 
+      setProcessingTo(true);
       firebase
         .writeUserSettings({
           username: user.username,
@@ -107,19 +106,18 @@ const BioForm = () => {
               lastName: '',
               email: '',
               bio: '',
-              state: '',
-              website: '',
               workplace: '',
             });
-            setBirthday(new Date());
+            // setBirthday(new Date());
             setSuccess(true);
-            setBirthdayChanged(false);
+            // setBirthdayChanged(false);
             setPrivacyChanged(false);
           }
         })
         .catch(error => {
           setErrorMessage(error.message);
         });
+      setProcessingTo(false);
     }
   }
 
@@ -129,11 +127,11 @@ const BioForm = () => {
     setProfilePrivate(!profilePrivate);
   }
 
-  function handleDateChange(date) {
-    setSuccess(false);
-    setBirthdayChanged(true);
-    setBirthday(date);
-  }
+  // function handleDateChange(date) {
+  //   setSuccess(false);
+  //   setBirthdayChanged(true);
+  //   setBirthday(date);
+  // }
 
   function handleInputChange(event) {
     event.persist();
@@ -149,7 +147,7 @@ const BioForm = () => {
     <form className="dashboard-item" onSubmit={handleSubmit}>
       <h3>Update Profile</h3>
       <div className="form-input-row">
-        <label for="profileImage">
+        <label htmlFor="profileImage">
           Profile picture <small>(less than 10MB)</small>
         </label>
 
@@ -164,90 +162,82 @@ const BioForm = () => {
       </div>
       <div className="two-input-row">
         <div className="form-input-row">
-          <label for="firstName">First Name</label>
+          <label htmlFor="firstName">First Name</label>
           <input
             type="text"
             name="firstName"
             onChange={handleInputChange}
             value={formValues.firstName}
+            placeholder={userProfile.firstName ? userProfile.firstName : null}
           />
         </div>
         <div className="form-input-row">
-          <label for="lastName">Last Name</label>
+          <label htmlFor="lastName">Last Name</label>
           <input
             type="text"
             name="lastName"
             onChange={handleInputChange}
             value={formValues.lastName}
+            placeholder={userProfile.lastName ? userProfile.lastName : null}
           />
         </div>
       </div>
       <div className="form-input-row">
-        <label for="email">Email</label>
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           name="email"
           onChange={handleInputChange}
           value={formValues.email}
+          placeholder={userProfile.email ? userProfile.email : null}
         />
       </div>
       <div className="form-input-row">
-        <label for="bio">Short bio</label>
+        <label htmlFor="bio">Short bio</label>
         <textarea
           id="bio"
           name="bio"
-          placeholder="Tell others a little about yourself"
+          placeholder={
+            userProfile.bio
+              ? userProfile.bio
+              : 'Tell others a little about yourself'
+          }
           value={formValues.bio}
           onChange={handleInputChange}
         />
       </div>
       <div className="form-input-row">
-        <label for="label">Website</label>
-        <input
-          type="url"
-          name="website"
-          onChange={handleInputChange}
-          value={formValues.website}
-        />
-      </div>
-      {/* <div className="two-input-row">
-          <div className="form-input-row">
-            <label for="state">State</label>
-            <select
-              multiple={true}
-              value={data.allSite.edges.node.siteMetadata.states}
-            />
-          </div>
-          <div className="form-input-row">
-            <label for="label">Website</label>
-            <input
-              type="text"
-              name="website"
-              onChange={handleInputChange}
-              value={formValues.website}
-            />
-          </div>
-        </div> */}
-      <div className="form-input-row">
-        <label for="birthday">Birthday</label>
-        <DatePicker
-          name="birthday"
-          value={birthday}
-          onChange={handleDateChange}
-        />
-      </div>
-      <div className="form-input-row">
-        <label for="workplace">Workplace</label>
+        <label htmlFor="workplace">Workplace</label>
         <input
           type="text"
           name="workplace"
           onChange={handleInputChange}
           value={formValues.workplace}
-          placeholder="Add a workplace"
+          placeholder={
+            userProfile.workplace ? userProfile.workplace : 'Add a workplace'
+          }
         />
       </div>
+      {/* <div className="form-input-row">
+        <label htmlFor="label">Website</label>
+        <input
+          type="url"
+          name="website"
+          onChange={handleInputChange}
+          value={formValues.website}
+          placeholder={userProfile.website ? userProfile.website : 'https://'}
+        />
+      </div> */}
+      {/* <div className="form-input-row">
+        <label htmlFor="birthday">Birthday</label>
+        <DatePicker
+          name="birthday"
+          value={birthday}
+          onChange={handleDateChange}
+        />
+      </div> */}
       <div className="form-input-row">
-        <label for="switch-help">
+        <label htmlFor="switch-help">
           Make profile private (only visible to you)
         </label>
         <label className="switch-help">
