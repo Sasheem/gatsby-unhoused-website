@@ -4,6 +4,7 @@ import { Link, navigate } from 'gatsby';
 import SEO from '../components/seo';
 import { FirebaseContext } from '../components/Firebase';
 import ButtonSubmit from '../components/common/Button/buttonSubmit';
+import { makeId } from '../utils/makeId';
 
 import '../styles/global.scss';
 
@@ -16,8 +17,7 @@ import '../styles/global.scss';
 const ContactVolunteer = () => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const [formValues, setFormValues] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     position: '',
     message: '',
@@ -25,6 +25,7 @@ const ContactVolunteer = () => {
   });
   const [resume, setResume] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
 
   function handleInputChange(event) {
     event.persist();
@@ -45,7 +46,10 @@ const ContactVolunteer = () => {
     ev.preventDefault();
     let emailValues = {};
     let filePath = '';
-    const { firstName, lastName } = formValues;
+    const { name } = formValues;
+    var nameSplit = name.split(' ');
+    console.dir(nameSplit);
+    setIsProcessing(true);
 
     // loop through formValues
     for (let [key, value] of Object.entries(formValues)) {
@@ -60,7 +64,10 @@ const ContactVolunteer = () => {
       const result = await firebase.uploadVolunteerResume({
         name: resume.name,
         fileObject: resume,
-        volunteerId: `${firstName}-${lastName}`,
+        volunteerId:
+          nameSplit.length === 1
+            ? `${name}-${makeId(5)}`
+            : `${nameSplit[0]}-${nameSplit[1]}`,
       });
       filePath = result.metadata.fullPath;
     }
@@ -71,12 +78,13 @@ const ContactVolunteer = () => {
           filePath,
         });
         navigate('/successMessage', {
-          state: { name: firstName },
+          state: { name },
         });
       }
     } catch (error) {
       setErrorMessage(`createMessage frontend: ${error.message}`);
     }
+    setIsProcessing(false);
   }
 
   return (
@@ -99,32 +107,20 @@ const ContactVolunteer = () => {
             onSubmit={handleSubmit}
           >
             <h3>Your Info</h3>
-            <div className="two-input-row">
-              <div className="form-input-row">
-                <label htmlFor="firstName">First Name</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formValues.firstName}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="form-input-row">
-                <label htmlFor="lastName">Last Name</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formValues.lastName}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
+            <div className="form-input-row">
+              <label htmlFor="name">Full Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formValues.name}
+                onChange={handleInputChange}
+                required
+              />
             </div>
             <div className="form-input-row">
               <label htmlFor="email">Email</label>
               <input
-                type="text"
+                type="email"
                 name="email"
                 value={formValues.email}
                 onChange={handleInputChange}
@@ -153,17 +149,28 @@ const ContactVolunteer = () => {
             </div>
             <div className="form-input-row">
               <label htmlFor="resume">Attach your resume (docx or pdf)</label>
-              <input onChange={handleFileChange} type="file" name="resume" />
+              <input
+                onChange={handleFileChange}
+                type="file"
+                name="resume"
+                required
+              />
             </div>
             <div className="form-submit-row">
               <div />
-              <ButtonSubmit value="Submit" />
+              <ButtonSubmit
+                value={isProcessing ? 'Processing...' : 'Submit'}
+                disabled={isProcessing}
+              />
               <div />
             </div>
+            {!!errorMessage && (
+              <div className="error-message">ERROR: {errorMessage}</div>
+            )}
             <div className="form-description-row">
               <p>
-                Are you about to be or experiencing homelessness?{' '}
-                <Link to="/contactHelp">
+                Are you a caseworker with a potential client?{' '}
+                <Link to="/contactCaseworker">
                   <span className="form-description-link">Contact Us</span>
                 </Link>
               </p>

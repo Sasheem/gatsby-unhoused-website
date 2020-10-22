@@ -10,12 +10,11 @@ import '../styles/global.scss';
 const Contact = () => {
   const { firebase = null } = useContext(FirebaseContext) || {};
   const [formValues, setFormValues] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     message: '',
   });
-
+  const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   function handleInputChange(event) {
@@ -29,12 +28,14 @@ const Contact = () => {
 
   function handleSubmit(ev) {
     ev.preventDefault();
-    const { firstName, lastName, email, message } = formValues;
+    const { name, email, message } = formValues;
+    const nameSplit = name.split(' ');
+
+    setIsProcessing(true);
     try {
       if (firebase) {
         const result = firebase.createMessage({
-          firstName,
-          lastName,
+          name,
           email,
           message,
           subject: 'General',
@@ -42,12 +43,13 @@ const Contact = () => {
         console.log(`result from message: ${typeof result}`);
         console.dir(result);
         navigate('/successMessage', {
-          state: { name: firstName },
+          state: { name: nameSplit[0] },
         });
       }
     } catch (error) {
       console.log(`createMessage frontend: ${error.message}`);
     }
+    setIsProcessing(false);
   }
 
   return (
@@ -67,26 +69,15 @@ const Contact = () => {
             onSubmit={handleSubmit}
           >
             <h3>Your Info</h3>
-            <div className="two-input-row">
-              <div className="form-input-row">
-                <label htmlFor="firstName">First Name</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  onChange={handleInputChange}
-                  value={formValues.firstName}
-                  required
-                />
-              </div>
-              <div className="form-input-row">
-                <label htmlFor="lastName">Last Name</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  onChange={handleInputChange}
-                  value={formValues.lastName}
-                />
-              </div>
+            <div className="form-input-row">
+              <label htmlFor="name">Full Name</label>
+              <input
+                type="text"
+                name="name"
+                onChange={handleInputChange}
+                value={formValues.name}
+                required
+              />
             </div>
             <div className="form-input-row">
               <label htmlFor="email">Email</label>
@@ -110,9 +101,15 @@ const Contact = () => {
             </div>
             <div className="form-submit-row">
               <div />
-              <ButtonSubmit value="Submit" />
+              <ButtonSubmit
+                value={isProcessing ? 'Processing...' : 'Submit'}
+                disabled={isProcessing}
+              />
               <div />
             </div>
+            {!!errorMessage && (
+              <div className="error-message">ERROR: {errorMessage}</div>
+            )}
             <div className="form-description-row">
               <p>
                 Are you about to be or experiencing homelessness?{' '}

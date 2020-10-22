@@ -412,11 +412,10 @@ class Firebase {
   }
 
   // [START create message from general contact form]
-  createMessage({ firstName, lastName, email, message, subject }) {
+  createMessage({ name, email, message, subject }) {
     const createMessageCallable = this.functions.httpsCallable('createMessage');
     return createMessageCallable({
-      firstName,
-      lastName,
+      name,
       email,
       message,
       subject,
