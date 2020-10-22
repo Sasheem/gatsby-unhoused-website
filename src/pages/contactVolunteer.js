@@ -152,7 +152,7 @@ const ContactVolunteer = () => {
               />
             </div>
             <div className="form-input-row">
-              <label htmlFor="resume">Attach your resume (pdf only)</label>
+              <label htmlFor="resume">Attach your resume (docx or pdf)</label>
               <input onChange={handleFileChange} type="file" name="resume" />
             </div>
             <div className="form-submit-row">

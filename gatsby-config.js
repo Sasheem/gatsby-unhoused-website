@@ -5,7 +5,7 @@ require('dotenv').config({
 module.exports = {
   siteMetadata: {
     title: `Unhoused Humanity`,
-    description: `Join our movement to end homelessness in Tallahassee. Learn about homelessness and read some of our client success stories. Donate to our cause to help combat homelessness in Tallahassee, Florida.`,
+    description: `Unhoused Humanity is nonprofit dedicated to housing those experiencing homelessness. Donate to one of our featured families and follow their housing process to completion. Share a clients success story to spread awareness about homelessness.`,
     author: `@sasheemdev`,
     siteUrl: `https://unhousedhumanity.org`,
     twitterUsername: `@unhousedhumans`,
