@@ -450,6 +450,34 @@ class Firebase {
   }
   // [END get all partners]
 
+  // [START create a message from case worker form]
+  async createCaseworkerMessage({
+    name,
+    agencyName,
+    email,
+    phone,
+    clientName,
+    clientEmail,
+    message,
+    subject,
+  }) {
+    const createCaseworkerMessageCallable = this.functions.httpsCallable(
+      'createCaseworkerMessage'
+    );
+
+    return createCaseworkerMessageCallable({
+      name,
+      agencyName,
+      email,
+      phone,
+      clientName,
+      clientEmail,
+      message,
+      subject,
+    });
+  }
+  // [END create a message from case worker form]
+
   // [START delete partner from database]
   deletePartner({ partnerId }) {
     const deletePartnerCallable = this.functions.httpsCallable('deletePartner');
