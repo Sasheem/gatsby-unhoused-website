@@ -19,8 +19,8 @@ Development Stack
 <li>Gatsby JS</li>
 <li>Google Firebase</li>
 <li>Stripe API</li>
-<li>MailChimp API<li>
-<li>Styled Components<li>
+<li>MailChimp API</li>
+<li>Styled Components</li>
 </ul>
 
 # gatsby-unhoused-website
