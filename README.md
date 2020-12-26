@@ -8,7 +8,6 @@
   Unhoused Humanity Website
 </h1>
 
-<<<<<<< HEAD
 <p>
 Unhoused Humanity is a nonprofit organization based in Tallahassee, Florida. They work to spread the stories of individuals and families experiencing homelessness in order to spread awareness and crowdfund donations for them. This web app allows users to browse the success stories, currently funding clients, and make donations to them. Users can create an account to take advantage of an Unhoused Dashboard to view all donations made, clients impacted, and update profile information. 
 </p>
@@ -23,9 +22,5 @@ Development Stack
 <li>MailChimp API<li>
 <li>Styled Components<li>
 </ul>
-=======
-Unhoused Humanity is a nonprofit organization based in Tallahassee, Florida. They work to spread the stories of individuals and families experiencing homelessness in order to spread awareness and crowdfund donations for them. This web app allows users to browse the success stories, currently funding clients, and make donations to them. Users can create an account to take advantage of an Unhoused Dashboard to view all donations made, clients impacted, and update profile information. 
-
->>>>>>> ff289f4f2f6f4130e72f1c78b58cb3c0b4e4f688
 
 # gatsby-unhoused-website
